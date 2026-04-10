@@ -1,0 +1,90 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+// Icons
+import Linkedin from "@/components/fundations/icons/Linkedin.astro";
+import Twitter from "@/components/fundations/icons/Twitter.astro";
+import LinkIcon from "@/components/fundations/icons/Link.astro";
+const p = Astro.props.post.data;
+const { url, name, role, image, imageAlt, email, phone, office, socials } = {
+  url: "/team/" + Astro.props.post.slug,
+  name: p.name,
+  role: p.title,
+  image: p.image.url,
+  imageAlt: p.image.alt || p.name,
+  email: p.contact?.email,
+  phone: p.contact?.phone,
+  office: p.contact?.location,
+  socials: p.socials || {},
+};
+---
+
+<div class="relative group overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+  <a
+    href={url}
+    title={`View profile for ${name}`}
+    aria-label={`View profile for ${name}`}
+    class="absolute inset-0 z-10"></a>
+  <Image
+    width="1000"
+    height="1000"
+    src={image}
+    alt={imageAlt}
+    class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
+  />
+  <div class="p-8 bg-base-50 flex flex-col h-full justify-between gap-4">
+    <div>
+      <Text tag="h3" variant="displaySM" class="text-accent-800 font-display">
+        {name}
+      </Text>
+      <Text tag="p" variant="textSM" class="text-base-700 mt-1">
+        {role}
+      </Text>
+      <div class="mt-3 flex flex-col gap-2 text-xs text-accent-800">
+        <a href={`mailto:${email}`} class="hover:text-secondary-500">
+          {email}
+        </a>
+        <a href={`tel:${phone}`} class="block hover:text-secondary-500">
+          {phone}
+        </a>
+        <Text tag="p" variant="textXS">
+          {office}
+        </Text>
+      </div>
+    </div>
+    <div class="mt-4 flex items-center gap-2 text-secondary-500">
+      <a
+        href={socials.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-accent-800"
+        aria-label="LinkedIn"
+      >
+      <span class="sr-only">Link to Linkedin </span>
+        <Linkedin class="size-6" />
+      </a>
+      <a
+        href={socials.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-accent-800"
+        aria-label="Website"
+      >
+        <span class="sr-only">Link to Website </span>
+        <LinkIcon class="size-6" />
+      </a>
+      <a
+        href={socials.twitter}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-accent-800"
+        aria-label="Twitter"
+      >
+        <span class="sr-only">Link to Twitter </span>
+        <Twitter class="size-6" />
+      </a>
+    </div>
+  </div>
+</div>

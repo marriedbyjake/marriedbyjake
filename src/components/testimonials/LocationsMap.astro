@@ -1,0 +1,112 @@
+---
+import * as locationsDataModule from "../../data/locations.json";
+
+// Robustness for json import
+const locationsData = (locationsDataModule as any).default || locationsDataModule;
+const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
+---
+
+<div class="relative w-full h-[600px] bg-base-100 rounded-lg overflow-hidden shadow-sm z-0 mt-20">
+  <div id="google-map" class="absolute inset-0 z-0 w-full h-full"></div>
+  
+  { !API_KEY && (
+    <div class="absolute inset-0 z-10 flex items-center justify-center bg-black/50 text-white pointer-events-none">
+      <div class="bg-red-600 p-4 rounded shadow-lg text-center">
+        <p class="font-bold">Google Maps API Key Missing</p>
+        <p class="text-sm">Please add PUBLIC_GOOGLE_MAPS_API_KEY to your .env file</p>
+      </div>
+    </div>
+  )}
+</div>
+
+<script define:vars={{ locationsData, API_KEY }}>
+  // Dynamic Google Maps Loader
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: API_KEY,
+    v: "weekly",
+  });
+
+  async function initMap() {
+    if (!API_KEY) {
+        console.error("Google Maps API Key is missing. Map will not load correctly.");
+        return;
+    }
+
+    try {
+        const { Map } = await google.maps.importLibrary("maps");
+        const { Marker } = await google.maps.importLibrary("marker"); // Use standard Marker for broader compatibility
+
+        const mapElement = document.getElementById("google-map");
+        if (!mapElement) return;
+
+        // Default to Brisbane
+        const map = new Map(mapElement, {
+          center: { lat: -27.4698, lng: 153.0251 },
+          zoom: 9,
+          mapId: "WEDDING_LOCATIONS_MAP", // Optional, enables cloud styling if configured
+          disableDefaultUI: false,
+          zoomControl: true,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: true,
+        });
+
+        const infoWindow = new google.maps.InfoWindow();
+        const bounds = new google.maps.LatLngBounds();
+        let count = 0;
+
+        // Parse locations
+        const data = locationsData;
+        
+        Object.entries(data).forEach(([name, loc]) => {
+          if (loc && typeof loc.lat === 'number' && typeof loc.lon === 'number') {
+            const position = { lat: loc.lat, lng: loc.lon };
+            
+            const marker = new Marker({
+              map,
+              position: position,
+              title: name,
+              animation: google.maps.Animation.DROP,
+            });
+
+            marker.addListener("click", () => {
+              infoWindow.setContent(`
+                <div class="p-2 max-w-xs">
+                    <h3 class="font-bold text-lg text-accent-800 mb-1">${name}</h3>
+                    <p class="text-sm text-gray-600 mb-2">${loc.display_name || ''}</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.display_name || name)}" 
+                       target="_blank" 
+                       class="text-xs text-blue-600 hover:underline">
+                       View on Google Maps
+                    </a>
+                </div>
+              `);
+              infoWindow.open(map, marker);
+            });
+
+            bounds.extend(position);
+            count++;
+          }
+        });
+
+        console.log(`Added ${count} markers to Google Map`);
+
+        if (count > 0) {
+          map.fitBounds(bounds);
+          // Adjust zoom if too close (single point)
+          const listener = google.maps.event.addListener(map, "idle", () => { 
+            if (map.getZoom() > 15) map.setZoom(15); 
+            google.maps.event.removeListener(listener); 
+          });
+        }
+    } catch (error) {
+        console.error("Error initializing Google Map:", error);
+    }
+  }
+
+  // Initialize
+  initMap();
+  
+  // Handle Astro view transitions
+  document.addEventListener('astro:page-load', initMap);
+</script>

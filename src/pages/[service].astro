@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from "astro:content";
+import PracticeLayout from "@/layouts/PracticeLayout.astro";
+import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
+export async function getStaticPaths() {
+  const [services, infoPages] = await Promise.all([
+    getCollection("services"),
+    getCollection("infopages"),
+  ]);
+  const servicePaths = services.map((page) => ({
+    params: { service: page.id },
+    props: { page },
+  }));
+  const infoPaths = infoPages.map((page) => ({
+    params: { service: page.id },
+    props: { page },
+  }));
+  return [...servicePaths, ...infoPaths];
+}
+const { page } = Astro.props;
+const { Content } = await render(page);
+const isInfoPage = page.collection === "infopages";
+---
+{isInfoPage ? (
+  <LegalPagesLayout frontmatter={page.data}>
+    <Content />
+  </LegalPagesLayout>
+) : (
+  <PracticeLayout frontmatter={page.data}>
+    <Content />
+  </PracticeLayout>
+)}

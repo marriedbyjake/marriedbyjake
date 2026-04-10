@@ -1,0 +1,47 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import BigBlogCard from "@/components/blog/BigBlogCard.astro";
+import SmallBlogCard from "@/components/blog/SmallBlogCard.astro";
+// Content
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+---
+
+<BaseLayout title="Married By Jake — Wedding Tips and Blog">
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="text-center max-w-xl mx-auto">
+        <Text
+          tag="h1"
+          variant="displayXL"
+          class="text-accent-800 font-display text-balance"
+        >
+          Wedding Tips and Advice
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-600 leading-relaxed border-accent-500 mt-2 lg:text-balance"
+        >
+          Practical, honest advice from Jake Smith — wedding celebrant and steady hand on your wedding day. These short guides answer real questions couples ask, from ceremony planning and vows to timing, structure and how to keep things calm. Simple, helpful and written to make your wedding easier, clearer and more meaningful.
+          clients and professionals.
+        </Text>
+      </div>
+      <div class="flex flex-col mt-12 lg:mt-24 gap-8">
+        {allPosts.slice(0, 1).map((post) => <BigBlogCard post={post} headingTag="h2" />)}
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 mt-8 gap-8">
+        {allPosts.slice(1).map((post) => <SmallBlogCard post={post} headingTag="h2" />)}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

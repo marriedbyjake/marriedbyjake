@@ -1,0 +1,106 @@
+---
+const {
+  src,
+  poster,
+  autoplay = false,
+  muted = false,
+  loop = false,
+  controls = true,
+  showOverlay = true,
+  class: className = "",
+  ...rest
+} = Astro.props;
+const computedMuted = autoplay ? true : muted;
+---
+
+<div class={`relative ${className}`} data-video-wrapper>
+  <video
+    data-video
+    data-src={src}
+    preload="none"
+    playsinline
+    controls={controls}
+    muted={computedMuted}
+    loop={loop}
+    poster={poster}
+    class="w-full h-auto aspect-video bg-base-50"
+    {...rest}
+  >
+    <slot />
+  </video>
+  {showOverlay && (
+    <button
+      type="button"
+      data-overlay
+      aria-label="Play video"
+      class="absolute inset-0 grid place-items-center"
+    >
+      <span
+        class="inline-flex items-center justify-center rounded-full bg-accent-900/80 text-white size-20 shadow-md"
+      >
+        <svg viewBox="0 0 100 100" class="size-12" fill="currentColor" aria-hidden="true">
+          <polygon points="35,25 80,50 35,75" />
+        </svg>
+      </span>
+    </button>
+  )}
+  <noscript>
+    <video
+      src={src}
+      poster={poster}
+      controls={controls}
+      playsinline
+      muted={computedMuted}
+      loop={loop}
+      class="w-full h-auto aspect-video bg-base-50"
+    >
+      <slot />
+    </video>
+  </noscript>
+</div>
+<script is:inline>
+  const wrapper = document.currentScript?.previousElementSibling;
+  const v = wrapper?.querySelector('[data-video]');
+  const overlay = wrapper?.querySelector('[data-overlay]');
+  const hideOverlay = () => overlay && overlay.classList.add('hidden');
+  const showOverlayBtn = () => overlay && overlay.classList.remove('hidden');
+  if (v && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          if (!v.src) {
+            const ds = v.getAttribute('data-src');
+            if (ds) {
+              v.src = ds;
+              v.load();
+            }
+          }
+          io.unobserve(v);
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(v);
+  } else if (v && !v.src) {
+    const ds = v.getAttribute('data-src');
+    if (ds) {
+      v.src = ds;
+      v.load();
+    }
+  }
+  if (v) {
+    if (overlay) {
+      if (v.autoplay) hideOverlay(); else showOverlayBtn();
+      overlay.addEventListener('click', () => {
+        if (!v.src) {
+          const ds = v.getAttribute('data-src');
+          if (ds) { v.src = ds; v.load(); }
+        }
+        v.play().catch(() => {});
+        hideOverlay();
+      });
+      v.addEventListener('play', hideOverlay);
+      v.addEventListener('pause', showOverlayBtn);
+      v.addEventListener('ended', showOverlayBtn);
+    }
+  }
+</script>

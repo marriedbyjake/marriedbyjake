@@ -1,0 +1,45 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import ServiceCard from "@/components/services/ServiceCard.astro";
+// Content
+import { getCollection } from "astro:content";
+const allServices = (await getCollection("services"))
+  .slice()
+  .sort((a, b) => {
+    const ao = a.data.order ?? 9999;
+    const bo = b.data.order ?? 9999;
+    if (ao !== bo) return ao - bo;
+    return a.data.title.localeCompare(b.data.title);
+  });
+---
+
+<BaseLayout title="Married By Jake Services">
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="max-w-xl">
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="text-accent-800 font-display text-balance"
+        >
+          Services
+        </Text>
+        <Text
+          tag="p"
+          variant="textSM"
+          class="text-base-600 leading-relaxed border-accent-500 mt-2"
+        >
+          Explore Jake's wedding services, including ceremonies, elopements, destination weddings, and more.
+        </Text>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-12 lg:mt-24 gap-8">
+        {allServices.map((service) => <ServiceCard post={service} headingTag="h2" />)}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

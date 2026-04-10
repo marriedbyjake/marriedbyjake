@@ -1,0 +1,29 @@
+---
+
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import HeroMedia from "@/components/landing/HeroMedia.astro";
+---
+
+<section>
+  <HeroMedia />
+  <Wrapper variant="standard" class="py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 lg:items-end gap-y-4">
+      <Text
+        tag="h1"
+        variant="displayXL"
+        class="text-accent-800 font-display text-balance lg:col-span-2"
+      >
+        Brisbane Wedding Celebrant. Warm, Real, and Fully Present.
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-base-600 leading-relaxed border-accent-500"
+      >
+        You want a ceremony in Brisbane that feels honest, grounded and heartfelt — not overdone, not awkward, and never rushed. <strong>Jake Smith</strong> brings a calm, steady presence that helps you breathe, enjoy the moment, and feel looked after. He leads with warmth and experience, making sure your vows land with the meaning they deserve while your guests feel connected and cared for.
+      </Text>
+    </div>
+  </Wrapper>
+</section>

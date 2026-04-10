@@ -1,0 +1,94 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import HeroImage from "@/images/jake-menu.jpg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <div class="overflow-hidden grid grid-cols-1 lg:grid-cols-2 bg-base-50">
+      <div
+        class="h-full max-w-xl flex flex-col justify-between lg:gap-70 relative p-8 lg:px-12"
+      >
+        <div>
+          <Text
+            tag="h2"
+            variant="displayMD"
+            class="text-accent-800 font-display"
+          >
+            Meet your wedding celebrant Jake Smith
+          </Text>
+
+          <Text
+            tag="p"
+            variant="textSM"
+            class="text-base-700 leading-relaxed mt-4"
+          >
+            Whether you&apos;re planning a faith-based wedding or simply want a
+            warm, grounded ceremony, Jake Smith is here to help. As an
+            authorised Commonwealth Civil Marriage Celebrant, Jak will lovingly guide you
+            through the process with calm, clarity and genuine care.
+          </Text>
+
+          <div class="flex flex-col sm:flex-row gap-2 items-center mt-12">
+            <Button
+              variant="default"
+              size="xs"
+              isLink={true}
+              href="/contact"
+              class="w-full lg:w-fit"
+            >
+              Check availability &amp; enquire
+            </Button>
+
+            <Button
+              variant="muted"
+              size="xs"
+              isLink={true}
+              href="/weddingtestimonials"
+              class="w-full lg:w-fit"
+            >
+              Read more real couples&apos; reviews
+            </Button>
+          </div>
+
+          <Text tag="p" variant="textXS" class="text-base-700 mt-4">
+            No pressure • Friendly, honest chat • Quick replies
+          </Text>
+        </div>
+
+        <!--<div class="mt-8 text-xs mt-4 pt-4 border-t border-base-200">
+          <a
+            href="tel:+61434648064"
+            class="text-accent-700 hover:text-accent-900 font-semibold"
+          >
+            Call 0434 648 064
+          </a>
+          {" "}
+          or
+          {" "}
+          <a
+            href="mailto:hello@marriedbyjake.com"
+            class="text-accent-700 hover:text-accent-900 font-semibold"
+          >
+            hello@marriedbyjake.com
+          </a>
+        </div>-->
+      </div>
+
+      <Image
+        src={HeroImage}
+        width={1440}
+        height={900}
+        alt="Jake Smith — wedding celebrant leading a ceremony"
+        class="object-cover object-center size-full"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </Wrapper>
+</section>

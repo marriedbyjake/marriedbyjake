@@ -1,0 +1,185 @@
+---
+import "@/styles/prose.css";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { Image } from "astro:assets";
+import Cta from "@/components/global/CtaReviews.astro";
+import { getCollection, render } from "astro:content";
+export async function getStaticPaths() {
+  const testimonials = await getCollection("weddingtestimonials");
+  return testimonials.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
+}
+const { page } = Astro.props;
+const { Content } = await render(page);
+const fm = page.data;
+const bodyText = (page.body || "").replace(/\s+/g, " ").trim();
+const description = bodyText.length > 158 ? bodyText.substring(0, 158) : bodyText;
+const headingTitle = fm.venue
+  ? `${fm.coupleName}'s ${fm.venue} wedding review`
+  : `${fm.coupleName}'s wedding review`;
+const formatDate = (d?: Date) =>
+  d
+    ? new Date(d).toLocaleDateString("en-AU", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
+const ratingToWord = (r: number) => {
+  const words = ["zero", "one", "two", "three", "four", "five"];
+  const i = Math.max(0, Math.min(5, Math.round(r)));
+  return words[i] ?? String(r);
+};
+const buildAlt = (
+  name?: string,
+  venue?: string | null,
+  location?: string | null,
+  rating?: number
+) => {
+  const place = [venue, location].filter(Boolean).join(", ");
+  const ratingWord = typeof rating === "number" ? ratingToWord(rating) : null;
+  let text = "Jake Smith was the marriage celebrant";
+  if (name) text += ` for ${name}`;
+  if (place) text += ` at ${place}`;
+  if (ratingWord) {
+    text += `, and they gave him a ${ratingWord} star rating for his wedding celebrant services.`;
+  } else {
+    text += ".";
+  }
+  return text;
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  itemReviewed: {
+    '@type': 'LocalBusiness',
+    name: 'Married by Jake',
+    image: 'https://marriedbyjake.com/og-image.jpg',
+    '@id': 'https://marriedbyjake.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Brisbane',
+      addressRegion: 'QLD',
+      addressCountry: 'AU'
+    }
+  },
+  author: {
+    '@type': 'Person',
+    name: fm.coupleName,
+  },
+  reviewRating: {
+    '@type': 'Rating',
+    ratingValue: fm.rating,
+    bestRating: 5,
+  },
+  reviewBody: bodyText,
+};
+
+// Get other testimonials for the "Read more" section
+const allTestimonials = await getCollection("weddingtestimonials");
+const otherTestimonials = allTestimonials
+  .filter((t) => t.id !== page.id && t.data.image?.url)
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 6);
+---
+<BaseLayout title={`Reviews of ${fm.location || "Brisbane"}, Christian Wedding Celebrants`} description={description}>
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <div>
+          <div class="lg:sticky lg:top-48">
+            <Text tag="h1" variant="displayMD" class="text-accent-800 font-display">
+              {headingTitle}
+            </Text>
+          <Text tag="p" variant="textSM" class="text-base-700 mt-2">
+            {fm.venue} · {fm.location}
+          </Text>
+          {fm.pubDate && (
+            <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+              {formatDate(fm.pubDate)}
+            </Text>
+          )}
+          <Text tag="p" variant="textXS" class="text-base-700 mt-1">{"★".repeat(fm.rating)}</Text>
+          {(fm.venue || fm.location) && (
+            <div class="mt-4 lg:h-96">
+              <iframe
+                src={`https://www.google.com/maps?q=${encodeURIComponent([fm.venue, fm.location].filter(Boolean).join(" "))}&output=embed`}
+                title={`Map of ${[fm.venue, fm.location].filter(Boolean).join(", ")}`}
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                class="w-full h-60 lg:h-full border border-base-100 rounded-md"
+              />
+            </div>
+          )}
+          </div>
+        </div>
+        <div class="lg:col-span-2">
+          {fm.image?.url && (
+            <Image
+              src={fm.image.url}
+              alt={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
+              title={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
+              width={1440}
+              height={900}
+              class="w-full h-auto"
+            />
+          )}
+          <Wrapper variant="prose" class="mt-8">
+            <Content />
+          </Wrapper>
+        </div>
+      </div>
+    </Wrapper>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd, null, 2).replace(/</g, "\\u003c")}
+    />
+  </section>
+
+  <Cta />
+
+  {otherTestimonials.length > 0 && (
+    <section class="bg-base-50 py-12 lg:py-24 border-t border-base-200">
+      <Wrapper variant="standard">
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display mb-8">
+          More Happy Couples
+        </Text>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {otherTestimonials.map((t) => (
+            <a href={`/weddingtestimonials/${t.id}/`} class="group block">
+              <div class="aspect-[4/3] overflow-hidden rounded-lg mb-4 bg-base-200">
+                {t.data.image?.url && (
+                  <Image
+                    src={t.data.image.url}
+                    alt={buildAlt(t.data.coupleName, t.data.venue, t.data.location, t.data.rating)}
+                    title={buildAlt(t.data.coupleName, t.data.venue, t.data.location, t.data.rating)}
+                    width={600}
+                    height={450}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+              </div>
+              <Text
+                tag="h3"
+                variant="textLG"
+                class="text-accent-800 font-display group-hover:text-accent-600 transition-colors"
+              >
+                {t.data.coupleName}
+              </Text>
+              <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+                {[t.data.venue, t.data.location].filter(Boolean).join(" · ")}
+              </Text>
+            </a>
+          ))}
+        </div>
+      </Wrapper>
+    </section>
+  )}
+</BaseLayout>

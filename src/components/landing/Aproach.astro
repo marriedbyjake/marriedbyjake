@@ -1,0 +1,170 @@
+---
+import { Image } from "astro:assets";
+import customer from "@/images/jake-snow.jpg";
+
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const approachSteps = [
+  {
+    title: "Say hi & check your date",
+    description:
+      "Everything starts with a quick hello. You reach out, Jake checks his availability, and you get a clear sense of whether he’s the right fit for your day.",
+    bullets: [
+      "Send an enquiry with your date and venue details",
+      "Jake confirms availability and shares his fee and inclusions",
+      "Jump on a short chat if you’d like to meet before booking",
+    ],
+  },
+  {
+    title: "Lock it in & start the paperwork",
+    description:
+      "Once you’re ready, you secure the booking and Jake walks you through the legal bits in plain language, so nothing feels confusing or stressful.",
+    bullets: [
+      "Pay a booking fee to reserve your date in Jake’s calendar",
+      "Complete the Notice of Intended Marriage (NOIM) together",
+      "Get clear guidance on what ID and documents you’ll need",
+    ],
+  },
+  {
+    title: "Plan a ceremony that feels like you",
+    description:
+      "Together you shape a ceremony that’s honest, warm and unmistakably about you — with just enough structure so you feel supported, never scripted.",
+    bullets: [
+      "Have a planning session to talk through your story and hopes",
+      "Shape the flow of the ceremony, readings and any rituals",
+      "Get help with vows, wording and how it will all feel on the day",
+    ],
+  },
+  {
+    title: "Celebrate the day & make it official",
+    description:
+      "On the day, Jake leads the room with calm confidence, keeps things running smoothly, and quietly takes care of all the legal details in the background.",
+    bullets: [
+      "Jake arrives early, checks the space and coordinates key people",
+      "He guides you and your guests through a relaxed, meaningful ceremony",
+      "All paperwork is lodged so your marriage is registered properly",
+    ],
+  },
+];
+---
+
+<section>
+  <Wrapper variant="paddingLess" class="py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div>
+        <div class="relative w-full lg:sticky lg:top-16 lg:h-screen">
+          <Image
+            src={customer}
+            width={1440}
+            height={900}
+            alt="Married by Jake — ceremony in full swing"
+            class="object-cover object-center w-full h-full bg-base-50"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            class="lg:absolute lg:inset-0 size-full bg-accent-900 lg:bg-accent-900/90 flex flex-col items-start justify-start px-8 md:px-12 lg:px-24 z-10 py-24"
+          >
+            <div class="w-full">
+              <Text
+                tag="p"
+                variant="textXS"
+                class="text-secondary-400 tracking-wide uppercase"
+              >
+                how it works
+              </Text>
+              <Text
+                tag="h2"
+                variant="displayLG"
+                class="text-white font-display text-balance mt-12"
+              >
+                Getting married with Jake, step by step
+              </Text>
+              <Text tag="p" variant="textSM" class="text-base-300 mt-2">
+                Every couple, story and wedding is different. Jake’s process keeps
+                things simple and calm, so you always know what’s next — from the
+                first enquiry and the legal paperwork, through to standing there
+                together on the day, actually getting married.
+              </Text>
+              <div
+                class="mt-12 grid grid-cols-1 overflow-hidden lg:grid-cols-2 bg-white/5 backdrop-blur-sm"
+              >
+                <Image
+                  src={customer}
+                  width={500}
+                  height={500}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Real couple sharing a moment during their ceremony"
+                  class="object-cover h-60 size-full object-top hidden lg:block"
+                />
+                <figure class="p-4 flex flex-col h-full justify-between">
+                  <blockquote>
+                    <Text tag="p" variant="textSM" class="text-base-300 italic">
+                      “Jake made the whole process so easy. We felt relaxed,
+                      everything flowed, and our guests are still telling us it was
+                      the best ceremony they’ve ever been to.”
+                    </Text>
+                  </blockquote>
+                  <figcaption class="mt-3 flex items-center gap-3">
+                    <Text
+                      tag="p"
+                      variant="textXS"
+                      class="text-secondary-300 font-medium"
+                    >
+                      Real feedback from one of Jake’s couples
+                    </Text>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-8 lg:p-20 bg-base-50">
+        <dl class="flex flex-col gap-8">
+          {
+            approachSteps.map((step, idx) => (
+              <>
+                <div class="bg-white  p-8 flex flex-col items-start sticky top-8 lg:top-20">
+                  <dt>
+                    <Text
+                      tag="p"
+                      variant="displayXL"
+                      class="text-accent-800 font-display italic font-medium"
+                    >
+                      {idx + 1}
+                    </Text>
+                    <Text
+                      tag="h3"
+                      variant="displaySM"
+                      class="text-base-800 font-display mt-12"
+                    >
+                      {step.title}
+                    </Text>
+                  </dt>
+                  <dd>
+                    <Text
+                      tag="p"
+                      variant="textSM"
+                      class="text-base-600 text-balance"
+                    >
+                      {step.description}
+                    </Text>
+                    <ul class="list-disc  space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
+                      {step.bullets.map((bullet) => (
+                        <li class="text-base-600 text-sm">{bullet}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              </>
+            ))
+          }
+        </dl>
+        
+      </div>
+    </div>
+  </Wrapper>
+</section>

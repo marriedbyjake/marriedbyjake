@@ -1,0 +1,50 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+// Content
+const { title, summary, url, image } = {
+  url: "/" + Astro.props.post.id,
+  title: Astro.props.post.data.title,
+  summary: Astro.props.post.data.summary,
+  image: Astro.props.post.data.image?.url,
+};
+const headingTag = Astro.props.headingTag ?? "h3";
+---
+
+<article class="relative flex flex-col group overflow-hidden group">
+  <a
+    href={url}
+    title={`Learn more: ${title}`}
+    aria-label={`Learn more about ${title}`}
+    class="absolute inset-0 z-20"></a>
+  {image && (
+    <Image
+      src={image}
+      alt={title}
+      width={800}
+      height={800}
+      class="object-cover object-center w-full aspect-square transition-transform duration-300 group-hover:scale-[1.02]"
+      loading="lazy"
+      decoding="async"
+    />
+  )}
+  {!image && (
+    <div class="w-full aspect-square bg-base-100" aria-hidden="true" />
+  )}
+  <div
+    class="absolute inset-0 bg-transparent group-hover:bg-accent-900/90 duration-300 to-transparent"
+  >
+  </div>
+  <div class="absolute inset-0 p-4 md:p-5 flex flex-col justify-end">
+    <Text tag={headingTag} variant="displaySM" class="text-white font-display">
+      {title}
+    </Text>
+    {summary && (
+      <Text tag="p" variant="textBase" class="text-base-200 mt-1 lg:text-pretty">
+        {summary}
+      </Text>
+    )}
+  </div>
+</article>

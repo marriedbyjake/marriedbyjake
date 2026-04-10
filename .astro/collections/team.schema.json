@@ -1,0 +1,95 @@
+{
+  "$ref": "#/definitions/team",
+  "definitions": {
+    "team": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "string"
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "barAdmissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "specialties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url",
+            "alt"
+          ],
+          "additionalProperties": false
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "socials": {
+          "type": "object",
+          "properties": {
+            "linkedin": {
+              "type": "string"
+            },
+            "website": {
+              "type": "string"
+            },
+            "twitter": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "image"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

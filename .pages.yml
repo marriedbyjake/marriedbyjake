@@ -1,0 +1,234 @@
+# .pages.yml — Pages CMS config for this site (AstroJS content collections)
+
+media:
+  name: images
+  label: Images
+  input: src/images
+  output: /src/images
+  path: /src/images # start at src/images
+  extensions: [png, jpg, jpeg, webp, svg]
+
+settings:
+  content:
+    merge: true
+
+content:
+  # ---------------------
+  # INFO PAGES
+  # ---------------------
+  - name: infopages
+    label: Info Pages
+    type: collection
+    path: src/content/infopages
+    filename: "{primary}.md"
+    view:
+      primary: page
+      fields: [page, pubDate]
+      sort: [page]
+    fields:
+      - name: page
+        label: Page
+        type: string
+        required: true
+      - name: pubDate
+        label: Publication Date
+        type: date
+      - name: body
+        label: Body
+        type: rich-text
+
+  # ---------------------
+  # BLOG POSTS
+  # ---------------------
+  - name: posts
+    label: Posts
+    type: collection
+    path: src/content/posts
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, pubDate]
+      sort: [pubDate]
+      default: { sort: pubDate, order: desc }
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: pubDate
+        label: Publication Date
+        type: date
+      - name: description
+        label: Description
+        type: text
+      - name: image
+        label: Cover Image
+        type: object
+        fields:
+          - name: url
+            label: Image
+            type: image
+            options:
+              media: images
+              path: blog
+          - name: alt
+            label: Alt text
+            type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: youtubeUrl
+        label: YouTube URL
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+
+  # ---------------------
+  # SERVICES
+  # ---------------------
+  - name: services
+    label: Services
+    type: collection
+    path: src/content/services
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, order]
+      sort: [order]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: summary
+        label: Summary
+        type: text
+      - name: description
+        label: Description
+        type: text
+      - name: order
+        label: Order
+        type: number
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - name: url
+            label: Image
+            type: image
+            options:
+              media: images
+              path: services
+          - name: alt
+            label: Alt text
+            type: string
+      - name: icon
+        label: Icon
+        type: string
+      - name: body
+        label: Body
+        type: rich-text
+
+  # ---------------------
+  # WEDDING TESTIMONIALS
+  # ---------------------
+  - name: weddingtestimonials
+    label: Wedding Testimonials
+    type: collection
+    path: src/content/weddingtestimonials
+    filename: "{primary}.md"
+    view:
+      primary: coupleName
+      fields: [coupleName, venue, pubDate]
+      sort: [pubDate]
+      default: { sort: pubDate, order: desc }
+    fields:
+      - name: coupleName
+        label: Couple Name
+        type: string
+        required: true
+      - name: featured
+        label: Featured
+        type: boolean
+      - name: venue
+        label: Venue
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - name: url
+            label: Image
+            type: image
+            options:
+              media: images
+              path: testimonials
+          - name: alt
+            label: Alt text
+            type: string
+      - name: rating
+        label: Rating
+        required: true
+        type: number
+        options:
+          min: 1
+          max: 5
+      - name: pubDate
+        label: Date
+        type: date
+      - name: body
+        label: Body
+        type: rich-text
+
+  # ---------------------
+  # PRICING
+  # ---------------------
+  - name: pricing
+    label: Pricing
+    type: file
+    path: src/content/pricing/index.md
+    fields:
+      - name: australianCeremonies
+        label: Australian Ceremonies
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: price
+            label: Price
+            type: string
+          - name: description
+            label: Description
+            type: string
+      - name: internationalCeremonies
+        label: International Ceremonies
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: price
+            label: Price
+            type: string
+          - name: description
+            label: Description
+            type: string
+      - name: mc
+        label: Master of Ceremonies
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: price
+            label: Price
+            type: string
+          - name: description
+            label: Description
+            type: string

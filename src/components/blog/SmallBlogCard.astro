@@ -1,0 +1,68 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import Text from "@/components/fundations/elements/Text.astro";
+
+// Content
+const { title, description, url, image } = {
+  url: "/blog/" + Astro.props.post.id,
+  title: Astro.props.post.data.title,
+  description: Astro.props.post.data.description,
+  image: Astro.props.post.data.image.url,
+};
+const headingTag = Astro.props.headingTag ?? "h3";
+const getYouTubeId = (u: string) => {
+  try {
+    const url = new URL(u);
+    if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+    const v = url.searchParams.get("v");
+    if (v) return v;
+    const parts = url.pathname.split("/");
+    const i = parts.indexOf("embed");
+    if (i !== -1 && parts[i + 1]) return parts[i + 1];
+    return "";
+  } catch {
+    return "";
+  }
+};
+const ytUrl = Astro.props.post.data.youtubeUrl;
+const ytId = ytUrl ? getYouTubeId(ytUrl) : "";
+const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : "";
+---
+
+<article class="relative group">
+  <a
+    href={url}
+    title={`Read more: ${title}`}
+    aria-label={`Read blog post: ${title}`}
+    class="absolute inset-0 z-10"></a>
+  {ytThumb ? (
+    <img
+      src={ytThumb}
+      alt={title}
+      width={1280}
+      height={720}
+      class="object-cover object-top w-full h-60"
+      loading="lazy"
+      onerror={`this.onerror=null;this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'`}
+    />
+  ) : (
+    <Image
+      src={image}
+      alt={title}
+      width={1000}
+      height={100}
+      class="object-cover object-top w-full h-60"
+    />
+  )}
+  <div class="p-8 bg-base-50">
+    <Text
+      tag={headingTag}
+      variant="displayXS"
+      class="text-accent-800 font-display mt-12">{title}</Text
+    >
+    <Text tag="p" variant="textSM" class="text-base-600 font-medium mt-2">
+      {description}
+    </Text>
+  </div>
+</article>

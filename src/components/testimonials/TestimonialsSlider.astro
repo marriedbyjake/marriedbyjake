@@ -1,0 +1,327 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+const testimonials = (await getCollection("weddingtestimonials"))
+  .filter((t) => t.data.featured && t.data.image?.url)
+  .sort((a, b) => {
+    return (
+      new Date(b.data.pubDate || 0).getTime() -
+      new Date(a.data.pubDate || 0).getTime()
+    );
+  });
+const excerpt = (s: string, n = 200) => {
+  const t = (s || "")
+    .replace(/^#+\s+/gm, "")
+    .replace(/!\[.*?\]\(.*?\)/g, "")
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+    .replace(/[*_]{1,3}(.*?)[*_]{1,3}/g, "$1")
+    .replace(/^\s*>\s*/gm, "")
+    .replace(/`{3}[\s\S]*?`{3}/g, "")
+    .replace(/`(.+?)`/g, "$1")
+    .replace(/^\s*[-*_]{3,}\s*$/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return t.slice(0, n) + (t.length > n ? "…" : "");
+};
+const formatDate = (d?: Date) =>
+  d
+    ? new Date(d).toLocaleDateString("en-AU", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
+---
+
+<section class="bg-base-50">
+  <Wrapper variant="standard" class="py-12 mb-12">
+    <div class="flex items-center justify-between">
+      <Text tag="h2" variant="displayLG" class="text-accent-800 font-display">
+        What couples say
+      </Text>
+      <div class="hidden lg:flex items-center gap-2">
+        <button type="button" class="p-2 rounded-md bg-white/70 hover:bg-white" data-prev aria-label="Previous testimonial">
+          ‹
+        </button>
+        <button type="button" class="p-2 rounded-md bg-white/70 hover:bg-white" data-next aria-label="Next testimonial">
+          ›
+        </button>
+      </div>
+    </div>
+
+    <div class="relative mt-6" data-slider>
+      <div class="overflow-hidden">
+        <ul class="flex transition-transform duration-500 ease-out will-change-transform" data-track>
+          {testimonials.map((t) => (
+            <li class="relative p-2" style="flex: 0 0 calc(100% / var(--per))">
+              <a href={`/weddingtestimonials/${t.id}`} class="absolute inset-0 z-10" aria-label={`Read testimonial from ${t.data.coupleName}`}></a>
+              <div class="bg-white rounded-md overflow-hidden shadow-sm">
+                {t.data.image?.url ? (
+                  <Image
+                    src={t.data.image.url}
+                    alt={t.data.image.alt || t.data.coupleName}
+                    width={1200}
+                    height={800}
+                    class="object-cover object-top w-full h-56 lg:h-64"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="w-full h-56 lg:h-64 bg-base-100" aria-hidden="true" />
+                )}
+                <div class="p-4">
+                  <Text tag="h3" variant="textBase" class="text-accent-800 font-display">
+                    {t.data.coupleName}
+                  </Text>
+                <Text tag="p" variant="textXS" class="text-base-700 mt-1">
+                  {t.data.venue} · {t.data.location}
+                </Text>
+                {t.data.pubDate && (
+                  <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+                    {formatDate(t.data.pubDate)}
+                  </Text>
+                )}
+                  <Text tag="p" variant="textXS" class="text-base-700 mt-3">
+                    {"★".repeat(t.data.rating)}   {excerpt(t.body ?? "", 140)}
+                  </Text>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="absolute right-4 -bottom-8 flex gap-1" data-dots></div>
+    </div>
+  </Wrapper>
+
+  <script is:inline>
+    (() => {
+      const sliders = document.querySelectorAll('[data-slider]');
+      
+      sliders.forEach((root) => {
+        const track = root.querySelector('[data-track]');
+        if (!track) return;
+        
+        // Find controls relative to the slider's container (section)
+        const section = root.closest('section');
+        const prev = section ? section.querySelectorAll('[data-prev]') : [];
+        const next = section ? section.querySelectorAll('[data-next]') : [];
+        const dotsWrap = root.querySelector('[data-dots]');
+        
+        const slides = Array.from(track.children);
+        if (slides.length === 0) return;
+
+        let index = 0;
+        let timer = 0;
+
+        // Drag state
+        let isDragging = false;
+        let startPos = 0;
+        let movedBy = 0;
+        let blockClick = false;
+
+        // Initialize cursor
+        root.classList.add('cursor-grab');
+
+        const getPer = () => {
+          const w = window.innerWidth;
+          if (w < 640) return 1;
+          if (w < 1024) return 2;
+          if (w < 1280) return 3;
+          return 4;
+        };
+
+        let per = getPer();
+        let pages = Math.max(1, Math.ceil(slides.length / per));
+        
+        // Update CSS variable
+        root.style.setProperty('--per', String(per));
+
+        const renderDots = () => {
+          if (!dotsWrap) return;
+          dotsWrap.innerHTML = '';
+          // Only show dots if more than 1 page
+          if (pages <= 1) return;
+          
+          for (let i = 0; i < pages; i++) {
+            const button = document.createElement('button');
+            const dot = document.createElement('span');
+            button.type = 'button';
+            button.setAttribute('data-dot', String(i));
+            button.setAttribute('aria-label', `Go to slide page ${i + 1}`);
+            button.className = 'inline-flex size-6 -m-2 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-600/20';
+            dot.className = `block size-2 rounded-full transition-colors ${i === index ? 'bg-accent-600' : 'bg-base-200'}`;
+            button.appendChild(dot);
+            dotsWrap.appendChild(button);
+          }
+        };
+
+        const updateDots = () => {
+            if (!dotsWrap) return;
+            const dots = dotsWrap.querySelectorAll('[data-dot]');
+            dots.forEach(d => {
+                const indicator = d.firstElementChild;
+                const i = Number(d.getAttribute('data-dot'));
+                if (!(indicator instanceof HTMLElement)) return;
+                if (i === index) {
+                    indicator.classList.remove('bg-base-200');
+                    indicator.classList.add('bg-accent-600');
+                    d.setAttribute('aria-current', 'true');
+                } else {
+                    indicator.classList.add('bg-base-200');
+                    indicator.classList.remove('bg-accent-600');
+                    d.removeAttribute('aria-current');
+                }
+            });
+        };
+
+        const setTransform = (i) => {
+          track.style.transform = `translate3d(${-i * 100}%, 0, 0)`;
+          updateDots();
+        };
+
+        const go = (i) => {
+            if (pages <= 1) {
+                index = 0;
+                setTransform(0);
+                return;
+            }
+            index = (i + pages) % pages;
+            setTransform(index);
+        };
+
+        const autoplay = () => {
+          clearInterval(timer);
+          if (pages > 1) {
+             timer = window.setInterval(() => go(index + 1), 5000);
+          }
+        };
+
+        // Event Listeners
+        prev.forEach((b) => b.addEventListener('click', () => { go(index - 1); autoplay(); }));
+        next.forEach((b) => b.addEventListener('click', () => { go(index + 1); autoplay(); }));
+        
+        if (dotsWrap) {
+          dotsWrap.addEventListener('click', (e) => {
+            const t = e.target.closest('[data-dot]');
+            if (!t) return;
+            const di = Number(t.getAttribute('data-dot'));
+            go(di);
+            autoplay();
+          });
+        }
+
+        // Drag Logic
+        const getPositionX = (event) => {
+          return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        };
+
+        const onDragStart = (event) => {
+          isDragging = true;
+          startPos = getPositionX(event);
+          root.classList.add('cursor-grabbing');
+          root.classList.remove('cursor-grab');
+          track.classList.remove('transition-transform', 'duration-500');
+          clearInterval(timer);
+          movedBy = 0;
+          blockClick = false;
+        };
+
+        const onDragMove = (event) => {
+          if (!isDragging) return;
+          const currentPosition = getPositionX(event);
+          movedBy = currentPosition - startPos;
+          const width = track.clientWidth;
+          const percentageOffset = (movedBy / width) * 100;
+          const currentPercentage = -index * 100 + percentageOffset;
+          track.style.transform = `translate3d(${currentPercentage}%, 0, 0)`;
+        };
+
+        const onDragEnd = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          root.classList.remove('cursor-grabbing');
+          root.classList.add('cursor-grab');
+          track.classList.add('transition-transform', 'duration-500');
+
+          if (Math.abs(movedBy) > 5) blockClick = true;
+
+          if (movedBy < -50) go(index + 1);
+          else if (movedBy > 50) go(index - 1);
+          else setTransform(index);
+
+          autoplay();
+          
+          // Clean up listeners
+          window.removeEventListener('mousemove', onDragMove);
+          window.removeEventListener('mouseup', onDragEnd);
+          window.removeEventListener('touchmove', onDragMove);
+          window.removeEventListener('touchend', onDragEnd);
+
+          setTimeout(() => { blockClick = false; }, 50);
+        };
+
+        // Mouse events
+        track.addEventListener('mousedown', (e) => {
+          e.preventDefault(); // Prevent text selection/image drag
+          onDragStart(e);
+          window.addEventListener('mousemove', onDragMove);
+          window.addEventListener('mouseup', onDragEnd);
+        });
+
+        // Touch events
+        track.addEventListener('touchstart', (e) => {
+          onDragStart(e);
+          window.addEventListener('touchmove', onDragMove);
+          window.addEventListener('touchend', onDragEnd);
+        }, { passive: true });
+
+        // Prevent accidental clicks after drag
+        window.addEventListener('click', (e) => {
+          if (blockClick) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
+
+        // Resize
+        window.addEventListener('resize', () => {
+             const nextPer = getPer();
+             if (nextPer !== per) {
+                 per = nextPer;
+                 root.style.setProperty('--per', String(per));
+                 pages = Math.max(1, Math.ceil(slides.length / per));
+                 index = Math.min(index, Math.max(0, pages - 1));
+                 renderDots();
+                 setTransform(index);
+                 autoplay();
+             }
+        });
+
+        // Keyboard navigation
+        root.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                go(index - 1);
+                autoplay();
+            } else if (e.key === 'ArrowRight') {
+                go(index + 1);
+                autoplay();
+            }
+        });
+
+        // Init
+        renderDots();
+        setTransform(index);
+        autoplay();
+        
+        // Pause on hover
+        root.addEventListener('mouseenter', () => clearInterval(timer));
+        root.addEventListener('mouseleave', () => {
+             if (!isDragging) autoplay();
+        });
+      });
+    })();
+  </script>
+</section>

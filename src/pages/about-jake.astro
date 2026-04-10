@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { Image } from "astro:assets";
+import JakeWide from "@/images/jake-wide-1.jpg";
+import Text from "@/components/fundations/elements/Text.astro";
+import LandingStats from "@/components/landing/LandingStats.astro";
+import Cta from "@/components/global/Cta.astro";
+import Video from "@/components/fundations/elements/Video.astro";
+
+---
+<BaseLayout navTransparent={true} title="About Married By Jake - Christian Wedding Celebrant" description="Explore Jake's wedding services, including ceremonies, elopements, destination weddings, and more." ogType="website">
+  <section>
+    <Wrapper variant="paddingLess">
+      <Image
+        src={JakeWide}
+        alt="Wedding Celebrant Jake Smith"
+        width={1440}
+        height={720}
+        class="object-cover object-center w-full h-[40dvh] lg:h-[120dvh] bg-base-50"
+      />
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+    <Text tag="h1" variant="displayMD" class="font-display mt-12 lg:mt-24 mb-4"
+        >About Jake Smith</Text
+      >
+    <Text
+        tag="p"
+        variant="textMD"
+        class="text-secondary-600 uppercase font-medium mb-4"
+      >
+        Jake Smith never set out to become a wedding celebrant.
+      </Text>
+    <Text
+        tag="p"
+        variant="textMD"
+        class="text-md text-base-600 leading-relaxed border-accent-500 mb-4"
+      >
+        Back in 2007, a couple asked if he’d marry them. One ceremony led to another, and he quickly realised how much he loved walking with couples through such a meaningful moment. What began as a favour grew into a calling: helping people feel calm, understood and genuinely excited about the step they were taking.
+    </Text>
+    <Text
+        tag="p"
+        variant="textMD"
+        class="text-md text-base-600 leading-relaxed border-accent-500 mb-4"
+      >
+        Over the years, he’s performed hundreds of weddings across every kind of venue and setting. Jake brings the same steady presence to each one — listening carefully, planning thoughtfully and shaping a ceremony that feels personal rather than scripted. He enjoys every part of the process: the first enquiry, the planning conversations, liaising with photographers and venues, supporting family on the day and, yes, even lodging the paperwork afterwards. It all matters, because it all contributes to a ceremony that feels honest and joyful.
+    </Text>
+    <Text
+        tag="p"
+        variant="textMD"
+        class="text-md text-base-600 leading-relaxed border-accent-500 mb-4"
+      >
+        Jake gladly works with couples from all beliefs or none at all. He leads with warmth, integrity and respect — values that help couples feel safe, supported and never judged. Whether you want a ceremony with faith elements or a civil celebration, Jake meets you where you are.
+    </Text>
+    <Text
+        tag="p"
+        variant="textMD"
+        class="text-md text-base-600 leading-relaxed border-accent-500 mb-4"
+      >
+        At home, Jake is deeply grateful for his wife, Leone, and their daughters, Abigail and Isabel. Being a husband and father only strengthens his commitment to helping couples build not just a memorable wedding day, but a strong marriage beyond it. He cares about people, he cares about marriage, and he would love to contribute that care to your marriage story.
+    </Text>
+
+    </Wrapper>
+  </section>
+  <Video
+    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
+    poster="/images/hello-jake.jpg"
+    autoplay={false}
+    muted={false}
+    loop={false}
+    controls={true}
+    class="w-full h-auto aspect-video bg-base-50"
+  >
+    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
+  </Video>
+  <LandingStats />
+  <Cta />
+</BaseLayout>

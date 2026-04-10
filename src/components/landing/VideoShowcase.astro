@@ -1,0 +1,380 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+interface VideoItem {
+  playbackId: string;
+  poster?: string;
+  title?: string;
+}
+
+interface Props {
+  videos: VideoItem[];
+}
+
+const { videos } = Astro.props;
+
+const resolved = videos.map((v) => ({
+  ...v,
+  posterUrl: v.poster || `https://image.mux.com/${v.playbackId}/animated.gif?width=400`,
+}));
+---
+
+<section class="bg-base-900" data-video-showcase>
+  <Wrapper variant="standard" class="py-12 lg:py-24">
+
+    <!-- Desktop: three portrait videos side by side -->
+    <div class="hidden lg:flex justify-center gap-5" data-showcase-desktop>
+      {resolved.map((video, i) => (
+        <div
+          class="relative flex-1 max-w-xs overflow-hidden shadow-lg bg-base-950 aspect-[9/16] group cursor-pointer"
+          data-desktop-item
+        >
+          <video
+            preload="none"
+            playsinline
+            data-playback-id={video.playbackId}
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <img
+            src={video.posterUrl}
+            alt=""
+            loading="lazy"
+            data-poster-img
+            class="absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300"
+          />
+          <button
+            type="button"
+            data-play-overlay
+            aria-label="Play video"
+            class="absolute inset-0 z-10 grid place-items-center transition-colors bg-black/0 group-hover:bg-black/10"
+          >
+            <span class="inline-flex items-center justify-center rounded-full bg-white/90 text-accent-900 size-16 shadow-lg backdrop-blur-sm transition-transform group-hover:scale-110">
+              <svg viewBox="0 0 24 24" class="size-8 translate-x-[2px]" fill="currentColor" aria-hidden="true">
+                <path d="M8 5.14v14l11-7-11-7z" />
+              </svg>
+            </span>
+          </button>
+          {video.title && (
+            <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-20 pointer-events-none">
+              <p class="text-white font-sans text-sm">{video.title}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile: stories-style carousel -->
+    <div class="lg:hidden" data-stories-root>
+      <div
+        class="relative overflow-hidden bg-black aspect-[9/16] max-w-sm mx-auto shadow-xl"
+        data-stories
+      >
+        <!-- Progress bars -->
+        <div class="absolute top-3 left-3 right-3 z-30 flex gap-1.5" aria-hidden="true">
+          {resolved.map((_, i) => (
+            <div class="flex-1 h-[3px] rounded-full bg-white/30 overflow-hidden">
+              <div
+                class="h-full bg-white rounded-full"
+                style="width:0%"
+                data-progress={i}
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- Stacked videos -->
+        {resolved.map((video, i) => (
+          <div
+            class={`absolute inset-0 transition-opacity duration-300 ${i === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+            data-story-wrap={i}
+          >
+            <video
+              preload={i === 0 ? "metadata" : "none"}
+              playsinline
+              data-playback-id={video.playbackId}
+              data-story={i}
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <img
+              src={video.posterUrl}
+              alt=""
+              loading={i === 0 ? "eager" : "lazy"}
+              data-poster-img
+              class="absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300"
+            />
+          </div>
+        ))}
+
+        <!-- Tap zones -->
+        <button class="absolute left-0 top-10 bottom-0 w-1/3 z-20" data-tap="prev" aria-label="Previous video" />
+        <button class="absolute left-1/3 top-10 bottom-0 w-1/3 z-20" data-tap="toggle" aria-label="Play or pause" />
+        <button class="absolute right-0 top-10 bottom-0 w-1/3 z-20" data-tap="next" aria-label="Next video" />
+
+        <!-- Title overlay -->
+        <div class="absolute bottom-4 left-4 right-4 z-30 pointer-events-none">
+          {resolved.map((video, i) =>
+            video.title ? (
+              <p
+                class={`text-white font-sans text-lg drop-shadow-md transition-opacity duration-300 ${i === 0 ? "" : "hidden"}`}
+                data-story-title={i}
+              >
+                {video.title}
+              </p>
+            ) : null
+          )}
+        </div>
+      </div>
+
+      <!-- Navigation captions -->
+      <div class="flex flex-col items-start gap-1 mt-4 max-w-sm mx-auto" data-story-nav>
+        {resolved.map((video, i) => (
+          <button
+            class={`inline-flex items-center gap-2 text-sm font-sans w-full px-3 py-2 text-left transition-all duration-300 ${i === 0 ? "bg-white/10 text-white" : "text-base-400 hover:text-white hover:bg-white/5"}`}
+            data-nav={i}
+          >
+            <svg viewBox="0 0 100 100" class="size-3 shrink-0" fill="currentColor" aria-hidden="true">
+              <polygon points="25,15 85,50 25,85" />
+            </svg>
+            {video.title || `Video ${i + 1}`}
+          </button>
+        ))}
+      </div>
+    </div>
+
+  </Wrapper>
+</section>
+
+<script is:inline>
+(() => {
+  /* ── HLS helper ── */
+  function loadHls(video, playbackId) {
+    var src = 'https://stream.mux.com/' + playbackId + '.m3u8';
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      return;
+    }
+    if (window.Hls && window.Hls.isSupported()) {
+      var hls = new window.Hls({ enableWorker: false });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      return;
+    }
+    video.src = 'https://stream.mux.com/' + playbackId + '/high.mp4';
+  }
+
+  function ensureHls() {
+    return new Promise(function (resolve) {
+      if (window.Hls) return resolve();
+      var t = document.createElement('video');
+      if (t.canPlayType('application/vnd.apple.mpegurl')) return resolve();
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js';
+      s.onload = resolve;
+      s.onerror = resolve;
+      document.head.appendChild(s);
+    });
+  }
+
+  /* ── Desktop ── */
+  var desktop = document.querySelector('[data-showcase-desktop]');
+  if (desktop) {
+    var items = desktop.querySelectorAll('[data-desktop-item]');
+
+    new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          ensureHls().then(function () {
+            items.forEach(function (item) {
+              var v = item.querySelector('video');
+              var pid = v && v.getAttribute('data-playback-id');
+              if (v && pid && !v.src) loadHls(v, pid);
+            });
+          });
+          obs.unobserve(desktop);
+        }
+      });
+    }, { threshold: 0.1 }).observe(desktop);
+
+    items.forEach(function (item) {
+      var video = item.querySelector('video');
+      var overlay = item.querySelector('[data-play-overlay]');
+      var posterImg = item.querySelector('[data-poster-img]');
+      if (!video || !overlay) return;
+
+      overlay.addEventListener('click', function () {
+        items.forEach(function (other) {
+          if (other === item) return;
+          var ov = other.querySelector('video');
+          if (ov) ov.pause();
+        });
+        if (video.paused) {
+          video.play().catch(function () {});
+        } else {
+          video.pause();
+        }
+      });
+
+      video.addEventListener('play', function () {
+        overlay.classList.add('hidden');
+        if (posterImg) posterImg.classList.add('opacity-0');
+        video.controls = true;
+      });
+      video.addEventListener('pause', function () {
+        overlay.classList.remove('hidden');
+        if (posterImg) posterImg.classList.remove('opacity-0');
+        video.controls = false;
+      });
+      video.addEventListener('ended', function () {
+        overlay.classList.remove('hidden');
+        if (posterImg) posterImg.classList.remove('opacity-0');
+        video.controls = false;
+      });
+    });
+  }
+
+  /* ── Mobile stories ── */
+  var storiesRoot = document.querySelector('[data-stories-root]');
+  var stories = document.querySelector('[data-stories]');
+  if (!stories || !storiesRoot) return;
+
+  var storyWraps = Array.from(stories.querySelectorAll('[data-story-wrap]'));
+  var storyVideos = Array.from(stories.querySelectorAll('[data-story]'));
+  var storyPosters = Array.from(stories.querySelectorAll('[data-story-wrap] [data-poster-img]'));
+  var bars = Array.from(stories.querySelectorAll('[data-progress]'));
+  var titles = Array.from(stories.querySelectorAll('[data-story-title]'));
+  var navBtns = Array.from(storiesRoot.querySelectorAll('[data-nav]'));
+  var count = storyVideos.length;
+  var current = -1;
+  var rafId = null;
+  var started = false;
+
+  function pauseAll() {
+    storyVideos.forEach(function (v) { v.pause(); });
+    cancelAnimationFrame(rafId);
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= count) return;
+    pauseAll();
+
+    /* Progress bars: past = full, current = 0, future = 0 */
+    bars.forEach(function (b, i) {
+      b.style.transition = 'none';
+      b.style.width = i < idx ? '100%' : '0%';
+    });
+
+    /* Show only active wrap */
+    storyWraps.forEach(function (w, i) {
+      if (i === idx) {
+        w.classList.add('opacity-100', 'z-10');
+        w.classList.remove('opacity-0', 'z-0');
+      } else {
+        w.classList.remove('opacity-100', 'z-10');
+        w.classList.add('opacity-0', 'z-0');
+      }
+    });
+
+    /* Titles */
+    titles.forEach(function (t, i) {
+      t.classList.toggle('hidden', i !== idx);
+    });
+
+    /* Nav captions */
+    navBtns.forEach(function (btn, i) {
+      if (i === idx) {
+        btn.classList.add('bg-white/10', 'text-white');
+        btn.classList.remove('text-base-400');
+      } else {
+        btn.classList.remove('bg-white/10', 'text-white');
+        btn.classList.add('text-base-400');
+      }
+    });
+
+    current = idx;
+
+    /* Load source if needed */
+    var video = storyVideos[current];
+    var pid = video.getAttribute('data-playback-id');
+    if (pid && !video.src) loadHls(video, pid);
+
+    /* Play from start */
+    video.currentTime = 0;
+    video.play().catch(function () {});
+  }
+
+  function tick() {
+    cancelAnimationFrame(rafId);
+    var video = storyVideos[current];
+    var bar = bars[current];
+    if (!video || !bar) return;
+    (function frame() {
+      var d = video.duration || 0;
+      var t = video.currentTime || 0;
+      if (d > 0) bar.style.width = (t / d * 100) + '%';
+      if (!video.paused) rafId = requestAnimationFrame(frame);
+    })();
+  }
+
+  /* Wire up each video's events */
+  storyVideos.forEach(function (v, i) {
+    v.addEventListener('play', function () {
+      /* Pause any other video that might still be playing */
+      storyVideos.forEach(function (other, j) {
+        if (j !== i && !other.paused) other.pause();
+      });
+      if (storyPosters[i]) storyPosters[i].classList.add('opacity-0');
+      tick();
+    });
+    v.addEventListener('pause', function () {
+      if (i === current) cancelAnimationFrame(rafId);
+    });
+    v.addEventListener('ended', function () {
+      bars[i].style.width = '100%';
+      if (i < count - 1) goTo(i + 1);
+    });
+  });
+
+  /* Tap zones */
+  stories.querySelector('[data-tap="prev"]').addEventListener('click', function () {
+    goTo(current - 1);
+  });
+  stories.querySelector('[data-tap="next"]').addEventListener('click', function () {
+    goTo(current < count - 1 ? current + 1 : 0);
+  });
+  stories.querySelector('[data-tap="toggle"]').addEventListener('click', function () {
+    var v = storyVideos[current];
+    if (!v) return;
+    if (v.paused) { v.play().catch(function () {}); }
+    else { v.pause(); }
+  });
+
+  /* Nav captions */
+  navBtns.forEach(function (btn, i) {
+    btn.addEventListener('click', function () { goTo(i); });
+  });
+
+  /* Swipe */
+  var startX = 0;
+  stories.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  stories.addEventListener('touchend', function (e) {
+    var diff = e.changedTouches[0].clientX - startX;
+    if (diff < -50 && current < count - 1) goTo(current + 1);
+    else if (diff > 50 && current > 0) goTo(current - 1);
+  });
+
+  /* Start when visible, pause when not */
+  var ioStories = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting && !started) {
+        started = true;
+        ensureHls().then(function () { goTo(0); });
+      } else if (!e.isIntersecting && started) {
+        pauseAll();
+      }
+    });
+  }, { threshold: 0.3 });
+  ioStories.observe(stories);
+})();
+</script>

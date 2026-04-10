@@ -1,0 +1,82 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+// Content
+const { title, description, url, image } = {
+  url: "/blog/" + Astro.props.post.id,
+  title: Astro.props.post.data.title,
+  description: Astro.props.post.data.description,
+  image: Astro.props.post.data.image.url,
+};
+const headingTag = Astro.props.headingTag ?? "h3";
+const getYouTubeId = (u: string) => {
+  try {
+    const url = new URL(u);
+    if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+    const v = url.searchParams.get("v");
+    if (v) return v;
+    const parts = url.pathname.split("/");
+    const i = parts.indexOf("embed");
+    if (i !== -1 && parts[i + 1]) return parts[i + 1];
+    return "";
+  } catch {
+    return "";
+  }
+};
+const ytUrl = Astro.props.post.data.youtubeUrl;
+const ytId = ytUrl ? getYouTubeId(ytUrl) : "";
+const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : "";
+---
+
+<article class="grid grid-cols-1 lg:grid-cols-2 group">
+  {ytThumb ? (
+    <img
+      src={ytThumb}
+      alt={title}
+      width={1280}
+      height={720}
+      class="object-cover object-center w-full h-60 lg:h-[80dvh]"
+      loading="lazy"
+      onerror={`this.onerror=null;this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'`}
+    />
+  ) : (
+    <Image
+      src={image}
+      alt={title}
+      width={1000}
+      height={100}
+      class="object-cover object-center w-full h-60 lg:h-[80dvh]"
+    />
+  )}
+  <div class="p-8 lg:p-20 bg-accent-900 flex flex-col h-full justify-between">
+    <div>
+      <Text
+        tag="p"
+        variant="textXS"
+        class="text-secondary-400 uppercase font-medium"
+      >
+        &nbsp;
+      </Text>
+      <Text tag={headingTag} variant="displayMD" class="text-white font-display mt-12 lg:mt-24"
+        >{title}</Text
+      >
+      <Text tag="p" variant="textBase" class="text-base-400 mt-2 lg:text-pretty"
+        >{description}</Text
+      >
+    </div>
+    <Button
+      href={url}
+      title={`Read more: ${title}`}
+      isLink={true}
+      href={url}
+      variant="muted"
+      size="sm"
+      class="w-full lg:w-fit"
+    >
+      Read further
+    </Button>
+  </div>
+</article>

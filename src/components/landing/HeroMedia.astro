@@ -1,0 +1,110 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<Wrapper variant="paddingLess">
+  <div class="relative overflow-hidden">
+    <img
+      src="/images/calile-poster.webp"
+      alt=""
+      aria-hidden="true"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+      decoding="async"
+      data-hero-poster
+      class="w-full h-[60dvh] lg:h-[72dvh] object-cover object-center bg-base-50 transition-opacity duration-700"
+    />
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      aria-hidden="true"
+      data-hero-video
+      class="absolute inset-0 object-cover object-center w-full h-[60dvh] lg:h-[72dvh] bg-base-50 opacity-0 transition-opacity duration-700"
+    >
+      <source data-src="/calile-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
+      <source data-src="/calile-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
+    </video>
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 pointer-events-none bg-accent-950/40"
+    >
+    </div>
+  </div>
+</Wrapper>
+
+<script is:inline>
+  const loadHeroVideos = () => {
+    for (const video of document.querySelectorAll("video[data-hero-video]")) {
+      if (video.dataset.loaded === "true") continue;
+
+      for (const source of video.querySelectorAll("source[data-src]")) {
+        if (!source.getAttribute("src")) {
+          source.setAttribute("src", source.dataset.src ?? "");
+        }
+      }
+
+      video.dataset.loaded = "true";
+      video.load();
+
+      const poster = video.parentElement?.querySelector("[data-hero-poster]");
+
+      const playVideo = () => {
+        void video.play().catch(() => {});
+      };
+
+      const revealVideo = () => {
+        video.classList.remove("opacity-0");
+        poster?.classList.add("opacity-0");
+      };
+
+      video.addEventListener("playing", revealVideo, { once: true });
+
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        playVideo();
+      } else {
+        video.addEventListener("canplay", playVideo, { once: true });
+      }
+    }
+  };
+
+  const armHeroVideos = () => {
+    if (window.__mbjHeroVideosArmed) return;
+    window.__mbjHeroVideosArmed = true;
+
+    const startVideos = () => {
+      if (window.__mbjHeroVideosStarted) return;
+      window.__mbjHeroVideosStarted = true;
+      cleanup();
+      loadHeroVideos();
+    };
+
+    const cleanup = () => {
+      for (const eventName of ["pointerdown", "touchstart", "keydown", "scroll"]) {
+        window.removeEventListener(eventName, startVideos, listenerOptions);
+      }
+
+      if (fallbackTimer) {
+        window.clearTimeout(fallbackTimer);
+      }
+    };
+
+    const listenerOptions = { once: true, passive: true };
+    let fallbackTimer = 0;
+
+    for (const eventName of ["pointerdown", "touchstart", "keydown", "scroll"]) {
+      window.addEventListener(eventName, startVideos, listenerOptions);
+    }
+
+    fallbackTimer = window.setTimeout(startVideos, 20000);
+  };
+
+  if (document.readyState === "complete") {
+    armHeroVideos();
+  } else {
+    window.addEventListener("load", armHeroVideos, { once: true });
+  }
+</script>

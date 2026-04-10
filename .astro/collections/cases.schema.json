@@ -1,0 +1,103 @@
+{
+  "$ref": "#/definitions/cases",
+  "definitions": {
+    "cases": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "practice": {
+          "type": "string"
+        },
+        "attorneys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "client": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "pubDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url",
+            "alt"
+          ],
+          "additionalProperties": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "testimonial": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "quote"
+          ],
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "pubDate"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

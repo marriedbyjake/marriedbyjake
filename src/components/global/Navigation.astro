@@ -1,0 +1,314 @@
+---
+import Logo from "@/components/assets/Logo.astro";
+// Icons
+import Close from "@/components/fundations/icons/Close.astro";
+import Burger from "@/components/fundations/icons/Burger.astro";
+// Fundations
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import Search from "@/components/global/Search.astro";
+// Content
+import MegaMenu from "@/components/global/MegaMenu.astro";
+import { navLinks, primaryShortcuts } from "@/components/global/navLinks";
+// Allow pages/layouts to opt-in to transparent behavior; default is solid
+const { transparent } = Astro.props as { transparent?: boolean };
+const isTransparent = !!transparent;
+---
+
+<nav
+  class={`fixed w-full top-0 z-50 transition-colors duration-300 border-b border-white/10 ${isTransparent ? "" : "bg-white"}`}
+  data-nav
+  data-swap={isTransparent ? "true" : "false"}
+>
+  <Wrapper variant="standard" class="relative">
+    <div class="flex py-3 items-center justify-between">
+      <a href="/" aria-label="Home" class="focus:outline-none">
+        <span class="sr-only">Home</span>
+        <Logo
+          data-logo
+          class={`h-12 ${isTransparent ? "text-white" : "text-base-800"}`}
+        />
+      </a>
+      <div class="hidden lg:flex items-center gap-6">
+        <MegaMenu inverted={isTransparent} />
+        <div class="flex items-center gap-6">
+          {
+            primaryShortcuts.map((l) => (
+              <a
+                href={l.href}
+                class={`text-sm ${isTransparent ? "text-white" : "text-base-800"}`}
+                data-primary-link
+              >
+                {l.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="hidden lg:flex gap-2 items-center">
+        <Search />
+        <Button
+          isLink={true}
+          href="/contact"
+          variant="default"
+          size="xs"
+          class="hidden lg:flex"
+        >
+          Enquire Now
+        </Button>
+      </div>
+      <button
+        class={`lg:hidden flex relative ${isTransparent ? "text-white" : "text-base-800"}`}
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-menu-button
+      >
+        <span class="sr-only">Open main menu</span>
+        <span
+          class="block"
+          style="display: var(--burger-display, block);"
+          data-burger
+        >
+          <Burger size="xl" slot="icon" />
+        </span>
+        <span
+          class="hidden"
+          style="display: var(--close-display, none);"
+          data-close
+        >
+          <Close size="xl" slot="icon" />
+        </span>
+      </button>
+    </div>
+    <div
+      id="mobile-menu"
+      class="lg:hidden absolute inset-x-0 top-full p-8 overflow-hidden transition-all duration-300 ease-out max-h-0 opacity-0 -translate-y-2 pointer-events-none"
+    >
+      <div class="flex flex-col bg-accent-900 backdrop-blur p-8">
+        <div class="space-y-4 text- flex flex-col text-right">
+          {
+            navLinks.map((link) => (
+              <a href={link.href} class=" text-white text-sm">
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+        <div class="mt-12 space-y-2">
+          <Button
+            isLink={true}
+            href="/contact"
+            variant="muted"
+            size="sm"
+            class="w-full"
+          >
+            Enquire Now
+          </Button>
+        </div>
+        <div
+          class="w-full mt-4 pt-4 border-t border-white/10 space-y-2 flex flex-col"
+        >
+          <a
+            href="mailto:hello@marriedbyjake.com"
+            class="text-base-300 hover:text-white transition-colors text-xs"
+          >
+            hello@marriedbyjake.com
+          </a>
+          <a
+            href="tel:+61434648064"
+            class="text-base-300 hover:text-white transition-colors text-xs"
+          >
+            0434 648 064
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </Wrapper>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", () => {
+      // Mobile menu toggle logic
+      const menuButton = document.querySelector("[data-menu-button]");
+      const burger = menuButton
+        ? menuButton.querySelector("[data-burger]")
+        : null;
+      const close = menuButton
+        ? menuButton.querySelector("[data-close]")
+        : null;
+      const mobileMenu = document.getElementById("mobile-menu");
+      // Icon toggle
+      const updateIcons = () => {
+        if (!menuButton || !burger || !close) return;
+        const expanded = menuButton.getAttribute("aria-expanded") === "true";
+        burger.style.setProperty(
+          "--burger-display",
+          expanded ? "none" : "block"
+        );
+        close.style.setProperty("--close-display", expanded ? "block" : "none");
+      };
+      const openMenu = () => {
+        if (!menuButton || !mobileMenu) return;
+        menuButton.setAttribute("aria-expanded", "true");
+        mobileMenu.classList.remove(
+          "max-h-0",
+          "opacity-0",
+          "-translate-y-2",
+          "pointer-events-none"
+        );
+        mobileMenu.classList.add(
+          "max-h-screen",
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto"
+        );
+        updateIcons();
+      };
+      const closeMenu = () => {
+        if (!menuButton || !mobileMenu) return;
+        menuButton.setAttribute("aria-expanded", "false");
+        mobileMenu.classList.add(
+          "max-h-0",
+          "opacity-0",
+          "-translate-y-2",
+          "pointer-events-none"
+        );
+        mobileMenu.classList.remove(
+          "max-h-screen",
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto"
+        );
+        updateIcons();
+      };
+      const toggleMenu = () => {
+        const expanded = menuButton.getAttribute("aria-expanded") === "true";
+        expanded ? closeMenu() : openMenu();
+      };
+      if (menuButton) menuButton.addEventListener("click", toggleMenu);
+      // Click outside to close
+      document.addEventListener("click", (e) => {
+        const target = e.target;
+        if (!mobileMenu.contains(target) && !menuButton.contains(target)) {
+          const expanded = menuButton.getAttribute("aria-expanded") === "true";
+          if (expanded) closeMenu();
+        }
+      });
+      // Escape to close
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.key === "Escape" &&
+          menuButton.getAttribute("aria-expanded") === "true"
+        ) {
+          closeMenu();
+        }
+      });
+      updateIcons();
+      // Scroll background + link colors
+      const navEl = document.querySelector("[data-nav]");
+      const logoEl = document.querySelector("[data-logo]");
+      const exploreEl = document.querySelector("[data-explore-trigger]");
+      const primaryLinks = document.querySelectorAll("[data-primary-link]");
+      // Swap between light and dark text classes
+      // Only enable color swap on the homepage
+      const enableScrollSwap = navEl && navEl.dataset.swap === "true";
+      const swapColor = (el, scrolled) => {
+        if (!el) return;
+        el.classList.remove("text-white", "text-base-800");
+        el.classList.add(scrolled ? "text-base-800" : "text-white");
+      };
+      const handleScroll = () => {
+        if (!enableScrollSwap) return;
+        const scrolled = window.scrollY > 0;
+        if (navEl) navEl.classList.toggle("bg-white", scrolled);
+        swapColor(logoEl, scrolled);
+        swapColor(exploreEl, scrolled);
+        primaryLinks.forEach((el) => swapColor(el, scrolled));
+        // Mobile icons
+        swapColor(burger, scrolled);
+        swapColor(close, scrolled);
+      };
+      if (enableScrollSwap) {
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); // Initialize state on load
+      } else {
+        // Force dark variant on non-home pages
+        if (navEl) navEl.classList.add("bg-white");
+        swapColor(logoEl, true);
+        swapColor(exploreEl, true);
+        primaryLinks.forEach((el) => swapColor(el, true));
+        swapColor(burger, true);
+        swapColor(close, true);
+      }
+      // Desktop megamenu logic
+      const megaTrigger = document.querySelector("[data-mega-trigger]");
+      const megaPanel = document.querySelector("[data-mega-panel]");
+      if (megaTrigger && megaPanel) {
+        let closeTimer;
+        const show = () => {
+          clearTimeout(closeTimer);
+          megaTrigger.setAttribute("aria-expanded", "true");
+          megaPanel.classList.remove(
+            "invisible",
+            "opacity-0",
+            "pointer-events-none"
+          );
+          megaPanel.classList.add(
+            "visible",
+            "opacity-100",
+            "pointer-events-auto"
+          );
+        };
+        const scheduleHide = () => {
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(() => {
+            megaTrigger.setAttribute("aria-expanded", "false");
+            megaPanel.classList.add(
+              "invisible",
+              "opacity-0",
+              "pointer-events-none"
+            );
+            megaPanel.classList.remove(
+              "visible",
+              "opacity-100",
+              "pointer-events-auto"
+            );
+          }, 80);
+        };
+        megaTrigger.addEventListener("mouseenter", show);
+        megaTrigger.addEventListener("mouseleave", scheduleHide);
+        megaPanel.addEventListener("mouseenter", show);
+        megaPanel.addEventListener("mouseleave", scheduleHide);
+        megaTrigger.addEventListener("focusin", show);
+        megaPanel.addEventListener("focusin", show);
+        megaTrigger.addEventListener("focusout", (e) => {
+          const next = e.relatedTarget;
+          if (!next || (next instanceof Node && !megaPanel.contains(next)))
+            scheduleHide();
+        });
+        megaPanel.addEventListener("focusout", (e) => {
+          const next = e.relatedTarget;
+          if (
+            !next ||
+            (next instanceof Node &&
+              !megaPanel.contains(next) &&
+              !megaTrigger.contains(next))
+          )
+            scheduleHide();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") scheduleHide();
+        });
+        document.addEventListener("click", (e) => {
+          const t = e.target;
+          if (
+            t instanceof Node &&
+            !megaPanel.contains(t) &&
+            !megaTrigger.contains(t)
+          )
+            scheduleHide();
+        });
+      }
+    });
+  </script>
+</nav>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import { Image } from "astro:assets";
+import HeroImage from "@/images/jake-flowers.jpg";
+import { getEntry } from "astro:content";
+
+const pricing = await getEntry("pricing", "index");
+if (!pricing) {
+  throw new Error("Pricing data not found");
+}
+const { australianCeremonies, internationalCeremonies, mc } = pricing.data;
+
+const ogImage = {
+  url: HeroImage.src,
+  alt: "Jake Smith — Wedding Celebrant",
+  width: HeroImage.width,
+  height: HeroImage.height,
+  type: "image/jpeg",
+};
+const currentYear = new Date().getFullYear();
+---
+
+<BaseLayout title="Wedding Celebrant Service and Price" description="Clear, professional wedding celebrant services and fees. MC option available." canonical="/serviceandprice" image={ogImage}>
+  <section>
+    <Wrapper variant="paddingLess">
+      <div class="relative overflow-hidden">
+        <Image
+          src={HeroImage}
+          alt="Jake Smith — Wedding Celebrant"
+          width={1440}
+          height={900}
+          loading="eager"
+          decoding="async"
+          class="object-cover object-center w-full h-[40dvh] lg:h-[60dvh] bg-base-50"
+        />
+        <div aria-hidden="true" class="absolute inset-0 pointer-events-none bg-accent-950/30"></div>
+      </div>
+    </Wrapper>
+
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="max-w-2xl">
+        <Text tag="h1" variant="displayLG" class="text-accent-800 font-display text-balance">Married by Jake</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Marriages made relevant and real.</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6">Every wedding should feel unique and personal — never awkward, boring or irrelevant. Your ceremony is the moment you arrive as two and leave as one, surrounded by your nearest and dearest. It deserves more than “okay”; it should be meaningful, personal and enjoyable.</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Thousands of delighted couples have been married by Jake — Australia’s most‑reviewed celebrant — and here’s what you can expect.</Text>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 lg:mt-24">
+        <div>
+          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What you won’t get</Text>
+          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
+            <li class="text-base-600 text-sm">That horrible, awkward feeling (cringe) at a ceremony</li>
+            <li class="text-base-600 text-sm">Guests who have no idea what’s happening</li>
+            <li class="text-base-600 text-sm">Unnecessary stress</li>
+            <li class="text-base-600 text-sm">A celebrant who is nervous, practising or just reading a script</li>
+            <li class="text-base-600 text-sm">Forced “jokey” humour — playfulness is welcome, awkwardness is not</li>
+          </ul>
+        </div>
+        <div>
+          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What’s included</Text>
+          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
+            <li class="text-base-600 text-sm">Obligation‑free chat about your day</li>
+            <li class="text-base-600 text-sm">Creation of a personal, meaningful and enjoyable ceremony</li>
+            <li class="text-base-600 text-sm">Unlimited email communication</li>
+            <li class="text-base-600 text-sm">Practical wedding ceremony tips and advice</li>
+            <li class="text-base-600 text-sm">Optional ceremony run‑through chat once your ceremony is drafted</li>
+            <li class="text-base-600 text-sm">Preparation of your printed Australian Federal Government marriage certificate</li>
+            <li class="text-base-600 text-sm">Preparation of all legal paperwork for Births, Deaths and Marriages</li>
+            <li class="text-base-600 text-sm">Lodgement with the relevant Births, Deaths and Marriages to register your marriage</li>
+            <li class="text-base-600 text-sm">Collaboration with your venue and vendors to keep everything smooth</li>
+            <li class="text-base-600 text-sm">Confident, warm ceremony delivery by a professional public speaker</li>
+            <li class="text-base-600 text-sm">Professional‑grade portable PA system if required</li>
+            <li class="text-base-600 text-sm">Calm support from enquiry to “I do”</li>
+            <li class="text-base-600 text-sm">GST included</li>
+          </ul>
+          <Text tag="p" variant="textXS" class="text-base-500 mt-3">Travel may be included within the service area; additional travel fees can apply depending on distance and timing.</Text>
+        </div>
+      </div>
+
+      <div class="bg-base-50 p-8 lg:p-12 mt-12 lg:mt-24">
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{currentYear} fees</Text>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          <div>
+            <Text tag="h3" variant="textXL" class="text-base-800 font-display">{australianCeremonies.title}</Text>
+            <Text tag="p" variant="textSM" class="text-base-600 mt-1">{australianCeremonies.price}. {australianCeremonies.description}</Text>
+          </div>
+          <div>
+            <Text tag="h3" variant="textXL" class="text-base-800 font-display">{internationalCeremonies.title}</Text>
+            <Text tag="p" variant="textSM" class="text-base-600 mt-1">{internationalCeremonies.description} Pricing typically ranges {internationalCeremonies.price}.</Text>
+            <div class="mt-3">
+              <Button isLink={true} href="/blog/destination-weddings-how" variant="muted" size="xs" class="w-full lg:w-fit">Read about destination weddings</Button>
+            </div>
+          </div>
+        </div>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6">If Jake is available for your date, you’ll receive a personal quote as soon as we get your enquiry.</Text>
+      </div>
+
+      <div class="bg-white p-8 lg:p-12 mt-12">
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{mc.title}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">{mc.description}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Typical MC pricing: {mc.price}.</Text>
+        <div class="mt-3 flex flex-col lg:flex-row gap-2">
+          <Button isLink={true} href="/master-of-ceremonies" variant="default" size="xs" class="w-full lg:w-fit">Find out more</Button>
+          <Button isLink={true} href="/contact" variant="muted" size="xs" class="w-full lg:w-fit">Request an MC quote</Button>
+        </div>
+      </div>
+
+      <div class="bg-base-50 p-8 lg:p-12 mt-12">
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">Booking procedure</Text>
+        <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
+          <li class="text-base-600 text-sm">Receive a booking link to view your invoice and contract</li>
+          <li class="text-base-600 text-sm">Once booked, Jake turns away other enquiries for your date</li>
+          <li class="text-base-600 text-sm">You’ll be guided through all legal paperwork and timelines</li>
+          <li class="text-base-600 text-sm">Helpful information and ceremony planning support provided</li>
+        </ul>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6">If you’d like to understand more about pricing and inclusions, our FAQs cover what Jake’s fee includes and how travel works.</Text>
+        <div class="mt-3">
+          <Button isLink={true} href="/faq" variant="muted" size="xs" class="w-full lg:w-fit">Read FAQs</Button>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 lg:p-12 mt-12">
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What’s next?</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Complete a short enquiry and we’ll confirm Jake’s availability and send a quote tailored to your day.</Text>
+        <div class="mt-3">
+          <Button isLink={true} href="/contact" variant="default" size="sm" class="w-full lg:w-fit">Enquire Now</Button>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
+

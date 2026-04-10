@@ -1,0 +1,57 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+// Sections
+import Hero from "@/components/landing/HeroBrisbane.astro";
+import LandingStats from "@/components/landing/LandingStats.astro";
+import Philosophy from "@/components/landing/Philosophy.astro";
+import Aproach from "@/components/landing/Aproach.astro";
+import Cta from "@/components/global/Cta.astro";
+import Video from "@/components/fundations/elements/Video.astro";
+import { Image } from "astro:assets";
+import JakeWide from "@/images/jake-wide-1.jpg";
+import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+---
+
+<BaseLayout navTransparent={true} title="Brisbane Wedding Celebrant - Married By Jake - Jake Smith" description="Warm, calm Brisbane wedding celebrant crafting meaningful ceremonies across the CBD, New Farm, City Botanic Gardens, Howard Smith Wharves, The Calile, Lightspace, Brisbane Powerhouse and beyond." ogType="website" canonical="/brisbane">
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
+  <Hero />
+  <LandingStats />
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div class="max-w-3xl">
+        <Text tag="h2" variant="displayLG" class="text-accent-800 font-display text-balance">Brisbane Wedding Celebrant</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">
+          Jake Smith is a Brisbane-based civil marriage celebrant creating relaxed, personal ceremonies for couples across the city and surrounds — from New Farm Park and the City Botanic Gardens to Howard Smith Wharves, The Calile, Lightspace and Brisbane Powerhouse. Calm guidance, clear process and a ceremony that feels like you.
+        </Text>
+      </div>
+    </Wrapper>
+  </section>
+  <Video
+    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
+    poster="/images/hello-jake.jpg"
+    autoplay={false}
+    muted={false}
+    loop={false}
+    controls={true}
+    class="w-full h-auto aspect-video bg-base-50"
+  >
+    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
+  </Video>
+  <Philosophy />
+  <TestimonialsSlider />
+  <Aproach />
+  <section>
+    <Image
+      src={JakeWide}
+      alt="Jake Smith, Brisbane Wedding Celebrant"
+      width={1451}
+      height={967}
+      class="w-full h-[40dvh] lg:h-[120dvh] object-cover object-center bg-base-50"
+    />
+  </section>
+
+  <Cta />
+</BaseLayout>

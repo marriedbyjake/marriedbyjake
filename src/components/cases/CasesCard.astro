@@ -1,0 +1,37 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+// Content
+const { title, client, image, url } = {
+  url: "/cases/" + Astro.props.post.slug,
+  title: Astro.props.post.data.title,
+  client: Astro.props.post.data.client,
+  image: Astro.props.post.data.image?.url,
+};
+---
+
+<article class="relative group overflow-hidden">
+  <a
+    href={url}
+    title={`Read case study: ${title}`}
+    aria-label={`Read case study for ${title}`}
+    class="absolute inset-0 z-20"></a>
+  <Image
+    src={image}
+    alt={title}
+    width={1000}
+    height={100}
+    class="object-cover object-center w-full aspect-square transition-transform duration-300 group-hover:scale-[1.02]"
+  />
+  <div class="absolute inset-0 bg-accent-900/70"></div>
+  <div class="absolute inset-0 p-4 md:p-5 flex flex-col justify-end">
+    <Text tag="h3" variant="displaySM" class="text-white font-display">
+      {title}
+    </Text>
+    <Text tag="p" variant="textBase" class="text-base-200 mt-1 lg:text-pretty">
+      {client}
+    </Text>
+  </div>
+</article>

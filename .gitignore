@@ -1,0 +1,8 @@
+node_modules
+dist/
+.DS_Store
+.env
+.astro
+.trash/
+build.log
+build log.txt

@@ -1,0 +1,90 @@
+---
+// Foundations
+import Text from "@/components/fundations/elements/Text.astro";
+
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Icons
+import Action from "@/components/fundations/icons/Action.astro";
+import Integrity from "@/components/fundations/icons/Integrity.astro";
+import Partnership from "@/components/fundations/icons/Partnership.astro";
+
+const philosophyCards = [
+  {
+    icon: Integrity,
+    title: "Respect & Care",
+    description:
+      "As an authorised civil marriage celebrant, Jake Smith approaches every ceremony with sincerity, humility and deep respect for the commitment you're making—welcoming couples of every background and belief.",
+  },
+  {
+    icon: Action,
+    title: "Excellence in Ceremony",
+    description:
+      "Jake prepares thoroughly, communicates clearly and guides couples with a calm, confident presence—ensuring your wedding feels warm, meaningful and truly personal.",
+  },
+  {
+    icon: Partnership,
+    title: "Walking With You",
+    description:
+      "Jake sees each wedding as a partnership. He listens to your story, supports you through the planning, and stands with you on the day to ensure your ceremony reflects who you are.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start gap-y-8">
+      <Text
+        tag="p"
+        variant="textXS"
+        class="text-secondary-800 tracking-wide uppercase"
+      >
+        Jake’s Values
+      </Text>
+
+      <div class="lg:col-span-3">
+        <Text
+          tag="h2"
+          variant="displayLG"
+          class="text-accent-800 font-display text-balance"
+        >
+          A Philosophy Shaped by Experience & Care
+        </Text>
+
+        <Text tag="p" variant="textLG" class="text-base-600 mt-4">
+          Jake Smith brings together years of experience as a wedding celebrant to create ceremonies that feel genuine, joyful and grounded. His focus is simple: honour your story, support you wholeheartedly, and treat your commitment with the respect it deserves.
+        </Text>
+
+        <Text tag="p" variant="textBase" class="text-base-700 mt-2">
+          He combines thoughtful preparation with a calm, steady presence. Whether you’re planning a ceremony with faith elements or a civil celebration for guests of all backgrounds, Jake guides you with kindness, clarity and a genuine desire to serve you well.
+        </Text>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 mt-12 lg:mt-24 gap-8">
+      {
+        philosophyCards.map((card) => (
+          <div class="bg-base-50 p-8 flex flex-col">
+            {card.icon && <card.icon class="size-8 text-secondary-400" />}
+
+            <Text
+              tag="h3"
+              variant="displaySM"
+              class="text-accent-800 font-display mt-12"
+            >
+              {card.title}
+            </Text>
+
+            <Text
+              tag="p"
+              variant="textSM"
+              class="text-base-600 font-medium mt-2"
+            >
+              {card.description}
+            </Text>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

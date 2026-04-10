@@ -1,0 +1,479 @@
+{
+  "redirects": [
+    {
+      "source": "/elope",
+      "destination": "/elopements",
+      "permanent": true
+    },
+    {
+      "source": "/enquiries",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/enquiries/",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tag/:path*",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tag/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/elope-enquire",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/p4d4lodq1382tfb8yh4fp0re15fqmf",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/sarah-and-josef",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/meg-and-hayden",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/sam-and-kyle",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/mollie-and-julian",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tuesday-and-bailee",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/wes-and-katie",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tiarne-and-ric",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/monique-and-dean",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/yu-huan-and-daniel",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/landing",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/morgan-and-joel",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/sid-and-mitch",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/megan-and-dan",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/roland-rachelle-gardens-club",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/sally-and-jordan",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/rees-and-shan",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/michael-kirsten",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/nick-kylie",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/shari-and-nick",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/ryan-and-vicky",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/vpfqannpsg4pf1mnuzj4tu7jwsl25t",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/mick-and-belle",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/nathan-and-jess",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/nicolette-and-aldrin",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/russell-leah-280717",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/murray-and-reshma",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/nick-jing",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tayla-and-mason",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/zt1363g1huqgcwsbn5m8wqmtxp3alf",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/stacey-diana",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/evernew-studios",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/reece-khodylee",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/twelve08studios-videographers",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/friends/spicers-properties",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/shaun-and-teyha",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/brisbane-bouquets",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tome-louise-victoria-park",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/michael-kelly",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/samara-and-anthony",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/ryan-alex",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/matt-steph",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/sam-alexandra",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/taxonomy/term/51/all/feed",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/no-boring-weddings",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/organising-pre-recorded-wedding-music",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-i-wear",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/who-can-witness-documents-at-the-ceremony",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/friends/",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/braeside-chapel",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/bundaleer-rainforest-gardens",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/coolibah-downs",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/everlast-studios",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/gabinbar-homestead-toowoomba",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/glengariff-historic-estate",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/helen-mcconnell-photography-1",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/jashan-photography",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/kait-photography",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/km-studios",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/little-white-wedding-church",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/macarthur-park-wedding-chapel-and-gardens",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/maleny-manor",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/royal-pines-resort",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/the-abbey-cobaki",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/friends/white-chapel-kalbar",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/tips/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/tips/cruise-ship-wedding-ceremony",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/tips/master-of-ceremonies-friend-or-professional",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/tips/notice-of-intended-marriage",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/wedding-testimonials/",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/$%7Bi.url%7D",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/2787",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/brittany-and-scott",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/jacob-and-geraldine",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/jenna-and-jayden",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/matt-paige-broadway-chapel",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/mitchel-leah-maleny-manor-elopement",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/morgan-yolandi-grobler",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/nathan-leanne",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/phil-emma",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/richie-alannah",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/russell-emily-historic-rivermill",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/scott-lauren-customs-house",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/steve-ashleigh-the-high-church",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/stuart-elly",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tarrant-ana-mt-cootha-wedding-lawn-1",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/taylor-and-jonathan",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/tim-rebecca-1",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    },
+    {
+      "source": "/weddingtestimonials/zac-corrine",
+      "destination": "/weddingtestimonials",
+      "permanent": true
+    }
+  ]
+}

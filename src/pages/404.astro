@@ -1,0 +1,453 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout title="Lost? Let's play a game — Married by Jake">
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <Text
+        tag="h1"
+        variant="displayXL"
+        class="text-accent-800 font-display text-balance"
+      >
+        You're lost, but Jake never is
+      </Text>
+      <Text
+        tag="p"
+        variant="textBase"
+        class="text-base-600 leading-relaxed mb-8"
+      >
+        This page doesn't exist — but while you're here, can you guess where Jake has officiated a wedding?
+      </Text>
+
+      <!-- Game Container -->
+      <div id="wedding-game" class="game-container">
+        <!-- Progress bar -->
+        <div class="game-progress mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-semibold text-accent-800">Question <span id="game-current">1</span> of 10</span>
+            <span class="text-sm font-semibold text-accent-800">Score: <span id="game-score">0</span>/10</span>
+          </div>
+          <div class="w-full h-2 bg-base-100 rounded-full overflow-hidden">
+            <div id="game-progress-bar" class="h-full bg-accent-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div id="game-card" class="game-card bg-base-50 p-8 lg:p-12 rounded-sm">
+          <Text
+            tag="p"
+            variant="textSM"
+            class="text-base-500 mb-2 uppercase tracking-widest"
+          >
+            Has Jake officiated a wedding here?
+          </Text>
+          <div class="mb-2">
+            <Text
+              tag="h2"
+              variant="displayMD"
+              class="text-accent-800 font-display"
+            >
+              <span id="game-venue">&nbsp;</span>
+            </Text>
+            <Text
+              tag="p"
+              variant="textLG"
+              class="text-base-500"
+            >
+              <span id="game-location">&nbsp;</span>
+            </Text>
+          </div>
+
+          <!-- Answer buttons -->
+          <div id="game-buttons" class="flex flex-col sm:flex-row gap-3 mt-8">
+            <button
+              id="btn-yes"
+              type="button"
+              class="game-btn game-btn--yes flex-1 h-12 px-6 font-semibold text-sm rounded-sm transition duration-300 bg-accent-800 text-white hover:bg-accent-900 focus:ring-2 focus:ring-inset focus:outline-none select-none cursor-pointer"
+            >
+              Jake's been there
+            </button>
+            <button
+              id="btn-no"
+              type="button"
+              class="game-btn game-btn--no flex-1 h-12 px-6 font-semibold text-sm rounded-sm transition duration-300 bg-base-100 text-accent-800 hover:bg-base-200 focus:ring-2 focus:ring-inset focus:outline-none select-none cursor-pointer"
+            >
+              No way!
+            </button>
+          </div>
+
+          <!-- Feedback (hidden until answer) -->
+          <div id="game-feedback" class="mt-6 p-4 rounded-sm hidden">
+            <p id="game-feedback-text" class="font-semibold text-sm"></p>
+          </div>
+        </div>
+
+        <!-- Results (hidden until game over) -->
+        <div id="game-results" class="hidden mt-8">
+          <div class="bg-base-50 p-8 lg:p-12 rounded-sm text-center">
+            <Text
+              tag="h2"
+              variant="displayLG"
+              class="text-accent-800 font-display mb-4"
+            >
+              <span id="results-title">&nbsp;</span>
+            </Text>
+            <Text
+              tag="p"
+              variant="textLG"
+              class="text-base-600 mb-2"
+            >
+              You got <strong id="results-score" class="text-accent-800">0</strong> out of 10
+            </Text>
+            <Text
+              tag="p"
+              variant="textBase"
+              class="text-base-500 mb-8"
+            >
+              <span id="results-subtitle">&nbsp;</span>
+            </Text>
+
+            <!-- Answer review -->
+            <div id="results-list" class="text-left space-y-3 mb-8 max-w-lg mx-auto"></div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                id="btn-replay"
+                type="button"
+                class="h-12 px-6 font-semibold text-sm rounded-sm transition duration-300 bg-base-100 text-accent-800 hover:bg-base-200 focus:ring-2 focus:ring-inset focus:outline-none select-none cursor-pointer"
+              >
+                Play again
+              </button>
+              <a
+                href="/contact"
+                class="h-12 px-6 font-semibold text-sm rounded-sm transition duration-300 bg-accent-800 text-white hover:bg-accent-900 focus:ring-2 focus:ring-inset focus:outline-none select-none cursor-pointer inline-flex items-center justify-center"
+              >
+                Book Jake for your wedding
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Helpful links -->
+      <div class="bg-base-50 p-8 lg:p-12 mt-12 lg:mt-24 rounded-sm">
+        <div
+          class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
+        >
+          <div>
+            <Text
+              tag="h3"
+              variant="displaySM"
+              class="text-accent-800 font-display"
+            >
+              Looking for something specific? Let's get you sorted.
+            </Text>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            <Button
+              isLink={true}
+              href="/"
+              variant="muted"
+              size="sm"
+              class="w-full lg:w-fit"
+            >
+              Go home
+            </Button>
+            <Button
+              isLink={true}
+              href="/contact"
+              variant="default"
+              size="sm"
+              class="w-full lg:w-fit"
+            >
+              Contact Jake
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
+
+<script>
+  const realLocations = [
+    { name: "Bastide Du Roy", location: "Antibes, France" },
+    { name: "Anantara Uluwatu", location: "Bali, Indonesia" },
+    { name: "Villa Mojo", location: "Seminyak, Bali" },
+    { name: "Villa Casa Del Mar", location: "Nusa Lembongan, Indonesia" },
+    { name: "Ayara Kamala Beach", location: "Phuket, Thailand" },
+    { name: "Church of St. Gregory the Illuminator", location: "Singapore" },
+    { name: "Centre Banquet Hall", location: "Southall, London" },
+    { name: "Syrencot House", location: "Salisbury, England" },
+    { name: "Kahaluu", location: "Oahu, Hawaii" },
+    { name: "Pacific Dawn Cruise Ship", location: "Pacific Ocean" },
+    { name: "Roy's Peak", location: "Wanaka, New Zealand" },
+    { name: "Vanguard Peak", location: "Queenstown, New Zealand" },
+    { name: "Glenfalloch Garden", location: "Dunedin, New Zealand" },
+    { name: "Frankies Pizza", location: "Darwin, Northern Territory" },
+    { name: "Mt Isa Campdraft", location: "Mt Isa, Queensland" },
+    { name: "Lilydale Falls", location: "Lilydale, Tasmania" },
+    { name: "St Mary's by the Sea", location: "Port Douglas, Queensland" },
+    { name: "Daydream Island Resort", location: "Whitsundays, Queensland" },
+    { name: "Hamilton Island", location: "Whitsundays, Queensland" },
+    { name: "Kingfisher Bay Resort", location: "Fraser Island, Queensland" },
+    { name: "Jimbour House", location: "Jimbour, Queensland" },
+    { name: "The Chapel at Gold Creek", location: "Canberra, ACT" },
+    { name: "Epicure at Taronga Zoo", location: "Sydney, NSW" },
+    { name: "The Mint", location: "Sydney, NSW" },
+    { name: "HMAS Watson Chapel", location: "Watsons Bay, NSW" },
+    { name: "The Grounds of Alexandria", location: "Sydney, NSW" },
+    { name: "Macquarie Lighthouse", location: "Vaucluse, NSW" },
+    { name: "Kangaroo Valley Bush Retreat", location: "Kangaroo Valley, NSW" },
+    { name: "Millbrook Winery", location: "Jarrahdale, Western Australia" },
+    { name: "Sandalford Wines", location: "Caversham, Western Australia" },
+    { name: "Mounts Bay Sailing Club", location: "Perth, Western Australia" },
+    { name: "Ripponlea Estate", location: "Melbourne, Victoria" },
+    { name: "Werribee Mansion", location: "Werribee, Victoria" },
+    { name: "Stones of the Yarra Valley", location: "Yarra Valley, Victoria" },
+    { name: "Glen Ewin Estate", location: "Adelaide, South Australia" },
+    { name: "Customs House", location: "Brisbane, Queensland" },
+    { name: "Old Government House", location: "Brisbane, Queensland" },
+    { name: "Spicers Peak Lodge", location: "Maryvale, Queensland" },
+    { name: "Hillstone St Lucia", location: "Brisbane, Queensland" },
+    { name: "Coolibah Downs", location: "Gold Coast Hinterland, Queensland" },
+  ];
+
+  const fakeLocations = [
+    { name: "Longitude 131", location: "Uluru, Northern Territory" },
+    { name: "Saffire Freycinet", location: "Coles Bay, Tasmania" },
+    { name: "MONA", location: "Hobart, Tasmania" },
+    { name: "Cradle Mountain Lodge", location: "Cradle Mountain, Tasmania" },
+    { name: "Cable Beach Club", location: "Broome, Western Australia" },
+    { name: "El Questro Homestead", location: "The Kimberley, Western Australia" },
+    { name: "Sal Salis", location: "Ningaloo Reef, Western Australia" },
+    { name: "Qualia Resort", location: "Hamilton Island, Queensland" },
+    { name: "Lizard Island Resort", location: "Great Barrier Reef, Queensland" },
+    { name: "Silky Oaks Lodge", location: "Daintree, Queensland" },
+    { name: "Palazzo Versace", location: "Gold Coast, Queensland" },
+    { name: "Cloudland Rooftop", location: "Fortitude Valley, Queensland" },
+    { name: "Spirit House", location: "Yandina, Sunshine Coast" },
+    { name: "Noosa Boathouse", location: "Noosa, Queensland" },
+    { name: "Jonah's", location: "Whale Beach, NSW" },
+    { name: "Bennelong Point", location: "Sydney Opera House, NSW" },
+    { name: "Cockatoo Island", location: "Sydney Harbour, NSW" },
+    { name: "Gunners Barracks", location: "Mosman, NSW" },
+    { name: "Burnham Grove Estate", location: "Camden, NSW" },
+    { name: "Royal Botanic Gardens", location: "Cranbourne, Victoria" },
+    { name: "The Elms", location: "Daylesford, Victoria" },
+    { name: "Phillip Island Nature Park", location: "Phillip Island, Victoria" },
+    { name: "Montsalvat", location: "Eltham, Victoria" },
+    { name: "d'Arenberg Cube", location: "McLaren Vale, South Australia" },
+    { name: "Seppeltsfield Winery", location: "Barossa Valley, South Australia" },
+    { name: "Lake Eyre Lookout", location: "Marree, South Australia" },
+    { name: "Mindil Beach Sunset", location: "Darwin, Northern Territory" },
+    { name: "Nitmiluk Gorge", location: "Katherine, Northern Territory" },
+    { name: "Old Parliament House", location: "Canberra, ACT" },
+    { name: "National Arboretum", location: "Canberra, ACT" },
+    { name: "Soneva Fushi", location: "Baa Atoll, Maldives" },
+    { name: "Santo Wines", location: "Santorini, Greece" },
+    { name: "Villa Ephrussi de Rothschild", location: "Saint-Jean-Cap-Ferrat, France" },
+    { name: "Aman Tokyo", location: "Tokyo, Japan" },
+    { name: "The Star", location: "Broadbeach, Queensland" },
+    { name: "Athol Hall", location: "Mosman, NSW" },
+    { name: "Cape Lodge", location: "Margaret River, Western Australia" },
+    { name: "Pipers Brook Vineyard", location: "Pipers Brook, Tasmania" },
+    { name: "Magenta Shores", location: "Central Coast, NSW" },
+    { name: "Jaspers Berry", location: "Berry, NSW" },
+  ];
+
+  const feedbackCorrect = [
+    "Nailed it!",
+    "You know your stuff!",
+    "Spot on!",
+    "Correct!",
+    "You're good at this!",
+    "That's right!",
+    "Bingo!",
+    "Well played!",
+    "Sharp guess!",
+    "On the money!",
+  ];
+
+  const feedbackWrong = [
+    "Not quite!",
+    "Surprise!",
+    "Tricky one!",
+    "Good guess, but no.",
+    "Almost!",
+    "Nope!",
+    "That one fools everyone.",
+    "Nice try!",
+    "Better luck next round!",
+    "Wrong, but don't worry!",
+  ];
+
+  function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  interface Question {
+    name: string;
+    location: string;
+    isReal: boolean;
+  }
+
+  let questions: Question[] = [];
+  let currentQ = 0;
+  let score = 0;
+  let answers: { question: Question; correct: boolean }[] = [];
+
+  function buildRound() {
+    const reals = shuffle(realLocations).slice(0, 5).map((l) => ({ ...l, isReal: true }));
+    const fakes = shuffle(fakeLocations).slice(0, 5).map((l) => ({ ...l, isReal: false }));
+    questions = shuffle([...reals, ...fakes]);
+    currentQ = 0;
+    score = 0;
+    answers = [];
+  }
+
+  function showQuestion() {
+    const q = questions[currentQ];
+    const venueEl = document.getElementById("game-venue")!;
+    const locEl = document.getElementById("game-location")!;
+    const currentEl = document.getElementById("game-current")!;
+    const progressBar = document.getElementById("game-progress-bar")!;
+    const feedback = document.getElementById("game-feedback")!;
+    const buttons = document.getElementById("game-buttons")!;
+    const scoreEl = document.getElementById("game-score")!;
+
+    venueEl.textContent = q.name;
+    locEl.textContent = q.location;
+    currentEl.textContent = String(currentQ + 1);
+    scoreEl.textContent = String(score);
+    progressBar.style.width = `${(currentQ / 10) * 100}%`;
+    feedback.classList.add("hidden");
+    buttons.classList.remove("pointer-events-none");
+
+    (document.getElementById("btn-yes") as HTMLButtonElement).disabled = false;
+    (document.getElementById("btn-no") as HTMLButtonElement).disabled = false;
+  }
+
+  function handleAnswer(guessedYes: boolean) {
+    const q = questions[currentQ];
+    const isCorrect = guessedYes === q.isReal;
+    if (isCorrect) score++;
+    answers.push({ question: q, correct: isCorrect });
+
+    const feedback = document.getElementById("game-feedback")!;
+    const feedbackText = document.getElementById("game-feedback-text")!;
+    const buttons = document.getElementById("game-buttons")!;
+    const scoreEl = document.getElementById("game-score")!;
+    const progressBar = document.getElementById("game-progress-bar")!;
+
+    scoreEl.textContent = String(score);
+    progressBar.style.width = `${((currentQ + 1) / 10) * 100}%`;
+
+    const pool = isCorrect ? feedbackCorrect : feedbackWrong;
+    const msg = pool[Math.floor(Math.random() * pool.length)];
+    const detail = q.isReal
+      ? `Jake really has officiated a wedding at ${q.name}!`
+      : `Jake hasn't made it to ${q.name} — yet.`;
+
+    feedbackText.innerHTML = `${msg} ${detail}`;
+    feedback.classList.remove("hidden", "bg-green-50", "text-green-800", "bg-red-50", "text-red-800");
+
+    if (isCorrect) {
+      feedback.classList.add("bg-green-50", "text-green-800");
+    } else {
+      feedback.classList.add("bg-red-50", "text-red-800");
+    }
+
+    buttons.classList.add("pointer-events-none");
+    (document.getElementById("btn-yes") as HTMLButtonElement).disabled = true;
+    (document.getElementById("btn-no") as HTMLButtonElement).disabled = true;
+
+    setTimeout(() => {
+      currentQ++;
+      if (currentQ < 10) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }, 1800);
+  }
+
+  function showResults() {
+    const card = document.getElementById("game-card")!;
+    const progress = document.querySelector(".game-progress")!;
+    const results = document.getElementById("game-results")!;
+    const titleEl = document.getElementById("results-title")!;
+    const scoreEl = document.getElementById("results-score")!;
+    const subtitleEl = document.getElementById("results-subtitle")!;
+    const listEl = document.getElementById("results-list")!;
+
+    card.classList.add("hidden");
+    progress.classList.add("hidden");
+    results.classList.remove("hidden");
+
+    scoreEl.textContent = String(score);
+
+    if (score <= 3) {
+      titleEl.textContent = "Jake gets around more than you think!";
+      subtitleEl.textContent = "He's officiated over 500 weddings across Australia and the world.";
+    } else if (score <= 6) {
+      titleEl.textContent = "Not bad! You know your venues.";
+      subtitleEl.textContent = "Jake has officiated weddings everywhere from pizza shops to French chateaus.";
+    } else if (score <= 9) {
+      titleEl.textContent = "Impressive! Are you stalking Jake?";
+      subtitleEl.textContent = "You clearly know the Australian wedding scene.";
+    } else {
+      titleEl.textContent = "Perfect score! You must be Jake.";
+      subtitleEl.textContent = "Seriously though, that's incredible. 10 out of 10.";
+    }
+
+    listEl.innerHTML = answers
+      .map(
+        (a, i) => `
+        <div class="flex items-start gap-3 text-sm">
+          <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
+            a.correct ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+          }">${a.correct ? "✓" : "✗"}</span>
+          <div>
+            <span class="font-semibold text-accent-800">${a.question.name}</span>
+            <span class="text-base-500">, ${a.question.location}</span>
+            <span class="text-base-400 ml-1">— ${a.question.isReal ? "Real" : "Nope"}</span>
+          </div>
+        </div>
+      `
+      )
+      .join("");
+  }
+
+  function resetGame() {
+    const card = document.getElementById("game-card")!;
+    const progress = document.querySelector(".game-progress")!;
+    const results = document.getElementById("game-results")!;
+
+    results.classList.add("hidden");
+    card.classList.remove("hidden");
+    progress.classList.remove("hidden");
+
+    buildRound();
+    showQuestion();
+  }
+
+  // Init
+  document.getElementById("btn-yes")!.addEventListener("click", () => handleAnswer(true));
+  document.getElementById("btn-no")!.addEventListener("click", () => handleAnswer(false));
+  document.getElementById("btn-replay")!.addEventListener("click", resetGame);
+
+  buildRound();
+  showQuestion();
+</script>

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "coupleName": {
+      "type": "string"
+    },
+    "location": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "venue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "alt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "pubDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "coupleName",
+    "rating"
+  ]
+}

@@ -1,0 +1,153 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { Image } from "astro:assets";
+import jakeHome1 from "@/images/jake-home-1.jpg";
+// Stats array (expanded)
+const stats = [
+  { value: "19", label: "Years Experience" },
+  { value: "2,300+", label: "Weddings" },
+  { value: "138,000+", label: "Guests" },
+  { value: "700+", label: "5-Star Reviews" },
+  { value: "5/5", label: "Avg. Rating" },
+];
+// Precompute numeric targets and suffixes for animation
+const enhancedStats = stats.map((s) => {
+  const str = String(s.value);
+  const match = str.match(/^(\d+[\d,.]*)(.*)$/);
+  const numberPart = match ? match[1] : str;
+  const suffix = match ? match[2] : "";
+  const target = Number(numberPart.replace(/,/g, ""));
+  const decimals = (numberPart.split(".")[1] || "").length;
+  return { ...s, target: isNaN(target) ? 0 : target, suffix, decimals };
+});
+---
+
+<section class="bg-base-50">
+  <Wrapper variant="standard" class="py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-4 items-start gap-y-8 lg:gap-x-8">
+      <Image src={jakeHome1} alt="Jake Smith" width={800} height={1000} class="w-full aspect-[4/5] object-cover bg-base-50" />
+      <div class="lg:col-span-3">
+        <Text
+          tag="h2"
+          variant="displayLG"
+          class="text-accent-800 font-display text-balance lg:col-span-2"
+        >
+          Get Married by Jake!
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-700 mt-2 lg:text-balance"
+        >
+          <strong>Australia's most reviewed wedding celebrant</strong><br />Jake’s reviews come from couples who felt seen, supported and genuinely cared for. They talk about the calm way he leads the room, how natural everything feels, and how the ceremony becomes the part everyone remembers — not endures. When someone with this many real couples vouching for him turns up to your wedding, you know you’re in steady, experienced hands.
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-700 mt-2 lg:text-balance"
+        >
+          <strong>Jake brings calm to the day.</strong><br />
+          Weddings can feel chaotic, but Jake has a way of settling the room — steady voice, clear direction, no fuss. Couples feel looked after, and guests feel included rather than lectured to.
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-700 mt-2 lg:text-balance"
+        >
+          <strong>He makes the ceremony about you, not him.</strong><br />
+          Everything is tailored to your story. No generic scripts, no padding, no awkward theatrics. Just a ceremony that feels honest, personal and unmistakably yours.
+        </Text>
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-700 mt-2 lg:text-balance"
+        >
+          <strong>He leads with warmth and real care.</strong><br />
+          Jake treats marriage with deep respect and welcomes couples from all backgrounds. That mix of conviction and kindness is why so many people walk away saying it’s the best ceremony they’ve ever been to.
+        </Text>
+      </div>
+    </div>
+    <ul
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 mt-12 lg:mt-24 lg:divide-x lg:divide-base-200 lg:border-x lg:border-base-200"
+    >
+      {
+        enhancedStats.map((stat) => (
+          <li class=" flex flex-col  gap-1 lg:gap-48 lg:px-4 ">
+            <Text
+              tag="p"
+              variant="textBase"
+              class="text-base-700 font-medium uppercase"
+            >
+              {stat.label}
+            </Text>
+            <Text
+              tag="p"
+              variant="displayLG"
+              class="text-accent-800 font-display italic font-medium"
+            >
+              <span
+                class="countup"
+                data-target={stat.target}
+                data-suffix={stat.suffix}
+                data-decimals={stat.decimals}
+                aria-label={`${stat.value} ${stat.label}`}
+              >
+                {stat.value}
+              </span>
+            </Text>
+          </li>
+        ))
+      }
+    </ul>
+  </Wrapper>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll(".countup");
+      if (!("IntersectionObserver" in window) || items.length === 0) return;
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const animate = (el) => {
+        const target = Number(el.dataset.target || "0");
+        const suffix = el.dataset.suffix || "";
+        const decimals = Number(el.dataset.decimals || "0");
+        const duration = 1000; // ms
+        const startTime = performance.now();
+        const step = (now) => {
+          const t = Math.min((now - startTime) / duration, 1);
+          const raw = target * ease(t);
+          const value = decimals
+            ? Number(raw.toFixed(decimals))
+            : Math.round(raw);
+          el.textContent =
+            value.toLocaleString(undefined, {
+              minimumFractionDigits: decimals,
+              maximumFractionDigits: decimals,
+            }) + suffix;
+          if (t < 1) requestAnimationFrame(step);
+        };
+        // Optional: quick init to zero to avoid a brief drop from final SSR value
+        el.textContent =
+          (0).toLocaleString(undefined, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          }) + suffix;
+        requestAnimationFrame(step);
+      };
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              io.unobserve(e.target);
+              if (!e.target.dataset.animated) {
+                e.target.dataset.animated = "true";
+                animate(e.target);
+              }
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      items.forEach((el) => io.observe(el));
+    });
+  </script>
+</section>

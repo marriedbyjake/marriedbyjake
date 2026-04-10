@@ -1,0 +1,100 @@
+---
+import Twitter from "@/components/fundations/icons/Twitter.astro";
+import Facebook from "@/components/fundations/icons/Facebook.astro";
+import Linkedin from "@/components/fundations/icons/Linkedin.astro";
+import Link from "@/components/fundations/icons/Link.astro";
+
+interface Props {
+  url?: string;
+  title?: string;
+  description?: string;
+  contentType?: "blog" | "generic";
+}
+const { url, title, description, contentType = "blog" } = Astro.props;
+---
+
+<div class="flex flex-col gap-4">
+  <button
+    id="twitter-share"
+    class="text-xs text-left flex items-center gap-2 text-accent-800 hover:text-secondary-500 uppercase duration-300"
+    aria-label="Share on X"
+  >
+    <Twitter slot="icon" class="size-4" />
+    <span> Share on X </span>
+  </button>
+  <button
+    id="facebook-share"
+    type="button"
+    class="text-xs text-left flex items-center gap-2 text-accent-800 hover:text-secondary-500 uppercase duration-300"
+    aria-label="Share on Facebook"
+  >
+    <Facebook slot="icon" class="size-4" />
+    <span> Share on Facebook </span>
+  </button>
+  <button
+    id="linkedin-share"
+    type="button"
+    class="text-xs text-left flex items-center gap-2 text-accent-800 hover:text-secondary-500 uppercase duration-300"
+    aria-label="Share on LinkedIn"
+  >
+    <Linkedin slot="icon" class="size-4" />
+    <span> Share on LinkedIn </span>
+  </button>
+  <button
+    id="copy-link"
+    class="text-xs text-left flex items-center gap-2 text-accent-800 hover:text-secondary-500 uppercase duration-300"
+    aria-label="Copy link"
+  >
+    <Link slot="icon" class="size-4" />
+    <span> Copy link </span>
+  </button>
+</div>
+<script is:inline define:vars={{ url, title, description, contentType }}>
+  // Get the current page URL and title, using custom values if provided
+  const pageUrl = url || window.location.href;
+  const pageTitle = title || document.title;
+  const pageDesc = description || "";
+  // Set share text specifically for blog content type
+  let shareText = `Check out this article: ${pageTitle}`;
+  // Add description if available
+  if (pageDesc) {
+    shareText += ` - ${pageDesc}`;
+  }
+  // Twitter share
+  document.getElementById("twitter-share")?.addEventListener("click", () => {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
+    window.open(twitterUrl, "_blank");
+  });
+  // Facebook share
+  document.getElementById("facebook-share")?.addEventListener("click", () => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+    window.open(facebookUrl, "_blank");
+  });
+  // LinkedIn share
+  document.getElementById("linkedin-share")?.addEventListener("click", () => {
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
+    window.open(linkedinUrl, "_blank");
+  });
+  // Copy link
+  document.getElementById("copy-link")?.addEventListener("click", () => {
+    navigator.clipboard.writeText(pageUrl).then(
+      () => {
+        const button = document.getElementById("copy-link");
+        if (!button) return;
+        button.innerHTML = "Copied!";
+        setTimeout(() => {
+          button.innerHTML = `
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 13a3 3 0 0 1 0-4.24l2.12-2.12a3 3 0 1 1 4.24 4.24l-1.41 1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M14 11a3 3 0 0 1 0 4.24l-2.12 2.12a3 3 0 0 1-4.24-4.24l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span> Copy link </span>
+          `;
+        }, 2000);
+      },
+      (err) => {
+        console.error("Could not copy text: ", err);
+      }
+    );
+  });
+</script>

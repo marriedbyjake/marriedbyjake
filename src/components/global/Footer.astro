@@ -1,0 +1,139 @@
+---
+import { Image } from "astro:assets";
+import LogoImage from "@/images/logo.png";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Content
+import { navLinks as footerNavLinks } from "@/components/global/navLinks";
+const currentYear = new Date().getFullYear();
+// Dynamically load practice areas
+
+const quickLinks = footerNavLinks.map((l) => ({ text: l.label, href: l.href }));
+const socialLinks = [
+  { name: "Instagram", href: "https://www.instagram.com/marriedbyjake/" },
+  { name: "LinkedIn", href: "https://au.linkedin.com/in/jake-smith-2095743b" },
+  { name: "TikTok", href: "https://www.tiktok.com/@married.by.jake" },
+  { name: "Facebook", href: "https://www.facebook.com/MarriedByJake/" },
+  { name: "Threads", href: "https://www.threads.com/@marriedbyjake" },
+  { name: "Youtube", href: "https://www.youtube.com/@marriedbyjake-celebrant" },
+];
+// Unified link sections to render with a single template
+const socialItems = socialLinks.map((s) => ({ text: s.name, href: s.href }));
+const foundOnLinks = [
+  { name: "Wed Co Podcast", href: "https://www.youtube.com/watch?v=dfvrU4UW_Do" },
+  { name: "The Wedding Magazine", href: "https://weddingmagazine.com.au/directory/married-by-jake-d3fe/" },
+  { name: "Three Best Rated", href: "https://threebestrated.com.au/marriage-celebrants-in-brisbane-qld" },
+  { name: "Gabbinbar Blog", href: "https://www.gabbinbar.com.au/ideas-and-inspiration/10-of-the-best-brisbane-marriage-celebrants" },
+  { name: "Refinery Events", href: "https://refinery-events.com/vendors#CELEBRANTS" },
+  { name: "ABIA Wedding Awards", href: "https://abia.com.au/abia-awards/2018-queensland-abia-awards" },
+  { name: "Preston Manor", href: "https://www.prestonmanor.com.au/vendors" },
+  { name: "Preston Peak Functions", href: "https://www.prestonpeakfunctions.com.au/vendor-love" },
+  { name: "Jimbour", href: "https://jimbour.com/blog/vendor-spotlight-married-by-jake/" },
+  { name: "Braeside Estate", href: "https://www.braesideestate.com.au/vendors-we-love" },
+  { name: "Australian Wedding Celebrants", href: "https://australianweddingcelebrants.com.au" },
+  { name: "Luke Middlemiss", href: "https://www.lukemiddlemiss.com/celebrants/married-by-jake/" },
+  { name: "Tara Lee", href: "https://taraleephotography.com.au/sunshine-coast-celebrant-married-by-jake/" },
+];
+const foundOnItems = foundOnLinks.map((s) => ({ text: s.name, href: s.href }));
+const linkSections = [
+  {
+    title: "Quick Links",
+    items: quickLinks,
+  },
+  {
+    title: "Social Media",
+    items: socialItems,
+  },
+  {
+    title: "Found On",
+    items: foundOnItems,
+  },
+];
+---
+
+<footer class="bg-base-50">
+  <Wrapper variant="standard" class="py-16">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
+      <div class="col-span-full md:col-span-1 flex justify-center md:justify-start">
+        <Image
+          src={LogoImage}
+          alt="Married by Jake logo"
+          width={1600}
+          height={755}
+          class="h-40 w-auto"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="col-span-full md:col-span-1">
+        <Text
+          tag="p"
+          variant="textXS"
+          class="text-base-600 mt-5 leading-relaxed"
+        >
+          Jake Smith is a warm, trusted wedding celebrant helping couples create meaningful, personal ceremonies for all backgrounds across Australia.
+        </Text>
+        
+      </div>
+      {
+        linkSections.map((section) => (
+          <div>
+            <Text tag="p" variant="textXS" class="text-secondary-700">
+              {section.title}
+            </Text>
+            <ul class="flex flex-col gap-1 mt-4">
+              {section.items.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="text-base-600 hover:text-accent-800 transition-colors text-xs"
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <div class="col-span-full flex justify-center pt-4">
+        <a href="https://australianweddingcelebrants.com.au/directory/married-by-jake/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-xs font-semibold no-underline transition-opacity hover:opacity-85" style="background:#460479;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Luminary Celebrant
+        </a>
+      </div>
+    </div>
+    <div class="border-t border-base-100 pt-8">
+      <div
+        class="flex flex-col md:flex-row justify-between lg:items-center gap-4"
+      >
+        <div class="text-base-600 text-sm">
+          <Text tag="p" variant="textXS">
+            © {currentYear} Married by Jake. All rights reserved. Another <a href="https://unpopular.au">Unpopular</a> website on <a href="https://theinternet.com.au">The Internet</a> by <a href="https://marriedbyjosh.com">Josh</a>.
+          </Text>
+        </div>
+        <div class="flex flex-col md:flex-row gap-4 text-base-600 text-xs">
+          <a
+            href="/privacy"
+            class="hover:text-accent-800 transition-colors"
+          >
+            Privacy Policy
+          </a>
+          <span class="hidden md:inline">•</span>
+          <a
+            href="/terms"
+            class="hover:text-accent-800 transition-colors"
+          >
+            Terms of Service
+          </a>
+        </div>
+      </div>
+      <div class="mt-6 pt-6 border-t border-base-100">
+        <Text tag="p" variant="textXS" class="text-base-600 leading-relaxed">
+          Jake Smith is an authorised Commonwealth Civil Marriage Celebrant. This means he is legally appointed under the Australian Marriage Act 1961 to prepare the required documentation, witness your NOIM, receive the notice more than one month before your wedding, conduct your ceremony, and register your marriage with the appropriate state authority. Couples must provide valid identification and meet all legal timeframes and requirements for their marriage to be recognised in Australia.
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</footer>

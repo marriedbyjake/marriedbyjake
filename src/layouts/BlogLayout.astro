@@ -1,0 +1,233 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import "@/styles/prose.css";
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import ShareButtons from "@/components/fundations/elements/ShareButtons.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import SmallBlogCard from "@/components/blog/SmallBlogCard.astro";
+// Icons
+import ArrowLeft from "@/components/fundations/icons/ArrowLeft.astro";
+import ArrowRight from "@/components/fundations/icons/ArrowRight.astro";
+// Content
+const { frontmatter, slug } = Astro.props;
+// Get all posts and filter by tag
+import { getCollection } from "astro:content";
+import Button from "@/components/fundations/elements/Button.astro";
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) =>
+    new Date(a.data.pubDate).getTime() - new Date(b.data.pubDate).getTime()
+);
+const postTags = frontmatter.tags ?? [];
+const relatedPosts = allPosts.filter(
+  (post) =>
+    post.id !== slug && (post.data.tags ?? []).some((tag: string) => postTags.includes(tag))
+);
+// Pagination (computed in frontmatter for reuse)
+const currentIndex = allPosts.findIndex((post) => post.id === slug);
+const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const nextPost =
+  currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+const prevUrl = prevPost ? `/blog/${prevPost.id}` : null;
+const nextUrl = nextPost ? `/blog/${nextPost.id}` : null;
+const truncate = (str: string, n: number) =>
+  typeof str === "string" && str.length > n ? str.slice(0, n - 1) + "…" : str;
+const getYouTubeId = (u: string) => {
+  try {
+    const url = new URL(u);
+    if (url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+    const v = url.searchParams.get("v");
+    if (v) return v;
+    const parts = url.pathname.split("/");
+    const i = parts.indexOf("embed");
+    if (i !== -1 && parts[i + 1]) return parts[i + 1];
+    return "";
+  } catch {
+    return "";
+  }
+};
+const ytId = frontmatter.youtubeUrl ? getYouTubeId(frontmatter.youtubeUrl) : "";
+const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : "";
+const canonical = Astro.site
+  ? new URL(`/blog/${slug}`, Astro.site).toString()
+  : undefined;
+const seoImage = frontmatter.image
+  ? { url: frontmatter.image.url, alt: frontmatter.image.alt }
+  : undefined;
+---
+<BaseLayout
+  title={frontmatter.title}
+  description={truncate(frontmatter.description, 160)}
+  canonical={canonical}
+  image={seoImage}
+  ogType="article"
+>
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="text-center max-w-3xl mx-auto">
+        <Text
+          tag="p"
+          variant="textXS"
+          class="text-secondary-500 uppercase flex items-center gap-2 justify-center"
+        >
+          {
+            postTags.map((tag: string) => (
+              <a
+                class="hover:text-accent-800 transition-colors cursor-pointer"
+                href={`/blog/tags/${tag}/`}
+              >
+                {tag}
+              </a>
+            ))
+          }
+        </Text>
+        <Text
+          tag="h1"
+          variant="displayXL"
+          class="text-accent-800 font-display text-balance mt-12"
+          >{frontmatter.title}</Text
+        >
+        <Text
+          tag="p"
+          variant="textBase"
+          class="text-base-600 leading-relaxed border-accent-500 mt-4 lg:text-balance"
+        >
+          {frontmatter.description}
+        </Text>
+      </div>
+    </Wrapper>
+    {ytId ? (
+      <div class="relative mt-4">
+        <div class="relative w-full aspect-video bg-base-50 overflow-hidden" data-youtube-id={ytId}>
+          <img
+            width={1280}
+            height={720}
+            src={ytThumb}
+            alt={frontmatter.image.alt}
+            class="absolute inset-0 w-full h-full object-cover object-center"
+            loading="lazy"
+            onerror={`this.onerror=null;this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'`}
+          />
+          <button type="button" class="absolute inset-0 grid place-items-center" aria-label="Play video">
+            <span class="inline-flex items-center justify-center rounded-full bg-accent-900/80 text-white size-20 shadow-md">
+              <svg viewBox="0 0 100 100" class="size-12" fill="currentColor" aria-hidden="true">
+                <polygon points="35,25 80,50 35,75" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <noscript>
+          <a href={frontmatter.youtubeUrl} class="block text-sm mt-2">Watch on YouTube</a>
+        </noscript>
+      </div>
+    ) : (
+      <Image
+        width={1420}
+        height={1420}
+        src={frontmatter.image.url}
+        alt={frontmatter.image.alt}
+        class="object-cover object-top mt-4 size-full lg:max-h-200"
+      />
+    )}
+    <Wrapper class="py-12 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="lg:sticky lg:top-24">
+          <ShareButtons description={frontmatter.description} />
+        </div>
+        <Wrapper variant="prose" class="max-w-3xl mx-auto lg:col-span-3">
+          <slot />
+        </Wrapper>
+      </div>
+      <nav
+        class="flex flex-col lg:flex-row justify-between items-start gap-8 mt-4 pt-4 border-t border-base-100"
+      >
+        <div class="lg:w-fit text-left w-full">
+          {
+            prevUrl && prevPost && (
+              <Button
+                size="xs"
+                variant="muted"
+                isLink={true}
+                href={prevUrl}
+                aria-label={`Previous: ${prevPost.data.title}`}
+                class="gap-2"
+              >
+                <ArrowLeft slot="left-icon" size="base" />
+                Previous
+                <span class="sr-only">{truncate(prevPost.data.title, 64)}</span>
+              </Button>
+            )
+          }
+        </div>
+        <div class="lg:w-fit text-right w-full">
+          {
+            nextUrl && nextPost && (
+              <Button
+                size="xs"
+                variant="muted"
+                isLink={true}
+                href={nextUrl}
+                aria-label={`Next: ${nextPost.data.title}`}
+                class="gap-2"
+              >
+                Next
+                <ArrowRight slot="right-icon" size="base" />
+                <span class="sr-only">{truncate(nextPost.data.title, 64)}</span>
+              </Button>
+            )
+          }
+        </div>
+      </nav>
+    </Wrapper>
+    {
+      relatedPosts.length > 0 && (
+        <section>
+          <Wrapper variant="standard" class="py-12 lg:py-24 relative">
+            <Text
+              tag="h2"
+              variant="displayMD"
+              class="text-accent-800 font-display text-balance"
+            >
+              Related posts
+            </Text>
+            <div class="grid grid-cols-1 lg:grid-cols-3 mt-8 gap-8">
+              {relatedPosts.slice(0, 3).map((post) => (
+                <SmallBlogCard post={post} />
+              ))}
+            </div>
+          </Wrapper>
+        </section>
+      )
+    }
+  </section>
+  {ytId && (
+    <script is:inline>
+      const els = document.querySelectorAll('[data-youtube-id]');
+      els.forEach((el) => {
+        const id = el.getAttribute('data-youtube-id');
+        const btn = el.querySelector('button');
+        const mount = () => {
+          const iframe = document.createElement('iframe');
+          const params = new URLSearchParams({ autoplay: '1', rel: '0', modestbranding: '1', playsinline: '1' });
+          iframe.src = `https://www.youtube.com/embed/${id}?${params.toString()}`;
+          iframe.setAttribute('title', 'YouTube video player');
+          iframe.setAttribute('loading', 'lazy');
+          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          iframe.setAttribute('playsinline', '');
+          iframe.className = 'absolute inset-0 w-full h-full';
+          el.innerHTML = '';
+          el.appendChild(iframe);
+        };
+        if (btn) {
+          btn.addEventListener('click', mount, { once: true });
+        }
+        el.addEventListener('click', mount, { once: true });
+      });
+    </script>
+  )}
+</BaseLayout>

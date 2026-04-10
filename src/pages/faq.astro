@@ -1,0 +1,138 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Icons
+import Plus from "@/components/fundations/icons/Plus.astro";
+const faqs = [
+  {
+    question: "Are you legally authorised to marry us?",
+    answer:
+      "Yes. Jake Smith is an authorised Commonwealth Civil Marriage Celebrant. He can prepare and witness your NOIM, conduct your ceremony, and lodge all paperwork so your marriage is legally registered in Australia.",
+  },
+  {
+    question: "Do you only perform Christian wedding ceremonies?",
+    answer:
+      "While Jake is a Christian and an ordained pastor he is a civil celebrant and over half of the weddings he conducts are not religious in any way. He creates warm, relaxed, meaningful ceremonies for couples of any belief or background.",
+  },
+  {
+    question: "How far in advance should we book?",
+    answer:
+      "Jake books out early, especially on weekends, unfortunately we have to turn away over 800 couples every year. Most couples enquire 6–18 months in advance however the sooner you enquire, the greater the likelihood of Jake being available for you. If your wedding is happening soon it’s still worth checking — Jake often has midweek availability at short-notice.",
+  },
+  {
+    question: "What does your fee include?",
+    answer:
+      "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, all travel required for your booking, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
+  },
+  {
+    question: "Do you help with writing vows?",
+    answer:
+      "Absolutely. Jake provides guidance, examples, and a simple structure to help you craft vows that feel natural and personal. If writing isn’t your thing, he’ll gently coach you through it.",
+  },
+  {
+    question: "What documents do we need to get married?",
+    answer:
+      "You’ll need ID such as a passport or birth certificate plus photo ID. If either of you has been married before, you’ll need evidence of divorce or your previous partner’s death. Jake will guide you through all requirements.",
+  },
+  {
+    question: "When do we need to lodge the NOIM?",
+    answer:
+      "The Notice of Intended Marriage must be lodged with Jake at least one month before the wedding date. He’ll help you complete and submit it correctly so everything is legally compliant.",
+  },
+  {
+    question: "Do you do elopements or small weddings?",
+    answer:
+      "Yes. Jake loves intimate weddings. Whether it’s two people and a witness or a tiny gathering with close family, he’ll create a ceremony that still feels meaningful and well-supported.",
+  },
+  {
+    question: "Will you travel for our wedding?",
+    answer:
+      "Jake regularly performs ceremonies across Australia and abroad. He’s based in Brisbane so over half his ceremonies are in South East Queensland, however he flies to over 50 weddings every year, he’d love to help you no matter where you’re getting married!",
+  },
+  {
+    question: "How long does a typical ceremony run?",
+    answer:
+      "Most ceremonies run around 18–25 minutes, depending on readings, rituals and how you want the moment to feel. Jake keeps things engaging, personal and well-paced.",
+  },
+  {
+    question: "Do you attend rehearsals?",
+    answer:
+      "Jake isn't able to attend on-site rehearsals but you will have a video-chat with Jake to discuss any details of your day.",
+  },
+  {
+    question: "Can we meet you before booking?",
+    answer:
+      "Yes. Jake is happy to have a quick video chat so you can make sure he feels like the right fit. There’s no pressure and no obligation — just a friendly conversation.",
+  },
+  {
+    question: "What happens after the wedding?",
+    answer:
+      "Jake submits your marriage documents to Births, Deaths and Marriages. You can then order your official marriage certificate directly from BDM in your state once processing is complete.",
+  },
+];
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer }
+  }))
+};
+---
+
+<BaseLayout title="Frequently Asked Questions Married By Jake">
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 gap-x-12">
+        <div>
+          <Text
+            tag="h1"
+            variant="displayMD"
+            class="text-accent-800 font-display text-balance"
+          >
+            Frequently Asked Questions
+          </Text>
+          <Text tag="p" variant="textSM" class="text-base-700 mt-2">
+            Don't see your question here? Get in touch, I'm here to help!
+          </Text>
+          <Button
+            size="xs"
+            variant="muted"
+            isLink={true}
+            href="/contact"
+            class="w-full lg:w-fit mt-8"
+          >
+            Contact Jake
+          </Button>
+        </div>
+
+        <div class="lg:col-span-2 divide-y divide-base-100 space-y-4">
+          {
+            faqs.map((faq) => (
+              <details class="transition-colors pb-4 group">
+                <summary class=" text-lg cursor-pointer text-accent-800 flex justify-between items-center group-open:text-secondary-500">
+                  <span>{faq.question}</span>
+                  <Plus
+                    slot="icon"
+                    size="sm"
+                    class="text-base-700 transition-transform group-open:rotate-180 duration-300"
+                  />
+                </summary>
+                <div class="mt-4 text-base-700 leading-relaxed">
+                  <Text tag="p" variant="textBase">
+                    {faq.answer}
+                  </Text>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd, null, 2).replace(/</g, "\\u003c")} />
+  </section>
+</BaseLayout>

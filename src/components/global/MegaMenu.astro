@@ -1,0 +1,269 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import HeroImage from "@/images/jake-menu.jpg";
+
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+import { navLinks } from "@/components/global/navLinks";
+const { inverted = true } = Astro.props;
+const triggerColor = inverted ? "text-white" : "text-base-800";
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/marriedbyjake/" },
+  { label: "Facebook", href: "https://www.facebook.com/MarriedByJake/" },
+  { label: "Threads", href: "https://www.threads.com/@marriedbyjake" },
+  { label: "LinkedIn", href: "https://au.linkedin.com/in/jake-smith-2095743b" },
+  { label: "TikTok", href: "https://www.tiktok.com/@married.by.jake" },
+];
+const posts = (await getCollection("posts"))
+  .slice()
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  )
+  .slice(0, 5)
+  .map((p) => ({
+    title: p.data.title,
+    id: p.id,
+    description: p.data.description ?? "",
+  }));
+const testimonials = (await getCollection("weddingtestimonials"))
+  .slice()
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate || 0).getTime() -
+      new Date(a.data.pubDate || 0).getTime()
+  )
+  .slice(0, 3)
+  .map((t) => ({
+    title: t.data.coupleName,
+    id: t.id,
+    summary:
+      (t.body || "").replace(/\s+/g, " ").trim().slice(0, 160) +
+      ((t.body || "").length > 160 ? "…" : ""),
+    category: [t.data.venue, t.data.location]
+      .filter(Boolean)
+      .join(" · "),
+  }));
+---
+
+<div class="group" data-mega-wrap>
+  <button
+    type="button"
+    class={`flex text-sm items-center gap-1 ${triggerColor} focus:outline-none`}
+    aria-expanded="false"
+    aria-controls="mega-desktop"
+    data-mega-trigger
+    data-explore-trigger
+  >
+    <span>Explore</span>
+    <svg
+      class="size-4 transition-transform group-hover:rotate-180"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+  <div
+    id="mega-desktop"
+    data-mega-panel
+    class="absolute inset-x-0 mt-2 top-full w-full z-50 invisible opacity-0 pointer-events-none transition-opacity duration-150 lg:group-hover:visible lg:group-hover:opacity-100 lg:group-hover:pointer-events-auto lg:group-focus-within:visible lg:group-focus-within:opacity-100 lg:group-focus-within:pointer-events-auto"
+  >
+    <Wrapper>
+      <div
+        class="bg-accent-900 overflow-hidden shadow-xl border border-white/5"
+      >
+        <div class="grid grid-cols-4 items-start divide-x divide-white/10">
+          <div class="p-6 h-full">
+            <div class="flex flex-col h-full items-start">
+              <Image
+                src={HeroImage}
+                width={600}
+                height={600}
+                alt="Pastor Jake Smith, Wedding Celebrant"
+                class="object-cover object-top w-full h-40 rounded-lg"
+                loading="eager"
+                decoding="async"
+              />
+              <Text
+                tag="h2"
+                variant="textXL"
+                class="font-display text-white mt-4"
+              >
+                About Jake Smith
+              </Text>
+              <Text tag="p" variant="textSM" class="text-base-600 mt-2">
+                Jake Smith is a warm, calm wedding celebrant who creates personal, welcoming ceremonies for couples of every background, helping them start marriage with confidence and joy.
+              </Text>
+              <div
+                class="w-full mt-4 pt-4 border-t border-white/10 space-y-2 flex flex-col"
+              >
+                <a
+                  href="mailto:hello@marriedbyjake.com"
+                  class="text-base-300 hover:text-white transition-colors text-xs"
+                >
+                  hello@marriedbyjake.com
+                </a>
+                <a
+                  href="tel:+61434648064"
+                  class="text-base-300 hover:text-white transition-colors text-xs"
+                >
+                  0434 648 064
+                </a>
+                <a
+                  href="/contact"
+                  class="text-xs text-white hover:text-accent-400 transition-colors"
+                >
+                  Contact Jake
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="p-6 h-full">
+            <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
+              Explore
+            </Text>
+            <ul class="space-y-2 mt-2 pt-2 border-t border-white/10">
+              {
+                navLinks.map((link) => (
+                  <li class=" group">
+                    <a href={link.href}>
+                      <Text
+                        tag="h4"
+                        variant="textSM"
+                        class=" text-base-200 hover:text-secondary-500"
+                      >
+                        {link.label}
+                      </Text>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2 mt-6">
+              Social Media
+            </Text>
+            <ul class="space-y-2 mt-2 pt-2 border-t border-white/10">
+              {
+                socialLinks.map((social) => (
+                  <li class=" group">
+                    <a href={social.href}>
+                      <Text
+                        tag="h4"
+                        variant="textSM"
+                        class=" text-base-200 hover:text-secondary-500"
+                      >
+                        {social.label}
+                      </Text>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="p-6 h-full flex flex-col justify-between">
+            <div>
+              <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
+                Wedding Tips
+              </Text>
+              <ul class="mt-2 pt-2 border-t border-white/10">
+                {
+                  posts.map((post) => (
+                    <li class="py-2 group">
+                      <a
+                        href={`/blog/${post.id}`}
+                        aria-label={`Read: ${post.title}`}
+                      >
+                        <Text
+                          tag="h4"
+                          variant="textSM"
+                          class="font-medium text-base-200"
+                        >
+                          {post.title}
+                        </Text>
+                        {post.description && (
+                          <Text
+                            tag="p"
+                            variant="textXS"
+                            class="text-base-600 mt-1 "
+                          >
+                            {post.description}
+                          </Text>
+                        )}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            <a
+              href="/blog"
+              class="text-sm text-white hover:text-accent-400 flex mt-4 pt-4 border-t border-white/10"
+            >
+              Wedding Tips Blog
+            </a>
+          </div>
+          <div class="p-6 h-full flex flex-col justify-between">
+            <div>
+              <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
+                Wedding Testimonials
+              </Text>
+              <ul class="mt-2 pt-2 border-t border-white/10">
+                {testimonials.map((t) => (
+                  <li class="py-2 group">
+                    <a
+                      href={`/weddingtestimonials/${t.id}/`}
+                      aria-label={`View case: ${t.title}`}
+                    >
+                      <Text
+                        tag="h4"
+                        variant="textSM"
+                        class="font-medium text-base-200"
+                      >
+                        {t.title}
+                      </Text>
+                      {t.summary && (
+                        <Text
+                          tag="p"
+                          variant="textXS"
+                          class="text-base-600 mt-1"
+                        >
+                          {t.summary}
+                        </Text>
+                      )}
+                      {t.category && (
+                        <Text
+                          tag="p"
+                          variant="textXS"
+                          class="text-base-600 mt-1"
+                        >
+                          {t.category}
+                        </Text>
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a
+              href="/weddingtestimonials"
+              class="text-sm text-white hover:text-accent-400 flex mt-4 pt-4 border-t border-white/10"
+            >
+              View all testimonials
+            </a>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </div>
+</div>

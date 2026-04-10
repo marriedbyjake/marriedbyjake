@@ -1,0 +1,55 @@
+---
+import "@/styles/prose.css";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+const { frontmatter } = Astro.props;
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout title={`${frontmatter.page} - Married by Jake`}>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:pt-48">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <div>
+          <div class="lg:sticky lg:top-48">
+            <Text
+              tag="p"
+              variant="textXS"
+              class="text-secondary-500 uppercase font-medium"
+            >
+              Last updated on <span>
+                <time
+                  datetime={new Date(frontmatter.pubDate).toLocaleDateString(
+                    "en-US",
+                    {
+                      year: "numeric",
+                      month: "long",
+                    }
+                  )}
+                >
+                  {
+                    new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                    })
+                  }</time
+                ></span
+              >
+            </Text>
+            <Text
+              tag="h1"
+              variant="displaySM"
+              class="text-accent-800 font-display text-balance mt-12"
+            >
+              {frontmatter.page}
+            </Text>
+          </div>
+        </div>
+        <Wrapper variant="prose" class="lg:col-span-2">
+          <slot />
+        </Wrapper>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

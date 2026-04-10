@@ -1,0 +1,169 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { Image } from "astro:assets";
+// Content
+import { getCollection } from "astro:content";
+const allTestimonials = await getCollection("weddingtestimonials");
+import LocationsMap from "@/components/testimonials/LocationsMap.astro";
+
+// Filter and Sort
+const featuredTestimonials = allTestimonials
+  .filter((t) => t.data.featured)
+  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
+
+const otherTestimonialsWithImages = allTestimonials
+  .filter((t) => !t.data.featured && t.data.image?.url)
+  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
+
+const otherTestimonialsWithoutImages = allTestimonials
+  .filter((t) => !t.data.featured && !t.data.image?.url)
+  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
+
+const excerpt = (s: string, n = 180) => {
+  const t = (s || "")
+    .replace(/^#+\s+/gm, "")
+    .replace(/!\[.*?\]\(.*?\)/g, "")
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+    .replace(/[*_]{1,3}(.*?)[*_]{1,3}/g, "$1")
+    .replace(/^\s*>\s*/gm, "")
+    .replace(/`{3}[\s\S]*?`{3}/g, "")
+    .replace(/`(.+?)`/g, "$1")
+    .replace(/^\s*[-*_]{3,}\s*$/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return t.slice(0, n) + (t.length > n ? "…" : "");
+};
+const formatDate = (d?: Date) =>
+  d
+    ? new Date(d).toLocaleDateString("en-AU", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
+---
+
+<BaseLayout title="Married By Jake Testimonials">
+  <section>
+    <Wrapper variant="standard" class="pb-12 pt-48">
+      <div class="max-width mb-2">
+        <Text
+          tag="h1"
+          variant="displayLG"
+          class="text-accent-800 font-display text-center"
+        >
+          Australia's most reviewed wedding celebrant
+        </Text>
+        <Text tag="p" variant="textSM" class="text-base-600 text-center mt-2">
+          Real stories from couples Married by Jake, highlighting venues, locations, and heartfelt experiences.
+        </Text>
+      </div>
+
+      <!-- Featured Testimonials -->
+      {featuredTestimonials.length > 0 && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-8 mb-12">
+          {featuredTestimonials.map((t) => (
+            <article class="relative group overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+              <a href={`/weddingtestimonials/${t.id}`} class="absolute inset-0 z-10" aria-label={`Read testimonial from ${t.data.coupleName}`}></a>
+              {t.data.image?.url && (
+                <Image
+                  width={1000}
+                  height={1000}
+                  src={t.data.image.url}
+                  alt={t.data.image.alt || t.data.coupleName}
+                  class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+              <div class="p-8 bg-base-50 flex flex-col h-full justify-between gap-4">
+                <div>
+                  <Text tag="h3" variant="displaySM" class="text-accent-800 font-display">
+                    {t.data.coupleName}
+                  </Text>
+                  <Text tag="p" variant="textSM" class="text-base-700 mt-1">
+                    {t.data.venue} · {t.data.location}
+                  </Text>
+                  {t.data.pubDate && (
+                    <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+                      {formatDate(t.data.pubDate)}
+                    </Text>
+                  )}
+                  <Text tag="p" variant="textSM" class="text-base-700 mt-3">
+                    {"★".repeat(t.data.rating)} {excerpt(t.body ?? "")}
+                  </Text>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+      <LocationsMap />
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-12 lg:mt-24 gap-8">
+        {otherTestimonialsWithImages.map((t) => (
+          <article class="relative group overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+            <a href={`/weddingtestimonials/${t.id}`} class="absolute inset-0 z-10" aria-label={`Read testimonial from ${t.data.coupleName}`}></a>
+            {t.data.image?.url && (
+              <Image
+                width={1000}
+                height={1000}
+                src={t.data.image.url}
+                alt={t.data.image.alt || t.data.coupleName}
+                class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div class="p-8 bg-base-50 flex flex-col h-full justify-between gap-4">
+              <div>
+                <Text tag="h3" variant="displaySM" class="text-accent-800 font-display">
+                  {t.data.coupleName}
+                </Text>
+                <Text tag="p" variant="textSM" class="text-base-700 mt-1">
+                  {t.data.venue} · {t.data.location}
+                </Text>
+                {t.data.pubDate && (
+                  <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+                    {formatDate(t.data.pubDate)}
+                  </Text>
+                )}
+                <Text tag="p" variant="textSM" class="text-base-700 mt-3">
+                  {"★".repeat(t.data.rating)} {excerpt(t.body ?? "")}
+                </Text>
+              </div>
+            </div>
+          </article>
+        ))}
+
+        {otherTestimonialsWithoutImages.map((t) => (
+          <article class="relative group overflow-hidden bg-base-50">
+            <a href={`/weddingtestimonials/${t.id}`} class="absolute inset-0 z-10" aria-label={`Read testimonial from ${t.data.coupleName}`}></a>
+            <div class="p-8 flex flex-col h-full justify-between gap-4">
+              <div>
+                <Text tag="h3" variant="displaySM" class="text-accent-800 font-display">
+                  {t.data.coupleName}
+                </Text>
+                <Text tag="p" variant="textSM" class="text-base-700 mt-1">
+                  {t.data.venue} · {t.data.location}
+                </Text>
+                {t.data.pubDate && (
+                  <Text tag="p" variant="textXS" class="text-base-600 mt-1">
+                    {formatDate(t.data.pubDate)}
+                  </Text>
+                )}
+                <Text tag="p" variant="textSM" class="text-base-700 mt-3">
+                  {"★".repeat(t.data.rating)} {excerpt(t.body ?? "")}
+                </Text>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

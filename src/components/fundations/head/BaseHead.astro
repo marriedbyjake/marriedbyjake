@@ -1,0 +1,166 @@
+---
+import Seo from "@/components/fundations/head/Seo.astro";
+import Meta from "@/components/fundations/head/Meta.astro";
+import Fonts from "@/components/fundations/head/Fonts.astro";
+import Favicons from "@/components/fundations/head/Favicons.astro";
+const { title, description, canonical, image, video, ogType } = Astro.props as {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?:
+    | string
+    | { url: string; alt?: string; width?: number; height?: number; type?: string };
+  video?: string;
+  ogType?: string;
+};
+---
+<Meta />
+<Seo title={title} description={description} canonical={canonical} image={image} video={video} ogType={ogType} />
+<Fonts />
+<Favicons />
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://marriedbyjake.com/#business",
+          name: "Married by Jake",
+          image: "https://marriedbyjake.com/logo.png",
+          url: "https://marriedbyjake.com",
+          description:
+            "Jake Smith is a warm, calm civil marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond.",
+          telephone: "+61434648064",
+          email: "hello@marriedbyjake.com",
+          priceRange: "$$$",
+          areaServed: [
+            { "@type": "City", name: "Brisbane" },
+            { "@type": "City", name: "Sydney" },
+            { "@type": "City", name: "Byron Bay" },
+            { "@type": "City", name: "Gold Coast" },
+            { "@type": "City", name: "Sunshine Coast" },
+          ],
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Brisbane",
+            addressRegion: "QLD",
+            addressCountry: "AU",
+          },
+          sameAs: [
+            "https://www.instagram.com/marriedbyjake/",
+            "https://au.linkedin.com/in/jake-smith-2095743b",
+            "https://www.tiktok.com/@married.by.jake",
+            "https://www.facebook.com/MarriedByJake/",
+            "https://www.threads.net/@marriedbyjake",
+          ],
+          employee: { "@id": "https://marriedbyjake.com/#jake-smith" },
+        },
+        {
+          "@type": "Person",
+          "@id": "https://marriedbyjake.com/#jake-smith",
+          name: "Jake Smith",
+          jobTitle: "Marriage Celebrant",
+          description:
+            "Jake Smith is an authorised Commonwealth Civil Marriage Celebrant who creates warm, personal and legally valid wedding ceremonies for couples of every background.",
+          image: "https://marriedbyjake.com/images/hello-jake.jpg",
+          telephone: "+61434648064",
+          email: "hello@marriedbyjake.com",
+          sameAs: [
+            "https://www.instagram.com/marriedbyjake/",
+            "https://au.linkedin.com/in/jake-smith-2095743b",
+            "https://www.tiktok.com/@married.by.jake",
+            "https://www.facebook.com/MarriedByJake/",
+            "https://www.threads.net/@marriedbyjake",
+          ],
+          knowsAbout: [
+            "Wedding celebrant",
+            "Inclusive wedding ceremonies",
+            "Master of Ceremonies",
+            "Destination elopements",
+            "Funeral celebrant",
+            "Civil wedding celebrant",
+          ],
+        },
+        {
+          "@type": "Service",
+          "@id": "https://marriedbyjake.com/#wedding-services",
+          name: "Wedding and Ceremony Services",
+          serviceType: [
+            "Wedding celebrant",
+            "Inclusive wedding ceremonies",
+            "Master of Ceremonies",
+            "Destination elopements",
+            "Funeral celebrant",
+            "Civil wedding celebrant",
+          ],
+          provider: { "@id": "https://marriedbyjake.com/#business" },
+          areaServed: { "@type": "City", name: "Brisbane" },
+        },
+      ],
+    },
+    null,
+    2,
+  ).replace(/</g, "\\u003c")}
+/>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", "AW-939233637");
+
+  (() => {
+    let started = false;
+    const trackingScripts = [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=AW-939233637",
+      },
+      {
+        src: "https://analytics.ahrefs.com/analytics.js",
+        attrs: {
+          "data-key": "e98iIYnbMCjvZY4bfi34yw",
+        },
+      },
+    ];
+
+    const loadTracking = () => {
+      if (started) return;
+      started = true;
+
+      trackingScripts.forEach(({ src, attrs = {} }) => {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = src;
+
+        Object.entries(attrs).forEach(([key, value]) => {
+          script.setAttribute(key, value);
+        });
+
+        document.head.appendChild(script);
+      });
+    };
+
+    const scheduleTracking = () => {
+      window.setTimeout(loadTracking, 15000);
+    };
+
+    if (document.readyState === "complete") {
+      scheduleTracking();
+    } else {
+      window.addEventListener("load", scheduleTracking, { once: true });
+    }
+
+    ["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
+      window.addEventListener(eventName, loadTracking, {
+        once: true,
+        passive: true,
+      });
+    });
+
+    window.addEventListener("mbj:load-tracking", loadTracking, { once: true });
+  })();
+</script>

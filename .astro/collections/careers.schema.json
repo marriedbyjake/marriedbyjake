@@ -1,0 +1,90 @@
+{
+  "$ref": "#/definitions/careers",
+  "definitions": {
+    "careers": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Full-time",
+            "Part-time",
+            "Contract",
+            "Internship"
+          ]
+        },
+        "remote": {
+          "type": "string"
+        },
+        "postedDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "salary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applyUrl": {
+          "type": "string"
+        },
+        "applyEmail": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "location",
+        "postedDate"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

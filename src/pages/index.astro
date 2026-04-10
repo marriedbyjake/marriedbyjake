@@ -1,0 +1,53 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+// Sections
+import Hero from "@/components/landing/Hero.astro";
+import LandingStats from "@/components/landing/LandingStats.astro";
+import Philosophy from "@/components/landing/Philosophy.astro";
+import Aproach from "@/components/landing/Aproach.astro";
+import Cta from "@/components/global/Cta.astro";
+import Video from "@/components/fundations/elements/Video.astro";
+import VideoShowcase from "@/components/landing/VideoShowcase.astro";
+import { Image } from "astro:assets";
+import JakeWide from "@/images/jake-wide-1.jpg"
+import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
+---
+
+<BaseLayout navTransparent={true} title="Jake Smith — Christian Wedding Celebrant - Married By Jake" description="Jake Smith is a warm, calm civil and christian marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond." ogType="website" video="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4" image="/jake.gif">
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
+  <Hero />
+  <LandingStats />
+  <!--<Video
+    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
+    poster="/images/hello-jake.jpg"
+    autoplay={false}
+    muted={false}
+    loop={false}
+    controls={true}
+    class="w-full h-auto aspect-video bg-base-50"
+  >
+    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
+  </Video> -->
+  <VideoShowcase
+    videos={[
+      { playbackId: "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck", title: "Start here!" },
+      { playbackId: "1Akx1AW3TDYWjAq85qvI5spkhubW02sFXVLqHyhumHn00", title: "Want to elope?" },
+      { playbackId: "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4", title: "A month in the life of Married by Jake" },
+    ]}
+  />
+  <Philosophy />
+  <TestimonialsSlider />
+  <Aproach />
+  <section>
+    <Image
+      src={JakeWide}
+      alt="Jake Smith, Wedding Celebrant"
+      width={1451 }
+      height={ 967}
+      class="w-full h-[40dvh] lg:h-[120dvh] object-cover object-center bg-base-50"
+    />
+  </section>
+
+  <Cta />
+</BaseLayout>
