@@ -154,5 +154,5 @@ How to update:
 
 ## Support
 
-- Design & build: Josh Withers, Unpopular — josh@withers.co
+- Design & build: Josh Withers, [Unpopular](https://unpopular.au) and [The Internet](https://theinternet.com.au) — josh@withers.co
 - General Astro docs: https://docs.astro.build
