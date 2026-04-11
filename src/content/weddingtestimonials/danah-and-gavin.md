@@ -14,3 +14,5 @@ Jake! What can we say! He made our day! It's like we had known him for years and
 He did an incredible job at not only making our ceremony and reception amazing but calming us down and reminding everyone that it was our day. Wish we could do it all over again!
 
 Couldn't recommend Jake enough! What. A. Man!! Thank you so much from the bottom of our hearts!
+
+Wedding Venue: [The Valley Estate](https://thevalleyestate.com.au)

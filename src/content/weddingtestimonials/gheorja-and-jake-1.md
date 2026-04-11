@@ -1,7 +1,7 @@
 ---
 coupleName: Gheorja & Jake
-venue: Braeside at Gin House Creek Estate
-location: Merrimac, Queensland
+venue: Braeside Estate
+location: Gold Coast, Queensland
 image:
   url: ""
   alt: ""
@@ -20,10 +20,19 @@ He was also our MC and was so aware of how to ensure guests had a great time, mi
 Our guests keep telling us that they loved him and thought he was so incredible and they thought we'd known him for years. Jake, you're so special and talented at what you do! Thank you so much from the bottom of our hearts.
 
 Photographer: [Amy & Chris](https://amyandchrisweddings.com.au)
+
 Florist: [Flowers in the Field](https://flowersinthefieldflorist.com.au)
+
 Videographer: [Flare Films](https://flarefilms.com.au)
+
 Stylist: [Aurora and Co Events](https://auroraandco.com.au)
+
 Celebrant: [Married by Jake](https://marriedbyjake.com.au)
+
 DJ: [Chris Hutchison Weddings](https://chrishutchisonweddings.com.au)
+
 Hair & Makeup: [Tamika Hair Makeup](https://tamikamua.com.au), [Inspired Artistry by Mickeela](https://inspiredartistry.com.au)
+
 Cake: [Get Whippd Cakes](https://getwhippdcakes.com.au)
+
+Wedding Venue: [Braeside at Gin House Creek Estate](https://www.braesideestate.com.au/)

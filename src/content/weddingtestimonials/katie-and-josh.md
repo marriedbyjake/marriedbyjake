@@ -1,6 +1,6 @@
 ---
 coupleName: Katie & Josh
-venue: Braeside Chapel at Gin House Creek Estate
+venue: Braeside Estate
 location: Gold Coast, Queensland
 image:
   url: ""
@@ -20,3 +20,5 @@ Photographer: [Sam Wyper](https://www.samwyper.com)
 Stylist/Florist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)
 
 Musician: Samir
+
+Wedding Venue: [Braeside at Gin House Creek Estate](https://www.braesideestate.com.au/)

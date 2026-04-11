@@ -1,7 +1,7 @@
 ---
 coupleName: Jen & Ethan
-venue: Braeside Chapel at Gin House Creek Estate
-location: Merrimac, Queensland
+venue: Braeside Estate
+location: Gold Coast, Queensland
 image:
   url: ""
   alt: ""
@@ -20,3 +20,5 @@ Much love from the newly married Mr and Mrs Summers!
 Photographer: [About Time Co.](https://www.abouttimeco.com/)
 
 Florist/Stylist: Magnolia Studios
+
+Wedding Venue: [Braeside at Gin House Creek Estate](https://www.braesideestate.com.au/)

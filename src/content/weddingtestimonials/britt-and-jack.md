@@ -1,7 +1,7 @@
 ---
 coupleName: Britt & Jack
 venue: Braeside Estate
-location: Merrimac, Queensland
+location: Gold Coast, Queensland
 rating: 5
 featured: false
 ---
@@ -24,3 +24,5 @@ Makeup: [Mia Connor](https://www.miaconnor.com.au)
 Dress: [Sphere Bridal Gallery](https://www.spherebridalgallery.com.au)
 
 Cake: [Milk and Honey Cake Creative](https://www.milkandhoneycakecreative.com.au)
+
+Wedding Venue: [Braeside at Gin House Creek Estate](https://www.braesideestate.com.au/)

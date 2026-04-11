@@ -147,7 +147,7 @@ const otherTestimonials = allTestimonials
               class="w-full h-auto"
             />
           )}
-          <Wrapper variant="prose" class="mt-8">
+          <Wrapper variant="prose" class="mt-8 testimonial-body">
             <Content />
           </Wrapper>
         </div>
@@ -202,3 +202,20 @@ const otherTestimonials = allTestimonials
     </section>
   )}
 </BaseLayout>
+
+<style>
+  /* Tighten paragraph rhythm for testimonial bodies — they're usually a
+     sequence of short 1–2 line paragraphs, so the default Tailwind Typography
+     1.25em margins leave everything floating. */
+  .testimonial-body :global(p) {
+    margin-top: 0.9em;
+    margin-bottom: 0.9em;
+    line-height: 1.65;
+  }
+  .testimonial-body :global(p:first-child) {
+    margin-top: 0;
+  }
+  .testimonial-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>
