@@ -147,9 +147,9 @@ const otherTestimonials = allTestimonials
               class="w-full h-auto"
             />
           )}
-          <Wrapper variant="prose" class="mt-8 testimonial-body">
+          <div class="mt-8 testimonial-body">
             <Content />
-          </Wrapper>
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -204,49 +204,82 @@ const otherTestimonials = allTestimonials
 </BaseLayout>
 
 <style>
-  /* Testimonial bodies are quoted reviews — style them to read like an
-     elegantly typeset book excerpt: serif display face, comfortable measure,
-     generous line height, clear paragraph rhythm, and a dropcap on the
-     opening letter. Link styling is inherited from Wrapper variant="prose". */
+  /* Testimonial body — standalone article-style typography.
+     No Tailwind Typography prose inheritance — we control everything. */
   .testimonial-body {
-    max-width: 40rem;
-  }
-  .testimonial-body :global(p) {
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 1.125rem;
-    line-height: 1.75;
-    margin-top: 1.15em;
-    margin-bottom: 1.15em;
+    max-width: 42rem;
+    font-family: var(--font-inter), system-ui, sans-serif;
     color: var(--color-base-700);
+  }
+
+  .testimonial-body :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-base-700);
+    margin: 0 0 1.5rem 0;
+    padding: 0;
     text-wrap: pretty;
-  }
-  @media (min-width: 1024px) {
-    .testimonial-body :global(p) {
-      font-size: 1.1875rem;
-    }
-  }
-  .testimonial-body :global(p:first-child) {
-    margin-top: 0;
   }
   .testimonial-body :global(p:last-child) {
     margin-bottom: 0;
   }
-  .testimonial-body :global(p:first-child::first-letter) {
-    color: var(--color-accent-700);
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 3.75rem;
-    line-height: 0.85;
-    float: left;
-    padding-right: 0.5rem;
-    padding-top: 0.4rem;
-    font-weight: 500;
+  @media (min-width: 1024px) {
+    .testimonial-body :global(p) {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+    }
   }
-  /* Tighten inline emphasis so it doesn't fight the serif body */
+
+  .testimonial-body :global(a) {
+    color: var(--color-accent-700);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-500);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 200ms ease, text-decoration-color 200ms ease,
+      text-decoration-thickness 200ms ease;
+  }
+  .testimonial-body :global(a:hover) {
+    color: var(--color-accent-800);
+    text-decoration-color: var(--color-accent-700);
+    text-decoration-thickness: 2px;
+  }
+
   .testimonial-body :global(em) {
     font-style: italic;
   }
   .testimonial-body :global(strong) {
     font-weight: 600;
     color: var(--color-base-800);
+  }
+
+  .testimonial-body :global(h2),
+  .testimonial-body :global(h3) {
+    font-family: var(--font-newsreader), Georgia, serif;
+    color: var(--color-base-800);
+    font-weight: 500;
+    margin: 2rem 0 1rem 0;
+  }
+  .testimonial-body :global(h2) { font-size: 1.5rem; line-height: 1.3; }
+  .testimonial-body :global(h3) { font-size: 1.25rem; line-height: 1.35; }
+
+  .testimonial-body :global(ul),
+  .testimonial-body :global(ol) {
+    margin: 0 0 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+  .testimonial-body :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  .testimonial-body :global(blockquote) {
+    margin: 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    border-left: 3px solid var(--color-accent-500);
+    color: var(--color-base-600);
+    font-style: italic;
   }
 </style>

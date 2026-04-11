@@ -2,7 +2,7 @@
 coupleName: Yu Huan & Daniel
 featured: false
 venue: Gabbinbar
-location: Middle Ridge, Queensland
+location: Toowoomba, Queensland
 rating: 5
 pubDate: 2025-01-10
 ---
