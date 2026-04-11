@@ -5,7 +5,7 @@ import LandingStats from "@/components/landing/LandingStats.astro";
 import Philosophy from "@/components/landing/Philosophy.astro";
 import Aproach from "@/components/landing/Aproach.astro";
 import Cta from "@/components/global/Cta.astro";
-import Video from "@/components/fundations/elements/Video.astro";
+import VideoShowcase from "@/components/landing/VideoShowcase.astro";
 import { Image } from "astro:assets";
 import JakeWide from "@/images/jake-wide-1.jpg";
 import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
@@ -59,17 +59,13 @@ const breadcrumbJsonLd = {
       </div>
     </Wrapper>
   </section>
-  <Video
-    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
-    poster="/images/hello-jake.jpg"
-    autoplay={false}
-    muted={false}
-    loop={false}
-    controls={true}
-    class="w-full h-auto aspect-video bg-base-50"
-  >
-    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
-  </Video>
+  <VideoShowcase
+    videos={[
+      { playbackId: "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck", title: "Start here!" },
+      { playbackId: "1Akx1AW3TDYWjAq85qvI5spkhubW02sFXVLqHyhumHn00", title: "Want to elope?" },
+      { playbackId: "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4", title: "A month in the life of Married by Jake" },
+    ]}
+  />
   <Philosophy />
   <TestimonialsSlider />
   <Aproach />
