@@ -78,6 +78,15 @@ const weddingtestimonials = defineCollection({
     }),
 });
 
+const readings = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/readings" }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string().optional(),
+    order: z.number().optional(),
+  }),
+});
+
 const pricing = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pricing" }),
   schema: z.object({
@@ -103,6 +112,7 @@ export const collections = {
   infopages,
   posts,
   pricing,
+  readings,
   services,
   weddingtestimonials,
 };

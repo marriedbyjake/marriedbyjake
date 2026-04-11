@@ -2,47 +2,57 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import raw from "../../readings.txt?raw";
+import { getCollection, render } from "astro:content";
 
-const lines = raw.split(/\r?\n/);
-const isSep = (s: string) => /^\*{5,}\s*$/.test(s.trim());
-const readings: Array<{ title: string; body: string }> = [];
-let buffer: string[] = [];
-const pushBlock = (buf: string[]) => {
-  const idx = buf.findIndex((l) => l.trim().length > 0);
-  if (idx === -1) return;
-  const title = buf[idx].trim();
-  const body = buf.slice(idx + 1).join("\n").trim();
-  if (title) readings.push({ title, body });
-};
-for (const l of lines) {
-  if (isSep(l)) {
-    if (buffer.length) pushBlock(buffer), (buffer = []);
-  } else {
-    buffer.push(l);
-  }
-}
-if (buffer.length) pushBlock(buffer);
+const readingsCollection = await getCollection("readings");
+const readings = await Promise.all(
+  readingsCollection
+    .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+    .map(async (r) => {
+      const { Content } = await render(r);
+      return { id: r.id, data: r.data, Content };
+    })
+);
 ---
 
 <BaseLayout title="Wedding Readings" description="A beautifully typeset collection of wedding readings and poems — timeless scripture, blessings and modern pieces — curated for ceremonies and easy to browse, share and choose from." canonical="/wedding-readings">
   <section>
     <Wrapper variant="standard" class="pb-24 pt-48">
       <div class="max-width">
-        <Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance  text-center">Wedding Readings</Text>
+        <Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance text-center">Wedding Readings</Text>
         <Text tag="p" variant="textSM" class="text-base-600 mt-3 text-center">A calm, elegant collection of readings and poems for your ceremony. Browse classics and modern pieces, presented like a poetry book with clear titles and gentle spacing.</Text>
       </div>
 
       <div class="mt-12 lg:mt-20 space-y-12 lg:space-y-16">
         {readings.map((r) => (
           <article class="relative bg-white border border-base-100 rounded-lg p-8 lg:p-12 shadow-sm">
-            <Text tag="h2" variant="displaySM" class="mb-3 text-accent-800 font-display text-center">{r.title}</Text>
-            <p class="mt-1 text-base-700 leading-loose tracking-normal lg:text-lg first-letter:text-accent-700 first-letter:font-display first-letter:text-4xl first-letter:float-left first-letter:mr-1 first-letter:leading-none">
-              {r.body}
-            </p>
+            <Text tag="h2" variant="displaySM" class="mb-3 text-accent-800 font-display text-center">{r.data.title}</Text>
+            {r.data.author && (
+              <Text tag="p" variant="textXS" class="text-base-600 mb-6 text-center italic">{r.data.author}</Text>
+            )}
+            <div class="reading-body text-base-700 leading-loose tracking-normal lg:text-lg">
+              <r.Content />
+            </div>
           </article>
         ))}
       </div>
     </Wrapper>
   </section>
 </BaseLayout>
+
+<style>
+  .reading-body :global(p) {
+    margin-bottom: 1rem;
+  }
+  .reading-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .reading-body :global(p:first-child::first-letter) {
+    color: var(--color-accent-700, #92400e);
+    font-family: var(--font-display, serif);
+    font-size: 2.25rem;
+    float: left;
+    margin-right: 0.25rem;
+    line-height: 1;
+  }
+</style>

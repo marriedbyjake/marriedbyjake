@@ -16,6 +16,11 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { Content } = await render(page);
 const fm = page.data;
+const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
+const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
+const mapEmbedSrc = GOOGLE_MAPS_API_KEY
+  ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}`
+  : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
 const bodyText = (page.body || "").replace(/\s+/g, " ").trim();
 const description = bodyText.length > 158 ? bodyText.substring(0, 158) : bodyText;
 const headingTitle = fm.venue
@@ -107,7 +112,7 @@ const otherTestimonials = allTestimonials
           {(fm.venue || fm.location) && (
             <div class="mt-4 lg:h-96">
               <iframe
-                src={`https://www.google.com/maps?q=${encodeURIComponent([fm.venue, fm.location].filter(Boolean).join(" "))}&output=embed`}
+                src={mapEmbedSrc}
                 title={`Map of ${[fm.venue, fm.location].filter(Boolean).join(", ")}`}
                 loading="lazy"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -123,8 +128,8 @@ const otherTestimonials = allTestimonials
               src={fm.image.url}
               alt={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
               title={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
-              width={1440}
-              height={900}
+              width={fm.image.url.width}
+              height={fm.image.url.height}
               class="w-full h-auto"
             />
           )}
