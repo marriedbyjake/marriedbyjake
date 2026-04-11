@@ -213,21 +213,23 @@ const otherTestimonials = allTestimonials
   }
 
   .testimonial-body :global(p) {
-    font-size: 1.0625rem;
-    line-height: 1.75;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    letter-spacing: -0.003em;
     color: var(--color-base-700);
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.25rem 0;
     padding: 0;
     text-wrap: pretty;
+    font-feature-settings: "liga" 1, "calt" 1, "ss01" 1;
   }
   .testimonial-body :global(p:last-child) {
     margin-bottom: 0;
   }
   @media (min-width: 1024px) {
     .testimonial-body :global(p) {
-      font-size: 1.125rem;
-      line-height: 1.8;
-      margin-bottom: 1.75rem;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
     }
   }
 
