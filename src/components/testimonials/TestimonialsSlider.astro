@@ -92,7 +92,7 @@ const formatDate = (d?: Date) =>
           ))}
         </ul>
       </div>
-      <div class="absolute right-4 -bottom-8 flex gap-1" data-dots></div>
+      <div class="absolute right-2 -bottom-11 flex gap-1" data-dots></div>
     </div>
   </Wrapper>
 
@@ -151,7 +151,7 @@ const formatDate = (d?: Date) =>
             button.type = 'button';
             button.setAttribute('data-dot', String(i));
             button.setAttribute('aria-label', `Go to slide page ${i + 1}`);
-            button.className = 'inline-flex size-6 -m-2 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-600/20';
+            button.className = 'inline-flex size-11 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-600/20';
             dot.className = `block size-2 rounded-full transition-colors ${i === index ? 'bg-accent-600' : 'bg-base-200'}`;
             button.appendChild(dot);
             dotsWrap.appendChild(button);

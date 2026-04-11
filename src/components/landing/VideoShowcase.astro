@@ -15,7 +15,7 @@ const { videos } = Astro.props;
 
 const resolved = videos.map((v) => ({
   ...v,
-  posterUrl: v.poster || `https://image.mux.com/${v.playbackId}/animated.gif?width=400`,
+  posterUrl: v.poster || `https://image.mux.com/${v.playbackId}/animated.webp?width=320&fps=15`,
 }));
 ---
 
