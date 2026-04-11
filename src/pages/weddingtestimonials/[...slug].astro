@@ -19,8 +19,8 @@ const fm = page.data;
 const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
 const mapEmbedSrc = GOOGLE_MAPS_API_KEY
-  ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}`
-  : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+  ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}&zoom=14`
+  : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=14`;
 const bodyText = (page.body || "").replace(/\s+/g, " ").trim();
 const description = bodyText.length > 158 ? bodyText.substring(0, 158) : bodyText;
 const headingTitle = fm.venue

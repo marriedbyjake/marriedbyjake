@@ -1,65 +1,65 @@
 # Married by Jake — Astro Site
 
-- Design and implementation by Josh Withers - ([The Internet](https://theinternet.com.au))
-- Email: josh@withers.co
-- Built with Astro and Tailwind CSS
-- Hosted on Cloudflare Pages
+- Design and implementation by [Josh Withers](https://joshwithers.au) — ([The Internet](https://theinternet.com.au))
+- Built with Astro 6 and Tailwind CSS v4
+- Hosted on Vercel
 
 ## Getting Started
 
 - `npm install` — install dependencies
 - `npm run dev` — start local dev server at `http://localhost:4321`
-- `npm run build` — build to `./dist`
+- `npm run build` — geocode locations, then build to `./dist`
 - `npm run preview` — preview the production build
+- `npm run build:locations` — re-run only the locations geocoder
 
-## Deployment (Cloudflare Pages)
+## Deployment (Vercel)
 
 - Build command: `npm run build`
 - Output directory: `dist`
 - Node version: latest LTS recommended
-- Set the project’s root to the repository root
+- Redirects are managed in `vercel.json`
+
+### Environment variables
+
+Set these in the Vercel project settings (and mirror them in a local `.env` for development):
+
+- `PUBLIC_GOOGLE_MAPS_API_KEY` — required. Used by both the build-time geocoder and the browser-side maps. The same key powers:
+  - The geocoder script (`scripts/build-locations.mjs`) → Google Geocoding API
+  - The wedding-locations interactive map (`src/components/testimonials/LocationsMap.astro`) → Google Maps JavaScript API
+  - The per-testimonial venue map iframe (`src/pages/weddingtestimonials/[...slug].astro`) → Google Maps Embed API
+
+The key is exposed to the client (it must be — the Maps JavaScript and Embed APIs run in the browser), so lock it down in the Google Cloud Console with HTTP-referrer restrictions for `marriedbyjake.com` and your preview/dev origins, and only enable the three APIs above.
 
 ## Wedding Locations Map
 
-The site includes an interactive map showing all wedding locations from the testimonials. This uses the **Google Maps JavaScript API**.
+The site includes an interactive map showing all wedding locations from the testimonials, plus a small per-testimonial venue map on each detail page.
 
-### Configuration
-To enable the map, you must provide a Google Maps API Key.
-1. Create a `.env` file in the project root (if it doesn't exist).
-2. Add your API key:
-   ```env
-   PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
-   ```
-3. Ensure the API Key has the "Maps JavaScript API" enabled in the Google Cloud Console.
+### How it works
 
-### How it works:
-1. **Source Data**: Testimonials in `src/content/weddingtestimonials/*.md` provide `venue` and `location` fields.
-2. **Geocoding Script**: `scripts/geocode_locations.py` scans these files, finds unique locations, and fetches coordinates.
-3. **Data Storage**: Coordinates are saved to `src/data/locations.json`.
-4. **Component**: `src/components/testimonials/LocationsMap.astro` reads this JSON and renders the Google Map.
+1. **Source data**: Testimonials in `src/content/weddingtestimonials/*.md` provide `venue` and `location` fields.
+2. **Geocoding script**: `scripts/build-locations.mjs` scans these files, finds unique locations, and fetches coordinates from the Google Geocoding API. If `PUBLIC_GOOGLE_MAPS_API_KEY` is missing it falls back to OpenStreetMap Nominatim.
+3. **Data storage**: Coordinates are cached in `src/data/locations.json`. The script only geocodes new entries and prunes ones that are no longer referenced.
+4. **Locations map**: `src/components/testimonials/LocationsMap.astro` reads the JSON and renders an interactive Google Map with a marker per venue.
+5. **Per-testimonial venue map**: `src/pages/weddingtestimonials/[...slug].astro` renders a small Maps Embed API iframe pinned to `venue + location`.
 
-### Updating the Map
-When adding new testimonials with new locations, update the map data by running:
+### Updating the map
+
+The geocoder runs automatically as part of `npm run build`, so a fresh deploy will always pick up new locations. To refresh the cache locally without a full build:
 
 ```bash
-# Install dependencies if needed (first time only)
-pip install requests
-
-# Run the geocoder
-python3 scripts/geocode_locations.py
+npm run build:locations
 ```
 
 This will:
-- Scan all testimonial files
-- Identify new locations not yet in `locations.json`
-- Fetch coordinates for them (with rate limiting to respect OSM policy)
-- Update `src/data/locations.json`
 
-The map component will automatically pick up these changes on the next build/dev server start.
+- Scan all testimonial files
+- Geocode any locations not already in `locations.json`
+- Prune entries no longer referenced by any testimonial
+- Write `src/data/locations.json`
 
 ## Content Collections
 
-Content is managed with Astro Content Collections in `src/content/config.ts`. Add or edit Markdown files under `src/content/<collection>` using the frontmatter shown below.
+Content is managed with Astro Content Collections defined in `src/content.config.ts`. Add or edit Markdown files under `src/content/<collection>` using the frontmatter shown below.
 
 ### Blog Posts (`posts`)
 
@@ -70,13 +70,8 @@ Content is managed with Astro Content Collections in `src/content/config.ts`. Ad
   - `description` (string)
   - `image` (object): `{ url, alt }`
   - `tags` (string[]) optional
-  - `youtubeUrl` (string, url) optional — when present, the featured image becomes the poster for a click‑to‑play YouTube embed
-- Routes: `/blog/` index, `/blog/posts/<slug>/` per post
-
-How to update:
-- Add a new `.md` file to `src/content/posts/` with the above frontmatter
-- Use local images by setting `image.url` to a project path (e.g. `/src/images/...`) and `alt` text
-- Optional: include `youtubeUrl` to enable the optimized embed
+  - `youtubeUrl` (string, url) optional — when present, the featured image becomes the poster for a click-to-play YouTube embed
+- Routes: `/blog/` index, `/blog/<slug>/` per post
 
 ### Services (`services`)
 
@@ -87,31 +82,48 @@ How to update:
   - `description` (string) optional
   - `order` (number) optional — lower numbers appear first on the Services index
   - `image` (object) optional: `{ url, alt }`
+  - `icon` (string) optional
 - Routes:
   - Index: `/services` — lists services sorted by `order`, then `title`
   - Detail: `/<slug>/` — each service renders at the site root (e.g. `/wedding-celebrant/`)
-
-How to update:
-- Add a `.md` file under `src/content/services/` and set `order` to control listing position
-- Provide `image.url` and `image.alt` to show a hero and card image; if omitted, a safe placeholder renders
 
 ### Wedding Testimonials (`weddingtestimonials`)
 
 - Path: `src/content/weddingtestimonials/`
 - Frontmatter:
   - `coupleName` (string)
-  - `location` (string) optional
-  - `venue` (string) optional
-  - `image` (object): `{ url, alt }`
-  - `rating` (literal) — fixed at `5`
+  - `location` (string) optional — auto title-cased
+  - `venue` (string) optional — auto title-cased
+  - `image` (object) optional: `{ url, alt }`
+  - `featured` (boolean) optional, defaults to `false`
+  - `rating` (number) — 1 to 5
   - `pubDate` (date) optional — used for sorting
 - Routes:
   - Index: `/weddingtestimonials/`
   - Detail: `/weddingtestimonials/<slug>/`
 
 How to update:
+
 - Add a `.md` file under `src/content/weddingtestimonials/` with the above frontmatter
-- Body content renders as the testimonial; a small Google Maps embed appears beneath the venue line when `venue` or `location` is provided
+- Body content renders as the testimonial
+- A small Google Maps Embed iframe appears beneath the venue line when `venue` or `location` is provided
+- Hero images render at their natural aspect ratio (no cropping) — Astro reads the imported asset's intrinsic width/height
+
+### Wedding Readings (`readings`)
+
+- Path: `src/content/readings/`
+- Frontmatter:
+  - `title` (string)
+  - `author` (string) optional — shown beneath the title in italics
+  - `order` (number) optional — lower numbers appear first
+- Body: standard Markdown. Each blank-line-separated block becomes its own paragraph; a dropcap is applied to the first paragraph automatically.
+- Route: `/wedding-readings` renders every reading sorted by `order`.
+
+How to add a new reading:
+
+1. Create a new `.md` file in `src/content/readings/` (slug becomes the file name).
+2. Set `title`, optionally `author`, and an `order` number to position it in the list.
+3. Write the reading body in Markdown.
 
 ### Info Pages (`infopages`)
 
@@ -121,26 +133,37 @@ How to update:
   - `pubDate` (date)
 - Routes: pages consume content contextually, e.g. `/infopages/privacy/`, `/infopages/terms/`
 
+### Pricing (`pricing`)
+
+- Path: `src/content/pricing/`
+- Frontmatter (single document with three nested objects, each containing `title`, `price`, and `description`):
+  - `australianCeremonies`
+  - `internationalCeremonies`
+  - `mc`
+- Used by the services and pricing pages to render up-to-date prices in one place.
+
 ## Navigation & Footer
 
-- Main navigation links are defined in `src/components/global/navLinks.ts`. Update this module to change top‑level links and shortcuts.
-- Footer shows Quick Links, Social Media, and “Found On” external features. Add more entries by editing `src/components/global/Footer.astro` (arrays near the top).
+- Main navigation links are defined in `src/components/global/navLinks.ts`. Update this module to change top-level links and shortcuts.
+- Footer shows Quick Links, Social Media, and "Found On" external features. Add more entries by editing `src/components/global/Footer.astro` (arrays near the top).
 
 ## Media & Assets
 
 - Place static assets in `public/` for direct serving (e.g. `/og-image.jpg`, favicons, captions `hello-jake.vtt`).
 - Place authored images in `src/images/` when using Astro `Image` or collection `image.url` frontmatter.
-- Fonts are served locally from `public/fonts/` and preloaded in `src/components/fundations/head/Fonts.astro`.
+- Fonts (Inter and Newsreader) are configured in `astro.config.mjs` via `fontProviders.google()` and surfaced through `src/components/fundations/head/Fonts.astro`.
 - Favicons: `favicon.svg` default with `favicon.png` fallback configured in `src/components/fundations/head/Favicons.astro`.
 
 ## SEO
 
-- Site‑wide OG default: `public/og-image.jpg`
+- Site-wide OG default: `public/og-image.jpg`
 - SEO component: `src/components/fundations/head/Seo.astro` via `BaseHead`
-- Per‑page SEO:
+- Sitemap is generated by `@astrojs/sitemap` with custom `lastmod` derived from each collection's most recent `pubDate` (see `astro.config.mjs`).
+- Per-page SEO:
   - Use `BaseLayout` props: `title`, `description`, `canonical`, `image`, `ogType`
   - Blog posts automatically pass `title`, truncated `description`, and featured image
-  - FAQ page outputs valid `FAQPage` JSON‑LD from the on‑page questions
+  - FAQ page outputs valid `FAQPage` JSON-LD from the on-page questions
+  - Testimonial detail pages output `Review` JSON-LD
 
 ## Video
 
@@ -149,10 +172,10 @@ How to update:
 
 ## Performance
 
-- Critical CSS inlining via `astro-critters`
-- Asset compression and optimization via integrations configured in `astro.config.mjs`
+- Tailwind CSS v4 via `@tailwindcss/vite`
+- `@vercel/speed-insights` is included for production telemetry on Vercel
 
 ## Support
 
-- Design & build: Josh Withers, [Unpopular](https://unpopular.au) and [The Internet](https://theinternet.com.au) — josh@withers.co
+- Design & build: [Josh Withers](https://marriedbyjosh.com), [Unpopular](https://unpopular.au) and [The Internet](https://theinternet.com.au) — josh@withers.co
 - General Astro docs: https://docs.astro.build
