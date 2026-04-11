@@ -12,9 +12,10 @@ export const GET: APIRoute = async () => {
 
   const body = `/* TEAM */
 
-Celebrant: Jake Smith aka Married By Jake
+# Celebrant:
+Jake Smith aka Married By Jake
 Site: https://marriedbyjake.com
-Location: Brisbane, Queensland, Australia
+Location: Brisbane, Queensland, Australia, travelling around the world.
 Authorisation: Commonwealth Civil Marriage Celebrant
               (Attorney-General's Department of Australia)
 Distinction: Australia's most-reviewed wedding celebrant
@@ -86,11 +87,9 @@ Distinction: Australia's most-reviewed wedding celebrant
 ~~~~~~~~~~~~~~~~~~~~~^J&########&&&&&&&&&&&&&&&&&&######&&&&&&&GB#######G!^^^^^^^^~~~~~~~~~^^^^^^^^^
 ~~~~~~~~~~~~~~~~~~~~~~Y##########&&&&&&&&&&&&&&&&&&&&#&&&&&&&&&&&&###BBB5~^^^~~~~~~~~~~~~~~~~~~~~~~~
 
-Web developer, designer & SEO: Josh Withers
-Josh's site: https://joshwithers.au
-SEO & growth: https://unpopular.au
-Static site design studio: https://theinternet.com.au
-Celebrant work (yes, also a celebrant): https://marriedbyjosh.com
+# Web developer, designer & SEO:
+Josh Withers
+https://joshwithers.au and https://unpopular.au and https://theinternet.com.au and (yes, also a celebrant): https://marriedbyjosh.com
 From: Tasmania, Australia
 
 /* ABOUT JAKE & JOSH */
@@ -109,7 +108,7 @@ https://marriedbyjake.com/weddingtestimonials.
 
 Last update: ${lastUpdated}
 Language: English (en-AU)
-Standards: HTML5, CSS3, JSON-LD, RSS, llms.txt
+Standards: HTML5, CSS3, JSON-LD, RSS, llms.txt, humans.txt
 Components: Astro 6, Tailwind CSS v4
 Software: Astro, Vercel
 Counts: ${services.length} services, ${posts.length} blog posts, ${testimonials.length} testimonials
