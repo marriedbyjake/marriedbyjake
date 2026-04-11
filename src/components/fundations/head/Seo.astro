@@ -65,6 +65,7 @@ const absoluteVideo = toAbsoluteUrl(video);
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={resolvedDescription} />
 <meta property="og:url" content={canonical} />
+<meta property="og:locale" content="en_AU" />
 {absoluteImage && <meta property="og:image" content={absoluteImage} />}
 {resolvedImage.alt && <meta property="og:image:alt" content={resolvedImage.alt} />}
 {resolvedImage.width && <meta property="og:image:width" content={String(resolvedImage.width)} />}
@@ -77,6 +78,7 @@ const absoluteVideo = toAbsoluteUrl(video);
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={resolvedTitle} />
 <meta name="twitter:description" content={resolvedDescription} />
-<meta name="twitter:site" content="@marriedbyjake" />
-<meta name="twitter:creator" content="@marriedbyjake" />
 {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
+
+<link rel="alternate" type="application/rss+xml" title="Married by Jake — Blog" href="/rss.xml" />
+<link rel="alternate" type="application/json" title="Married by Jake — Search index" href="/search.json" />

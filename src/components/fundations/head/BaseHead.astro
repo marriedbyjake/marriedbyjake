@@ -3,6 +3,7 @@ import Seo from "@/components/fundations/head/Seo.astro";
 import Meta from "@/components/fundations/head/Meta.astro";
 import Fonts from "@/components/fundations/head/Fonts.astro";
 import Favicons from "@/components/fundations/head/Favicons.astro";
+import { getCollection } from "astro:content";
 const { title, description, canonical, image, video, ogType } = Astro.props as {
   title?: string;
   description?: string;
@@ -13,6 +14,15 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
   video?: string;
   ogType?: string;
 };
+
+// Aggregate rating computed from real testimonial data at build time
+const allTestimonials = await getCollection("weddingtestimonials");
+const ratedTestimonials = allTestimonials.filter(
+  (t) => typeof t.data.rating === "number",
+);
+const reviewCount = ratedTestimonials.length;
+const ratingSum = ratedTestimonials.reduce((sum, t) => sum + t.data.rating, 0);
+const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.0";
 ---
 <Meta />
 <Seo title={title} description={description} canonical={canonical} image={image} video={video} ogType={ogType} />
@@ -26,9 +36,20 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebSite",
+          "@id": "https://marriedbyjake.com/#website",
+          url: "https://marriedbyjake.com",
+          name: "Married by Jake",
+          description:
+            "Jake Smith — Australia's most-reviewed marriage celebrant. Warm, personal wedding ceremonies based in Brisbane, available across Australia and internationally.",
+          inLanguage: "en-AU",
+          publisher: { "@id": "https://marriedbyjake.com/#business" },
+        },
+        {
           "@type": "ProfessionalService",
           "@id": "https://marriedbyjake.com/#business",
           name: "Married by Jake",
+          inLanguage: "en-AU",
           image: "https://marriedbyjake.com/logo.png",
           url: "https://marriedbyjake.com",
           description:
@@ -49,12 +70,26 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
             addressRegion: "QLD",
             addressCountry: "AU",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: -27.4698,
+            longitude: 153.0251,
+          },
+          hasMap: "https://maps.app.goo.gl/fMV6LTR53uuViekU6",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue,
+            reviewCount,
+            bestRating: "5",
+            worstRating: "1",
+          },
           sameAs: [
             "https://www.instagram.com/marriedbyjake/",
             "https://au.linkedin.com/in/jake-smith-2095743b",
             "https://www.tiktok.com/@married.by.jake",
             "https://www.facebook.com/MarriedByJake/",
             "https://www.threads.net/@marriedbyjake",
+            "https://maps.app.goo.gl/fMV6LTR53uuViekU6",
           ],
           employee: { "@id": "https://marriedbyjake.com/#jake-smith" },
         },
@@ -63,6 +98,7 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
           "@id": "https://marriedbyjake.com/#jake-smith",
           name: "Jake Smith",
           jobTitle: "Marriage Celebrant",
+          inLanguage: "en-AU",
           description:
             "Jake Smith is an authorised Commonwealth Civil Marriage Celebrant who creates warm, personal and legally valid wedding ceremonies for couples of every background.",
           image: "https://marriedbyjake.com/images/hello-jake.jpg",
@@ -83,6 +119,16 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
             "Funeral celebrant",
             "Civil wedding celebrant",
           ],
+          worksFor: { "@id": "https://marriedbyjake.com/#business" },
+          hasCredential: {
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "Authorised Commonwealth Civil Marriage Celebrant",
+            recognizedBy: {
+              "@type": "GovernmentOrganization",
+              name: "Attorney-General's Department (Australia)",
+              url: "https://www.ag.gov.au/",
+            },
+          },
         },
         {
           "@type": "Service",

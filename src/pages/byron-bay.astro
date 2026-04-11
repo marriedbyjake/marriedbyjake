@@ -1,0 +1,96 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroCity from "@/components/landing/HeroCity.astro";
+import LandingStats from "@/components/landing/LandingStats.astro";
+import Philosophy from "@/components/landing/Philosophy.astro";
+import Aproach from "@/components/landing/Aproach.astro";
+import Cta from "@/components/global/Cta.astro";
+import Video from "@/components/fundations/elements/Video.astro";
+import { Image } from "astro:assets";
+import JakeWide from "@/images/jake-wide-1.jpg";
+import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+
+const cityJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://marriedbyjake.com/byron-bay#service",
+  name: "Byron Bay Wedding Celebrant",
+  serviceType: "Wedding celebrant",
+  provider: { "@id": "https://marriedbyjake.com/#business" },
+  areaServed: {
+    "@type": "City",
+    name: "Byron Bay",
+    address: { "@type": "PostalAddress", addressRegion: "NSW", addressCountry: "AU" },
+  },
+  url: "https://marriedbyjake.com/byron-bay",
+};
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://marriedbyjake.com/" },
+    { "@type": "ListItem", position: 2, name: "Byron Bay Wedding Celebrant", item: "https://marriedbyjake.com/byron-bay" },
+  ],
+};
+---
+
+<BaseLayout
+  navTransparent={true}
+  title="Byron Bay Wedding Celebrant - Married By Jake - Jake Smith"
+  description="Warm, calm Byron Bay wedding celebrant creating relaxed, personal ceremonies across the Northern Rivers — from beach elopements to hinterland venues, with a celebrant who feels like a friend."
+  ogType="website"
+  canonical="/byron-bay"
+>
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
+  <HeroCity
+    headline="Byron Bay Wedding Celebrant. Warm, Real, and Fully Present."
+    intro="You want a Byron Bay ceremony that feels honest, grounded and heartfelt — barefoot on the sand or under hinterland trees. <strong>Jake Smith</strong> drives down regularly from Brisbane to lead calm, personal weddings across Byron, Suffolk Park, Lennox, Bangalow and the Northern Rivers."
+  />
+  <LandingStats />
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div class="max-w-3xl">
+        <Text tag="h2" variant="displayLG" class="text-accent-800 font-display text-balance">Byron Bay Wedding Celebrant</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">
+          Jake regularly officiates Byron Bay weddings — from beach ceremonies at Wategos and Tallow Beach to estates and rainforest venues across Newrybar, Federal, Bangalow and Mullumbimby. Relaxed, personal, and never rushed.
+        </Text>
+      </div>
+    </Wrapper>
+  </section>
+  <Video
+    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
+    poster="/images/hello-jake.jpg"
+    autoplay={false}
+    muted={false}
+    loop={false}
+    controls={true}
+    class="w-full h-auto aspect-video bg-base-50"
+  >
+    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
+  </Video>
+  <Philosophy />
+  <TestimonialsSlider />
+  <Aproach />
+  <section>
+    <Image
+      src={JakeWide}
+      alt="Jake Smith, Byron Bay Wedding Celebrant"
+      width={1451}
+      height={967}
+      class="w-full h-[40dvh] lg:h-[120dvh] object-cover object-center bg-base-50"
+    />
+  </section>
+  <Cta />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(cityJsonLd, null, 2).replace(/</g, "\\u003c")}
+  />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+  />
+</BaseLayout>

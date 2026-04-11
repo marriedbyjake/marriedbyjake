@@ -20,13 +20,68 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { Content } = await render(page);
 const isInfoPage = page.collection === "infopages";
+const siteOrigin = Astro.site ? Astro.site.origin : "https://marriedbyjake.com";
+const slug = page.id;
+const canonicalUrl = `${siteOrigin}/${slug}`;
+const crumbName = isInfoPage ? page.data.page : page.data.title;
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
+    ...(isInfoPage
+      ? []
+      : [{ "@type": "ListItem", position: 2, name: "Services", item: `${siteOrigin}/services` }]),
+    {
+      "@type": "ListItem",
+      position: isInfoPage ? 2 : 3,
+      name: crumbName,
+      item: canonicalUrl,
+    },
+  ],
+};
+const serviceJsonLd = isInfoPage
+  ? null
+  : {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${canonicalUrl}#service`,
+      name: page.data.title,
+      description: page.data.summary || page.data.description || undefined,
+      provider: { "@id": "https://marriedbyjake.com/#business" },
+      areaServed: [
+        { "@type": "City", name: "Brisbane" },
+        { "@type": "City", name: "Sydney" },
+        { "@type": "City", name: "Byron Bay" },
+        { "@type": "City", name: "Gold Coast" },
+        { "@type": "City", name: "Sunshine Coast" },
+      ],
+      url: canonicalUrl,
+    };
 ---
 {isInfoPage ? (
   <LegalPagesLayout frontmatter={page.data}>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+    />
     <Content />
   </LegalPagesLayout>
 ) : (
   <PracticeLayout frontmatter={page.data}>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+    />
+    {serviceJsonLd && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceJsonLd, null, 2).replace(/</g, "\\u003c")}
+      />
+    )}
     <Content />
   </PracticeLayout>
 )}

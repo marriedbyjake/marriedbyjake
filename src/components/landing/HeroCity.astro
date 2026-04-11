@@ -1,0 +1,33 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import HeroMedia from "@/components/landing/HeroMedia.astro";
+
+interface Props {
+  headline: string;
+  intro: string;
+}
+
+const { headline, intro } = Astro.props;
+---
+
+<section>
+  <HeroMedia />
+  <Wrapper variant="standard" class="py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 lg:items-end gap-y-4">
+      <Text
+        tag="h1"
+        variant="displayXL"
+        class="text-accent-800 font-display text-balance lg:col-span-2"
+      >
+        {headline}
+      </Text>
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-base-600 leading-relaxed border-accent-500"
+        set:html={intro}
+      />
+    </div>
+  </Wrapper>
+</section>

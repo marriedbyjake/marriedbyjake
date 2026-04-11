@@ -1,0 +1,96 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroCity from "@/components/landing/HeroCity.astro";
+import LandingStats from "@/components/landing/LandingStats.astro";
+import Philosophy from "@/components/landing/Philosophy.astro";
+import Aproach from "@/components/landing/Aproach.astro";
+import Cta from "@/components/global/Cta.astro";
+import Video from "@/components/fundations/elements/Video.astro";
+import { Image } from "astro:assets";
+import JakeWide from "@/images/jake-wide-1.jpg";
+import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+
+const cityJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://marriedbyjake.com/gold-coast#service",
+  name: "Gold Coast Wedding Celebrant",
+  serviceType: "Wedding celebrant",
+  provider: { "@id": "https://marriedbyjake.com/#business" },
+  areaServed: {
+    "@type": "City",
+    name: "Gold Coast",
+    address: { "@type": "PostalAddress", addressRegion: "QLD", addressCountry: "AU" },
+  },
+  url: "https://marriedbyjake.com/gold-coast",
+};
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://marriedbyjake.com/" },
+    { "@type": "ListItem", position: 2, name: "Gold Coast Wedding Celebrant", item: "https://marriedbyjake.com/gold-coast" },
+  ],
+};
+---
+
+<BaseLayout
+  navTransparent={true}
+  title="Gold Coast Wedding Celebrant - Married By Jake - Jake Smith"
+  description="Warm, calm Gold Coast wedding celebrant for ceremonies from Burleigh and Kirra to the hinterland, Tamborine Mountain and the Currumbin Wildlife Sanctuary — relaxed, personal and beautifully run."
+  ogType="website"
+  canonical="/gold-coast"
+>
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
+  <HeroCity
+    headline="Gold Coast Wedding Celebrant. Warm, Real, and Fully Present."
+    intro="You want a Gold Coast ceremony that feels honest, grounded and heartfelt — beachfront, bayside or up in the hinterland. <strong>Jake Smith</strong> works across the entire Gold Coast — from Burleigh and Kirra to Tamborine Mountain — bringing warmth, calm and a ceremony that fits you exactly."
+  />
+  <LandingStats />
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div class="max-w-3xl">
+        <Text tag="h2" variant="displayLG" class="text-accent-800 font-display text-balance">Gold Coast Wedding Celebrant</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2">
+          Jake performs ceremonies all over the Gold Coast — Burleigh Heads, Kirra, Currumbin, Coolangatta, Broadbeach, Main Beach and the hinterland venues at Tamborine, Mt Nathan and Maleny. Calm guidance and a personal ceremony that feels like you.
+        </Text>
+      </div>
+    </Wrapper>
+  </section>
+  <Video
+    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
+    poster="/images/hello-jake.jpg"
+    autoplay={false}
+    muted={false}
+    loop={false}
+    controls={true}
+    class="w-full h-auto aspect-video bg-base-50"
+  >
+    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
+  </Video>
+  <Philosophy />
+  <TestimonialsSlider />
+  <Aproach />
+  <section>
+    <Image
+      src={JakeWide}
+      alt="Jake Smith, Gold Coast Wedding Celebrant"
+      width={1451}
+      height={967}
+      class="w-full h-[40dvh] lg:h-[120dvh] object-cover object-center bg-base-50"
+    />
+  </section>
+  <Cta />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(cityJsonLd, null, 2).replace(/</g, "\\u003c")}
+  />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+  />
+</BaseLayout>

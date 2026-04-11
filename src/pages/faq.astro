@@ -76,11 +76,16 @@ const faqs = [
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  inLanguage: "en-AU",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".faq-question", ".faq-answer"],
+  },
   mainEntity: faqs.map((f) => ({
     "@type": "Question",
     name: f.question,
-    acceptedAnswer: { "@type": "Answer", text: f.answer }
-  }))
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
 };
 ---
 
@@ -115,14 +120,14 @@ const faqJsonLd = {
             faqs.map((faq) => (
               <details class="transition-colors pb-4 group">
                 <summary class=" text-lg cursor-pointer text-accent-800 flex justify-between items-center group-open:text-secondary-500">
-                  <span>{faq.question}</span>
+                  <span class="faq-question">{faq.question}</span>
                   <Plus
                     slot="icon"
                     size="sm"
                     class="text-base-700 transition-transform group-open:rotate-180 duration-300"
                   />
                 </summary>
-                <div class="mt-4 text-base-700 leading-relaxed">
+                <div class="mt-4 text-base-700 leading-relaxed faq-answer">
                   <Text tag="p" variant="textBase">
                     {faq.answer}
                   </Text>

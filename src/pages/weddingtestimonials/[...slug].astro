@@ -57,31 +57,45 @@ const buildAlt = (
   }
   return text;
 };
+const siteOrigin = Astro.site ? Astro.site.origin : "https://marriedbyjake.com";
+const canonicalUrl = `${siteOrigin}/weddingtestimonials/${page.id}`;
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Review',
-  itemReviewed: {
-    '@type': 'LocalBusiness',
-    name: 'Married by Jake',
-    image: 'https://marriedbyjake.com/og-image.jpg',
-    '@id': 'https://marriedbyjake.com',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Brisbane',
-      addressRegion: 'QLD',
-      addressCountry: 'AU'
-    }
-  },
-  author: {
-    '@type': 'Person',
-    name: fm.coupleName,
-  },
-  reviewRating: {
-    '@type': 'Rating',
-    ratingValue: fm.rating,
-    bestRating: 5,
-  },
-  reviewBody: bodyText,
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Review",
+      "@id": `${canonicalUrl}#review`,
+      itemReviewed: { "@id": "https://marriedbyjake.com/#business" },
+      author: { "@type": "Person", name: fm.coupleName },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: fm.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      reviewBody: bodyText,
+      ...(fm.pubDate ? { datePublished: new Date(fm.pubDate).toISOString() } : {}),
+      inLanguage: "en-AU",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Wedding Testimonials",
+          item: `${siteOrigin}/weddingtestimonials`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: headingTitle,
+          item: canonicalUrl,
+        },
+      ],
+    },
+  ],
 };
 
 // Get other testimonials for the "Read more" section

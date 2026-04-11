@@ -13,6 +13,75 @@ if (!pricing) {
 }
 const { australianCeremonies, internationalCeremonies, mc } = pricing.data;
 
+// Extract a numeric "from" price from a free-form pricing string like
+// "from $2,500–$5000" or "$2,000 + tax". Returns null when no number is found.
+const extractPrice = (s: string): number | null => {
+  const match = s.match(/\$\s?([\d,]+)/);
+  if (!match) return null;
+  const n = Number(match[1].replace(/,/g, ""));
+  return Number.isFinite(n) ? n : null;
+};
+
+const offers = [
+  {
+    "@type": "Offer",
+    name: australianCeremonies.title,
+    description: australianCeremonies.description,
+    price: extractPrice(australianCeremonies.price),
+    priceCurrency: "AUD",
+    availability: "https://schema.org/InStock",
+    areaServed: { "@type": "Country", name: "Australia" },
+    url: "https://marriedbyjake.com/serviceandprice",
+  },
+  {
+    "@type": "Offer",
+    name: internationalCeremonies.title,
+    description: internationalCeremonies.description,
+    price: extractPrice(internationalCeremonies.price),
+    priceCurrency: "AUD",
+    availability: "https://schema.org/InStock",
+    url: "https://marriedbyjake.com/serviceandprice",
+  },
+  {
+    "@type": "Offer",
+    name: mc.title,
+    description: mc.description,
+    price: extractPrice(mc.price),
+    priceCurrency: "AUD",
+    availability: "https://schema.org/InStock",
+    url: "https://marriedbyjake.com/serviceandprice",
+  },
+].map((o) => (o.price === null ? { ...o, price: undefined } : o));
+
+const lowPrice = Math.min(
+  ...offers.map((o) => o.price).filter((p): p is number => typeof p === "number"),
+);
+
+const pricingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://marriedbyjake.com/serviceandprice#offers",
+  name: "Wedding Celebrant Services",
+  description:
+    "Wedding celebrant ceremonies, elopements and Master of Ceremonies services with Jake Smith.",
+  provider: { "@id": "https://marriedbyjake.com/#business" },
+  areaServed: [
+    { "@type": "Country", name: "Australia" },
+    { "@type": "City", name: "Brisbane" },
+    { "@type": "City", name: "Sydney" },
+    { "@type": "City", name: "Byron Bay" },
+    { "@type": "City", name: "Gold Coast" },
+    { "@type": "City", name: "Sunshine Coast" },
+  ],
+  offers: {
+    "@type": "AggregateOffer",
+    priceCurrency: "AUD",
+    lowPrice,
+    offerCount: offers.length,
+    offers,
+  },
+};
+
 const ogImage = {
   url: HeroImage.src,
   alt: "Jake Smith — Wedding Celebrant",
@@ -131,5 +200,10 @@ const currentYear = new Date().getFullYear();
       </div>
     </Wrapper>
   </section>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(pricingJsonLd, null, 2).replace(/</g, "\\u003c")}
+  />
 </BaseLayout>
 
