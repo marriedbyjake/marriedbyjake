@@ -204,18 +204,49 @@ const otherTestimonials = allTestimonials
 </BaseLayout>
 
 <style>
-  /* Tighten paragraph rhythm for testimonial bodies — they're usually a
-     sequence of short 1–2 line paragraphs, so the default Tailwind Typography
-     1.25em margins leave everything floating. */
+  /* Testimonial bodies are quoted reviews — style them to read like an
+     elegantly typeset book excerpt: serif display face, comfortable measure,
+     generous line height, clear paragraph rhythm, and a dropcap on the
+     opening letter. Link styling is inherited from Wrapper variant="prose". */
+  .testimonial-body {
+    max-width: 40rem;
+  }
   .testimonial-body :global(p) {
-    margin-top: 0.9em;
-    margin-bottom: 0.9em;
-    line-height: 1.65;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin-top: 1.15em;
+    margin-bottom: 1.15em;
+    color: var(--color-base-700);
+    text-wrap: pretty;
+  }
+  @media (min-width: 1024px) {
+    .testimonial-body :global(p) {
+      font-size: 1.1875rem;
+    }
   }
   .testimonial-body :global(p:first-child) {
     margin-top: 0;
   }
   .testimonial-body :global(p:last-child) {
     margin-bottom: 0;
+  }
+  .testimonial-body :global(p:first-child::first-letter) {
+    color: var(--color-accent-700);
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 3.75rem;
+    line-height: 0.85;
+    float: left;
+    padding-right: 0.5rem;
+    padding-top: 0.4rem;
+    font-weight: 500;
+  }
+  /* Tighten inline emphasis so it doesn't fight the serif body */
+  .testimonial-body :global(em) {
+    font-style: italic;
+  }
+  .testimonial-body :global(strong) {
+    font-weight: 600;
+    color: var(--color-base-800);
   }
 </style>

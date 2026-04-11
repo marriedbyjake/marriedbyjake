@@ -1,8 +1,8 @@
 ---
 coupleName: Yakira & Ross
 featured: true
-venue: the farm byron bay
-location: byron bay, New South Wales
+venue: The Farm Byron Bay
+location: Byron Bay, New South Wales
 image:
   url: /src/images/typorama 173.jpg
   alt: wedding at the farm byron bay
@@ -19,6 +19,6 @@ Thank you, Jake, for being such a big part of our special day. You made it all f
 
 If you're looking for a celebrant and MC who genuinely cares and knows how to make a wedding unforgettable, Jake is your guy.
 
-Venue [The Farm Byron Bay](https://thefarm.com.au) / [three blue ducks](https://www.threeblueducks.com/byron/?srsltid=AfmBOophVmCgQXC2mrGTd5YqL9woAhgZeR72y648brr2OxHNaWLpTj3I)
+Venue: [The Farm Byron Bay](https://thefarm.com.au) / [three blue ducks](https://www.threeblueducks.com/byron/)
 
-Photographer [tropical.romance](https://www.tropicalromanceandco.com/?gad_source=1&gad_campaignid=12464503844&gbraid=0AAAAABhSEgVi6lCL0KzSW7al-akvL-xvS&gclid=Cj0KCQiAvOjKBhC9ARIsAFvz5li9rmzPNAtNs87ESYSIWkI4kR0yP7pBmz9LlepfogomotBTashuDHEaAtAXEALw_wcB)
+Photographer: [Tropical Romance & Co](https://www.tropicalromanceandco.com/)
