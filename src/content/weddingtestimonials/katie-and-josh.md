@@ -16,5 +16,7 @@ On the day, Jake ensured all guests felt valued and included. His delivery struc
 Post-ceremony, numerous family and friends even asked if Jake was a long-lost brother as he knew us so well! Thank you, Jake, for making our day so memorable.
 
 Photographer: [Sam Wyper](https://www.samwyper.com)
+
 Stylist/Florist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)
+
 Musician: Samir

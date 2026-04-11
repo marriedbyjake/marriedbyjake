@@ -16,9 +16,15 @@ We actually loved having him there so much we tried to convince him to stay long
 He will guide you through, keep you relaxed and in the moment, and allow you to have the most amazing memories of the day. Thank you Jake!
 
 Photographer: [Figtree Pictures](https://figtreepictures.com)
+
 Videographer: [In Love Weddings](https://inloveweddings.com.au)
+
 Catering: [Eatdrink Catering](https://eatdrinkcatering.com.au)
+
 Florist: [Twigs Florist Varsity Lakes](https://twigsflorist.com.au)
+
 Dress Designer: [Grace Loves Lace](https://graceloveslace.com.au)
+
 Wedding Planner: [Tina Kristen Weddings](https://tinakristenweddings.com.au)
+
 Cake: [Stentons Cakes](https://stentonscakes.com.au)

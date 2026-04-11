@@ -16,5 +16,9 @@ There were so many times during the ceremony where you made us both laugh so muc
 Everyone loved you and have said they are definitely having you at their wedding so please keep doing what you're doing!
 
 Photographer: [Cloud Catcher Studios](https://www.cloudcatcherstudios.com.au)
+
+Venue: [Gabbinbar](https://www.gabbinbar.com.au)
+
 Florist: [Daisy and Co Flowers](https://www.daisyandcoflowers.com.au)
-Wedding Planning: [Chris Hutchison Weddings](https://chrishutchisonweddings.com.au)
+
+Wedding Music: [Chris Hutchison Weddings](https://chrishutchisonweddings.com.au)

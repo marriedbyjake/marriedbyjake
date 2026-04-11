@@ -19,6 +19,6 @@ Venue: [Summergrove Estate](https://www.summergrove.com.au)
 
 Videographer: Mitch Birchall
 
-Musicians: Baker Boys Band
+Musicians: [Baker Boys Band](https://www.bakerboysband.com.au)
 
-Stylist: Arctic Fox - Katie
+Stylist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)

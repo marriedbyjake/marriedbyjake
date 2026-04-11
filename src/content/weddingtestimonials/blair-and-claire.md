@@ -18,3 +18,5 @@ Jake made the whole process very simple and was amazing from our first interacti
 He also knows exactly when to move out of the way so your photographers can capture photos with just you and your partner. Thank you Jake for playing such an important part in helping make our day one to remember and for our guests to still be talking about. We were blessed to have you there and thanks for ensuring my bow tie was on point at all times.
 
 Photographer: [Leah Cruikshank](https://leahcruikshankphotography.com.au)
+
+Wedding Venue: [Gabbinbar](https://www.gabbinbar.com.au)

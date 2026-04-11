@@ -18,6 +18,11 @@ The ceremony itself was incredible. He was able to bring the exact right mood to
 We also had Jake MC our reception, and that couldn't have gone better. The venue staff commented how great he was, and said he was the best MC they've had. He kept everything going according to plan, so we got to relax and enjoy our night. Jake, I can't thank you enough for everything.
 
 Photographer: [Ben Sowry](https://bensowry.com/)
+
 Singer/DJ: [Alisha Todd](https://alishatodd.com/)
+
 Stylist: [Sugared Style](https://sugaredstyle.com.au/)
+
 Hair: [Twidale Hair and Makeup](https://www.facebook.com/twidaleHairandMakeup/)
+
+Venue: [Beechmont Estate](https://beechmontestate.com.au)

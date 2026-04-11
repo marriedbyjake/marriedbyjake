@@ -19,4 +19,20 @@ His intuitive timing and engaging humour brought structure and joy to our celebr
 
 Jake's exceptional presence has left a lasting impression, with guests continuing to speak of his role in our wedding today. To say he exceeded our expectations would be an understatement; he redefined them. For any couple getting married, especially those who may be nervous, Jake is not just a recommendation – he is a must!
 
-Venue: [Gabbinbar](https://www.gabbinbar.com.au/?utm_source=google&utm_medium=cpc&utm_campaign=brand&utm_term=gabbinbar&keyword=gabbinbar&gad_source=1&gad_campaignid=22998239727&gbraid=0AAAAADyEf8WnS-y8vyRm-VGLX_6HjBoHg&gclid=Cj0KCQiAsY3LBhCwARIsAF6O6XjbniqS3kYO-pUv3ZU59i1zzRrkyoVbl29rqiaUYqpUNIRrUGeB2JgaAq4OEALw_wcB) Photographer: [Leah Cruikshank](https://leahcruikshankphotography.com.au) Videographer: Luke Bickley Stylist: [Emunah Events](https://emunahevents.com.au) Band: Baker Boys Band Strings: Adiamus Live Painter: Poppy Hair: Chantelle Maire Make Up: Mirror Mirror
+Venue: [Gabbinbar](https://www.gabbinbar.com.au/)
+
+Photographer: [Leah Cruikshank](https://leahcruikshankphotography.com.au)
+
+Videographer: [Luke Bickley](https://www.lukebickleystudio.com)
+
+Stylist: [Emunah Events](https://emunahevents.com.au)
+
+Band: [Baker Boys Band](https://www.bakerboysband.com.au)
+
+Strings: Adiamus
+
+Live Painter: Poppy
+
+Hair: Chantelle Maire
+
+Make Up: Mirror Mirror

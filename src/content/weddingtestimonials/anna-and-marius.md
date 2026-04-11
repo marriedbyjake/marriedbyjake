@@ -15,4 +15,18 @@ Our guests all spoke so incredibly highly of Jake, saying that he was an amazing
 
 We trusted him completely, and he was able to take away the stress from us and run the wedding flawlessly. Amazing person, celebrant, and MC! For us, he was the perfect mix of fun, professional, and warm.
 
-Venue: [Gold Coast Farmhouse](https://goldcoastfarmhouse.com.au/?utm_source=google&utm_medium=organic&utm_campaign=gmb) Entertainment: [Danny & Tayla](https://www.dannyandtayla.com.au) Florist: [Arctic Fox](https://arcticfoxflowers.com.au) Photographer: [Bird and Boy](https://birdandboy.com.au) (Maddi) Videographer: [Twelve 08](https://twelve08.com.au) (Jack) Cake: [Sweet Society Co](https://www.sweetsocietyco.com.au) Catering: [Wine & Dine'm](https://wineanddinem.com.au) (Sheree) Hair & Makeup: [Isabella Jane Hair and Make up](https://www.isabellajane.com.au)
+Venue: [Gold Coast Farmhouse](https://goldcoastfarmhouse.com.au/) 
+
+Entertainment: [Danny & Tayla](https://www.dannyandtayla.com.au)
+
+Florist: [Arctic Fox](https://arcticfoxflowers.com.au)
+
+Photographer: [Bird and Boy](https://birdandboy.com.au) (Maddi)
+
+Videographer: [Twelve 08](https://twelve08.com.au) (Jack)
+
+Cake: [Sweet Society Co](https://www.sweetsocietyco.com.au)
+
+Catering: [Wine & Dine'm](https://wineanddinem.com.au) (Sheree)
+
+Hair & Makeup: [Isabella Jane Hair and Make up](https://www.isabellajane.com.au)

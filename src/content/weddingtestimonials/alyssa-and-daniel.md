@@ -19,6 +19,6 @@ Photographer: Kaitlin Rees
 
 Music: [Michael Vos Music](https://michaelvosmusic.com)
 
-Stylist: Arctic Fox
+Stylist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)
 
-HMU: Blush'd Brides
+HMU: [Blush'd Brides](https://blushd.com.au)

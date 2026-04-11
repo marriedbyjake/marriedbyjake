@@ -186,6 +186,34 @@ content:
         type: rich-text
 
   # ---------------------
+  # WEDDING READINGS
+  # ---------------------
+  - name: readings
+    label: Wedding Readings
+    type: collection
+    path: src/content/readings
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, author, order]
+      sort: [order, title]
+      default: { sort: order, order: asc }
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: author
+        label: Author (optional)
+        type: string
+      - name: order
+        label: Order
+        type: number
+      - name: body
+        label: Body
+        type: rich-text
+
+  # ---------------------
   # PRICING
   # ---------------------
   - name: pricing

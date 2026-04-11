@@ -16,5 +16,7 @@ I met Jake at the chapel of Summergrove Estate for the first time on the day of 
 Our family also had nothing but praise for Jake, they couldn't believe that we had only met and it really did feel like he was part of our family. Thank you so much for everything Jake!
 
 Venue: [Summergrove Estate](https://www.summergrove.com.au)
-Styling and Flowers: Arctic Fox
-Photography and Videography: Milk Honey Creative
+
+Styling and Flowers: [Arctic Fox Event](https://www.arcticfoxevent.com.au)
+
+Photography and Videography: [Milk Honey Creative](https://www.milkandhoneycreative.com.au)

@@ -19,4 +19,18 @@ Jake was also kind enough to blend in with our colour scheme and he wore a suit 
 
 Venue: [Beechmont Estate](https://beechmontestate.com.au)
 
-Wedding Planner: [Alysia Bridger](https://alysiabridger.com.au) Photographer: [Imagehaus](https://imagehaus.com.au) Videographer: [Imagehaus](https://imagehaus.com.au) Orchestra: [Angel Strings](https://angelstrings.com.au) Singer: [Bec Kneen](https://beckneen.com) DJ: [Mr Sax (Ryan)](https://mrsax.com.au) Hair: Leigh McCoy and Bella Wurtz Make Up: Andria Malouf and Bella Wurtz
+Wedding Planner: [Alysia Bridger](https://alysiabridger.com.au)
+
+Photographer: [Imagehaus](https://imagehaus.com.au)
+
+Videographer: [Imagehaus](https://imagehaus.com.au)
+
+Orchestra: [Angel Strings](https://angelstrings.com.au)
+
+Singer: [Bec Kneen](https://beckneen.com)
+
+DJ: [Mr Sax (Ryan)](https://mrsax.com.au)
+
+Hair: Leigh McCoy and Bella Wurtz
+
+Make Up: Andria Malouf and Bella Wurtz

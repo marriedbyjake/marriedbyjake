@@ -14,6 +14,9 @@ Jake is truly gifted at what he does! We cannot imagine having had anyone else w
 His attention to detail is second to none and we had so many guests compliment the ceremony for Jake's perfect blend of humour, sincerity and genuine passion. 10/5 stars. Thank you Jake!
 
 Photographer: [Stories by Jess](https://www.storiesbyjess.com.au)
-Videographer: Twelve08 Studios
-Musician: Kyle Bryant
-Florist: Flowers in the Field
+
+Videographer: [Twelve 08](https://twelve08.com.au)
+
+Musician: [Kyle Bryant](https://www.kylebryantmusic.com.au)
+
+Florist: [Flowers in the Field](https://www.flowersinthefield.com.au)

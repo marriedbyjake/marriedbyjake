@@ -23,8 +23,7 @@ Photographer: [Luke Middlemiss](https://www.lukemiddlemiss.com)
 
 Videographer: [Twelve08 Studios](https://twelve08studios.com.au)
 
-Bridal dress: [Grace Loves Lace  
-](https://graceloveslace.com.au/)
+Bridal dress: [Grace Loves Lace](https://graceloveslace.com.au/)
 
 Florist: [Unveiling Poppy](http://www.unveilingpoppy.com/)
 

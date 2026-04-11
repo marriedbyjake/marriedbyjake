@@ -20,3 +20,5 @@ We could not have done the ceremony without him. I could not recommend Jake enou
 Photographer: [About Time Co.](https://www.abouttimeco.com/)
 
 Videographer: [Michael Kelly Films](https://www.michaelkellyfilms.com.au)
+
+Venue: [Gabbinbar](https://www.gabbinbar.com.au)

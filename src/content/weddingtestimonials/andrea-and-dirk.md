@@ -23,6 +23,6 @@ Photographer: [Evernew Studio](https://evernewstudio.com)
 
 Musician/DJ: [Benny Hanna](https://www.bennyhannamusic.com)
 
-Live Music: Estrella Strings
+Live Music: [Estrella Strings](https://www.estrellastrings.com.au)
 
-Florist: Arctic Fox
+Florist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)

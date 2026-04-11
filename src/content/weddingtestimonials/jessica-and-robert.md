@@ -13,18 +13,18 @@ Jake created the most amazing ceremony. We highly recommend!
 
 Photographer: [Figtree Pictures](https://figtreepictures.com)
 
-Florist: Arctic Fox Events
+Florist: [Arctic Fox Event](https://www.arcticfoxevent.com.au)
 
-Videographer: Leartist Wedding
+Videographer: [Le Artist Wedding](https://www.leartistwedding.com)
 
-Dress: Luv Bridal
+Dress: [Luv Bridal](https://luvbridal.com.au)
 
-Makeup: Madi Wolfe MUA
+Makeup: [Madi Wolfe MUA](https://www.madiwolfemua.com.au)
 
-Hair: Fox Lane Styling
+Hair: [Fox Lane Styling](https://foxslanestyling.com)
 
 Entertainment: [Benny Hanna](https://www.bennyhannamusic.com)
 
-Cake: The Cake That Ate Paris
+Cake: [The Cake That Ate Paris](https://www.thecakethatateparis.com.au)
 
 Gold Coast Wedding Venue: [Summergrove Estate](https://www.summergrove.com.au)

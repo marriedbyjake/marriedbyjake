@@ -16,20 +16,20 @@ Jake, we honestly can’t thank you enough. You're an absolute star, and we woul
 
 @ness_lauchlan
 
-++Venue - [Gabbinbar](https://www.gabbinbar.com.au/?utm_source=google&utm_medium=cpc&utm_campaign=Brand&utm_term=gabbinbar&keyword=gabbinbar&gad_source=1&gad_campaignid=22998239727&gbraid=0AAAAADyEf8Uj9mvRgaKFOlZ2Xw59Gjuqs&gclid=Cj0KCQjwkMjOBhC5ARIsADIdb3cJ7jlHSSPXm2K73u9Tx6dwgFkXeIeyVWYRtuuyL6xwa03dNNll8VEaAioEEALw_wcB)++
+Venue - [Gabbinbar](https://www.gabbinbar.com.au/)
 
-++Photographer - [Fennel & Fern Photography](https://www.fennelandfern.com)++
+Photographer - [Fennel & Fern Photography](https://www.fennelandfern.com)
 
-++Videographer - [Luke Bickley Studio](https://www.lukebickleystudio.com)++
+Videographer - [Luke Bickley Studio](https://www.lukebickleystudio.com)
 
-++DJ - [G&M Event Group](https://gmeventgroup.com.au/?utm_source=GMB&utm_medium=Website)++
+DJ - [G&M Event Group](https://gmeventgroup.com.au/?utm_source=GMB&utm_medium=Website)
 
-++Florist - [Emunah Events](https://emunahevents.com.au)++
+Florist - [Emunah Events](https://emunahevents.com.au)
 
-++Make Up Artist - [Mirror Mirror Make Up Artistry](https://www.mirrormirrormakeupartistry.com.au)++
+Make Up Artist - [Mirror Mirror Make Up Artistry](https://www.mirrormirrormakeupartistry.com.au)
 
-++Hair Stylist - [Evalyn Parsons](https://www.evalynparsons.com)++
+Hair Stylist - [Evalyn Parsons](https://www.evalynparsons.com)
 
-++Cake - [Cake House by Katrina](https://cake-house.vsco.page/questionnaire/705b08242ea88eba54c61b9a)++
+Cake - [Cake House by Katrina](https://cake-house.vsco.page/questionnaire/705b08242ea88eba54c61b9a)
 
-++Photo Booth - [In The Booth](https://inthebooth.com.au)++
+Photo Booth - [In The Booth](https://inthebooth.com.au)

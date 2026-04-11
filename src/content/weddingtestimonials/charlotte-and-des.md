@@ -16,8 +16,13 @@ I get quite nervous meeting new people, but I felt immediately at ease with Jake
 He even went that extra mile and popped down his microphone a couple of times to say something comforting just to us, which seriously eased the nerves. The moment you get married is so special and we are so glad we picked Jake to be there with us!
 
 Photographer: [Wander and Follow Images](https://wanderandfollowimages.com/)
+
 Musician: [Kyle Bryant](https://www.kylebryant.com.au/)
+
 Florist: [Toowoomba White Weddings](https://www.toowoombawhiteweddings.com.au/)
+
 Cake: [Jill-i-cious Cakes](https://www.jilliciouscakes.com.au/)
+
 Makeup: [Lara Quinn](https://www.laraquinn.com.au/)
+
 Hair: [The Hair Artist Collective](https://www.thehairartistcollective.com.au/)
