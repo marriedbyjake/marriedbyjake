@@ -17,18 +17,6 @@ import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.ast
 <BaseLayout navTransparent={true} title="Jake Smith — Christian Wedding Celebrant - Married By Jake" description="Jake Smith is a warm, calm civil and christian marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond." ogType="website" video="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4" image="/jake.gif">
   <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
   <Hero />
-  <LandingStats />
-  <!--<Video
-    src="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4"
-    poster="/images/hello-jake.jpg"
-    autoplay={false}
-    muted={false}
-    loop={false}
-    controls={true}
-    class="w-full h-auto aspect-video bg-base-50"
-  >
-    <track src="/hello-jake.vtt" kind="captions" srclang="en" label="english_captions" />
-  </Video> -->
   <VideoShowcase
     videos={[
       { playbackId: "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck", title: "Start here!" },
@@ -36,6 +24,8 @@ import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.ast
       { playbackId: "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4", title: "A month in the life of Married by Jake" },
     ]}
   />
+  <LandingStats />
+  
   <Philosophy />
   <TestimonialsSlider />
   <Aproach />
