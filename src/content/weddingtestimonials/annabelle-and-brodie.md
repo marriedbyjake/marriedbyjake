@@ -6,7 +6,7 @@ image:
   url: /src/images/typorama 165.jpg
   alt: wedding at the Bower Estate
 rating: 5
-pubDate: 2025-01-01
+pubDate: 2025-11-01
 featured: false
 ---
 Jake is not only an extremely skilled and experienced celebrant but also a wonderful and warm person. We had so many guests commenting on how lovely the ceremony was! He saved the day when we discovered one of our groomsmen's bow ties was missing, and kindly offered to lend us his spare for the ceremony.
