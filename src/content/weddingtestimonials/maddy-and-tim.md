@@ -1,7 +1,6 @@
 ---
 coupleName: Maddy & Tim
 featured: false
-venue: Austinvilla Estate
 location: Austinville, Queensland
 rating: 5
 pubDate: 2026-04-12
