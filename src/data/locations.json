@@ -54,6 +54,11 @@
     "lon": 153.3215706,
     "display_name": "Austinvilla Estate, 31, Austinville, Gold Coast City, Queensland, Australia"
   },
+  "Austinville, Queensland": {
+    "lat": -28.1572136,
+    "lon": 153.3130482,
+    "display_name": "Austinville, Gold Coast City, Queensland, 4213, Australia"
+  },
   "Ayara Kamala Beach, Phuket, Thailand": {
     "lat": 7.956922100000001,
     "lon": 98.28309829999999,
@@ -1331,6 +1336,11 @@
     "lon": 148.483512,
     "display_name": "30 Valmadre Rd, Kelsey Creek QLD 4800, Australia",
     "place_id": "ChIJUUbQWsnb2WsR8X-7vcPnjLo"
+  },
+  "The Dairy, Ravensbourne, Queensland": {
+    "lat": -27.333041,
+    "lon": 152.1586032,
+    "display_name": "Ravensbourne, Toowoomba Regional, Queensland, 4352, Australia"
   },
   "The Farm Byron Bay, Byron Bay, New South Wales": {
     "lat": -28.6483333,
