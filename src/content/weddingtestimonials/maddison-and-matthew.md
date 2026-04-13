@@ -3,7 +3,11 @@ coupleName: Maddison & Matthew
 venue: Hillstone St Lucia
 location: Brisbane, Queensland
 rating: 5
-featured: false
+featured: true
+image:
+  url: /src/images/typorama 179 2.jpeg
+  alt: Maddison & Matthew testimonial
+pubDate: 2026-04-13
 ---
 Jake was absolutely amazing as our celebrant! From the very first meeting, he made us feel so comfortable and at ease. He took the time to really get to know us as a couple, which made the ceremony feel so personal and special.
 
@@ -24,3 +28,4 @@ Florist: Carissa Alfaro - [Emunah Events](https://emunahevents.com.au)
 Cake: Jen Lippiatt - Petite Crumb Cakes
 
 Lighting: Brisbane Fairy Lights
+
