@@ -38,18 +38,12 @@ Although Jake is a Christian pastor, most of the weddings he performs are not re
 
 ## What You Can Expect
 
-*   Clear communication from your first enquiry
-    
-*   Supportive planning conversations
-    
-*   Guidance on vows, structure and logistics
-    
-*   A ceremony that feels personal and engaging
-    
-*   Someone who works seamlessly with all your vendors
-    
-*   A celebrant who genuinely cares about your marriage, not just your wedding day
-    
+- Clear communication from your first enquiry
+- Supportive planning conversations
+- Guidance on vows, structure and logistics
+- A ceremony that feels personal and engaging
+- Someone who works seamlessly with all your vendors
+- A celebrant who genuinely cares about your marriage, not just your wedding day
 
 Jake’s goal is simple: help create a wedding ceremony that feels meaningful, relaxed and well supported — and marks the beginning of a strong, joyful marriage.
 

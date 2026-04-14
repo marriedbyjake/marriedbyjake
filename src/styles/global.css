@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar-hide";
+@plugin "@tailwindcss/typography";
 @theme inline {
   /* Typography */
   --font-display: var(--font-newsreader), serif;
