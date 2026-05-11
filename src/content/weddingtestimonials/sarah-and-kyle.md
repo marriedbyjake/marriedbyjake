@@ -13,3 +13,5 @@ He helped guide us right from the beginning, from planning what needed to be don
 He was one of the best decisions we ever decided to make for our wedding, and we would recommend him in a heartbeat to anyone who will listen! Words can't express how much he helped us on our day of days
 
 From the bottom of our hearts, thank you Jake!!
+
+Venue - [the Inchcolm](https://www.odehotels.com/inchcolm/?utm_source=google&utm_medium=organic&utm_campaign=gmb)
