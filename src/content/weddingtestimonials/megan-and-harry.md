@@ -12,6 +12,6 @@ Our wedding wasn’t a traditional ceremony, but Jake embraced our vision comple
 
 Southside Restaurant 
 
-Photographer - bulb creative   
+Photographer - bulb creative  
 Musician - Michael Vos
 
