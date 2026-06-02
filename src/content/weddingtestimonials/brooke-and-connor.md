@@ -4,6 +4,10 @@ venue: Maleny Manor
 location: Maleny, Queensland
 rating: 5
 featured: false
+image:
+  url: /src/images/typorama 185.jpeg
+  alt: Brooke & Connor Teastimonial
+pubDate: 2026-06-09
 ---
 Thank you so much for making our wedding day truly seamless, fun, easygoing, and unforgettable. You were such a pleasure to work with—so professional, thoughtful, and kind—and we can't thank you enough.
 
