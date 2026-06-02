@@ -3,7 +3,11 @@ coupleName: Britt & Jack
 venue: Braeside Estate
 location: Gold Coast, Queensland
 rating: 5
-featured: false
+featured: true
+image:
+  url: /src/images/typorama 184.jpeg
+  alt: Britt & Jack testimonial
+pubDate: 2026-06-02
 ---
 Jake was nothing short of incredible! From the very beginning of planning our day right through to the final moments, he made the entire process feel effortless. His communication was exceptional - prompt, clear, and always reassuring.
 
