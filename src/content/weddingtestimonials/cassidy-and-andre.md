@@ -3,7 +3,7 @@ coupleName: Cassidy & Andre
 venue: Summergrove Estate
 location: Carool, New South Wales
 rating: 5
-featured: false
+featured: true
 image:
   url: /src/images/typorama 186.jpeg
   alt: Cassidy & Andre testimonial
@@ -17,5 +17,7 @@ Venue: [Summergrove Estate](https://www.summergrove.com.au)
 
 Photographer & Videographer: [Holland Studios](https://www.hollandstudios.com.au) 
 
-Musician: Chris Hutchinson Florist: [Emaura Florals](https://www.emauraflorals.com) 
+Musician: [Chris Hutchinson](https://chrishutchisonweddings.com) 
+
+Florist: [Emaura Florals](https://www.emauraflorals.com) 
 
