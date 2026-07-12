@@ -3,9 +3,10 @@ coupleName: Jesse & Jason
 venue: The Refinery
 location: Brisbane, Queensland
 rating: 5
-featured: false
+featured: true
 image:
   alt: Jesse & Jason Testimonial
+  url: /src/images/typorama 192.jpeg
 pubDate: 2026-07-12
 ---
 Choosing Jake was one of the easiest and best choices we made planning our wedding. We wouldn't have had any other celebrant. His voice resonated with kindness and passion, and his professionalism, tips and advice before and during the ceremony, self-presentation, and efficient storytelling that wove our personal tales together was all top tier.
