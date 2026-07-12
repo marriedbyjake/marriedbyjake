@@ -4,6 +4,7 @@ venue: Gabbinbar
 location: Toowoomba, Queensland
 rating: 5
 featured: false
+pubDate: 2026-07-12
 ---
 We couldn't have asked for a better officiant than Jake. He was calm, organised and made us feel completely at ease, which was no easy task on the day as we were both very nervous. Our ceremony was everything we hoped it would be and more.
 
@@ -15,4 +16,18 @@ Jake helped organise our guests, gave clear instructions for things like the pet
 
 Wedding Venue: [Gabbinbar](https://www.gabbinbar.com.au)
 
-Photographer: [Stories by Jess](https://www.storiesbyjess.com.au) Videographer: [Michael Kelly Films](https://www.michaelkellyfilms.com.au) Florist: Boutique Florist, Warwick Signage: Honey & Hive Music: [Redtie Entertainment](https://www.redtieentertainment.com.au) - Holly Terrens Cake: Cakehouse Makeup: Mirror Mirror Makeup Artistry Hair: Hair by Jacinta Locke
+Photographer: [Stories by Jess](https://www.storiesbyjess.com.au) 
+
+Videographer: [Michael Kelly Films](https://www.michaelkellyfilms.com.au) 
+
+Florist: Boutique Florist, Warwick 
+
+Signage: Honey & Hive 
+
+Music: [Redtie Entertainment](https://www.redtieentertainment.com.au) - Holly Terrens 
+
+Cake: Cakehouse 
+
+Makeup: Mirror Mirror Makeup Artistry 
+
+Hair: Hair by Jacinta Locke
