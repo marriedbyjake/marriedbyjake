@@ -14,11 +14,11 @@ Live Music & DJ | Cassidy Mackie Music
 
 Florals | Florals & Co  
 Photography & Videography | Aleisha Edwards Weddings  
-  
+
 Styling & Hiring | For Love & Living  
 MUA | Madi Wolfe MUA & Mercedes Edmonds MUA  
 Hair Stylist | Amy Spry Hair  
-  
+
 Cake | Hello Little Crumb
 
 @lanellscott @haydenbarlow
