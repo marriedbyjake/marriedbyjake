@@ -4,17 +4,25 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
 <Wrapper variant="paddingLess">
   <div class="relative overflow-hidden">
-    <img
-      src="/images/calile-poster.webp"
-      alt=""
-      aria-hidden="true"
-      width="1920"
-      height="1080"
-      fetchpriority="high"
-      decoding="async"
-      data-hero-poster
-      class="w-full h-[60dvh] lg:h-[72dvh] object-cover object-center bg-base-50 transition-opacity duration-700"
-    />
+    <picture>
+      <source
+        media="(max-width: 767px)"
+        srcset="/images/calile-poster-mobile.webp"
+        width="768"
+        height="996"
+      />
+      <img
+        src="/images/calile-poster.webp"
+        alt=""
+        aria-hidden="true"
+        width="1920"
+        height="1080"
+        fetchpriority="high"
+        decoding="async"
+        data-hero-poster
+        class="w-full h-[60dvh] lg:h-[72dvh] object-cover object-center bg-base-50 transition-opacity duration-700"
+      />
+    </picture>
     <video
       autoplay
       muted

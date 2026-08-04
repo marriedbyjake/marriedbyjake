@@ -14,7 +14,8 @@ import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.ast
 ---
 
 <BaseLayout navTransparent={true} title="Jake Smith — Christian Wedding Celebrant - Married By Jake" description="Jake Smith is a warm, calm civil and christian marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond." ogType="website" video="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4" image="/jake.gif">
-  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster-mobile.webp" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
   <Hero />
   <VideoShowcase
     videos={[
