@@ -13,12 +13,12 @@ const { title, summary, url, image } = {
 const headingTag = Astro.props.headingTag ?? "h3";
 ---
 
-<article class="relative flex flex-col group overflow-hidden group">
+<article class="relative flex flex-col group overflow-hidden">
   <a
     href={url}
     title={`Learn more: ${title}`}
     aria-label={`Learn more about ${title}`}
-    class="absolute inset-0 z-20"></a>
+    class="absolute inset-0 z-20 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-white"></a>
   {image && (
     <Image
       src={image}
@@ -33,10 +33,8 @@ const headingTag = Astro.props.headingTag ?? "h3";
   {!image && (
     <div class="w-full aspect-square bg-base-100" aria-hidden="true" />
   )}
-  <div
-    class="absolute inset-0 bg-transparent group-hover:bg-accent-900/90 duration-300 to-transparent"
-  >
-  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+  <div class="absolute inset-0 bg-accent-900/0 transition-colors duration-300 group-hover:bg-accent-900/65 group-focus-within:bg-accent-900/65"></div>
   <div class="absolute inset-0 p-4 md:p-5 flex flex-col justify-end">
     <Text tag={headingTag} variant="displaySM" class="text-white font-display">
       {title}

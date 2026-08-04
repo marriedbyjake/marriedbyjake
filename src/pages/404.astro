@@ -6,7 +6,11 @@ import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 ---
 
-<BaseLayout title="Lost? Let's play a game — Married by Jake">
+<BaseLayout
+  title="Lost? Let's play a game — Married by Jake"
+  description="This page could not be found. Return to Married by Jake or try the wedding venue game."
+>
+  <meta slot="head" name="robots" content="noindex, follow" />
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
       <Text
@@ -33,7 +37,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
             <span class="text-sm font-semibold text-accent-800">Score: <span id="game-score">0</span>/10</span>
           </div>
           <div class="w-full h-2 bg-base-100 rounded-full overflow-hidden">
-            <div id="game-progress-bar" class="h-full bg-accent-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+            <div id="game-progress-bar" class="h-full bg-accent-600 rounded-full transition-[width] duration-500" style="width: 0%"></div>
           </div>
         </div>
 
@@ -414,7 +418,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
     listEl.innerHTML = answers
       .map(
-        (a, i) => `
+        (a) => `
         <div class="flex items-start gap-3 text-sm">
           <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
             a.correct ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"

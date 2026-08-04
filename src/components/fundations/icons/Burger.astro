@@ -1,5 +1,6 @@
 ---
 const { variant, size, class: className, ...rest } = Astro.props;
+delete rest.slot;
 const xs = ["size-3"];
 const sm = ["size-4"];
 const base = ["size-5"];

@@ -123,47 +123,40 @@ const approachSteps = [
         </div>
       </div>
       <div class="p-8 lg:p-20 bg-base-50">
-        <dl class="flex flex-col gap-8">
+        <ol class="flex flex-col gap-8">
           {
             approachSteps.map((step, idx) => (
-              <>
-                <div class="bg-white  p-8 flex flex-col items-start sticky top-8 lg:top-20">
-                  <dt>
-                    <Text
-                      tag="p"
-                      variant="displayXL"
-                      class="text-accent-800 font-display italic font-medium"
-                    >
-                      {idx + 1}
-                    </Text>
-                    <Text
-                      tag="h3"
-                      variant="displaySM"
-                      class="text-base-800 font-display mt-12"
-                    >
-                      {step.title}
-                    </Text>
-                  </dt>
-                  <dd>
-                    <Text
-                      tag="p"
-                      variant="textSM"
-                      class="text-base-600 text-balance"
-                    >
-                      {step.description}
-                    </Text>
-                    <ul class="list-disc  space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
-                      {step.bullets.map((bullet) => (
-                        <li class="text-base-600 text-sm">{bullet}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              </>
+              <li class="bg-white p-8 flex flex-col items-start sticky top-8 lg:top-20">
+                <Text
+                  tag="p"
+                  variant="displayXL"
+                  class="text-accent-800 font-display italic font-medium"
+                >
+                  {idx + 1}
+                </Text>
+                <Text
+                  tag="h3"
+                  variant="displaySM"
+                  class="text-base-800 font-display mt-12"
+                >
+                  {step.title}
+                </Text>
+                <Text
+                  tag="p"
+                  variant="textSM"
+                  class="text-base-600 text-balance"
+                >
+                  {step.description}
+                </Text>
+                <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
+                  {step.bullets.map((bullet) => (
+                    <li class="text-base-600 text-sm">{bullet}</li>
+                  ))}
+                </ul>
+              </li>
             ))
           }
-        </dl>
-        
+        </ol>
       </div>
     </div>
   </Wrapper>

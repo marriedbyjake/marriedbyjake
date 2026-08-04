@@ -1,14 +1,32 @@
 ---
 const {
-  variant,
-  size,
-  onlyIconSize,
+  variant = "default",
+  size = "base",
   iconOnly = false,
   gap,
   isLink = false,
   class: className,
+  href,
   ...rest
-} = Astro.props;
+} = Astro.props as {
+  variant?: "default" | "accent" | "muted" | "none";
+  size?:
+    | "extraMini"
+    | "mini"
+    | "xs"
+    | "sm"
+    | "base"
+    | "md"
+    | "lg"
+    | "xl"
+    | "huge";
+  iconOnly?: boolean;
+  gap?: "xs" | "sm" | "base" | "md" | "lg";
+  isLink?: boolean;
+  class?: string;
+  href?: string;
+  [key: string]: any;
+};
 const defaultClass = [
   "text-white",
   "bg-accent-800",
@@ -64,7 +82,11 @@ const variantClass = {
   muted: mutedClass,
   none: [],
 };
-const sizeClass = iconOnly ? (iconSizes[size] ?? []) : (sizes[size] ?? []);
+const sizeClass = iconOnly
+  ? size in iconSizes
+    ? iconSizes[size as keyof typeof iconSizes]
+    : []
+  : sizes[size];
 const gapClass = !iconOnly && gap ? gapMap[gap] : [];
 const additionalClasses = className ? className.split(" ") : [];
 const baseClass = [
@@ -83,7 +105,7 @@ const baseClass = [
 {
   isLink ? (
     <a
-      href={rest.href}
+      href={href}
       class:list={[
         ...baseClass,
         ...(variantClass[variant] || []),

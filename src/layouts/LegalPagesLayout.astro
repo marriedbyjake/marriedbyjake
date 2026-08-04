@@ -1,13 +1,13 @@
 ---
 import "@/styles/prose.css";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-const { frontmatter } = Astro.props;
+const { frontmatter, description } = Astro.props;
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 ---
 
-<BaseLayout title={`${frontmatter.page} - Married by Jake`}>
+<BaseLayout title={`${frontmatter.page} - Married by Jake`} description={description}>
   <section>
     <Wrapper variant="standard" class="py-24 lg:pt-48">
       <div class="grid lg:grid-cols-3 gap-12">

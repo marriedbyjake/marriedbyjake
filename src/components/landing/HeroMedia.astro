@@ -23,11 +23,10 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
       preload="none"
       aria-hidden="true"
       data-hero-video
+      data-mobile-src="/calile-mobile.mp4"
+      data-desktop-src="/calile-desktop.mp4"
       class="absolute inset-0 object-cover object-center w-full h-[60dvh] lg:h-[72dvh] bg-base-50 opacity-0 transition-opacity duration-700"
-    >
-      <source data-src="/calile-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
-      <source data-src="/calile-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
-    </video>
+    ></video>
     <div
       aria-hidden="true"
       class="absolute inset-0 pointer-events-none bg-accent-950/40"
@@ -41,11 +40,12 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
     for (const video of document.querySelectorAll("video[data-hero-video]")) {
       if (video.dataset.loaded === "true") continue;
 
-      for (const source of video.querySelectorAll("source[data-src]")) {
-        if (!source.getAttribute("src")) {
-          source.setAttribute("src", source.dataset.src ?? "");
-        }
-      }
+      const source = document.createElement("source");
+      source.src = window.matchMedia("(max-width: 767px)").matches
+        ? video.dataset.mobileSrc ?? ""
+        : video.dataset.desktopSrc ?? "";
+      source.type = "video/mp4";
+      video.append(source);
 
       video.dataset.loaded = "true";
       video.load();

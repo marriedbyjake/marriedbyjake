@@ -54,11 +54,6 @@
     "lon": 153.3215706,
     "display_name": "Austinvilla Estate, 31, Austinville, Gold Coast City, Queensland, Australia"
   },
-  "Austinville, Queensland": {
-    "lat": -28.1572136,
-    "lon": 153.3130482,
-    "display_name": "Austinville, Gold Coast City, Queensland, 4213, Australia"
-  },
   "Ayara Kamala Beach, Phuket, Thailand": {
     "lat": 7.956922100000001,
     "lon": 98.28309829999999,
@@ -194,6 +189,11 @@
     "lat": -28.126238,
     "lon": 153.1951742,
     "display_name": "Beechmont, Scenic Rim Regional, Queensland, Australia"
+  },
+  "Bundaleer Rainforest Garden, Brookfield, Queensland": {
+    "lat": -27.488929,
+    "lon": 152.907882,
+    "display_name": "Brookfield, Queensland, 4069, Australia"
   },
   "Bundaleer Rainforest Gardens, Brookfield, Brisbane, Queensland": {
     "lat": -27.4824657,
@@ -543,6 +543,11 @@
     "lon": 153.3621761,
     "display_name": "Sanctuary Cove, Hope Island, Gold Coast City, Queensland, 4212, Australia"
   },
+  "Intercontinental , Sanctuary Cove, Queensland": {
+    "lat": -27.853262,
+    "lon": 153.3621761,
+    "display_name": "Sanctuary Cove, Hope Island, Queensland, Australia"
+  },
   "Jack Evans Boat Harbour, Tweed Heads, New South Wales": {
     "display_name": "Jack Evans Boat Harbour, Coral Street, Tweed Heads, Tweed Shire Council, New South Wales, 2485, Australia",
     "lat": -28.1697194,
@@ -804,6 +809,11 @@
     "lon": 152.8424214,
     "display_name": "Maleny, Sunshine Coast Regional, Queensland, 4552, Australia"
   },
+  "Oceanview Estate, Ocean View, Queensland": {
+    "lat": -27.136822,
+    "lon": 152.8076347,
+    "display_name": "Ocean View, Queensland, Australia"
+  },
   "Old Government House, Brisbane, Queensland": {
     "lat": -27.477336,
     "lon": 153.0290895,
@@ -1046,6 +1056,11 @@
     "display_name": "Naval Stores, Cliffs Drive, Kangaroo Point QLD 4169, Australia",
     "place_id": "ChIJ76PGoMxbkWsRodW5-FxX_2s"
   },
+  "Robert Sowter Park Lookout, Tamborine Mountain, Queensland": {
+    "lat": -27.9489195,
+    "lon": 153.1929006,
+    "display_name": "Tamborine Mountain, Queensland, 4272, Australia"
+  },
   "Roma Street Parkland, Brisbane, Queensland": {
     "display_name": "Roma Street, Parkland Crescent, Brisbane City, Greater Brisbane, Queensland, 4000, Australia",
     "lat": -27.4649808,
@@ -1182,12 +1197,6 @@
     "lat": -27.967569,
     "lon": 153.1966317,
     "display_name": "St Bernards Hotel, Alpine Terrace, Mount Tamborine, Tamborine Mountain, Scenic Rim Regional, Queensland, 4272, Australia"
-  },
-  "St Huberts Estate, Coldstream, Victoria": {
-    "lat": -37.6978934,
-    "lon": 145.4155644,
-    "display_name": "1-3 St Huberts Rd, Coldstream VIC 3770, Australia",
-    "place_id": "ChIJSUhsQy8r1moRPG3FNUdNRrE"
   },
   "St Mary's by the Sea, Port Douglas, Queensland": {
     "display_name": "St Mary's by the Sea, Dixie Street, Port Douglas, Douglas Shire, Queensland, 4877, Australia",

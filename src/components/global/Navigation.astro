@@ -59,34 +59,35 @@ const isTransparent = !!transparent;
         </Button>
       </div>
       <button
-        class={`lg:hidden flex relative ${isTransparent ? "text-white" : "text-base-800"}`}
+        type="button"
+        class={`lg:hidden relative -mr-1 flex size-11 items-center justify-center transition-transform duration-150 ease-out active:scale-[0.96] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-400 ${isTransparent ? "text-white" : "text-base-800"}`}
+        aria-label="Open main menu"
         aria-controls="mobile-menu"
         aria-expanded="false"
         data-menu-button
       >
-        <span class="sr-only">Open main menu</span>
         <span
-          class="block"
-          style="display: var(--burger-display, block);"
+          class="flex items-center justify-center transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
           data-burger
         >
-          <Burger size="xl" slot="icon" />
+          <Burger size="md" aria-hidden="true" />
         </span>
         <span
-          class="hidden"
-          style="display: var(--close-display, none);"
+          class="absolute inset-0 flex scale-[0.25] items-center justify-center opacity-0 blur-[4px] transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
           data-close
         >
-          <Close size="xl" slot="icon" />
+          <Close size="md" aria-hidden="true" />
         </span>
       </button>
     </div>
     <div
       id="mobile-menu"
-      class="lg:hidden absolute inset-x-0 top-full p-8 overflow-hidden transition-all duration-300 ease-out max-h-0 opacity-0 -translate-y-2 pointer-events-none"
+      class="lg:hidden absolute inset-x-0 top-full max-h-0 overflow-y-auto overscroll-contain border-t border-white/10 bg-accent-900 opacity-0 -translate-y-2 pointer-events-none shadow-2xl transition-[max-height,opacity,transform] duration-300 ease-out"
+      aria-hidden="true"
+      inert
     >
-      <div class="flex flex-col bg-accent-900 backdrop-blur p-8">
-        <div class="space-y-4 text- flex flex-col text-right">
+      <div class="flex flex-col px-8 py-6 md:px-12">
+        <div class="flex flex-col gap-3 text-right">
           {
             navLinks.map((link) => (
               <a href={link.href} class=" text-white text-sm">
@@ -95,7 +96,7 @@ const isTransparent = !!transparent;
             ))
           }
         </div>
-        <div class="mt-12 space-y-2">
+        <div class="mt-8 space-y-2">
           <Button
             isLink={true}
             href="/contact"
@@ -106,9 +107,7 @@ const isTransparent = !!transparent;
             Enquire Now
           </Button>
         </div>
-        <div
-          class="w-full mt-4 pt-4 border-t border-white/10 space-y-2 flex flex-col"
-        >
+        <div class="mt-4 flex w-full flex-col space-y-2 border-t border-white/10 pt-4">
           <a
             href="mailto:hello@marriedbyjake.com"
             class="text-base-300 hover:text-white transition-colors text-xs"
@@ -121,7 +120,6 @@ const isTransparent = !!transparent;
           >
             0434 648 064
           </a>
-          
         </div>
       </div>
     </div>
@@ -137,19 +135,29 @@ const isTransparent = !!transparent;
         ? menuButton.querySelector("[data-close]")
         : null;
       const mobileMenu = document.getElementById("mobile-menu");
-      // Icon toggle
+      // Keep the visual and accessible state in sync.
       const updateIcons = () => {
         if (!menuButton || !burger || !close) return;
         const expanded = menuButton.getAttribute("aria-expanded") === "true";
-        burger.style.setProperty(
-          "--burger-display",
-          expanded ? "none" : "block"
+        menuButton.setAttribute(
+          "aria-label",
+          expanded ? "Close main menu" : "Open main menu"
         );
-        close.style.setProperty("--close-display", expanded ? "block" : "none");
+        burger.classList.toggle("scale-[0.25]", expanded);
+        burger.classList.toggle("opacity-0", expanded);
+        burger.classList.toggle("blur-[4px]", expanded);
+        close.classList.toggle("scale-[0.25]", !expanded);
+        close.classList.toggle("opacity-0", !expanded);
+        close.classList.toggle("blur-[4px]", !expanded);
+        close.classList.toggle("scale-100", expanded);
+        close.classList.toggle("opacity-100", expanded);
+        close.classList.toggle("blur-0", expanded);
       };
       const openMenu = () => {
         if (!menuButton || !mobileMenu) return;
         menuButton.setAttribute("aria-expanded", "true");
+        mobileMenu.setAttribute("aria-hidden", "false");
+        mobileMenu.inert = false;
         mobileMenu.classList.remove(
           "max-h-0",
           "opacity-0",
@@ -157,16 +165,19 @@ const isTransparent = !!transparent;
           "pointer-events-none"
         );
         mobileMenu.classList.add(
-          "max-h-screen",
+          "max-h-[calc(100svh-4.5rem)]",
           "opacity-100",
           "translate-y-0",
           "pointer-events-auto"
         );
+        document.body.classList.add("overflow-hidden");
         updateIcons();
       };
       const closeMenu = () => {
         if (!menuButton || !mobileMenu) return;
         menuButton.setAttribute("aria-expanded", "false");
+        mobileMenu.setAttribute("aria-hidden", "true");
+        mobileMenu.inert = true;
         mobileMenu.classList.add(
           "max-h-0",
           "opacity-0",
@@ -174,11 +185,12 @@ const isTransparent = !!transparent;
           "pointer-events-none"
         );
         mobileMenu.classList.remove(
-          "max-h-screen",
+          "max-h-[calc(100svh-4.5rem)]",
           "opacity-100",
           "translate-y-0",
           "pointer-events-auto"
         );
+        document.body.classList.remove("overflow-hidden");
         updateIcons();
       };
       const toggleMenu = () => {
@@ -201,8 +213,14 @@ const isTransparent = !!transparent;
           menuButton.getAttribute("aria-expanded") === "true"
         ) {
           closeMenu();
+          menuButton.focus();
         }
       });
+      window
+        .matchMedia("(min-width: 64rem)")
+        .addEventListener("change", (event) => {
+          if (event.matches) closeMenu();
+        });
       updateIcons();
       // Scroll background + link colors
       const navEl = document.querySelector("[data-nav]");
@@ -224,9 +242,7 @@ const isTransparent = !!transparent;
         swapColor(logoEl, scrolled);
         swapColor(exploreEl, scrolled);
         primaryLinks.forEach((el) => swapColor(el, scrolled));
-        // Mobile icons
-        swapColor(burger, scrolled);
-        swapColor(close, scrolled);
+        swapColor(menuButton, scrolled);
       };
       if (enableScrollSwap) {
         window.addEventListener("scroll", handleScroll);
@@ -237,8 +253,7 @@ const isTransparent = !!transparent;
         swapColor(logoEl, true);
         swapColor(exploreEl, true);
         primaryLinks.forEach((el) => swapColor(el, true));
-        swapColor(burger, true);
-        swapColor(close, true);
+        swapColor(menuButton, true);
       }
       // Desktop megamenu logic
       const megaTrigger = document.querySelector("[data-mega-trigger]");

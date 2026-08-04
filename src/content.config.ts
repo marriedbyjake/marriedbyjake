@@ -21,7 +21,7 @@ const posts = defineCollection({
         alt: z.string(),
       }),
       tags: z.array(z.string()).optional(),
-      youtubeUrl: z.string().url().optional(),
+      youtubeUrl: z.url().optional(),
     }),
 });
 

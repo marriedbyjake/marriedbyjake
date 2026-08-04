@@ -1,7 +1,7 @@
 # Married by Jake — Astro Site
 
 - Design and implementation by [Josh Withers](https://joshwithers.au) — ([The Internet](https://theinternet.com.au))
-- Built with Astro 6 and Tailwind CSS v4
+- Built with Astro 7 and Tailwind CSS v4
 - Hosted on Vercel
 
 ## Getting Started
@@ -9,6 +9,8 @@
 - `npm install` — install dependencies
 - `npm run dev` — start local dev server at `http://localhost:4321`
 - `npm run build` — geocode locations, then build to `./dist`
+- `npm run check` — run Astro and TypeScript diagnostics
+- `npm run validate` — run diagnostics, geocoding, and a production build
 - `npm run preview` — preview the production build
 - `npm run build:locations` — re-run only the locations geocoder
 
@@ -16,7 +18,7 @@
 
 - Build command: `npm run build`
 - Output directory: `dist`
-- Node version: latest LTS recommended
+- Node version: 22.12.0 or newer (use an active LTS release in production)
 - Redirects are managed in `vercel.json`
 
 ### Environment variables
@@ -173,7 +175,6 @@ How to add a new reading:
 ## Performance
 
 - Tailwind CSS v4 via `@tailwindcss/vite`
-- `@vercel/speed-insights` is included for production telemetry on Vercel
 
 ## Support
 
