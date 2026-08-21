@@ -3,7 +3,7 @@ coupleName: Caitlin & Thomas
 venue: Elizabethan Lodge
 location: Blackburn North, Victoria
 rating: 5
-featured: false
+featured: true
 image:
   url: /src/images/typorama 190.jpeg
   alt: Caitlin & Thomas Testimonial
