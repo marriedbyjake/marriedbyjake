@@ -3,7 +3,11 @@ coupleName: Emilie & Jack
 venue: Bundaleer Rainforest Gardens
 location: Brookfield, Brisbane, Queensland
 rating: 5
-featured: false
+featured: true
+image:
+  url: /src/images/typorama 195.jpeg
+  alt: Emilie & Jack Testimonial
+pubDate: 2026-08-21
 ---
 Jake was seriously spot on. My husband and I were both so nervous on our wedding day, but we just kept remembering what Jake said to us during our phone calls - that he had the ceremony completely under control and our job was to just be present.
 
@@ -16,3 +20,5 @@ Photographer: [Wylde Folk Studio](https://www.wyldefolkstudio.com/the-wedding-co
 Florist: [New England Flower Co.](https://www.newenglandflower.co)
 
 Brisbane Wedding Venue: [Bundaleer Rainforest Gardens](https://bundaleer.com)
+
+++@emrolfe @jacksandic++
