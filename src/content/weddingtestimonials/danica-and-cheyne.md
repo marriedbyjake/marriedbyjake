@@ -3,7 +3,11 @@ coupleName: Danica & Cheyne
 venue: Gabbinbar
 location: Toowoomba, Queensland
 rating: 5
-featured: false
+featured: true
+image:
+  url: /src/images/typorama 197.jpeg
+  alt: Danica & Cheyne Testimonial
+pubDate: 2026-08-21
 ---
 Jake was absolutely fabulous! We got married on the 24th of July 2025 at Gabbinbar in Toowoomba. When we were planning our wedding, it was very important to us that we had a celebrant that would incorporate God into our ceremony, as we are Christians. It was important for our ceremony, marriage, families and friends to be blessed.
 
@@ -14,3 +18,9 @@ Our ceremony was perfect! Everyone loved it - wholesome, personal, funny, emotio
 Thank you again Jake, from the bottom of our hearts. Love, Cheyne, Danica, Scarlett, Ava and Willow Cooke.
 
 Venue: [Gabbinbar](https://www.gabbinbar.com.au)
+
+Jessica Turich Photography
+
+Manu Music
+
+_cookedanica / cookeShane 
