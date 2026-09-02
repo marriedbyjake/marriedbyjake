@@ -1,7 +1,6 @@
 ---
 coupleName: Derek & Teena
 featured: false
-venue: Birubi Beach
 location: Anna Bay, New South Wales
 rating: 5
 pubDate: 2026-08-21
