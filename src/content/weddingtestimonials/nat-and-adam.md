@@ -1,7 +1,6 @@
 ---
 coupleName: Nat & Adam
 featured: false
-venue: Peppers Creek Barrel Room and Chapel
 location: Pokolbin, New South Wales
 rating: 5
 pubDate: 2026-09-02
