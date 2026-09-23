@@ -2,7 +2,7 @@
 coupleName: Jo & Fin
 featured: true
 venue: Airbnb
-location: Brisbane Queensland
+location: Witheren, Queensland
 image:
   url: /src/images/typorama 198.jpeg
   alt: Jo & Fin testimonial christian wedding celebrant
