@@ -9,7 +9,7 @@ Jake had great communication and did an amazing job at helping ease the nerves. 
 
 Hillstone
 
-Entertainer- Kyle Bryant   
+Entertainer- Kyle Bryant  
 Photographer- nikolas David
 
 Bethany melling
