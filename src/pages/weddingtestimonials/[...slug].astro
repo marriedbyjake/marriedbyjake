@@ -5,16 +5,10 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { Image } from "astro:assets";
 import Cta from "@/components/global/CtaReviews.astro";
-import { getCollection, render } from "astro:content";
-export async function getStaticPaths() {
-  const testimonials = await getCollection("weddingtestimonials");
-  return testimonials.map((page) => ({
-    params: { slug: page.id },
-    props: { page },
-  }));
-}
-const { page } = Astro.props;
-const { Content } = await render(page);
+import { getCollection, getEntry } from "@/lib/cms";
+import { PortableText } from "emdash/ui";
+const page = await getEntry("weddingtestimonials", Astro.params.slug || "");
+if (!page) return new Response("Not found", { status: 404 });
 const fm = page.data;
 const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
@@ -156,7 +150,7 @@ const otherTestimonials = allTestimonials
             />
           )}
           <div class="mt-8 testimonial-body">
-            <Content />
+            <PortableText value={page.content} />
           </div>
         </div>
       </div>

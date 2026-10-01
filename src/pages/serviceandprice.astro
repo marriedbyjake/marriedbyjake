@@ -5,7 +5,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import Button from "@/components/fundations/elements/Button.astro";
 import { Image } from "astro:assets";
 import HeroImage from "@/images/jake-flowers.jpg";
-import { getEntry } from "astro:content";
+import { getEntry } from "@/lib/cms";
 
 const pricing = await getEntry("pricing", "index");
 if (!pricing) {

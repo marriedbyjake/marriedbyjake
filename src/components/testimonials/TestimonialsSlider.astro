@@ -2,7 +2,7 @@
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 const testimonials = (await getCollection("weddingtestimonials"))
   .filter((t) => t.data.featured && t.data.image?.url)
   .sort((a, b) => {

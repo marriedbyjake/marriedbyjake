@@ -1,0 +1,348 @@
+{
+  "version": "1",
+  "meta": {
+    "name": "Married by Jake",
+    "description": "Jake's existing website content model"
+  },
+  "settings": {
+    "title": "Married by Jake",
+    "timezone": "Australia/Brisbane"
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "Blog posts",
+      "labelSingular": "Blog post",
+      "titleField": "title",
+      "urlPattern": "/blog/{slug}",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "pub_date",
+          "label": "Publication date",
+          "type": "datetime",
+          "indexed": true,
+          "required": true
+        },
+        {
+          "slug": "description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "Featured image",
+          "type": "image"
+        },
+        {
+          "slug": "tags",
+          "label": "Tags",
+          "type": "multiSelect"
+        },
+        {
+          "slug": "youtube_url",
+          "label": "YouTube URL",
+          "type": "url"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    },
+    {
+      "slug": "weddingtestimonials",
+      "label": "Wedding testimonials",
+      "labelSingular": "Wedding testimonial",
+      "titleField": "couple_name",
+      "urlPattern": "/weddingtestimonials/{slug}",
+      "fields": [
+        {
+          "slug": "couple_name",
+          "label": "Couple name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "venue",
+          "label": "Venue",
+          "type": "string"
+        },
+        {
+          "slug": "location",
+          "label": "Location",
+          "type": "string"
+        },
+        {
+          "slug": "featured_image",
+          "label": "Featured image",
+          "type": "image"
+        },
+        {
+          "slug": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "defaultValue": false
+        },
+        {
+          "slug": "rating",
+          "label": "Star rating",
+          "type": "integer",
+          "required": true,
+          "validation": {
+            "min": 1,
+            "max": 5
+          }
+        },
+        {
+          "slug": "pub_date",
+          "label": "Publication date",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "latitude",
+          "label": "Map latitude",
+          "type": "number",
+          "validation": {
+            "min": -90,
+            "max": 90
+          }
+        },
+        {
+          "slug": "longitude",
+          "label": "Map longitude",
+          "type": "number",
+          "validation": {
+            "min": -180,
+            "max": 180
+          }
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    },
+    {
+      "slug": "services",
+      "label": "Services",
+      "labelSingular": "Service",
+      "titleField": "title",
+      "urlPattern": "/{slug}",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "text"
+        },
+        {
+          "slug": "description",
+          "label": "Description",
+          "type": "text"
+        },
+        {
+          "slug": "order",
+          "label": "Order",
+          "type": "integer"
+        },
+        {
+          "slug": "featured_image",
+          "label": "Featured image",
+          "type": "image"
+        },
+        {
+          "slug": "icon",
+          "label": "Icon",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    },
+    {
+      "slug": "readings",
+      "label": "Wedding readings",
+      "labelSingular": "Wedding reading",
+      "titleField": "title",
+      "urlPattern": "/wedding-readings",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "author",
+          "label": "Author",
+          "type": "string"
+        },
+        {
+          "slug": "order",
+          "label": "Order",
+          "type": "integer"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    },
+    {
+      "slug": "infopages",
+      "label": "Info pages",
+      "labelSingular": "Info page",
+      "titleField": "page",
+      "urlPattern": "/{slug}",
+      "fields": [
+        {
+          "slug": "page",
+          "label": "Page title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "pub_date",
+          "label": "Publication date",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    },
+    {
+      "slug": "pricing",
+      "label": "Pricing",
+      "labelSingular": "Pricing",
+      "titleField": "title",
+      "urlPattern": "/serviceandprice",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "australian_title",
+          "label": "Australian title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "australian_price",
+          "label": "Price",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "australian_description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "international_title",
+          "label": "International title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "international_price",
+          "label": "Price",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "international_description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "mc_title",
+          "label": "MC title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "mc_price",
+          "label": "Price",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "mc_description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        }
+      ],
+      "supports": [
+        "drafts",
+        "revisions",
+        "scheduling",
+        "seo"
+      ],
+      "commentsEnabled": false
+    }
+  ]
+}

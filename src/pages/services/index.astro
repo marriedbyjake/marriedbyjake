@@ -6,7 +6,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
 import ServiceCard from "@/components/services/ServiceCard.astro";
 // Content
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 const allServices = (await getCollection("services"))
   .slice()
   .sort((a, b) => {

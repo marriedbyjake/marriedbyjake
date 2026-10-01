@@ -15,7 +15,7 @@ import ArrowRight from "@/components/fundations/icons/ArrowRight.astro";
 // Content
 const { frontmatter, slug } = Astro.props;
 // Get all posts and filter by tag
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 import Button from "@/components/fundations/elements/Button.astro";
 const allPosts = (await getCollection("posts")).sort(
   (a, b) =>
@@ -147,7 +147,7 @@ const blogJsonLd = {
             width={1280}
             height={720}
             src={ytThumb}
-            alt={frontmatter.image.alt}
+            alt={frontmatter.image?.alt || frontmatter.title}
             class="absolute inset-0 w-full h-full object-cover object-center"
             loading="lazy"
             onerror={`this.onerror=null;this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'`}
@@ -164,15 +164,15 @@ const blogJsonLd = {
           <a href={frontmatter.youtubeUrl} class="block text-sm mt-2">Watch on YouTube</a>
         </noscript>
       </div>
-    ) : (
+    ) : frontmatter.image ? (
       <Image
         width={1420}
         height={1420}
         src={frontmatter.image.url}
-        alt={frontmatter.image.alt}
+        alt={frontmatter.image?.alt || frontmatter.title}
         class="object-cover object-top mt-4 size-full lg:max-h-200"
       />
-    )}
+    ) : null}
     <Wrapper class="py-12 lg:py-24">
       <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
         <div class="lg:sticky lg:top-24">

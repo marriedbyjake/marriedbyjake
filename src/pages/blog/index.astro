@@ -7,7 +7,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import BigBlogCard from "@/components/blog/BigBlogCard.astro";
 import SmallBlogCard from "@/components/blog/SmallBlogCard.astro";
 // Content
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 const allPosts = await getCollection("posts");
 allPosts.sort((a, b) => {
   const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp

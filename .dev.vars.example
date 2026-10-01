@@ -1,0 +1,3 @@
+# Use locally generated keys. Production values go in Wrangler secrets.
+EMDASH_ENCRYPTION_KEY=
+EMDASH_SETUP_PASSWORD=

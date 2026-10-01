@@ -6,3 +6,11 @@ dist/
 .trash/
 build.log
 build log.txt
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+.emdash/
+emdash-env.d.ts
+worker-configuration.d.ts
+data.db*
+uploads/

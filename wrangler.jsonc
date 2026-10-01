@@ -1,0 +1,56 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "marriedbyjake",
+  "account_id": "60ef6bd2c48d5beb6fd6a093cff863cf",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "marriedbyjake-emdash",
+      "database_id": "a9e0e146-602f-411c-b9d7-a46be3299f3a"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "marriedbyjake-emdash-media"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  "vars": {
+    "EMDASH_SITE_URL": "https://marriedbyjake.com"
+  },
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "8fa1ec227c9a446390a6299856e15f6e"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "marriedbyjake.com/*",
+      "zone_id": "240f3283c1efa4405979f3bda0c5896e"
+    },
+    {
+      "pattern": "www.marriedbyjake.com/*",
+      "zone_id": "240f3283c1efa4405979f3bda0c5896e"
+    }
+  ]
+}

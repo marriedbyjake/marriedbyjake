@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 
 export const GET: APIRoute = async () => {
   const [posts, testimonials, services] = await Promise.all([
@@ -43,8 +43,8 @@ https://marriedbyjake.com/weddingtestimonials.
 Last update: ${lastUpdated}
 Language: English (en-AU)
 Standards: HTML5, CSS3, JSON-LD, RSS, llms.txt, humans.txt
-Components: Astro 6, Tailwind CSS v4
-Software: Astro, Vercel
+Components: Astro 7, Tailwind CSS v4
+Software: Astro, EmDash, Cloudflare Workers
 Counts: ${services.length} services, ${posts.length} blog posts, ${testimonials.length} testimonials
 `;
 

@@ -2,7 +2,8 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection } from "@/lib/cms";
+import { PortableText } from "emdash/ui";
 
 const readingsCollection = await getCollection("readings");
 
@@ -21,11 +22,10 @@ const readings = await Promise.all(
   readingsCollection
     .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
     .map(async (r) => {
-      const { Content } = await render(r);
       const searchText = toSearchText(
         [r.data.title, r.data.author ?? "", r.body ?? ""].join(" "),
       );
-      return { id: r.id, data: r.data, Content, searchText };
+      return { id: r.id, data: r.data, content: r.content, searchText };
     })
 );
 ---
@@ -73,7 +73,7 @@ const readings = await Promise.all(
               <Text tag="p" variant="textXS" class="text-base-600 mb-6 text-center italic">{r.data.author}</Text>
             )}
             <div class="reading-body text-base-700 leading-loose tracking-normal lg:text-lg">
-              <r.Content />
+              <PortableText value={r.content} />
             </div>
           </article>
         ))}

@@ -3,29 +3,55 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
   },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/build-locations.mjs && astro build",
-    "check": "astro check",
+    "build": "astro build",
+    "check": "npm run types && astro check",
     "validate": "npm run check && npm run build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:locations": "node scripts/build-locations.mjs"
+    "build:locations": "node scripts/build-locations.mjs",
+    "deploy": "npm run validate && wrangler deploy",
+    "cms:prepare": "node scripts/prepare-cms.mjs",
+    "cms:validate": "emdash seed seed/seed.json --validate",
+    "types": "wrangler types --include-runtime false",
+    "cms:access": "node scripts/create-admin-access.mjs"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.3.3",
+    "@astrojs/react": "^7.0.0",
+    "@emdash-cms/cloudflare": "^1.0.1",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
+    "emdash": "^1.0.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@astrojs/markdown-remark": "^7.3.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.1.6",
-    "typescript": "^6.0.3"
+    "@cloudflare/workers-types": "^5.20261001.1",
+    "@emdash-cms/auth": "^1.0.1",
+    "@emdash-cms/gutenberg-to-portable-text": "^1.0.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "astro": "^7.3.5",
+    "gray-matter": "^4.0.3",
+    "kysely": "^0.29.6",
+    "kysely-d1": "^0.4.0",
+    "sharp": "^0.35.5",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.145.0"
+  },
+  "type": "module",
+  "emdash": {
+    "seed": "seed/seed.json"
   }
 }
