@@ -16,7 +16,7 @@ Commit and push source changes to `main` separately from deployment. A Git push 
 
 EmDash serves live content from D1 and stores uploaded media in a private R2 bucket. Markdown under `src/content/` is an archive and migration source; editing it does not publish content. Do not reimport the archived source over production.
 
-Testimonial formatting belongs in the live CMS renderer (`src/lib/testimonial-format.ts` and `TestimonialContent.astro`), not only in archived Markdown. Preserve the review wording. Keep vendor names when a website cannot be verified; do not guess domains. Run `npm run test:content` after formatting or link-normalization changes. Vendor research and unavailable historical URLs are documented in `docs/VENDOR_LINKS.md`.
+Testimonial formatting belongs in the live CMS renderer (`src/lib/testimonial-format.ts` and `TestimonialContent.astro`), not only in archived Markdown. Preserve the review wording. Internal testimonial links must use natural phrases already in the quote; do not add a planning/info box or a list of all location links beneath it. Keep reviewed selections in `src/data/testimonial-inline-links.json`. Keep vendor names when a website cannot be verified; do not guess domains. Run `npm run test:content` after formatting or link-normalization changes. Vendor research and unavailable historical URLs are documented in `docs/VENDOR_LINKS.md`.
 
 Keep credentials, access links, secret values and private rollback data out of Git and logs. Use Wrangler secrets for production credentials. See [CMS operations](docs/CMS.md) for account, recovery and migration procedures.
 

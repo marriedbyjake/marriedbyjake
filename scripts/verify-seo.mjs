@@ -50,12 +50,18 @@ for (const page of pages) {
     if (exactRedirects.has(pathname)) errors.add(`Link redirects: ${pathname} -> ${exactRedirects.get(pathname)}`);
     internalTargets.add(pathname);
     if (!baseUrl && !fs.existsSync(path.join(dist, pathname, 'index.html')) && !fs.existsSync(path.join(dist, pathname)) && !fs.existsSync(path.join(dist, pathname + '.html'))) errors.add(`Missing link target: ${pathname}`);
-    if (route.startsWith('/weddingtestimonials/') && locationLinks.has(pathname)) locationLinks.set(pathname, locationLinks.get(pathname) + 1);
+
   }
   if (route.startsWith('/weddingtestimonials/')) {
     reviews++;
     if (!/<blockquote\b/.test(html)) errors.add(`Missing blockquote: ${route}`);
     const quote = html.match(/<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>/)?.[1]?.replace(/<[^>]*>/g, '') || '';
+    if (html.includes('aria-label="Plan your wedding"')) errors.add(`Unwanted testimonial info box: ${route}`);
+    const quoteHtml = html.match(/<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>/)?.[1] || '';
+    for (const match of quoteHtml.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+      const pathname = new URL(decode(match[1]), 'https://marriedbyjake.com').pathname;
+      if (locationLinks.has(pathname)) locationLinks.set(pathname, locationLinks.get(pathname) + 1);
+    }
     if (/(?:Photographer|Videographer|Florist)\s*[:：]/i.test(quote)) errors.add(`Vendor credits inside quote: ${route}`);
     const title = decode(html.match(/<title>(.*?)<\/title>/)?.[1] || '');
     if (title.length > 60) errors.add(`Long testimonial title (${title.length}): ${route}`);

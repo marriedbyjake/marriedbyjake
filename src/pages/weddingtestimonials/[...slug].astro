@@ -7,6 +7,7 @@ import Cta from "@/components/global/CtaReviews.astro";
 import { getCollection, getEntry } from "@/lib/cms";
 import TestimonialContent from "@/components/testimonials/TestimonialContent.astro";
 import { formatTestimonial } from "@/lib/testimonial-format";
+import { linkTestimonialReview } from "@/lib/testimonial-inline-links";
 const page = await getEntry("weddingtestimonials", Astro.params.slug || "");
 if (!page) return new Response("Not found", { status: 404 });
 const fm = page.data;
@@ -21,22 +22,6 @@ const headingTitle = fm.venue
   ? `${fm.coupleName}'s ${fm.venue} wedding review`
   : `${fm.coupleName}'s wedding review`;
 const seoTitle = `${fm.coupleName} | Jake Smith Celebrant Review`;
-const locationPages = [
-  { slug: "brisbane", name: "Brisbane", pattern: /brisbane|new farm|st lucia|indooroopilly|victoria park|bundaleer|hillstone|calile|lightspace/i },
-  { slug: "gold-coast", name: "Gold Coast", pattern: /gold coast|nerang|burleigh|kirra|currumbin|tamborine|coolibah|sanctuary cove|tallebudgera|cowbell/i },
-  { slug: "sunshine-coast", name: "Sunshine Coast", pattern: /sunshine coast|noosa|maleny|montville|yandina|caloundra|mooloolaba|tiffany/i },
-  { slug: "byron-bay", name: "Byron Bay", pattern: /byron|bangalow|ballina|ewingsdale|fig tree restaurant/i },
-  { slug: "sydney", name: "Sydney", pattern: /sydney|denham court|mosman|manly|palm beach|watsons bay|centennial park/i },
-];
-const localPage = locationPages.find(({ pattern }) => pattern.test([fm.venue, fm.location].filter(Boolean).join(" ")));
-const planningLinks = [
-  { href: "/wedding-celebrant", label: "Personal wedding ceremonies" },
-  ...( /christian|pastor|faith|god|prayer/i.test(bodyText) ? [{ href: "/christian-wedding-celebrant", label: "Christian wedding ceremonies" }] : []),
-  ...( /\bMC\b|reception|master of ceremonies/i.test(bodyText) ? [{ href: "/master-of-ceremonies", label: "Jake as your reception MC" }] : []),
-  { href: "/wedding-readings", label: "Readings for your ceremony" },
-  { href: "/serviceandprice", label: "Wedding services and pricing" },
-  { href: "/faq", label: "Wedding planning questions" },
-];
 const formatDate = (d?: Date) =>
   d
     ? new Date(d).toLocaleDateString("en-AU", {
@@ -167,19 +152,8 @@ const otherTestimonials = allTestimonials
             />
           )}
           <div class="mt-8 testimonial-body">
-            <TestimonialContent review={review} credits={credits} coupleName={fm.coupleName} />
+            <TestimonialContent review={linkTestimonialReview(review, page.id)} credits={credits} coupleName={fm.coupleName} />
           </div>
-          <aside class="mt-12 border border-base-200 bg-base-50 p-6" aria-label="Plan your wedding">
-            <h2 class="font-display text-2xl text-accent-800">Plan a ceremony that feels like you</h2>
-            {localPage && <p class="mt-3">Getting married in the area? Explore Jake's <a class="underline text-accent-700" href={`/${localPage.slug}`}>{localPage.name} wedding celebrant services</a>.</p>}
-            <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-3">
-              {planningLinks.map(({ href, label }) => <li><a class="underline text-accent-700" href={href}>{label}</a></li>)}
-            </ul>
-            <h3 class="mt-6 font-medium text-accent-800">Wedding locations</h3>
-            <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-3">
-              {locationPages.map(({ slug, name }) => <li><a class="underline text-accent-700" href={`/${slug}`}>{name}</a></li>)}
-            </ul>
-          </aside>
         </div>
       </div>
     </Wrapper>
