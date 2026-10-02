@@ -10,12 +10,12 @@ const locationsData = Object.fromEntries(testimonials
 const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 ---
 
-<div class="relative w-full h-[600px] bg-base-100 rounded-lg overflow-hidden shadow-sm z-0 mt-20">
+<div class="relative w-full h-[600px] bg-base-100 overflow-hidden shadow-sm z-0 mt-20">
   <div id="google-map" class="absolute inset-0 z-0 w-full h-full"></div>
   
   { !API_KEY && (
     <div class="absolute inset-0 z-10 flex items-center justify-center bg-black/50 text-white pointer-events-none">
-      <div class="bg-red-600 p-4 rounded shadow-lg text-center">
+      <div class="bg-red-600 p-4 shadow-lg text-center">
         <p class="font-bold">Google Maps API Key Missing</p>
         <p class="text-sm">Please add PUBLIC_GOOGLE_MAPS_API_KEY to your .env file</p>
       </div>

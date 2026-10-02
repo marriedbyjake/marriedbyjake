@@ -23,3 +23,7 @@ Keep credentials, access links, secret values and private rollback data out of G
 ## Routes and links
 
 Preserve the redirect rules in `src/data/redirects.json`, using the shape `{ "redirects": [...] }`. Public internal links omit a trailing slash, except the homepage `/`. Keep existing redirects when changing route handling.
+
+## Visual styling
+
+Use square corners for public cards, panels, image containers and buttons to match the site design. Preserve circular shapes used for icons and pagination indicators.

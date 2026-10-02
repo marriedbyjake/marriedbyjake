@@ -42,10 +42,10 @@ const formatDate = (d?: Date) =>
         What couples say
       </Text>
       <div class="hidden lg:flex items-center gap-2">
-        <button type="button" class="p-2 rounded-md bg-white/70 hover:bg-white" data-prev aria-label="Previous testimonial">
+        <button type="button" class="p-2 bg-white/70 hover:bg-white" data-prev aria-label="Previous testimonial">
           ‹
         </button>
-        <button type="button" class="p-2 rounded-md bg-white/70 hover:bg-white" data-next aria-label="Next testimonial">
+        <button type="button" class="p-2 bg-white/70 hover:bg-white" data-next aria-label="Next testimonial">
           ›
         </button>
       </div>
@@ -57,7 +57,7 @@ const formatDate = (d?: Date) =>
           {testimonials.map((t) => (
             <li class="relative p-2" style="flex: 0 0 calc(100% / var(--per))">
               <a href={`/weddingtestimonials/${t.id}`} class="absolute inset-0 z-10" aria-label={`Read testimonial from ${t.data.coupleName}`}></a>
-              <div class="bg-white rounded-md overflow-hidden shadow-sm">
+              <div class="bg-white overflow-hidden shadow-sm">
                 {t.data.image?.url ? (
                   <Image
                     src={t.data.image.url}
