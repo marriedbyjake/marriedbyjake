@@ -11,11 +11,13 @@ import VideoShowcase from "@/components/landing/VideoShowcase.astro";
 import { Image } from "astro:assets";
 import JakeWide from "@/images/jake-wide-1.jpg"
 import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
+import { heroVideo } from "@/data/hero-video";
 ---
 
 <BaseLayout navTransparent={true} title="Jake Smith — Christian Wedding Celebrant - Married By Jake" description="Jake Smith is a warm, calm civil and christian marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond." ogType="website" video="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4" image="/jake.gif">
-  <link slot="head" rel="preload" as="image" href="/images/calile-poster-mobile.webp" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
-  <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
+  <link slot="head" rel="preconnect" href={new URL(heroVideo.desktop.src).origin} />
+  <link slot="head" rel="preload" as="image" href={heroVideo.mobile.poster} type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href={heroVideo.desktop.poster} type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
   <Hero />
   <VideoShowcase
     videos={[

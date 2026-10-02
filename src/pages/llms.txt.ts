@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 
 const SITE = "https://marriedbyjake.com";
 

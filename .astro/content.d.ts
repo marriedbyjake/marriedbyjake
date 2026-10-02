@@ -85,6 +85,10 @@ declare module 'astro:content' {
 		entry: DataEntryMap[C][string],
 	): Promise<RenderResult>;
 
+	export function render<C extends keyof LiveContentConfig['collections']>(
+		entry: import('astro').LiveDataEntry<LiveLoaderDataType<C>>,
+	): Promise<RenderResult>;
+
 	export function reference<
 		C extends
 			| keyof DataEntryMap
@@ -127,6 +131,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"infopages">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "posts": Record<string, {
   id: string;
@@ -135,6 +140,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"posts">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "pricing": Record<string, {
   id: string;
@@ -143,6 +149,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"pricing">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "readings": Record<string, {
   id: string;
@@ -151,6 +158,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"readings">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "services": Record<string, {
   id: string;
@@ -159,6 +167,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"services">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 "weddingtestimonials": Record<string, {
   id: string;
@@ -167,6 +176,7 @@ declare module 'astro:content' {
   data: InferEntrySchema<"weddingtestimonials">;
   rendered?: RenderedContent;
   filePath?: string;
+  digest?: string | number;
 }>;
 
 	};
@@ -182,6 +192,7 @@ declare module 'astro:content' {
 	type ExtractEntryFilterType<T> = ExtractLoaderTypes<T>['entryFilter'];
 	type ExtractCollectionFilterType<T> = ExtractLoaderTypes<T>['collectionFilter'];
 	type ExtractErrorType<T> = ExtractLoaderTypes<T>['error'];
+	type ExtractDataType<T> = ExtractLoaderTypes<T>['data'];
 
 	type LiveLoaderDataType<C extends keyof LiveContentConfig['collections']> =
 		LiveContentConfig['collections'][C]['schema'] extends undefined
@@ -198,5 +209,5 @@ declare module 'astro:content' {
 	>;
 
 	export type ContentConfig = typeof import("../src/content.config.js");
-	export type LiveContentConfig = never;
+	export type LiveContentConfig = typeof import("../src/live.config.js");
 }

@@ -1,8 +1,12 @@
 ---
-import * as locationsDataModule from "../../data/locations.json";
-
-// Robustness for json import
-const locationsData = (locationsDataModule as any).default || locationsDataModule;
+import { getCollection } from "@/lib/cms";
+const testimonials = await getCollection("weddingtestimonials");
+const locationsData = Object.fromEntries(testimonials
+  .filter(({ data }) => typeof data.latitude === "number" && typeof data.longitude === "number")
+  .map(({ data }) => {
+    const name = [data.venue, data.location].filter(Boolean).join(", ");
+    return [name, { lat: data.latitude, lon: data.longitude, display_name: name }];
+  }));
 const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 ---
 

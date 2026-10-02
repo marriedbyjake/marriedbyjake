@@ -1,27 +1,13 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getEntry } from "@/lib/cms";
+import { PortableText } from "emdash/ui";
 import PracticeLayout from "@/layouts/PracticeLayout.astro";
 import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
-export async function getStaticPaths() {
-  const [services, infoPages] = await Promise.all([
-    getCollection("services"),
-    getCollection("infopages"),
-  ]);
-  const servicePaths = services.map((page) => ({
-    params: { service: page.id },
-    props: { page },
-  }));
-  const infoPaths = infoPages.map((page) => ({
-    params: { service: page.id },
-    props: { page },
-  }));
-  return [...servicePaths, ...infoPaths];
-}
-const { page } = Astro.props;
-const { Content } = await render(page);
+const slug = Astro.params.service || "";
+const page = await getEntry("services", slug) || await getEntry("infopages", slug);
+if (!page) return new Response("Not found", { status: 404 });
 const isInfoPage = page.collection === "infopages";
 const siteOrigin = Astro.site ? Astro.site.origin : "https://marriedbyjake.com";
-const slug = page.id;
 const canonicalUrl = `${siteOrigin}/${slug}`;
 const crumbName = isInfoPage ? page.data.page : page.data.title;
 const bodyDescription = (page.body || "")
@@ -74,7 +60,7 @@ const serviceJsonLd = isInfoPage
       type="application/ld+json"
       set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
     />
-    <Content />
+    <PortableText value={page.content} />
   </LegalPagesLayout>
 ) : (
   <PracticeLayout frontmatter={page.data} description={metaDescription}>
@@ -90,6 +76,6 @@ const serviceJsonLd = isInfoPage
         set:html={JSON.stringify(serviceJsonLd, null, 2).replace(/</g, "\\u003c")}
       />
     )}
-    <Content />
+    <PortableText value={page.content} />
   </PracticeLayout>
 )}

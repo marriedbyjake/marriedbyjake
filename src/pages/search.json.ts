@@ -1,6 +1,6 @@
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 
-export const prerender = true;
+export const prerender = false;
 
 export async function GET() {
   const [posts, infopages, services, testimonials] = await Promise.all([
@@ -41,7 +41,7 @@ export async function GET() {
   return new Response(JSON.stringify({ items }), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": "public, max-age=0, must-revalidate",
     },
   });
 }

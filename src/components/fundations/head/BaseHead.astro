@@ -3,7 +3,7 @@ import Seo from "@/components/fundations/head/Seo.astro";
 import Meta from "@/components/fundations/head/Meta.astro";
 import Fonts from "@/components/fundations/head/Fonts.astro";
 import Favicons from "@/components/fundations/head/Favicons.astro";
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 const { title, description, canonical, image, video, ogType } = Astro.props as {
   title?: string;
   description?: string;
@@ -25,6 +25,7 @@ const ratingSum = ratedTestimonials.reduce((sum, t) => sum + t.data.rating, 0);
 const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.0";
 ---
 <Meta />
+<slot />
 <Seo title={title} description={description} canonical={canonical} image={image} video={video} ogType={ogType} />
 <Fonts />
 <Favicons />

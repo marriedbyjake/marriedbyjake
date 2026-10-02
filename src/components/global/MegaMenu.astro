@@ -6,7 +6,7 @@ import HeroImage from "@/images/jake-menu.jpg";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { getCollection } from "astro:content";
+import { getCollection } from "@/lib/cms";
 import { navLinks } from "@/components/global/navLinks";
 const { inverted = true } = Astro.props;
 const triggerColor = inverted ? "text-white" : "text-base-800";
