@@ -30,26 +30,18 @@ import { heroVideo } from "@/data/hero-video";
       playsinline
       preload="none"
       aria-hidden="true"
+      disablepictureinpicture
+      disableRemotePlayback
       data-hero-video
       data-mobile-src={heroVideo.mobile.src}
       data-desktop-src={heroVideo.desktop.src}
-      class="absolute inset-0 object-cover object-center w-full h-[60dvh] lg:h-[72dvh] bg-base-50 opacity-0 transition-opacity duration-300 motion-reduce:transition-none"
+      class="absolute inset-0 pointer-events-none object-cover object-center w-full h-[60dvh] lg:h-[72dvh] bg-base-50 opacity-0 transition-opacity duration-300 motion-reduce:transition-none"
     ></video>
     <div
       aria-hidden="true"
       class="absolute inset-0 pointer-events-none bg-accent-950/40"
     >
     </div>
-    <button
-      type="button"
-      data-hero-toggle
-      aria-label="Play background video"
-      aria-pressed="false"
-      class="absolute bottom-4 right-4 z-10 grid size-11 place-items-center rounded-full bg-white/90 text-accent-950 shadow-sm hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-    >
-      <svg data-hero-play viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-      <svg data-hero-pause viewBox="0 0 24 24" class="hidden size-5" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
-    </button>
   </div>
 </Wrapper>
 

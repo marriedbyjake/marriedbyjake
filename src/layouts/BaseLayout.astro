@@ -34,8 +34,9 @@ const {
 
 <html lang="en" class="scroll-smooth">
   <head>
-    <BaseHead title={title} description={description} canonical={canonical} image={image} video={video} ogType={ogType} />
-    <slot name="head" />
+    <BaseHead title={title} description={description} canonical={canonical} image={image} video={video} ogType={ogType}>
+      <slot name="head" />
+    </BaseHead>
   </head>
   <body class="flex flex-col bg-white antialiased lg:min-h-svh">
     {
