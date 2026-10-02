@@ -39,7 +39,7 @@ Required secrets: `EMDASH_ENCRYPTION_KEY` (generate with `npx emdash secrets gen
 
 ## Deployment and verification
 
-1. Use the supported Node LTS version and run `npm ci`. The check script regenerates binding types automatically, including on a fresh checkout.
+1. Use supported Node 24 LTS and run `npm ci`. The check script regenerates binding types automatically, including on a fresh checkout. As checked on 2 October 2026, Astro 7.3.5 and EmDash 1.1.0 are current stable releases. TypeScript stays on 6.0.3 because the latest Astro checker supports TypeScript 5 and 6; upgrade it to 7 only when that peer requirement supports it.
 2. Run `npm run types` after binding changes, then `npm run validate` and `npm audit`.
 3. Deploy with `npx wrangler deploy --message '<change description>'`.
 4. Verify the active version with `npx wrangler deployments list`.
