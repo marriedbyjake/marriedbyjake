@@ -37,10 +37,17 @@ const decode = (s) => s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&
 const redirects = JSON.parse(fs.readFileSync(path.join(root, 'src/data/redirects.json'), 'utf8')).redirects;
 const exactRedirects = new Map(redirects.filter(r => !r.source.includes(':')).map(r => [r.source, r.destination]));
 const locationLinks = new Map(['brisbane', 'gold-coast', 'sunshine-coast', 'byron-bay', 'sydney'].map(slug => ['/' + slug, 0]));
+const imageAltRoutes = new Set(['/', ...locationLinks.keys()]);
 let reviews = 0;
 for (const page of pages) {
   const html = page.html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
   const route = page.route;
+  if (imageAltRoutes.has(route)) {
+    for (const match of html.matchAll(/<img\b[^>]*>/g)) {
+      const alt = match[0].match(/\balt="([^"]*)"/)?.[1];
+      if (!alt?.trim()) errors.add(`Missing image alt text: ${route} (${match[0].match(/\bsrc="([^"]*)"/)?.[1] || 'unknown image'})`);
+    }
+  }
   for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
     const raw = decode(match[1]);
     const url = new URL(raw, 'https://marriedbyjake.com' + route);
