@@ -470,7 +470,5 @@
       "destination": "/sitemap-0.xml",
       "permanent": true
     }
-  ],
-  "trailingSlash": false,
-  "cleanUrls": true
+  ]
 }

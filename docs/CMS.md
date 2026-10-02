@@ -39,15 +39,17 @@ Required secrets: `EMDASH_ENCRYPTION_KEY` (generate with `npx emdash secrets gen
 
 ## Deployment and verification
 
-1. Use supported Node 24 LTS and run `npm ci`. The check script regenerates binding types automatically, including on a fresh checkout. As checked on 2 October 2026, Astro 7.3.5 and EmDash 1.1.0 are current stable releases. TypeScript stays on 6.0.3 because the latest Astro checker supports TypeScript 5 and 6; upgrade it to 7 only when that peer requirement supports it.
-2. Run `npm run types` after binding changes, then `npm run validate` and `npm audit`.
-   Run `npm run verify:seo -- --url <site-url>` against a running local or deployed site to check rendered internal links, metadata, testimonial markup and the live sitemap. The checker accepts a URL because Workers pages are rendered from D1 rather than emitted as static HTML.
-3. Deploy with `npx wrangler deploy --message '<change description>'`.
-4. Verify the active version with `npx wrangler deployments list`.
-5. Check `/`, a blog post, a testimonial with an image, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml`, and `/_emdash/admin` on the canonical hostname. Verify a loaded image’s actual bytes/HTTP status and use the browser to check the editor.
-6. A disposable draft should return 404 anonymously, Publish should make it visible, a saved draft revision should leave the published version intact, and archival should return 404 again. Never overwrite a real entry merely to test.
+Production runs only on Cloudflare Workers. Use Node 24 LTS and follow this procedure:
 
-HTML and content endpoints use `private, no-store` so draft previews are never shared and publications are immediately visible. Astro’s generated assets remain immutable. Original Vercel redirects are applied by Astro middleware; `www` redirects to the canonical hostname. Keep the current proxied placeholder/alias records in place while using Worker routes. No DNS-provider or nameserver transfer is required. Worker custom domains are an alternative routing configuration; migrate the web records and route configuration together if adopting them. Future deployment is manual; the existing Vercel integration does not deploy this Worker.
+1. Run `npm ci`.
+2. Authenticate with `npx wrangler login --device --browser=false`, then approve the login in a browser within five minutes.
+3. Run `npm run deploy`. This runs validation and builds the site before publishing the Worker.
+4. Check the active version with `npx wrangler deployments list`.
+5. Run `npm run verify:seo -- --url https://marriedbyjake.com` to check rendered internal links, metadata, testimonial markup and the live sitemap.
+
+Commit and push source changes to `main` separately from deployment. A Git push does not publish the Worker. Check `/`, a blog post, a testimonial with an image, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml` and `/_emdash/admin` on the canonical hostname after a material change. Verify image bytes and use a browser to check the editor when those areas changed. Never overwrite a real entry to test draft, publish or archival behavior.
+
+HTML and content endpoints use `private, no-store` so draft previews are never shared and publications are immediately visible. Astro’s generated assets remain immutable. Redirect rules live in `src/data/redirects.json` with the shape `{ "redirects": [...] }`; `www` redirects to the canonical hostname. Public internal links omit trailing slashes except for `/`.
 
 The initial custom-domain API request returned code `100117` (`hostname already has externally managed DNS records`). This did not establish that DNS was hosted outside Cloudflare. Wrangler’s current OAuth session can manage Worker routes but cannot list the zone’s DNS records; the authenticated Cloudflare dashboard was used to inspect and replace the old Vercel web targets. The five Google Workspace MX records and four TXT records were preserved. A private rollback snapshot of the two former web records is kept in `.emdash/web-dns-before-2026-10-02.json`, outside Git.
 

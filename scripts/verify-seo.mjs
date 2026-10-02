@@ -34,9 +34,9 @@ if (baseUrl) {
 const internalTargets = new Set();
 const errors = new Set();
 const decode = (s) => s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
-const redirects = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8')).redirects;
+const redirects = JSON.parse(fs.readFileSync(path.join(root, 'src/data/redirects.json'), 'utf8')).redirects;
 const exactRedirects = new Map(redirects.filter(r => !r.source.includes(':')).map(r => [r.source, r.destination]));
-const locationLinks = new Map(['gold-coast', 'sunshine-coast', 'byron-bay', 'sydney'].map(slug => ['/' + slug, 0]));
+const locationLinks = new Map(['brisbane', 'gold-coast', 'sunshine-coast', 'byron-bay', 'sydney'].map(slug => ['/' + slug, 0]));
 let reviews = 0;
 for (const page of pages) {
   const html = page.html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
@@ -55,6 +55,8 @@ for (const page of pages) {
   if (route.startsWith('/weddingtestimonials/')) {
     reviews++;
     if (!/<blockquote\b/.test(html)) errors.add(`Missing blockquote: ${route}`);
+    const quote = html.match(/<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>/)?.[1]?.replace(/<[^>]*>/g, '') || '';
+    if (/(?:Photographer|Videographer|Florist)\s*[:：]/i.test(quote)) errors.add(`Vendor credits inside quote: ${route}`);
     const title = decode(html.match(/<title>(.*?)<\/title>/)?.[1] || '');
     if (title.length > 60) errors.add(`Long testimonial title (${title.length}): ${route}`);
   }

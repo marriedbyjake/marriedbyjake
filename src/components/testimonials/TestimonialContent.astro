@@ -1,0 +1,66 @@
+---
+import { PortableText, type PortableTextProps } from "emdash/ui";
+import type { Block, Credit } from "@/lib/testimonial-format";
+interface Props { review: Block[]; credits: Credit[]; coupleName: string }
+const { review, credits, coupleName } = Astro.props;
+const portable = (value: Block[]) => value as PortableTextProps["value"];
+---
+<figure class="testimonial-quote">
+  <div class="quote-heading" aria-hidden="true">
+    <svg viewBox="0 0 32 24" fill="currentColor"><path d="M0 24V13C0 5 5 1 13 0v5C8 6 6 8 6 12h7v12H0Zm19 0V13c0-8 5-12 13-13v5c-5 1-7 3-7 7h7v12H19Z"/></svg>
+    <span>In their words</span>
+  </div>
+  <blockquote class="review-text">
+    <PortableText value={portable(review)} />
+  </blockquote>
+  <figcaption><span class="signature-line" aria-hidden="true"></span>{coupleName}</figcaption>
+</figure>
+{credits.length > 0 && (
+  <section class="wedding-team" aria-labelledby="wedding-team-heading">
+    <h2 id="wedding-team-heading">The wedding team</h2>
+    <dl class="vendor-grid">
+      {credits.map(credit => <div class="vendor-card">
+        <dt>{credit.role}</dt>
+        <dd><PortableText value={portable(credit.content)} /></dd>
+      </div>)}
+    </dl>
+  </section>
+)}
+<style>
+  .testimonial-quote {
+    margin: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background: #faf7f2;
+    border: 1px solid #e9dfd1;
+    border-left: 4px solid #ba9268;
+    border-radius: 0.25rem 1.25rem 1.25rem 0.25rem;
+    box-shadow: 0 8px 28px -20px #765a3c33;
+  }
+  .quote-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem; color: #92714c; }
+  .quote-heading svg { width: 1.75rem; height: 1.3rem; flex-shrink: 0; }
+  .quote-heading span { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+  .review-text { margin: 0; padding: 0; border: 0; }
+  .review-text :global(p) {
+    margin: 0 0 1.25em;
+    color: #493e33;
+    font-family: var(--font-newsreader), Georgia, serif;
+    font-size: clamp(1.1875rem, 1.65vw, 1.4375rem);
+    line-height: 1.65;
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+  }
+  .review-text :global(p:last-child) { margin-bottom: 0; }
+  .review-text :global(a), .vendor-card :global(a) { color: #705237; text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: #ba926880; }
+  .review-text :global(a:hover), .vendor-card :global(a:hover) { color: #402d1d; text-decoration-color: currentColor; }
+  figcaption { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.75rem; font-size: 0.8125rem; font-weight: 600; color: #705237; }
+  .signature-line { width: 1.75rem; height: 1px; background: #ba9268; }
+  .wedding-team { margin-top: 2.75rem; }
+  .wedding-team h2 { margin: 0 0 1.25rem; font-family: var(--font-newsreader), Georgia, serif; font-size: 1.875rem; line-height: 1.2; color: #493e33; }
+  .vendor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0; }
+  .vendor-card { padding: 1.25rem; border: 1px solid #e9e3db; border-radius: 0.625rem; background: #fff; min-width: 0; }
+  .vendor-card dt { margin-bottom: 0.5rem; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5; color: #84715d; }
+  .vendor-card dd { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: #493e33; overflow-wrap: anywhere; }
+  .vendor-card :global(p) { margin: 0; }
+  .vendor-card :global(p + p) { margin-top: 0.5rem; }
+  @media (max-width: 479px) { .vendor-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { redirects } from "../vercel.json";
+import { redirects } from "./data/redirects.json";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   if (context.url.hostname === "www.marriedbyjake.com") {
@@ -8,6 +8,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect(canonical.toString(), 301);
   }
   const pathname = context.url.pathname;
+  if (!pathname.startsWith("/_emdash/") && pathname !== "/" && pathname.endsWith("/")) {
+    const canonical = new URL(context.url);
+    canonical.pathname = pathname.replace(/\/+$/, "");
+    return context.redirect(canonical.toString(), 301);
+  }
   const redirect = redirects.find(({ source }) => source.endsWith(":path*")
     ? pathname.startsWith(source.slice(0, -6))
     : source === pathname);

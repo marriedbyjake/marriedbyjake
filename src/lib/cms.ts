@@ -1,3 +1,4 @@
+import { canonicalContentLinks } from "./internal-links";
 import type { CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
 import { extractPlainText, getEmDashCollection, getEmDashEntry, type ContentEntry } from "emdash";
@@ -13,7 +14,7 @@ export type CmsEntry<C extends Collection> = CollectionEntry<C> & {
 // Keep the existing public templates' field names while EmDash uses snake_case.
 function normalize<C extends Collection>(entry: ContentEntry<object>, collection: C): CmsEntry<C> {
   const raw: Record<string, unknown> = { ...entry.data };
-  const content = Array.isArray(raw.content) ? raw.content : [];
+  const content = canonicalContentLinks(Array.isArray(raw.content) ? raw.content : []);
   const media = raw.featured_image as {
     id: string; src?: string; width?: number; height?: number; filename?: string; mimeType?: string; alt?: string; meta?: { storageKey?: string };
   } | undefined;
