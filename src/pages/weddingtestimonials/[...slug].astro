@@ -7,6 +7,7 @@ import { Image } from "astro:assets";
 import Cta from "@/components/global/CtaReviews.astro";
 import { getCollection, getEntry } from "@/lib/cms";
 import { PortableText } from "emdash/ui";
+import { extractPlainText, type PortableTextBlock } from "emdash";
 const page = await getEntry("weddingtestimonials", Astro.params.slug || "");
 if (!page) return new Response("Not found", { status: 404 });
 const fm = page.data;
@@ -15,11 +16,21 @@ const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
 const mapEmbedSrc = GOOGLE_MAPS_API_KEY
   ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}&zoom=14`
   : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=14`;
-const reviewMarkdown = (page.body || "").split("## Wedding team")[0];
-const bodyText = reviewMarkdown
-  .replace(/^> ?/gm, "")
-  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-  .replace(/\s+/g, " ").trim();
+// Imported reviews keep their original vendor paragraphs in the CMS. Apply the
+// merged quote layout at render time so current CMS edits remain authoritative.
+const content: PortableTextBlock[] = page.content;
+const teamStart = content.findIndex((block) => {
+  const text = extractPlainText([block]).trim();
+  return /^Wedding team$/i.test(text)
+    || /^(?:Photograph(?:er|y)?(?:\s*\/\s*Videograph(?:er|y)?)?|Videograph(?:er|y)?|Stylist|Styling|Cake|DJ|Venue|Florist|Flowers|Dress|Hair|Makeup|Make-up|Celebrant|MC|Music|Catering|Wedding planner)\s*:/i.test(text);
+});
+const reviewContent = content.slice(0, teamStart < 0 ? undefined : teamStart)
+  .map((block) => block._type === "block" && block.style === "blockquote" ? { ...block, style: "normal" } : block);
+const teamContent = teamStart < 0 ? [] : content.slice(teamStart);
+const hasTeamHeading = teamContent.length > 0 && /^Wedding team$/i.test(extractPlainText([teamContent[0]]).trim());
+const teamList = teamContent.slice(hasTeamHeading ? 1 : 0)
+  .map((block) => block._type === "block" ? { ...block, style: "normal", listItem: "bullet", level: 1 } : block);
+const bodyText = extractPlainText(reviewContent).replace(/\s+/g, " ").trim();
 const description = `Read ${fm.coupleName}'s wedding review of Jake Smith, marriage celebrant${fm.venue ? ` at ${fm.venue}` : ""}. Explore personal ceremonies and wedding planning ideas.`;
 const headingTitle = fm.venue
   ? `${fm.coupleName}'s ${fm.venue} wedding review`
@@ -171,7 +182,15 @@ const otherTestimonials = allTestimonials
             />
           )}
           <div class="mt-8 testimonial-body">
-            <PortableText value={page.content} />
+            <blockquote>
+              <PortableText value={reviewContent} />
+            </blockquote>
+            {teamContent.length > 0 && (
+              <div class="wedding-team">
+                <h2>Wedding team</h2>
+                <PortableText value={teamList} />
+              </div>
+            )}
           </div>
           <aside class="mt-12 rounded-xl border border-base-200 bg-base-50 p-6" aria-label="Plan your wedding">
             <h2 class="font-display text-2xl text-accent-800">Plan a ceremony that feels like you</h2>
