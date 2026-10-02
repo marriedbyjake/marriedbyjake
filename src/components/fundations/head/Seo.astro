@@ -1,4 +1,5 @@
 ---
+import seo from "@/data/seo.json";
 const {
   title,
   description,
@@ -26,8 +27,14 @@ const {
 const defaultTitle = "Married by Jake";
 const defaultDescription =
   "Jake Smith is a warm, trusted civil marriage celebrant helping couples create meaningful, personal wedding ceremonies for all backgrounds across Australia.";
-const resolvedTitle = title ?? defaultTitle;
-const resolvedDescription = description ?? defaultDescription;
+const pathKey = Astro.url.pathname.replace(/\/$/, "") || "/";
+const titleOverrides: Record<string, string> = seo.titles;
+const descriptionOverrides: Record<string, string> = seo.descriptions;
+const resolvedTitle = titleOverrides[pathKey] ?? title ?? defaultTitle;
+const rawDescription = descriptionOverrides[pathKey] ?? description ?? defaultDescription;
+const resolvedDescription = rawDescription.length > 160
+  ? rawDescription.slice(0, 157).replace(/\s+\S*$/, "") + "…"
+  : rawDescription;
 const cleanPath =
   Astro.url.pathname.endsWith("/") && Astro.url.pathname.length > 1
     ? Astro.url.pathname.slice(0, -1)

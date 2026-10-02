@@ -9,8 +9,13 @@ rating: 5
 pubDate: 2023-04-16
 featured: false
 ---
-If you're looking for a celebrant for your special day, look no further! Jake was absolutely amazing! He knew exactly how to calm our nerves and create the perfect ambience at our ceremony.
+> If you're looking for a celebrant for your special day, look no further! Jake was absolutely amazing! He knew exactly how to calm our nerves and create the perfect ambience at our ceremony.
+>
+> We had such an amazing time listening to him re-tell our love story - our cheeks were hurting by the end of it from all the smiling. Thank you so much Jake for making our wedding day one of the best days of our lives!
+>
 
-We had such an amazing time listening to him re-tell our love story - our cheeks were hurting by the end of it from all the smiling. Thank you so much Jake for making our wedding day one of the best days of our lives!
+## Wedding team
 
-Photographer: [Eric Wang](https://www.ericwangphotography.com.au) Band: [Baker Boys Band](https://www.bakerboysband.com.au) Florist: [Archara](https://archara.com.au)
+- Photographer: [Eric Wang](https://www.ericwangphotography.com.au)
+- Band: [Baker Boys Band](https://www.bakerboysband.com.au)
+- Florist: [Archara](https://archara.com.au)

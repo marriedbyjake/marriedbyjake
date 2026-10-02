@@ -8,8 +8,10 @@ image:
 rating: 5
 pubDate: 2022-04-15
 ---
+> Thank you so much Jake! It was an absolutely amazing ceremony. You truly brought the laughs, the fun and the love to our ceremony!
+>
 
-Thank you so much Jake! It was an absolutely amazing ceremony. You truly brought the laughs, the fun and the love to our ceremony!
+## Wedding team
 
-Photographer: [Daniel Chafer](https://www.danielchafer.com)
-Videographer: [Sunny Day Films](https://www.sunnydayfilms.com.au)
+- Photographer: [Daniel Chafer](https://www.danielchafer.com)
+- Videographer: [Sunny Day Films](https://www.sunnydayfilms.com.au)

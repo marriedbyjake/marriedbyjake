@@ -9,10 +9,11 @@ image:
   alt: David & Shae Testimonial
 pubDate: 2026-07-12
 ---
-Jake was fantastic in every way. Gave us heaps of options for how the ceremony could go, answered all our questions promptly, and made everyone feel at ease
+> Jake was fantastic in every way. Gave us heaps of options for how the ceremony could go, answered all our questions promptly, and made everyone feel at ease
+>
 
-[Bundaleer Rainforest Garden](https://bundaleer.com)
+## Wedding team
 
-[Andrew Foy](https://foyandco.com.au)
-
-[The Famos and Co](https://www.thefamos.com)
+- [Bundaleer Rainforest Garden](https://bundaleer.com)
+- [Andrew Foy](https://foyandco.com.au)
+- [The Famos and Co](https://www.thefamos.com)

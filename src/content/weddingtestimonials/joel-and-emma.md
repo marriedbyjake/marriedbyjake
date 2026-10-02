@@ -8,9 +8,12 @@ image:
 rating: 5
 pubDate: 2013-11-07
 ---
+> It has been such a blessing to have you marry us twice. Thanks for making our ceremonies so personalised and enjoyable!
+>
 
-It has been such a blessing to have you marry us twice. Thanks for making our ceremonies so personalised and enjoyable!
+## Wedding team
 
-Photographer: Milque Photography
-
-Brisbane wedding venue: [Sirromet](https://www.sirromet.com)
+- Photographer: Milque Photography
+- Brisbane
+- wedding
+- venue: [Sirromet](https://www.sirromet.com)

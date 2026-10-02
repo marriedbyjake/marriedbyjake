@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2016-10-21
 ---
-
-Thank you Jake for being a part of our day. We really appreciate it and are so happy that we chose you to be our celebrant!
+> Thank you Jake for being a part of our day. We really appreciate it and are so happy that we chose you to be our celebrant!

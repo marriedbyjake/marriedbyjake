@@ -8,9 +8,13 @@ image:
 rating: 5
 pubDate: 2016-08-27
 ---
+> Thank you so much for being part of our wedding Jake! It was amazing and we appreciate everything you did!
+>
+> Everyone mentions how well you ran things. Thank you so much!
+>
 
-Thank you so much for being part of our wedding Jake! It was amazing and we appreciate everything you did!
+## Wedding team
 
-Everyone mentions how well you ran things. Thank you so much!
-
-Brisbane wedding venue: [Cherbon Waters](https://www.cherbonwaters.com.au)
+- Brisbane
+- wedding
+- venue: [Cherbon Waters](https://www.cherbonwaters.com.au)

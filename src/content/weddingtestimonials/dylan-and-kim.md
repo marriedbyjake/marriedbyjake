@@ -8,7 +8,11 @@ image:
 rating: 5
 pubDate: 2019-06-07
 ---
+> Jake was amazing from the first meeting. He is relaxed, charming and made our day feel so special - he truly cared about helping make our day perfect for us!
+>
 
-Jake was amazing from the first meeting. He is relaxed, charming and made our day feel so special - he truly cared about helping make our day perfect for us!
+## Wedding team
 
-Brisbane Wedding Venue: [Bundaleer Rainforest Gardens](https://bundaleer.com)
+- Brisbane
+- Wedding
+- Venue: [Bundaleer Rainforest Gardens](https://bundaleer.com)

@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2016-12-22
 ---
+> Thank you! Honestly it was so wonderful and such a relief to have you there leading us through. We just loved the ceremony, you made it all so easy and delightful.
+>
+> Ben and I can't thank you enough!
+>
 
-Thank you! Honestly it was so wonderful and such a relief to have you there leading us through. We just loved the ceremony, you made it all so easy and delightful.
+## Wedding team
 
-Ben and I can't thank you enough!
-
-Photographer: [Ryder Evans](https://ryderevans.com.au/)
+- Photographer: [Ryder Evans](https://ryderevans.com.au/)

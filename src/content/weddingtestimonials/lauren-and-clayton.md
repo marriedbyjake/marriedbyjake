@@ -6,4 +6,4 @@ rating: 5
 pubDate: 2020-06-08
 featured: false
 ---
-Jake took care of everything. He was fantastic. Highly recommend him.
+> Jake took care of everything. He was fantastic. Highly recommend him.

@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2015-11-10
 ---
-
-Thank you Jake, you did an absolutely awesome job with such a lovely ceremony!
+> Thank you Jake, you did an absolutely awesome job with such a lovely ceremony!

@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2015-09-15
 ---
+> We really enjoyed our day and can't thank you enough for your professionalism and how you truly cared about our ceremony.
+>
+> Thanks again for such an amazing ceremony.
+>
 
-We really enjoyed our day and can't thank you enough for your professionalism and how you truly cared about our ceremony.
+## Wedding team
 
-Thanks again for such an amazing ceremony.
-
-Venue: [Broadway Chapel](https://broadwaychapel.com)
+- Venue: [Broadway Chapel](https://broadwaychapel.com)

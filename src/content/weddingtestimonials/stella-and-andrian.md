@@ -9,14 +9,13 @@ image:
 rating: 5
 pubDate: 2025-07-01
 ---
-So glad we had Jake! We can’t thank him enough for being so supportive and accomodating. We were quite nervous on the day (especially me and my dad LOL), yet he somehow calmed us so it felt seamless. We did a briefing before the ceremony and it just couldn’t have gone any better! Everything went so smoothly and Jake was very engaging with us and the guests too! Some of the guests even asked where we found Jake, as he was sooo good! Thank you Jake! Our wedding wouldn't have be the same without you.
+> So glad we had Jake! We can’t thank him enough for being so supportive and accomodating. We were quite nervous on the day (especially me and my dad LOL), yet he somehow calmed us so it felt seamless. We did a briefing before the ceremony and it just couldn’t have gone any better! Everything went so smoothly and Jake was very engaging with us and the guests too! Some of the guests even asked where we found Jake, as he was sooo good! Thank you Jake! Our wedding wouldn't have be the same without you.
+>
 
-Venue - [@stonesoftheyarravalley](https://www.instagram.com/stonesoftheyarravalley/)
+## Wedding team
 
-Photographer - [@erinandtara](https://www.instagram.com/erinandtara/)
-
-Videographer - [@c2films](https://www.instagram.com/c2films/)
-
-Wedding Planner, Florist, & Stylist - [@thestyleco](https://www.instagram.com/thestyleco/)
-
-Transport - [@alwaysclassiccars](https://www.instagram.com/alwaysclassiccars/)
+- Venue - [@stonesoftheyarravalley](https://www.instagram.com/stonesoftheyarravalley/)
+- Photographer - [@erinandtara](https://www.instagram.com/erinandtara/)
+- Videographer - [@c2films](https://www.instagram.com/c2films/)
+- Wedding Planner, Florist, & Stylist - [@thestyleco](https://www.instagram.com/thestyleco/)
+- Transport - [@alwaysclassiccars](https://www.instagram.com/alwaysclassiccars/)

@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2017-08-30
 ---
+> Thank you so much! You were amazing and we received so many compliments from our guests about the ceremony you put together for us!
+>
 
-Thank you so much! You were amazing and we received so many compliments from our guests about the ceremony you put together for us!
+## Wedding team
 
-Venue: [Fig Tree Restaurant](https://figtreerestaurant.com.au)
+- Venue: [Fig Tree Restaurant](https://figtreerestaurant.com.au)

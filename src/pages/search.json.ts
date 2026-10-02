@@ -27,7 +27,7 @@ export async function GET() {
       title: testimonial.data.coupleName,
       description:
         [testimonial.data.venue, testimonial.data.location].filter(Boolean).join(" · ") || "",
-      url: `/weddingtestimonials/${testimonial.id}/`,
+      url: `/weddingtestimonials/${testimonial.id}`,
       section: "Testimonial",
     })),
     ...infopages.map((page) => ({

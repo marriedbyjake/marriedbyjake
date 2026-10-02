@@ -10,10 +10,11 @@
     "start": "astro dev",
     "build": "node scripts/build-locations.mjs && astro build",
     "check": "astro check",
-    "validate": "npm run check && npm run build",
+    "validate": "npm run check && npm run build && npm run verify:seo",
     "preview": "astro preview",
     "astro": "astro",
-    "build:locations": "node scripts/build-locations.mjs"
+    "build:locations": "node scripts/build-locations.mjs",
+    "verify:seo": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",

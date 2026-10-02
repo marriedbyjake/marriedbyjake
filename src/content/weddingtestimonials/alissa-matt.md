@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2014-03-26
 ---
+> Thanks for everything, the ceremony was amazing and you made it so easy and relaxing for us! We want to do it all again!
+>
 
-Thanks for everything, the ceremony was amazing and you made it so easy and relaxing for us! We want to do it all again!
+## Wedding team
 
-Venue: [Brisbane Powerhouse](https://brisbanepowerhouse.org)
+- Venue: [Brisbane Powerhouse](https://brisbanepowerhouse.org)

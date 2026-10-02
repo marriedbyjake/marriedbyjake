@@ -1,6 +1,6 @@
 ---
 coupleName: Chris & Carissa
-venue: 
+venue:
 location:
 image:
   url: "/src/images/testimonials/chris-carissa-private-residence.jpg"
@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2015-12-29
 ---
-
-Thanks so much Jake, you made the ceremony so relaxing for Chris and me!
+> Thanks so much Jake, you made the ceremony so relaxing for Chris and me!

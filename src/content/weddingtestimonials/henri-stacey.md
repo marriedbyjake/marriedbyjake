@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2018-05-07
 ---
+> Can't write enough about how great Jake is. Simply 10/10. The ceremony was perfection, and he personalised it so much to show the love and happiness.
+>
+> Will be telling everyone how amazing Jake is.
+>
 
-Can't write enough about how great Jake is. Simply 10/10. The ceremony was perfection, and he personalised it so much to show the love and happiness.
+## Wedding team
 
-Will be telling everyone how amazing Jake is.
-
-Photographer: Jashan
+- Photographer: Jashan

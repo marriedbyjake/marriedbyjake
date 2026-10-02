@@ -76,11 +76,6 @@
       "permanent": true
     },
     {
-      "source": "/weddingtestimonials/yu-huan-and-daniel",
-      "destination": "/weddingtestimonials",
-      "permanent": true
-    },
-    {
       "source": "/landing",
       "destination": "/",
       "permanent": true
@@ -386,26 +381,6 @@
       "permanent": true
     },
     {
-      "source": "/weddingtestimonials/2787",
-      "destination": "/weddingtestimonials",
-      "permanent": true
-    },
-    {
-      "source": "/weddingtestimonials/brittany-and-scott",
-      "destination": "/weddingtestimonials",
-      "permanent": true
-    },
-    {
-      "source": "/weddingtestimonials/jacob-and-geraldine",
-      "destination": "/weddingtestimonials",
-      "permanent": true
-    },
-    {
-      "source": "/weddingtestimonials/jenna-and-jayden",
-      "destination": "/weddingtestimonials",
-      "permanent": true
-    },
-    {
       "source": "/weddingtestimonials/matt-paige-broadway-chapel",
       "destination": "/weddingtestimonials",
       "permanent": true
@@ -474,6 +449,28 @@
       "source": "/weddingtestimonials/zac-corrine",
       "destination": "/weddingtestimonials",
       "permanent": true
+    },
+    {
+      "source": "/sitemap-posts.xml",
+      "destination": "/sitemap-0.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap-services.xml",
+      "destination": "/sitemap-0.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap-weddingtestimonials.xml",
+      "destination": "/sitemap-0.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap-infopages.xml",
+      "destination": "/sitemap-0.xml",
+      "permanent": true
     }
-  ]
+  ],
+  "trailingSlash": false,
+  "cleanUrls": true
 }

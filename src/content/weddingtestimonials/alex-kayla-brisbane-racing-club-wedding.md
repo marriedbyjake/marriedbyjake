@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2016-09-23
 ---
+> Worries before meeting Jake: 1 million. Worries after meeting Jake: ZERO! If you want someone who will act as medication to calm your nerves over your coming nuptials, Jake is the man for the job. No stress, no hassle!
+>
 
-Worries before meeting Jake: 1 million. Worries after meeting Jake: ZERO! If you want someone who will act as medication to calm your nerves over your coming nuptials, Jake is the man for the job. No stress, no hassle!
+## Wedding team
 
-Photographer: [Milque](https://milque.com.au)
+- Photographer: [Milque](https://milque.com.au)

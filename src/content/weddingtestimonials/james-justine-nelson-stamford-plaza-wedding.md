@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2016-07-22
 ---
+> Jake was completely perfect and amazing. We couldn't be happier. Literally every guest came up and said he was perfect and many said the best celebrant they'd ever seen!
+>
 
-Jake was completely perfect and amazing. We couldn't be happier. Literally every guest came up and said he was perfect and many said the best celebrant they'd ever seen!
+## Wedding team
 
-Photographer: [Milque](https://milque.com.au/)
+- Photographer: [Milque](https://milque.com.au/)

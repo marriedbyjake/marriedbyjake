@@ -8,11 +8,12 @@ image:
 rating: 5
 pubDate: 2016-09-23
 ---
+> Thank you for doing such a great job, we absolutely loved our ceremony, it was just perfect!
+>
+> Friends and family have had so many 'bad celebrants' but you were wonderful, we'll be singing your praises to everyone!
+>
 
-Thank you for doing such a great job, we absolutely loved our ceremony, it was just perfect! 
+## Wedding team
 
-Friends and family have had so many 'bad celebrants' but you were wonderful, we'll be singing your praises to everyone!
-
-Photographer: Candi
-
-Venue: [Brisbane Powerhouse](https://brisbanepowerhouse.org)
+- Photographer: Candi
+- Venue: [Brisbane Powerhouse](https://brisbanepowerhouse.org)

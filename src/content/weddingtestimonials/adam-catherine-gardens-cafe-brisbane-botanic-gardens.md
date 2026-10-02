@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2016-08-20
 ---
+> We had the most magical wedding day! With Jake we felt like we were in the most safe and competent hands and knew he'd make our guests feel comfortable!
+>
+> We highly recommend Jake! Gardens Club Cafe in the CBD has amazing garden and city views!
+>
 
-We had the most magical wedding day! With Jake we felt like we were in the most safe and competent hands and knew he'd make our guests feel comfortable!
+## Wedding team
 
-We highly recommend Jake! Gardens Club Cafe in the CBD has amazing garden and city views!
-
-Photographer: [Kait Photography](https://www.kaitphotography.com.au)
+- Photographer: [Kait Photography](https://www.kaitphotography.com.au)

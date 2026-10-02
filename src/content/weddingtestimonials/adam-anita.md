@@ -1,6 +1,6 @@
 ---
 coupleName: Adam & Anita
-venue: 
+venue:
 location:
 image:
   url: "/src/images/testimonials/adam-anita.jpg"
@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2016-10-21
 ---
-
-Jake was incredibly easy to work with. He made our wedding day that much more special and we can't thank him enough for that.
+> Jake was incredibly easy to work with. He made our wedding day that much more special and we can't thank him enough for that.

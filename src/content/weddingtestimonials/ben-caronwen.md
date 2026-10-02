@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2017-03-10
 ---
+> Massive thanks for yesterday! You made the ceremony absolutely amazing! Your passion and relaxed, calm personality made this a day we will never forget.
+>
+> On behalf of Caronwen and I, we cannot thank you enough. People were speaking about you all night!
+>
 
-Massive thanks for yesterday! You made the ceremony absolutely amazing! Your passion and relaxed, calm personality made this a day we will never forget.
+## Wedding team
 
-On behalf of Caronwen and I, we cannot thank you enough. People were speaking about you all night!
-
-Photographer: [Raconteur Photography](https://raconteurphotography.com.au/albert-river-wines-brisbane-wedding-venue/)
+- Photographer: [Raconteur Photography](https://raconteurphotography.com.au/albert-river-wines-brisbane-wedding-venue/)

@@ -9,16 +9,14 @@ image:
 rating: 5
 pubDate: 2026-01-06
 ---
-Jake was the celebrant and MC for our wedding, and we couldn’t have asked for anyone better. He brought such warmth, authenticity, and positive energy to the entire day. He was kind, genuine, and incredibly adaptive, effortlessly setting the tone and making everyone feel at ease. So many of our guests commented on how wonderful he was, how his words felt truly personal, and his presence lifted the energy in the room. Jake played such a huge part in making the night unforgettable. Thank you, Jake!
+> Jake was the celebrant and MC for our wedding, and we couldn’t have asked for anyone better. He brought such warmth, authenticity, and positive energy to the entire day. He was kind, genuine, and incredibly adaptive, effortlessly setting the tone and making everyone feel at ease. So many of our guests commented on how wonderful he was, how his words felt truly personal, and his presence lifted the energy in the room. Jake played such a huge part in making the night unforgettable. Thank you, Jake!
+>
 
-Venue: [The Valley Estate](https://thevalleyestate.com.au)
+## Wedding team
 
-Photographer: [Evernew Studio](https://evernewstudio.com)
-
-Music (ceremony and canapes): Cassidy Mackie
-
-Styling/candles: The Bright Candle
-
-Florist: Flower Haul
-
-DJ Drums & Saxaphone: Sahra Entertainment
+- Venue: [The Valley Estate](https://thevalleyestate.com.au)
+- Photographer: [Evernew Studio](https://evernewstudio.com)
+- Music (ceremony and canapes): Cassidy Mackie
+- Styling/candles: The Bright Candle
+- Florist: Flower Haul
+- DJ Drums & Saxaphone: [Sahra Entertainment](https://www.sahraentertainment.com.au)

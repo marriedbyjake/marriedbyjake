@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2015-08-06
 ---
+> Thanks Jake for everything. We had such a lovely day and are so glad you were a part of it!
+>
 
-Thanks Jake for everything. We had such a lovely day and are so glad you were a part of it!
+## Wedding team
 
-Venue: [Hillstone St Lucia](https://www.hillstonestlucia.com.au)
+- Venue: [Hillstone St Lucia](https://www.hillstonestlucia.com.au)

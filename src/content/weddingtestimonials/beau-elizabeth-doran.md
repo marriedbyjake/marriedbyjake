@@ -8,9 +8,10 @@ image:
 rating: 5
 pubDate: 2017-06-28
 ---
+> Oh my, you were amazing! Everyone commented on how wonderful you were. Thank you so much for marrying us. It's something we will never forget.
+>
 
-Oh my, you were amazing! Everyone commented on how wonderful you were. Thank you so much for marrying us. It's something we will never forget.
+## Wedding team
 
-Photographer: [Figtree Pictures](https://figtreepictures.com)
-
-Venue: [Fig Tree Restaurant](https://figtreerestaurant.com.au)
+- Photographer: [Figtree Pictures](https://figtreepictures.com)
+- Venue: [Fig Tree Restaurant](https://figtreerestaurant.com.au)

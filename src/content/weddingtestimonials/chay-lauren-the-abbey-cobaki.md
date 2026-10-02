@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2015-09-15
 ---
-
-Thank you so much for what was the most beautiful ceremony!
+> Thank you so much for what was the most beautiful ceremony!

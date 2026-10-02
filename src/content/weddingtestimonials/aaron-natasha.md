@@ -9,10 +9,13 @@ rating: 5
 featured: false
 pubDate: 2017-04-20
 ---
-We just wanted to thank you so much for being a part of our special day and what a wonderful job you did. We both felt so relaxed having you there with us and guiding us along the way.
+> We just wanted to thank you so much for being a part of our special day and what a wonderful job you did. We both felt so relaxed having you there with us and guiding us along the way.
+>
+> We have already recommended you to another couple and will continue to do so!
+>
 
-We have already recommended you to another couple and will continue to do so!
+## Wedding team
 
-Photographer: [Evernew Studio](https://evernewstudio.com)
-
-Wedding Venue: [Gabbinbar](https://www.gabbinbar.com.au)
+- Photographer: [Evernew Studio](https://evernewstudio.com)
+- Wedding
+- Venue: [Gabbinbar](https://www.gabbinbar.com.au)

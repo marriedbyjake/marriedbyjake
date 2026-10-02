@@ -6,8 +6,11 @@ rating: 5
 pubDate: 2024-01-07
 featured: false
 ---
-Jake helped us have the perfect wedding. He is genuine, supportive and understanding. He felt like a good friend who made the ceremony really warm and joyous.
+> Jake helped us have the perfect wedding. He is genuine, supportive and understanding. He felt like a good friend who made the ceremony really warm and joyous.
+>
+> Such a pro. Worth every penny!
+>
 
-Such a pro. Worth every penny!
+## Wedding team
 
-Photographer: [Murray Redpath](https://www.murrayredpath.com/)
+- Photographer: [Murray Redpath](https://www.murrayredpath.com/)

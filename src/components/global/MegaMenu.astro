@@ -221,7 +221,7 @@ const testimonials = (await getCollection("weddingtestimonials"))
                 {testimonials.map((t) => (
                   <li class="py-2 group">
                     <a
-                      href={`/weddingtestimonials/${t.id}/`}
+                      href={`/weddingtestimonials/${t.id}`}
                       aria-label={`View case: ${t.title}`}
                     >
                       <Text

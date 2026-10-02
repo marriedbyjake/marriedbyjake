@@ -8,7 +8,6 @@ image:
 rating: 5
 pubDate: 2015-09-15
 ---
-
-You were amazing! We've had endless compliments on how incredible the ceremony was and we have you to thank for that!
-
-Words can't express how elated we are! Thank you for everything Jake!
+> You were amazing! We've had endless compliments on how incredible the ceremony was and we have you to thank for that!
+>
+> Words can't express how elated we are! Thank you for everything Jake!

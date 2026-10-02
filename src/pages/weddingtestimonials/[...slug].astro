@@ -21,14 +21,32 @@ const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
 const mapEmbedSrc = GOOGLE_MAPS_API_KEY
   ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}&zoom=14`
   : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=14`;
-const bodyText = (page.body || "").replace(/\s+/g, " ").trim();
-const description = bodyText.length > 158 ? bodyText.substring(0, 158) : bodyText;
+const reviewMarkdown = (page.body || "").split("## Wedding team")[0];
+const bodyText = reviewMarkdown
+  .replace(/^> ?/gm, "")
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+  .replace(/\s+/g, " ").trim();
+const description = `Read ${fm.coupleName}'s wedding review of Jake Smith, marriage celebrant${fm.venue ? ` at ${fm.venue}` : ""}. Explore personal ceremonies and wedding planning ideas.`;
 const headingTitle = fm.venue
   ? `${fm.coupleName}'s ${fm.venue} wedding review`
   : `${fm.coupleName}'s wedding review`;
-const seoTitle = fm.location
-  ? `${fm.coupleName} — ${fm.location} Wedding Celebrant Review`
-  : `${fm.coupleName} — Wedding Celebrant Review`;
+const seoTitle = `${fm.coupleName} | Jake Smith Celebrant Review`;
+const locationPages = [
+  { slug: "brisbane", name: "Brisbane", pattern: /brisbane|new farm|st lucia|indooroopilly|victoria park|bundaleer|hillstone|calile|lightspace/i },
+  { slug: "gold-coast", name: "Gold Coast", pattern: /gold coast|nerang|burleigh|kirra|currumbin|tamborine|coolibah|sanctuary cove|tallebudgera|cowbell/i },
+  { slug: "sunshine-coast", name: "Sunshine Coast", pattern: /sunshine coast|noosa|maleny|montville|yandina|caloundra|mooloolaba|tiffany/i },
+  { slug: "byron-bay", name: "Byron Bay", pattern: /byron|bangalow|ballina|ewingsdale|fig tree restaurant/i },
+  { slug: "sydney", name: "Sydney", pattern: /sydney|denham court|mosman|manly|palm beach|watsons bay|centennial park/i },
+];
+const localPage = locationPages.find(({ pattern }) => pattern.test([fm.venue, fm.location].filter(Boolean).join(" ")));
+const planningLinks = [
+  { href: "/wedding-celebrant", label: "Personal wedding ceremonies" },
+  ...( /christian|pastor|faith|god|prayer/i.test(bodyText) ? [{ href: "/christian-wedding-celebrant", label: "Christian wedding ceremonies" }] : []),
+  ...( /\bMC\b|reception|master of ceremonies/i.test(bodyText) ? [{ href: "/master-of-ceremonies", label: "Jake as your reception MC" }] : []),
+  { href: "/wedding-readings", label: "Readings for your ceremony" },
+  { href: "/serviceandprice", label: "Wedding services and pricing" },
+  { href: "/faq", label: "Wedding planning questions" },
+];
 const formatDate = (d?: Date) =>
   d
     ? new Date(d).toLocaleDateString("en-AU", {
@@ -83,7 +101,7 @@ const jsonLd = {
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}` },
         {
           "@type": "ListItem",
           position: 2,
@@ -150,14 +168,28 @@ const otherTestimonials = allTestimonials
               src={fm.image.url}
               alt={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
               title={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
-              width={fm.image.url.width}
-              height={fm.image.url.height}
+              width={1200}
+              widths={[480, 768, 1200]}
+              sizes="(min-width: 1024px) 66vw, 100vw"
+              loading="eager"
+              fetchpriority="high"
               class="w-full h-auto"
             />
           )}
           <div class="mt-8 testimonial-body">
             <Content />
           </div>
+          <aside class="mt-12 rounded-xl border border-base-200 bg-base-50 p-6" aria-label="Plan your wedding">
+            <h2 class="font-display text-2xl text-accent-800">Plan a ceremony that feels like you</h2>
+            {localPage && <p class="mt-3">Getting married in the area? Explore Jake's <a class="underline text-accent-700" href={`/${localPage.slug}`}>{localPage.name} wedding celebrant services</a>.</p>}
+            <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-3">
+              {planningLinks.map(({ href, label }) => <li><a class="underline text-accent-700" href={href}>{label}</a></li>)}
+            </ul>
+            <h3 class="mt-6 font-medium text-accent-800">Wedding locations</h3>
+            <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-3">
+              {locationPages.map(({ slug, name }) => <li><a class="underline text-accent-700" href={`/${slug}`}>{name}</a></li>)}
+            </ul>
+          </aside>
         </div>
       </div>
     </Wrapper>
@@ -178,7 +210,7 @@ const otherTestimonials = allTestimonials
         </Text>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {otherTestimonials.map((t) => (
-            <a href={`/weddingtestimonials/${t.id}/`} class="group block">
+            <a href={`/weddingtestimonials/${t.id}`} class="group block">
               <div class="aspect-[4/3] overflow-hidden rounded-lg mb-4 bg-base-200">
                 {t.data.image?.url && (
                   <Image
@@ -286,10 +318,30 @@ const otherTestimonials = allTestimonials
   }
 
   .testimonial-body :global(blockquote) {
-    margin: 1.5rem 0;
-    padding: 0.5rem 0 0.5rem 1.25rem;
-    border-left: 3px solid var(--color-accent-500);
-    color: var(--color-base-600);
-    font-style: italic;
+    margin: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-left: 4px solid var(--color-accent-500);
+    border-radius: 0 1rem 1rem 0;
+    background: var(--color-base-50);
+  }
+  .testimonial-body :global(blockquote p) {
+    font-family: var(--font-newsreader), Georgia, serif;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.65;
+    color: var(--color-accent-800);
+  }
+  .testimonial-body :global(h2 + ul) {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem;
+  }
+  .testimonial-body :global(h2 + ul li) {
+    padding: 1rem;
+    margin: 0;
+    border: 1px solid var(--color-base-200);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
   }
 </style>

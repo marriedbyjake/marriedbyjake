@@ -9,20 +9,18 @@ image:
   alt: Elle & Pete Testimonial
 pubDate: 2026-08-21
 ---
-We couldn’t have asked for a better marriage celebrant for our wedding day. From the beginning, Jake was warm, professional, and truly took the time to understand us as a couple. He went into great details about our life during the ceremony that just made it feel meaningful.  
+> We couldn’t have asked for a better marriage celebrant for our wedding day. From the beginning, Jake was warm, professional, and truly took the time to understand us as a couple. He went into great details about our life during the ceremony that just made it feel meaningful.  
+>
+> The ceremony was personal, heartfelt, and beautifully delivered — so many guests commented on how elegant and fun it felt. Jake created the perfect balance of emotion, humour, class and romance. He also captured the perfect balance of religious and non-religious, which was something we had specifically asked for.  
+>
+> We’re so grateful for the care and effort that went into our ceremony and would highly recommend Jake to any couple looking for an exceptional celebrant.
+>
 
-The ceremony was personal, heartfelt, and beautifully delivered — so many guests commented on how elegant and fun it felt. Jake created the perfect balance of emotion, humour, class and romance. He also captured the perfect balance of religious and non-religious, which was something we had specifically asked for.  
+## Wedding team
 
-We’re so grateful for the care and effort that went into our ceremony and would highly recommend Jake to any couple looking for an exceptional celebrant.
-
-Wedding Planner: Upside Down Events (Lilac Zhang),
-
-Photographer: At Dusk Photography (Chris Prestidge),
-
-DJ: DJ Trey,
-
-Florist: Best Buds,
-
-Furniture: Event Hire Services
-
-@ellebru and @electricboogooloo
+- Wedding Planner: Upside Down Events (Lilac Zhang),
+- Photographer: At Dusk Photography (Chris Prestidge),
+- DJ: DJ Trey,
+- Florist: Best Buds,
+- Furniture: Event Hire Services
+- [@ellebru](https://www.instagram.com/ellebru/) and [@electricboogooloo](https://www.instagram.com/electricboogooloo/)

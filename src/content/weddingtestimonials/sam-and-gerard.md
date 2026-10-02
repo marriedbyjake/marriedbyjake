@@ -9,6 +9,9 @@ image:
 rating: 5
 pubDate: 2025-01-08
 ---
-We loved being married by Jake! Jake made the process so easy and was wonderful on the day. Our ceremony was thoughtful, funny and kind. We’d recommend getting married by Jake!
+> We loved being married by Jake! Jake made the process so easy and was wonderful on the day. Our ceremony was thoughtful, funny and kind. We’d recommend getting married by Jake!
+>
 
-Venue: [Maleny Manor](https://www.malenymanor.com.au)
+## Wedding team
+
+- Venue: [Maleny Manor](https://www.malenymanor.com.au)

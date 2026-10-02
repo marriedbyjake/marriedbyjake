@@ -8,9 +8,10 @@ image:
 rating: 5
 pubDate: 2018-04-30
 ---
+> Jake brought happiness, fun, love and emotion into our day as though he had been a part of our lives forever. A celebrant wasn't something I initially put much thought into, however after meeting Jake I knew he was the perfect celebrant for us!
+>
 
-Jake brought happiness, fun, love and emotion into our day as though he had been a part of our lives forever. A celebrant wasn't something I initially put much thought into, however after meeting Jake I knew he was the perfect celebrant for us!
+## Wedding team
 
-Photographer: [Rezolution Photography](https://www.rezolutionphotography.com.au/)
-
-Venue: [Maleny Manor](https://www.malenymanor.com.au)
+- Photographer: [Rezolution Photography](https://www.rezolutionphotography.com.au/)
+- Venue: [Maleny Manor](https://www.malenymanor.com.au)

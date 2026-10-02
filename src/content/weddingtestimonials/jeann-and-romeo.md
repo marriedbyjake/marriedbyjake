@@ -8,9 +8,13 @@ image:
 rating: 5
 pubDate: 2019-06-10
 ---
+> Jake made our ceremony so warm and memorable. It's already been 2 years, but we still remember it fondly.
+>
+> We couldn't have imagined getting married by anyone else!
+>
 
-Jake made our ceremony so warm and memorable. It's already been 2 years, but we still remember it fondly. 
+## Wedding team
 
-We couldn't have imagined getting married by anyone else!
-
-Brisbane wedding venue: [Cherbon Waters](https://www.cherbonwaters.com.au)
+- Brisbane
+- wedding
+- venue: [Cherbon Waters](https://www.cherbonwaters.com.au)

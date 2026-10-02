@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2015-10-02
 ---
+> Thanks very much for being part of our ceremony. You made it very relaxing and comfortable.
+>
 
-Thanks very much for being part of our ceremony. You made it very relaxing and comfortable.
+## Wedding team
 
-Venue: [Hillstone St Lucia](https://www.hillstonestlucia.com.au)
+- Venue: [Hillstone St Lucia](https://www.hillstonestlucia.com.au)

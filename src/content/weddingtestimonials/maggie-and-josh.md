@@ -6,4 +6,4 @@ rating: 5
 pubDate: 2021-01-25
 featured: false
 ---
-We really loved the ceremony you put together for us, thanks so much!
+> We really loved the ceremony you put together for us, thanks so much!

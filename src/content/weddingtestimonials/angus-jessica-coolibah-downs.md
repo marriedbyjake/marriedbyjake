@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2015-09-30
 ---
-
-Thank you so much for making everything go so smoothly!
+> Thank you so much for making everything go so smoothly!

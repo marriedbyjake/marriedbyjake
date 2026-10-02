@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2016-01-04
 ---
-
-Thank you Jake! You've been so helpful throughout the whole process and we received a lot of lovely compliments about the ceremony!
+> Thank you Jake! You've been so helpful throughout the whole process and we received a lot of lovely compliments about the ceremony!

@@ -8,9 +8,11 @@ image:
 rating: 5
 pubDate: 2018-07-31
 ---
+> Highly recommend Jake to anyone wanting to get married! He made everything such a pleasure and so stress-free!
+>
+> Thank you so much Jake!
+>
 
-Highly recommend Jake to anyone wanting to get married! He made everything such a pleasure and so stress-free! 
+## Wedding team
 
-Thank you so much Jake!
-
-Photographer: [Capture That Photography](https://www.capturethatphotography.com.au/)
+- Photographer: [Capture That Photography](https://www.capturethatphotography.com.au/)

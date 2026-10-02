@@ -63,7 +63,7 @@ export default defineConfig({
     sitemap({
       // Keep XML minimal for SEO cleanliness
       namespaces: { news: false, video: false, xhtml: false },
-      filter: (page) => new URL(page).pathname !== "/thank-you",
+      filter: (page) => !["/thank-you", "/404"].includes(new URL(page).pathname.replace(/\/$/, "")) && !/\.(txt|json|xml)$/.test(new URL(page).pathname),
       serialize(item) {
         try {
           const url = new URL(item.url);

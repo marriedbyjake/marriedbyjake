@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2014-03-08
 ---
+> Thanks so much for marrying us on Saturday! Everyone commented on how comfortable, connected and involved you made them feel. It was a beautiful ceremony, thanks so much mate.
+>
 
-Thanks so much for marrying us on Saturday! Everyone commented on how comfortable, connected and involved you made them feel. It was a beautiful ceremony, thanks so much mate.
+## Wedding team
 
-Photographer: [Helen McConnell Photography](https://helenmcconnellphotography.com/)
+- Photographer: [Helen McConnell Photography](https://helenmcconnellphotography.com/)

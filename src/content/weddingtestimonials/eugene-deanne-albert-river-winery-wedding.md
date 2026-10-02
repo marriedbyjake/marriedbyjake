@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2016-05-27
 ---
-
-Jake was brilliant, we had so many comments about how great the ceremony was!
+> Jake was brilliant, we had so many comments about how great the ceremony was!

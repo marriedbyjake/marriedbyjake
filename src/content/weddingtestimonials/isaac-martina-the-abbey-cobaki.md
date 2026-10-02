@@ -8,7 +8,6 @@ image:
 rating: 5
 pubDate: 2015-12-29
 ---
-
-Thank you very much for yesterday! It was amazing! 
-
-Thanks for the beautiful ceremony and for making it so personal. We couldn't have chosen a better pastor.
+> Thank you very much for yesterday! It was amazing!
+>
+> Thanks for the beautiful ceremony and for making it so personal. We couldn't have chosen a better pastor.

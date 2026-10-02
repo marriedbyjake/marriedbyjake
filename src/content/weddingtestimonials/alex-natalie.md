@@ -8,7 +8,6 @@ image:
 rating: 5
 pubDate: 2017-03-12
 ---
-
-We had an incredible time, thank you so much for being part of it!
-
-Everyone thought you were awesome... including us!
+> We had an incredible time, thank you so much for being part of it!
+>
+> Everyone thought you were awesome... including us!

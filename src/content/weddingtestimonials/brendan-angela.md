@@ -8,9 +8,10 @@ image:
 rating: 5
 pubDate: 2018-05-03
 ---
+> Thank you so much for making it such a special day for us. We will be forever grateful.
+>
 
-Thank you so much for making it such a special day for us. We will be forever grateful.
+## Wedding team
 
-Photographer: [Figtree Pictures](https://figtreepictures.com)
-
-Venue: [Summergrove Estate](https://www.summergrove.com.au)
+- Photographer: [Figtree Pictures](https://figtreepictures.com)
+- Venue: [Summergrove Estate](https://www.summergrove.com.au)

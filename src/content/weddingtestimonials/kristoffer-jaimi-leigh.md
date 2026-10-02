@@ -8,5 +8,4 @@ image:
 rating: 5
 pubDate: 2015-10-15
 ---
-
-Thank you very much Jake! We had the best day and evening!
+> Thank you very much Jake! We had the best day and evening!

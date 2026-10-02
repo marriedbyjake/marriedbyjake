@@ -1,6 +1,6 @@
 ---
 coupleName: Brendan & Christel
-venue: 
+venue:
 location:
 image:
   url: "/src/images/testimonials/brendan-christel.jpg"
@@ -8,7 +8,6 @@ image:
 rating: 5
 pubDate: 2014-05-26
 ---
-
-Thank you so much for yesterday, the ceremony was perfect! 
-
-We were so busy we didn't get the chance to thank you personally, so thanks again, everything was perfect!
+> Thank you so much for yesterday, the ceremony was perfect!
+>
+> We were so busy we didn't get the chance to thank you personally, so thanks again, everything was perfect!

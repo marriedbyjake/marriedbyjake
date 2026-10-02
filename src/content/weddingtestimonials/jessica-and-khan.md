@@ -8,11 +8,12 @@ image:
 rating: 5
 pubDate: 2020-03-02
 ---
+> Thank you so much for literally everything! You've been so supportive, a wealth of knowledge and truly an absolute delight to work with.
+>
+> We can't thank you enough and will be recommending you to everyone who will listen!
+>
 
-Thank you so much for literally everything! You've been so supportive, a wealth of knowledge and truly an absolute delight to work with.
+## Wedding team
 
-We can't thank you enough and will be recommending you to everyone who will listen!
-
-Photographer: [Sunlit Studios](https://www.sunlitstudios.com.au)
-
-Dress: [White Lily Couture](https://www.whitelilycouture.com.au/blogs/news/jess-khan-sanctuary-cove-wedding)
+- Photographer: [Sunlit Studios](https://www.sunlitstudios.com.au)
+- Dress: [White Lily Couture](https://www.whitelilycouture.com.au/blogs/news/jess-khan-sanctuary-cove-wedding)

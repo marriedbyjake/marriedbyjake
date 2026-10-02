@@ -8,7 +8,9 @@ image:
 rating: 5
 pubDate: 2018-05-10
 ---
+> Thank you so much Jake! We had so many lovely comments about how perfect the ceremony was and how much people loved you! Thank you for making it as easy and heartfelt as it should've been!
+>
 
-Thank you so much Jake! We had so many lovely comments about how perfect the ceremony was and how much people loved you! Thank you for making it as easy and heartfelt as it should've been!
+## Wedding team
 
-Venue: [Gabbinbar](https://www.gabbinbar.com.au)
+- Venue: [Gabbinbar](https://www.gabbinbar.com.au)

@@ -9,6 +9,6 @@ rating: 5
 pubDate: 2018-02-27
 featured: false
 ---
-Really professional, also easy-going and fun. Jake helped settle our nerves leading up to the wedding and made our ceremony memorable and enjoyable.
-
-All guests complimented his amazing work.
+> Really professional, also easy-going and fun. Jake helped settle our nerves leading up to the wedding and made our ceremony memorable and enjoyable.
+>
+> All guests complimented his amazing work.

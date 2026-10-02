@@ -6,4 +6,4 @@ rating: 5
 pubDate: 2017-08-21
 featured: false
 ---
-You were fantastic and we really loved the way you conducted our ceremony. It was exactly what we wanted and we're so happy with the whole day!
+> You were fantastic and we really loved the way you conducted our ceremony. It was exactly what we wanted and we're so happy with the whole day!

@@ -9,16 +9,15 @@ rating: 5
 pubDate: 2025-05-08
 featured: false
 ---
-Jake was such an incredible addition to the day. From the moment he arrived, he was a calming and reassuring presence. The ceremony was my favourite part of the day and I can thank Jake for that!
+> Jake was such an incredible addition to the day. From the moment he arrived, he was a calming and reassuring presence. The ceremony was my favourite part of the day and I can thank Jake for that!
+>
+> You combined humour, love, and faith so beautifully for us. Thank you Jake!
+>
 
-You combined humour, love, and faith so beautifully for us. Thank you Jake!
+## Wedding team
 
-Venue: [Summergrove Estate](https://www.summergrove.com.au)
-
-Photography: [Foy & Co](https://foyandco.com.au/)
-
-Musician: Danny Dyson & Taylamae
-
-Florist: [Ivy and Fleur](https://www.ivyandfleur.com.au/)
-
-Cake: [I Heart Cakes](https://iheartcakes.com.au/)
+- Venue: [Summergrove Estate](https://www.summergrove.com.au)
+- Photography: [Foy & Co](https://foyandco.com.au/)
+- Musician: Danny Dyson & Taylamae
+- Florist: [Ivy and Fleur](https://www.ivyandfleur.com.au/)
+- Cake: [I Heart Cakes](https://iheartcakes.com.au/)
