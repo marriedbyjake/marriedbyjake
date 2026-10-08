@@ -1,5 +1,13 @@
 # Project history
 
+## 2026-10-07 - Testimonial administrator venue column
+
+Enabled the existing `venue` field as a wedding testimonial list column using EmDash's supported collection `admin.listColumns` configuration. Inspected the live collection and field first: `admin_config` was null and `venue` was a string field. A guarded D1 update changed only that collection's display configuration to `{"listColumns":["venue"]}`; read-back confirmed one changed row and the saved value. Testimonial content and publication statuses were not edited.
+
+Validation: checked the installed EmDash manifest handler and collection configuration contract, and verified the production D1 setting. No authenticated browser session was available, so the rendered administrator list was not visually verified. Documentation-only source edits; no build, Git push or Worker deployment was performed.
+
+2026-10-08 follow-up: reconciled the documentation with current remote `main` for source publication. `git diff --check` passed. A fresh production D1 read-back was denied by Cloudflare with authorization error 7403; the last successful setting verification remains 7 October. This documentation publication needs no Worker deployment.
+
 ## 2026-10-01 — EmDash and Cloudflare Workers migration
 
 Moved the site architecture from Vercel/static Markdown to Astro server rendering with EmDash 1.0.1 on Workers, D1 and R2. Imported all six collections: 655 entries and 307 images. Public templates preserve their original paths, redirects, styling and content; pricing, readings, search, RSS and sitemap now read published CMS data. Existing testimonial coordinates were copied into editable CMS fields. Added separate administrator access for Josh and an invitation for Jake.

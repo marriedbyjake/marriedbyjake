@@ -17,6 +17,8 @@ The six collections preserve the existing content:
 
 Save edits as drafts, then Publish. Saving a revision does not replace the published page. Publishing updates the site, search, RSS and sitemap immediately, without rebuilding. Deleting an entry archives it in EmDash and removes it from public pages. A signed preview can show draft content to its authorized viewer. Do not reuse slugs belonging to static routes such as `/contact` or `/faq`.
 
+The wedding testimonials list is configured to show Venue through the live collection's `admin.listColumns: ["venue"]` setting. A blank venue helps identify Jake's unfinished historical backlog. New unfinished entries should be saved as drafts until ready to publish; adding this column does not change existing publication statuses. This display setting lives in D1, not the historical seed schema, and needs no Worker deployment.
+
 Upload images through Media or the image picker; choose alt text appropriate to the entry. The 307 imported images use their original bytes and recorded dimensions. For a new testimonial venue, set map latitude and longitude to add it to the overview map. The detail map uses its venue and location text.
 
 Email delivery is not configured. Passkeys and copied invitation links work; emailed passwordless login or recovery requires an email provider to be configured first. Keep an additional passkey on a second device. Never share accounts or commit access links.
