@@ -76,6 +76,7 @@ Local Worker bindings use local Wrangler state; a fresh checkout does not mirror
 | `npm run types` | Regenerate Worker binding types after configuration changes |
 | `npm run check` | Regenerate types and run Astro diagnostics |
 | `npm run validate` | Run content tests, Astro diagnostics and the production build |
+| `npm run indexnow` | Submit the live sitemap to IndexNow; automatically runs after successful `npm run deploy` |
 | `npm run cms:validate` | Validate the schema-only `seed/seed.json`; does not validate production content |
 | `npm run verify:seo -- --url http://localhost:4321` | Check rendered pages on a running local server; use its actual URL/port |
 
@@ -126,6 +127,12 @@ For a source release, inspect the working tree, fetch and integrate current remo
    The checker reads the live sitemap, fetches published pages and checks internal-link responses, metadata, testimonial markup and natural inline links. An SSR build does not emit static HTML for these CMS pages, so this check needs a running site.
 
 For material changes, also smoke-test `/`, a blog post, a testimonial with an image, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml` and `/_emdash/admin`. Check `www` and historical redirects, actual image responses, and desktop/mobile browser behavior for affected UI. Report the Git revision, Worker version, active traffic and completed checks, along with any verification gap. Append release evidence to [project history](docs/PROJECT_HISTORY.md); old counts and version IDs there are dated evidence.
+
+### IndexNow
+
+The root verification file in `public/` and `src/data/indexnow.json` configure IndexNow for the canonical domain. `scripts/submit-indexnow.mjs` verifies the deployed key, reads the live published sitemap, validates canonical URLs and submits batches of at most 10,000 to the shared IndexNow endpoint. The npm `postdeploy` hook runs this after every successful `npm run deploy`; local builds do not submit unpublished changes. Direct `wrangler deploy` bypasses the hook, so run `npm run indexnow` afterwards.
+
+Use `npm run indexnow -- --dry-run` to verify the live key and sitemap without submitting. A submission error leaves the successful Worker deployment in place; retry with `npm run indexnow`. HTTP 200 means received, and HTTP 202 means received with key validation pending; neither guarantees indexing. CMS publishing without deployment does not invoke this hook; run the command manually when needed. Protocol: [IndexNow documentation](https://www.indexnow.org/documentation).
 
 ### Production resources and recovery
 
