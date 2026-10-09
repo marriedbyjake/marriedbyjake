@@ -124,9 +124,22 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
     }
   }
 
-  // Initialize
-  initMap();
-  
-  // Handle Astro view transitions
-  document.addEventListener('astro:page-load', initMap);
+  // Load Maps and build markers only when the map approaches the viewport.
+  function observeMap() {
+    const element = document.getElementById("google-map");
+    if (!element || element.dataset.mapObserved) return;
+    element.dataset.mapObserved = "true";
+    if (!("IntersectionObserver" in window)) {
+      initMap();
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      initMap();
+    }, { rootMargin: "200px" });
+    observer.observe(element);
+  }
+  observeMap();
+  document.addEventListener("astro:page-load", observeMap);
 </script>

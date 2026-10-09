@@ -17,7 +17,8 @@ const socialLinks = [
   { label: "LinkedIn", href: "https://au.linkedin.com/in/jake-smith-2095743b" },
   { label: "TikTok", href: "https://www.tiktok.com/@married.by.jake" },
 ];
-const posts = (await getCollection("posts"))
+const [allPosts, allTestimonials] = await Promise.all([getCollection("posts"), getCollection("weddingtestimonials")]);
+const posts = allPosts
   .slice()
   .sort(
     (a, b) =>
@@ -29,7 +30,7 @@ const posts = (await getCollection("posts"))
     id: p.id,
     description: p.data.description ?? "",
   }));
-const testimonials = (await getCollection("weddingtestimonials"))
+const testimonials = allTestimonials
   .slice()
   .sort(
     (a, b) =>
@@ -91,7 +92,7 @@ const testimonials = (await getCollection("weddingtestimonials"))
                 height={600}
                 alt="Pastor Jake Smith, Wedding Celebrant"
                 class="object-cover object-top w-full h-40 rounded-lg"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
               />
               <Text

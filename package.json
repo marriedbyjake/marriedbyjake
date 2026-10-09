@@ -20,7 +20,7 @@
     "types": "wrangler types --include-runtime false",
     "cms:access": "node scripts/create-admin-access.mjs",
     "verify:seo": "node scripts/verify-seo.mjs",
-    "test:content": "node scripts/test-testimonial-format.mjs",
+    "test:content": "node scripts/test-testimonial-format.mjs && node scripts/test-testimonial-pagination.mjs && node scripts/test-performance.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "postdeploy": "npm run indexnow"
   },

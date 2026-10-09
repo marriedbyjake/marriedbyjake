@@ -15,7 +15,7 @@ const { title, description, canonical, image, video, ogType } = Astro.props as {
   ogType?: string;
 };
 
-// Aggregate rating computed from real testimonial data at build time
+// Aggregate rating computed from current published testimonials
 const allTestimonials = await getCollection("weddingtestimonials");
 const ratedTestimonials = allTestimonials.filter(
   (t) => typeof t.data.rating === "number",

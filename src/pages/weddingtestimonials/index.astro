@@ -7,21 +7,15 @@ import { Image } from "astro:assets";
 // Content
 import { getCollection } from "@/lib/cms";
 const allTestimonials = await getCollection("weddingtestimonials");
+import { paginateTestimonials } from "@/lib/testimonial-pagination";
 import LocationsMap from "@/components/testimonials/LocationsMap.astro";
 
-// Filter and Sort
-const featuredTestimonials = allTestimonials
-  .filter((t) => t.data.featured)
-  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
-
-const otherTestimonialsWithImages = allTestimonials
-  .filter((t) => !t.data.featured && t.data.image?.url)
-  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
-
-const otherTestimonialsWithoutImages = allTestimonials
-  .filter((t) => !t.data.featured && !t.data.image?.url)
-  .sort((a, b) => new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime());
-
+const { featuredTestimonials, otherTestimonialsWithImages, otherTestimonialsWithoutImages,
+  page, pageCount, total, start, end } = paginateTestimonials(allTestimonials, Astro.url.searchParams.get("page"));
+const pageUrl = (value: number) => value === 1 ? "/weddingtestimonials" : `/weddingtestimonials?page=${value}`;
+if (Astro.url.searchParams.has("page") && Astro.url.searchParams.get("page") !== String(page)) {
+  return Astro.redirect(pageUrl(page), 302);
+}
 const excerpt = (s: string, n = 180) => {
   const t = (s || "")
     .replace(/^#+\s+/gm, "")
@@ -48,8 +42,13 @@ const formatDate = (d?: Date) =>
 
 <BaseLayout
   title="Married By Jake Testimonials"
+  canonical={pageUrl(page)}
   description="Read real wedding testimonials from couples married by Jake Smith across Brisbane, South East Queensland, Australia and destination weddings."
 >
+  <Fragment slot="head">
+    {page > 1 && <link rel="prev" href={pageUrl(page - 1)} />}
+    {page < pageCount && <link rel="next" href={pageUrl(page + 1)} />}
+  </Fragment>
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
       <div class="max-width mb-2">
@@ -105,7 +104,7 @@ const formatDate = (d?: Date) =>
         </div>
       )}
 
-      <LocationsMap />
+      {page === 1 && <LocationsMap />}
       
       <div class="grid grid-cols-1 lg:grid-cols-2 mt-12 lg:mt-24 gap-8">
         {otherTestimonialsWithImages.map((t) => (
@@ -167,6 +166,11 @@ const formatDate = (d?: Date) =>
           </article>
         ))}
       </div>
+      <nav aria-label="Testimonial pages" class="flex flex-wrap items-center justify-center gap-4 mt-12">
+        {page > 1 && <a rel="prev" href={pageUrl(page - 1)} class="border border-base-300 px-4 py-2 hover:bg-base-50">Previous</a>}
+        <p class="text-sm text-base-700" aria-live="polite">Reviews {start}–{end} of {total} · Page {page} of {pageCount}</p>
+        {page < pageCount && <a rel="next" href={pageUrl(page + 1)} class="border border-base-300 px-4 py-2 hover:bg-base-50">Next</a>}
+      </nav>
     </Wrapper>
   </section>
 </BaseLayout>

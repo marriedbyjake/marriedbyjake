@@ -18,6 +18,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     : source === pathname);
   if (redirect) return context.redirect(redirect.destination, 301);
   const response = await next();
+  // Fingerprinted source assets cannot contain CMS drafts. Preserve Astro's
+  // immutable browser cache for their transforms; CMS media stays private.
+  const imageSource = context.url.searchParams.get("href");
+  if (pathname === "/_image" && imageSource && /^\/_astro\/[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)+$/.test(imageSource)
+    && response.ok && !response.headers.has("Set-Cookie")
+    && response.headers.get("Content-Type")?.startsWith("image/")) return response;
   // Public pages always see the latest publication; previews and admin stay private.
   // Cloudflare cache hits have immutable headers, so copy before changing them.
   const headers = new Headers(response.headers);

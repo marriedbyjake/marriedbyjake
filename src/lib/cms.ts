@@ -1,7 +1,7 @@
 import { canonicalContentLinks } from "./internal-links";
 import type { CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
-import { extractPlainText, getEmDashCollection, getEmDashEntry, type ContentEntry } from "emdash";
+import { extractPlainText, getEmDashCollection, getEmDashEntry, getRequestContext, type ContentEntry } from "emdash";
 import type { PortableTextProps } from "emdash/ui";
 
 export type Collection = "posts" | "services" | "weddingtestimonials" | "readings" | "infopages" | "pricing";
@@ -56,10 +56,33 @@ function normalize<C extends Collection>(entry: ContentEntry<object>, collection
   } as CmsEntry<C>;
 }
 
+// Reuse normalized data only within this request. EmDash already deduplicates
+// queries; this also avoids repeatedly walking every review's Portable Text.
+const normalizedCollections = new WeakMap<object, Map<Collection, Promise<unknown>>>();
+
 export async function getCollection<C extends Collection>(collection: C): Promise<CmsEntry<C>[]> {
-  const { entries, error } = await getEmDashCollection(collection, { status: "published" });
-  if (error) throw new Error(`Unable to load ${collection}`, { cause: error });
-  return entries.map((entry) => normalize(entry, collection));
+  const load = async () => {
+    const { entries, error } = await getEmDashCollection(collection, { status: "published" });
+    if (error) throw new Error(`Unable to load ${collection}`, { cause: error });
+    return entries.map((entry) => normalize(entry, collection));
+  };
+  const context = getRequestContext();
+  if (!context) return load();
+  let cache = normalizedCollections.get(context);
+  if (!cache) {
+    cache = new Map();
+    normalizedCollections.set(context, cache);
+  }
+  let pending = cache.get(collection) as Promise<CmsEntry<C>[]> | undefined;
+  if (!pending) {
+    pending = load().catch((error) => {
+      cache.delete(collection);
+      throw error;
+    });
+    cache.set(collection, pending);
+  }
+  // Callers sort collections in place; give each one its own array.
+  return [...await pending];
 }
 
 export async function getEntry<C extends Collection>(collection: C, slug: string): Promise<CmsEntry<C> | undefined> {

@@ -45,6 +45,8 @@ Use the CMS Media picker for uploaded images and supply appropriate alt text. Te
 
 Josh and Jake use separate administrator accounts. Passkeys and private copied invitation/recovery links are the documented access method; email delivery is not configured in the runbook. Follow [CMS operations](docs/CMS.md) for account recovery. `npm run cms:access` creates production access credentials in an ignored private file; it is an operator recovery action, not a development or deployment prerequisite.
 
+The testimonial directory renders 24 reviews per page, preserving featured-first, image-first and date ordering. Previous/next links reach every published review; each page has its own canonical query URL. The location map appears on the first page and loads as it approaches the viewport.
+
 ### Testimonial editing rules
 
 Preserve the couple’s review wording. Format live Portable Text in the renderer instead of rewriting archived Markdown. Keep credits separate from the quote and use `src/data/testimonial-credit-boundaries.json` for reviewed exceptions.
@@ -72,7 +74,7 @@ Local Worker bindings use local Wrangler state; a fresh checkout does not mirror
 
 | Command | Purpose |
 | --- | --- |
-| `npm run test:content` | Check testimonial wording preservation, formatting and canonical links |
+| `npm run test:content` | Check testimonial wording, links, pagination, request isolation and image caching |
 | `npm run types` | Regenerate Worker binding types after configuration changes |
 | `npm run check` | Regenerate types and run Astro diagnostics |
 | `npm run validate` | Run content tests, Astro diagnostics and the production build |
