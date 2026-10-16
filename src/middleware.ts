@@ -1,7 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 import { redirects } from "./data/redirects.json";
 import { getRequestContext, getEmDashEntry } from 'emdash';
-import { mediaRequest, authorizeMedia, privateHeaders } from './lib/media-access.mjs';
+import { mediaRequest, authorizeMedia, privateHeaders, committedMediaRedirect } from './lib/media-access.mjs';
 import { committedMedia } from './lib/published-media';
 import { isEditor } from './lib/editor-auth';
 
@@ -18,8 +18,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const preview = getRequestContext()?.preview;
     // Historical public originals resolve to immutable Git bytes, never a
     // replaceable R2 key that might now belong to a private revision.
-    const committed = !editor && !preview && target.original ? committedMedia(target.key) : undefined;
-    if (committed) return new Response(null,{status:302,headers:{...privateHeaders,Location:committed.src}});
+    const committed = !editor && !preview && target.key ? committedMedia(target.key) : undefined;
+    const location = committedMediaRedirect(target,committed,context.url);
+    if (location) return new Response(null,{status:302,headers:{...privateHeaders,Location:location}});
     const allowed = await authorizeMedia({target,editor,preview,
       loadEntry:async (collection: string,id: string) => (await getEmDashEntry(collection,id)).entry,
       loadMedia:async (key: string) => context.locals.emdash?.db.selectFrom('media').select('id').where('storage_key','=',key).executeTakeFirst(),

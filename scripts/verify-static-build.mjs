@@ -2,6 +2,17 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import manifest from '../content/published/manifest.json' with {type:'json'};
 const root='dist/client';
+const search=JSON.parse(await fs.readFile(path.join(root,'search.json'),'utf8'));
+const searchTargets=[];
+for(const name of ['posts','services','weddingtestimonials','infopages']){
+ const {entries}=JSON.parse(await fs.readFile(`content/published/${name}.json`,'utf8'));
+ for(const slug of Object.keys(entries))searchTargets.push(`${name==='posts'?'/blog':name==='weddingtestimonials'?'/weddingtestimonials':''}/${slug}`);
+}
+if(!Array.isArray(search.items)||JSON.stringify(search.items.map(item=>item.url).sort())!==JSON.stringify(searchTargets.sort()))throw Error('Static search does not contain exactly the published entries');
+const feed=await fs.readFile(path.join(root,'rss.xml'),'utf8');
+if((feed.match(/<item>/g)||[]).length!==manifest.counts.posts)throw Error('Static RSS is incomplete');
+const directory=await fs.readFile(path.join(root,'weddingtestimonials.html'),'utf8');
+if(directory.includes('Please add PUBLIC_GOOGLE_MAPS_API_KEY'))throw Error('The existing Maps build value is required before release');
 const decode=value=>value.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('&apos;',"'").replaceAll('&lt;','<').replaceAll('&gt;','>');
 const sitemap=await fs.readFile(path.join(root,'sitemap-0.xml'),'utf8');
 const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match=>decode(match[1]));
@@ -24,4 +35,4 @@ const entrypoints=(await Promise.all(files.filter(name=>/^entrypoints_.*\.mjs$/.
 if(!entrypoints.includes('_preview/[collection]/[id]'))throw Error('The signed preview route is not registered');
 const release=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'));
 if(release.contentHash!==manifest.contentHash)throw Error('Static release content hash differs from Git snapshot');
-console.log(JSON.stringify({verified:true,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));
+console.log(JSON.stringify({verified:true,searchItems:search.items.length,rssItems:manifest.counts.posts,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));

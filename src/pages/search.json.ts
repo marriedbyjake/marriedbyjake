@@ -1,6 +1,6 @@
 import { getCollection } from "@/lib/cms";
 
-export const prerender = false;
+export const prerender = true;
 
 export async function GET() {
   const [posts, infopages, services, testimonials] = await Promise.all([

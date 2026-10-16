@@ -1,8 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generatePreviewToken,verifyPreviewToken,parseContentId} from 'emdash';
-import {mediaRequest,authorizeMedia} from '../../src/lib/media-access.mjs';
+import {mediaRequest,authorizeMedia,committedMediaRedirect} from '../../src/lib/media-access.mjs';
 const url=path=>new URL(path,'https://marriedbyjake.com');
+test('historical published transforms retain dimensions while resolving only immutable committed bytes',()=>{
+ const source=url('/_image?href=/_emdash/api/media/file/old.png&w=640&h=640&f=webp&unknown=discard');
+ const target=mediaRequest(source),image={src:'/_astro/committed.hash.png'};
+ const destination=new URL(committedMediaRedirect(target,image,source),source);
+ assert.equal(destination.pathname,'/_image');assert.equal(destination.searchParams.get('href'),image.src);
+ assert.equal(destination.searchParams.get('w'),'640');assert.equal(destination.searchParams.get('h'),'640');assert.equal(destination.searchParams.get('f'),'webp');assert.equal(destination.searchParams.has('unknown'),false);
+ assert.equal(committedMediaRedirect({original:true},image,source),image.src);
+ assert.equal(committedMediaRedirect(target,undefined,source),undefined);
+});
 test('draft-media guard denies original and transform bypasses, encoded keys and remote fetches',async()=>{
  for(const path of ['/_emdash/api/media/file/private.png','/_emdash/api/media/file/%70rivate.png','/_image?href=https://other.example/_emdash/api/media/file/private.png','/_image?href=/_astro/%252e%252e/private.png','/_image?href=https://other.example/private.png']){
   const target=mediaRequest(url(path));assert.ok(target);assert.equal(await authorizeMedia({target,editor:false}),false);

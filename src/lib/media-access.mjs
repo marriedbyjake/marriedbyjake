@@ -1,5 +1,13 @@
 const prefix = '/_emdash/api/media/file/';
 export const privateHeaders = {'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow','Referrer-Policy':'no-referrer'};
+export function committedMediaRedirect(target, image, url) {
+  if (!image) return;
+  if (target.original) return image.src;
+  const destination = new URL('/_image',url);
+  destination.searchParams.set('href',image.src);
+  for (const key of ['w','h','q','f','fit']) if (url.searchParams.has(key)) destination.searchParams.set(key,url.searchParams.get(key));
+  return destination.pathname+destination.search;
+}
 export function mediaRequest(url) {
   if (url.pathname.startsWith(prefix)) return {key:url.pathname.slice(prefix.length), original:true};
   if (!['/_image','/_private-image'].includes(url.pathname)) return;
