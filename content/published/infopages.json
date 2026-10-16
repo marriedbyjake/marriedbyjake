@@ -397,6 +397,39 @@
             "_type": "block",
             "children": [
               {
+                "_key": "48e5nzh04",
+                "_type": "span",
+                "text": "Explore my "
+              },
+              {
+                "_key": "4xw4ry7y4",
+                "_type": "span",
+                "marks": [
+                  "qf5ki9p0i"
+                ],
+                "text": "wedding services"
+              },
+              {
+                "_key": "9v3y3zf53",
+                "_type": "span",
+                "text": " to find the right fit for your day."
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "qf5ki9p0i",
+                "_type": "link",
+                "blank": true,
+                "href": "/services"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "uzu0ch56f",
+            "_type": "block",
+            "children": [
+              {
                 "_key": "key-63-3trj7",
                 "_type": "span",
                 "text": "* The coffees were not all for me. Honest!"
@@ -409,7 +442,7 @@
         "pub_date": "2025-12-18T00:00:00.000Z"
       },
       "publishedAt": "2026-10-01T10:53:16.743Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-10-16 20:37:43"
     },
     "privacy": {
       "cmsId": "01M3VHHQ28RZ96R1MRZSS5C70G",

@@ -1027,7 +1027,28 @@
               {
                 "_key": "key-33-s64xr",
                 "_type": "span",
-                "text": "Booking Jake as both celebrant and MC creates a seamless flow from ceremony to reception. He already knows your story, understands your priorities and has built rapport with your guests — making the transition effortless."
+                "text": "Booking Jake as "
+              },
+              {
+                "_key": "pd3tv97ig",
+                "_type": "span",
+                "marks": [
+                  "0wxlpog62"
+                ],
+                "text": "both celebrant and MC"
+              },
+              {
+                "_key": "k3hmo83aw",
+                "_type": "span",
+                "text": " creates a seamless flow from ceremony to reception. He already knows your story, understands your priorities and has built rapport with your guests — making the transition effortless."
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "0wxlpog62",
+                "_type": "link",
+                "blank": true,
+                "href": "/services"
               }
             ],
             "style": "normal"
@@ -1160,6 +1181,9 @@
           "height": 800,
           "id": "01M3VHHPD8H9TXQMK98WRK1J0A",
           "meta": {
+            "blurhash": null,
+            "caption": null,
+            "dominantColor": null,
             "storageKey": "import-a13f00ed850deb87470c9ce115d41dc0c572eaedf710d7ff113198bf34887ce4.jpg"
           },
           "mimeType": "image/jpeg",
@@ -1172,7 +1196,7 @@
         "title": "Master of Ceremonies"
       },
       "publishedAt": "2026-10-01T10:53:16.730Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-10-16 20:38:31"
     },
     "wedding-celebrant": {
       "cmsId": "01M3VHHQ1TEP9KBWQS7E8CNWCH",
