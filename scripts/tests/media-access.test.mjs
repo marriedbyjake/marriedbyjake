@@ -7,7 +7,7 @@ test('historical published transforms retain dimensions while resolving only imm
  const source=url('/_image?href=/_emdash/api/media/file/old.png&w=640&h=640&f=webp&unknown=discard');
  const target=mediaRequest(source),image={src:'/_astro/committed.hash.png'};
  const destination=new URL(committedMediaRedirect(target,image,source),source);
- assert.equal(destination.pathname,'/_image');assert.equal(destination.searchParams.get('href'),image.src);
+ assert.equal(destination.pathname,'/_private-image');assert.equal(destination.searchParams.get('href'),image.src);
  assert.equal(destination.searchParams.get('w'),'640');assert.equal(destination.searchParams.get('h'),'640');assert.equal(destination.searchParams.get('f'),'webp');assert.equal(destination.searchParams.has('unknown'),false);
  assert.equal(committedMediaRedirect({original:true},image,source),image.src);
  assert.equal(committedMediaRedirect(target,undefined,source),undefined);

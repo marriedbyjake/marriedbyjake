@@ -3,7 +3,9 @@ export const privateHeaders = {'Cache-Control':'private, no-store','X-Robots-Tag
 export function committedMediaRedirect(target, image, url) {
   if (!image) return;
   if (target.original) return image.src;
-  const destination = new URL('/_image',url);
+  // Compile mode's /_image fast path returns bundled originals unchanged.
+  // The explicit route runs the real transformer for historical renditions.
+  const destination = new URL('/_private-image',url);
   destination.searchParams.set('href',image.src);
   for (const key of ['w','h','q','f','fit']) if (url.searchParams.has(key)) destination.searchParams.set(key,url.searchParams.get(key));
   return destination.pathname+destination.search;
