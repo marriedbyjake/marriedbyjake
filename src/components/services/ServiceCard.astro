@@ -1,6 +1,6 @@
 ---
 // Assets
-import { Image } from "astro:assets";
+import { Image } from "emdash/ui";
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 // Content
@@ -21,10 +21,11 @@ const headingTag = Astro.props.headingTag ?? "h3";
     class="absolute inset-0 z-20 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-white"></a>
   {image && (
     <Image
-      src={image}
+      image={Astro.props.post.data.featured_image || image.src}
       alt={title}
       width={800}
       height={800}
+      sizes="(min-width: 1024px) calc((100vw - 224px) / 2), calc(100vw - 64px)"
       class="object-cover object-center w-full aspect-square transition-transform duration-300 group-hover:scale-[1.02]"
       loading="lazy"
       decoding="async"

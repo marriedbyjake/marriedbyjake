@@ -5,6 +5,7 @@ import PracticeLayout from "@/layouts/PracticeLayout.astro";
 import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
 import ContextualReviews from "@/components/testimonials/ContextualReviews.astro";
 import { isReviewContext } from "@/lib/contextual-reviews";
+import PricingReference from "@/components/services/PricingReference.astro";
 const slug = Astro.params.service || "";
 const page = await getEntry("services", slug) || await getEntry("infopages", slug);
 if (!page) return new Response("Not found", { status: 404 });
@@ -63,6 +64,7 @@ const serviceJsonLd = isInfoPage
       set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
     />
     <PortableText value={page.content} />
+    {slug === "celebrantcost" && <PricingReference />}
   </LegalPagesLayout>
 ) : (
   <PracticeLayout frontmatter={page.data} description={metaDescription}>
@@ -79,6 +81,7 @@ const serviceJsonLd = isInfoPage
       />
     )}
     <PortableText value={page.content} />
+    {["wedding-celebrant", "master-of-ceremonies"].includes(slug) && <PricingReference service={slug === "master-of-ceremonies" ? "mc" : "ceremony"} />}
     <Fragment slot="reviews">
       {isReviewContext(slug) && <ContextualReviews context={slug} />}
     </Fragment>

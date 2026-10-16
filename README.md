@@ -51,6 +51,10 @@ Map popups list the full testimonial links for reviews with the same explicit ve
 
 `ContextualReviews.astro` shows up to three short review excerpts on the five city landing pages and the wedding celebrant, MC and elopement service pages. City matches require an explicit city name in the published CMS location field. Service matches reuse reviewed inline-link selections only while their phrases remain in the current quote. Vendor credits never establish a match. The component links to the full testimonials and falls back to the general directory when none match. See [selection notes](docs/TESTIMONIAL_INLINE_LINKS.md) for maintenance rules. It uses the existing request-scoped collection cache and adds no browser JavaScript or per-review database reads.
 
+Review rich text and plain text are normalized lazily, once per entry within the current request. Ratings, map metadata and card selection do not process unused review bodies. Responsive CMS review/service cards use EmDash's `Image` component with the full media value, preserving focal points and media metadata; repository assets continue to use Astro's image components.
+
+`src/lib/pricing.ts` reads the published EmDash `pricing/index` entry. The pricing page and reusable `PricingReference.astro` on FAQ, services and cost pages share that source; archived Markdown is not the live price source. Complete CMS price strings are preserved. Conflicting GST/travel inclusion prose remains pending an owner decision; see [performance and pricing notes](docs/PERFORMANCE.md).
+
 ### Testimonial editing rules
 
 Preserve the couple’s review wording. Format live Portable Text in the renderer instead of rewriting archived Markdown. Keep credits separate from the quote and use `src/data/testimonial-credit-boundaries.json` for reviewed exceptions.

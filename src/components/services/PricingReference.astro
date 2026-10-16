@@ -1,0 +1,10 @@
+---
+import { getPricing, pricingUrl } from "@/lib/pricing";
+interface Props { service?: "ceremony" | "mc"; class?: string }
+const { service = "ceremony", class: className = "" } = Astro.props;
+const pricing = await getPricing();
+const price = service === "mc" ? pricing.mc : pricing.australianCeremonies;
+---
+<p class={`text-sm text-base-600 my-6 ${className}`}>
+  {price.title}: {price.price}. <a href={pricingUrl} class="underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">View current pricing and inclusions</a>.
+</p>

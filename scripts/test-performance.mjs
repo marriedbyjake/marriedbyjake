@@ -14,10 +14,12 @@ const moduleUrl = (source) => `data:text/javascript,${encodeURIComponent(source)
 let context = {};
 let loads = 0;
 let normalized = 0;
+let linked = 0;
 let fail = false;
 globalThis.performanceCmsTest = {
   context: () => context,
   plainText: () => { normalized++; return 'Published review'; },
+  links: value => { linked++; return value; },
   load: async (_, filter) => {
     loads++;
     assert.equal(filter.status, 'published');
@@ -26,11 +28,20 @@ globalThis.performanceCmsTest = {
 };
 const { getCollection } = await loadSource('../src/lib/cms.ts', {
   emdash: moduleUrl('export const getRequestContext = () => globalThis.performanceCmsTest.context(); export const getEmDashCollection = (...args) => globalThis.performanceCmsTest.load(...args); export const getEmDashEntry = () => {}; export const extractPlainText = () => globalThis.performanceCmsTest.plainText();'),
-  './internal-links': moduleUrl('export const canonicalContentLinks = value => value;'),
+  './internal-links': moduleUrl('export const canonicalContentLinks = value => globalThis.performanceCmsTest.links(value);'),
 });
 const [a,b] = await Promise.all([getCollection('weddingtestimonials'), getCollection('weddingtestimonials')]);
 assert.equal(loads, 1);
-assert.equal(normalized, 2);
+assert.equal(normalized, 0, 'Metadata selection must not extract unused review bodies');
+assert.equal(linked, 0, 'Metadata selection must not walk unused Portable Text');
+assert.equal(a[0].data.rating, 5);
+assert.deepEqual(a[0].content, []);
+assert.equal(linked, 1);
+assert.equal(normalized, 0);
+assert.equal(a[0].body, 'Published review');
+assert.equal(b[0].body, 'Published review');
+assert.equal(normalized, 1, 'Repeated readers reuse the normalized body in this request');
+assert.equal(linked, 1);
 a.reverse();
 assert.deepEqual(b.map(entry => entry.id), ['a','b']);
 context = {};
@@ -61,6 +72,9 @@ assert.equal((await run(staticImage,{headers:{'Set-Cookie':'test=value'}})).head
 assert.equal((await run(staticImage,{status:404})).headers.get('Cache-Control'),'private, no-store');
 assert.equal((await run('/old')).headers.get('Location'),'/contact');
 assert.equal((await run('/contact/')).headers.get('Location'),'https://marriedbyjake.com/contact');
+for (const path of ['/?preview=signed-value', '/_emdash/api/auth/me', '/_emdash/api/media/file/example.jpg', '/search.json', '/rss.xml', '/sitemap-0.xml']) {
+  assert.equal((await run(path)).headers.get('Cache-Control'), 'private, no-store');
+}
 console.log('Performance checks passed: request isolation, concurrent reads, independent arrays, error retry, private CMS/preview responses, immutable static images, redirects.');
 
 // Exercise the actual inline map loader without making external requests.

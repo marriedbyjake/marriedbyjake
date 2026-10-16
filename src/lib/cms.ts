@@ -1,12 +1,12 @@
 import { canonicalContentLinks } from "./internal-links";
 import type { CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
-import { extractPlainText, getEmDashCollection, getEmDashEntry, getRequestContext, type ContentEntry } from "emdash";
+import { extractPlainText, getEmDashCollection, getEmDashEntry, getRequestContext, type ContentEntry, type MediaValue } from "emdash";
 import type { PortableTextProps } from "emdash/ui";
 
 export type Collection = "posts" | "services" | "weddingtestimonials" | "readings" | "infopages" | "pricing";
 export type CmsEntry<C extends Collection> = CollectionEntry<C> & {
-  data: CollectionEntry<C>["data"] & { latitude?: number; longitude?: number };
+  data: CollectionEntry<C>["data"] & { latitude?: number; longitude?: number; featured_image?: MediaValue };
   content: PortableTextProps["value"];
   updatedAt?: Date;
 };
@@ -14,7 +14,12 @@ export type CmsEntry<C extends Collection> = CollectionEntry<C> & {
 // Keep the existing public templates' field names while EmDash uses snake_case.
 function normalize<C extends Collection>(entry: ContentEntry<object>, collection: C): CmsEntry<C> {
   const raw: Record<string, unknown> = { ...entry.data };
-  const content = canonicalContentLinks(Array.isArray(raw.content) ? raw.content : []);
+  // Most collection consumers only need metadata (ratings, map positions and
+  // related-card selection). Walk Portable Text only for entries actually shown.
+  // These memoized values belong to this entry in this request, never an isolate.
+  let content: PortableTextProps["value"] | undefined;
+  let body: string | undefined;
+  const richContent = () => content ??= canonicalContentLinks(Array.isArray(raw.content) ? raw.content : []);
   const media = raw.featured_image as {
     id: string; src?: string; width?: number; height?: number; filename?: string; mimeType?: string; alt?: string; meta?: { storageKey?: string };
   } | undefined;
@@ -50,8 +55,8 @@ function normalize<C extends Collection>(entry: ContentEntry<object>, collection
         mc: pricingGroup("mc"),
       } : {}),
     },
-    body: extractPlainText(content),
-    content,
+    get body() { return body ??= extractPlainText(richContent()); },
+    get content() { return richContent(); },
     updatedAt: raw.updatedAt ? new Date(String(raw.updatedAt)) : undefined,
   } as CmsEntry<C>;
 }

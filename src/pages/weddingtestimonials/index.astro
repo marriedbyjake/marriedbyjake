@@ -3,7 +3,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { Image } from "astro:assets";
+import { Image } from "emdash/ui";
 // Content
 import { getCollection } from "@/lib/cms";
 const allTestimonials = await getCollection("weddingtestimonials");
@@ -73,7 +73,8 @@ const formatDate = (d?: Date) =>
                 <Image
                   width={1000}
                   height={1000}
-                  src={t.data.image.url}
+                  sizes="(min-width: 1024px) calc((100vw - 224px) / 4), (min-width: 768px) calc(100vw - 96px), calc(100vw - 64px)"
+                  image={t.data.featured_image || t.data.image.url.src}
                   alt={t.data.image.alt || t.data.coupleName}
                   class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
                   loading="lazy"
@@ -113,7 +114,8 @@ const formatDate = (d?: Date) =>
               <Image
                 width={1000}
                 height={1000}
-                src={t.data.image.url}
+                sizes="(min-width: 1024px) calc((100vw - 224px) / 4), (min-width: 768px) calc(100vw - 96px), calc(100vw - 64px)"
+                image={t.data.featured_image || t.data.image.url.src}
                 alt={t.data.image.alt || t.data.coupleName}
                 class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
