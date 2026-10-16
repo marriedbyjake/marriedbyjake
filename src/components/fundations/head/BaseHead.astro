@@ -4,6 +4,7 @@ import Meta from "@/components/fundations/head/Meta.astro";
 import Fonts from "@/components/fundations/head/Fonts.astro";
 import Favicons from "@/components/fundations/head/Favicons.astro";
 import { getCollection } from "@/lib/cms";
+const privatePreview = Astro.url.pathname.startsWith('/_preview/');
 const { title, description, canonical, image, video, ogType } = Astro.props as {
   title?: string;
   description?: string;
@@ -150,7 +151,7 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
     2,
   ).replace(/</g, "\\u003c")}
 />
-<script is:inline>
+{!privatePreview && <script is:inline>
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function gtag() {
     window.dataLayer.push(arguments);
@@ -208,4 +209,4 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
 
     window.addEventListener("mbj:load-tracking", loadTracking, { once: true });
   })();
-</script>
+</script>}
