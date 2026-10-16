@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import manifest from '../content/published/manifest.json' with {type:'json'};
+import {inspectWorkerStartup} from './lib/worker-startup.mjs';
 const root='dist/client';
 const search=JSON.parse(await fs.readFile(path.join(root,'search.json'),'utf8'));
 const searchTargets=[];
@@ -35,4 +36,6 @@ const entrypoints=(await Promise.all(files.filter(name=>/^entrypoints_.*\.mjs$/.
 if(!entrypoints.includes('_preview/[collection]/[id]'))throw Error('The signed preview route is not registered');
 const release=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'));
 if(release.contentHash!==manifest.contentHash)throw Error('Static release content hash differs from Git snapshot');
-console.log(JSON.stringify({verified:true,searchItems:search.items.length,rssItems:manifest.counts.posts,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));
+const startup=await inspectWorkerStartup();
+if(startup.bytes>32_768||!startup.deferred.some(file=>/^chunks\/cms-worker_[^/]+\.mjs$/.test(file)))throw Error('The public Worker entry must stay below 32 KiB with the CMS in a deferred module');
+console.log(JSON.stringify({verified:true,searchItems:search.items.length,rssItems:manifest.counts.posts,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,publicStartupBytes:startup.bytes,publicStartupModules:startup.files.length,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));

@@ -14,6 +14,8 @@ Public loaders read only committed JSON. Public images, HTML, search, RSS and si
 
 Only reviewed `main` source deploys through Cloudflare Builds, using Node 24.21.0, `npm ci && npm run validate`, then `npm run deploy:ci`. Exact CI/checkout SHA, clean source, current Git main, matching release manifest and an exclusive deployment lease are required. The guarded deploy preserves the owner-controlled activation switch, including an emergency pause. The App key is a runtime secret; Builds uses a separate masked deployment-lock credential.
 
+The public entry defers the CMS module until a private request or scheduled invocation needs it. `scripts/verify-static-build.mjs` checks the actual emitted module graph, requires the deferred CMS chunk and rejects public startup dependencies larger than 32 KiB. Public-route tests also check that a failed CMS initialization cannot break published pages or bypass preview denials. This source change's release status and measurements are recorded in [performance notes](PERFORMANCE.md).
+
 Export, media, Git conflicts and failed/stale builds leave the last healthy deployment available. Transient attempts retry with bounded backoff; conflicts and repeated failures pause for review. The publisher confirms only its exact live SHA and content hash. Retry never enables a disabled publisher or discards uncertain commit intent. Preserve current CMS edits and privately reconcile Git/CMS/live state before resuming a conflict; never force-push or reset the ledger as a shortcut.
 
 ## Verified current-account release

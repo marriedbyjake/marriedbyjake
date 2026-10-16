@@ -12,7 +12,7 @@ Inspect `git status`, the branch, relevant diffs and current source before editi
 - Layout, navigation, static landing-page copy and UI belong in `src/pages/`, `src/layouts/`, `src/components/` and `src/styles/`. Source changes require a Worker deployment.
 - Check `src/data/seo.json` and `src/components/fundations/head/Seo.astro` when changing page titles or descriptions; route overrides can take precedence over CMS descriptions.
 - Hero video URLs and matching posters are configured in `src/data/hero-video.ts`. Follow the video runbook and preserve decorative playback, poster fallback and reduced-motion behavior.
-- Worker bindings/routes belong in `wrangler.jsonc`; preserve the Astro Cloudflare/EmDash integration in `astro.config.mjs` and the custom entry in `src/worker.ts`.
+- Worker bindings/routes belong in `wrangler.jsonc`; preserve the Astro Cloudflare/EmDash integration in `astro.config.mjs` and the custom entry in `src/worker.ts`. Keep public startup limited to routing/assets; `src/cms-worker.ts` is deferred for private requests and scheduled work. The postbuild check enforces the emitted module boundary and 32 KiB public startup budget.
 
 ## EmDash content contract
 
