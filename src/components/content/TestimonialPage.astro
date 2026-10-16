@@ -1,4 +1,5 @@
 ---
+import { imagePosition } from "@/lib/media-position";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -138,6 +139,7 @@ const otherTestimonials = allTestimonials
           {fm.image?.url && (
             <Image
               src={fm.image.url}
+            style={imagePosition(fm.image)}
               alt={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
               title={buildAlt(fm.coupleName, fm.venue, fm.location, fm.rating)}
               width={1200}
@@ -176,10 +178,10 @@ const otherTestimonials = allTestimonials
                 {t.data.image?.url && (
                   <Image
                     src={t.data.image.url}
+            style={imagePosition(t.data.image)}
                     alt={buildAlt(t.data.coupleName, t.data.venue, t.data.location, t.data.rating)}
                     title={buildAlt(t.data.coupleName, t.data.venue, t.data.location, t.data.rating)}
                     width={600}
-                    height={450}
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"

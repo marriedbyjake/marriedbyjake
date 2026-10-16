@@ -8,13 +8,16 @@ const cacheKey=row=>sha256(`${row.content_hash}:${row.size}`);
 const pathsHash=paths=>digest(paths);
 export async function runPublisher(env,dependencies={}){
  if(env.PUBLISHING_ENABLED!=='true')return {phase:'disabled'};
+ const started=performance.now();let fingerprintRowsRead=0,fingerprintDurationMs=0;
  const db=env.DB.withSession?env.DB.withSession('first-primary'):env.DB;
  const lease=await claimPublishingLease(db);if(!lease)return {phase:'busy'};
  let state=lease.state;
  const save=async next=>(state=await lease.save(next));
  const client=dependencies.client||new GitHubPublisher(env,dependencies.fetcher||fetch,lease.assert);
  const fingerprint=async()=>{
-  const result=await db.prepare(snapshotSql({fingerprint:true})).first();
+  const measured=await db.prepare(snapshotSql({fingerprint:true})).all();
+  fingerprintRowsRead+=Number(measured.meta?.rows_read||0);fingerprintDurationMs+=Number(measured.meta?.duration||0);
+  const result=measured.results[0];
   if(typeof result?.snapshot!=='string')throw Error('Incomplete CMS fingerprint');return sha256(result.snapshot);
  };
  try{
@@ -36,7 +39,7 @@ export async function runPublisher(env,dependencies={}){
    const response=await (dependencies.fetcher||fetch)('https://marriedbyjake.com/release.json',{cache:'no-store',signal:AbortSignal.timeout(10_000)});
    if(!response.ok)throw Error('Live release status is unavailable');const live=await response.json();
    if(live.contentHash===state.pending.contentHash&&live.sourceCommit===state.pending.commit){
-    await save({...state,phase:'healthy',pending:undefined,failures:0,retryAt:undefined,reason:undefined,lastHealthyAt:Date.now()});return {phase:'healthy'};
+    await save({...state,phase:'healthy',confirmedCommit:state.pending.commit,pending:undefined,failures:0,retryAt:undefined,reason:undefined,lastHealthyAt:Date.now()});return {phase:'healthy'};
    }
    if(Date.now()-state.pending.pushedAt>30*60_000)throw new PublicationPaused('Git release has not become live within 30 minutes; inspect Cloudflare Builds');
    await save({...state,phase:'awaiting-build'});return {phase:'awaiting-build'};
@@ -94,5 +97,5 @@ export async function runPublisher(env,dependencies={}){
   if(error instanceof LeaseLost)return {phase:'lease-replaced'};
   if(error instanceof YieldPublication)return {phase:'preparing'};
   await save(failedPublication(state,error));return {phase:state.phase};
- }finally{await lease.release();}
+ }finally{await lease.release();console.log(JSON.stringify({event:'publishing-check',phase:state.phase,wallMs:Math.round(performance.now()-started),fingerprintRowsRead,fingerprintDurationMs}));}
 }

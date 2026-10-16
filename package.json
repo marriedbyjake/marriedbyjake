@@ -14,7 +14,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "build:locations": "node scripts/build-locations.mjs",
-    "deploy": "npm run validate && wrangler deploy",
+    "deploy": "npm run validate && node scripts/deploy-static.mjs",
     "cms:prepare": "node scripts/prepare-cms.mjs",
     "cms:validate": "emdash seed seed/seed.json --validate",
     "types": "wrangler types --include-runtime false",
@@ -26,7 +26,9 @@
     "prebuild": "node scripts/verify-published.mjs",
     "test:publishing": "node --test scripts/tests/*.test.mjs",
     "postbuild": "node scripts/verify-static-build.mjs",
-    "test:publishing:runtime": "node --test scripts/integration/publishing-runtime.mjs"
+    "test:publishing:runtime": "node --test scripts/integration/publishing-runtime.mjs",
+    "deploy:ci": "node scripts/deploy-static.mjs",
+    "postdeploy:ci": "npm run indexnow"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",

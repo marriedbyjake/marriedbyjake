@@ -34,9 +34,9 @@
   "vars": {
     "EMDASH_SITE_URL": "https://marriedbyjake.com",
     "PUBLISHING_ENABLED": "false",
-    "PUBLISHING_BASELINE_HASH": "",
-    "GITHUB_APP_ID": "",
-    "GITHUB_INSTALLATION_ID": "",
+    "PUBLISHING_BASELINE_HASH": "3158d456870422bb250fc299720e3d252dd6bfb477dcc7cae59013a2ed2e2e81",
+    "GITHUB_APP_ID": "5343818",
+    "GITHUB_INSTALLATION_ID": "172038461",
     "GITHUB_REPOSITORY_ID": "1104160905"
   },
   "triggers": {

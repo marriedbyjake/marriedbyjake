@@ -16,7 +16,7 @@ export function parsePublished(text: string) {
     return {
       ...raw, id, cmsId: entry.cmsId, updatedAt: entry.updatedAt,
       pubDate: raw.pub_date || undefined,
-      ...(asset ? { image: { url: `../../src/images/published/${asset.asset}`, alt: source.alt || asset.alt || raw.title || raw.couple_name || '', focalX: asset.focalX, focalY: asset.focalY } } : {}),
+      ...(asset ? { image: { url: `../../src/images/published/${asset.asset}`, alt: source.alt || asset.alt || raw.title || raw.couple_name || '', focalX: source.focalX ?? asset.focalX, focalY: source.focalY ?? asset.focalY } } : {}),
       coupleName: raw.couple_name,
       location: titleCase(raw.location), venue: titleCase(raw.venue),
       featured: !!raw.featured,

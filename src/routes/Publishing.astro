@@ -1,0 +1,29 @@
+---
+import {env} from 'cloudflare:workers';
+import {isEditor} from '@/lib/editor-auth';
+import {publishingStatus} from '@/publishing/status.mjs';
+import {privateHeaders} from '@/lib/media-access.mjs';
+export const prerender = false;
+const editor = await isEditor(Astro);
+if (!editor) return new Response('Sign in as an editor',{status:403,headers:privateHeaders});
+if (!['GET','HEAD'].includes(Astro.request.method)) return new Response('Method not allowed',{status:405,headers:privateHeaders});
+Object.entries(privateHeaders).forEach(([key,value])=>Astro.response.headers.set(key,value));
+let status;
+try { status = await publishingStatus(env); }
+catch { status = {phase:'unavailable',message:'Publishing status is unavailable. Check again before assuming your changes are live.',canRetry:false}; }
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><title>Website publishing — Married by Jake</title></head>
+<body><main>
+  <a href="/_emdash/admin">Back to EmDash</a>
+  <h1>Website publishing</h1>
+  <p role="status">{status.message}</p>
+  <p>Publish in EmDash saves the public version for the next website release. Private drafts stay in EmDash. A successful save does not mean the website release is live.</p>
+  {status.reason && <p>{status.reason}</p>}
+  {status.pendingCommit && <p>Waiting for release <code>{status.pendingCommit}</code>.</p>}
+  {status.lastHealthyAt && <p>Last confirmed live: <time datetime={new Date(status.lastHealthyAt).toISOString()}>{new Date(status.lastHealthyAt).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})} (Brisbane)</time>.</p>}
+  {status.confirmedCommit && <p>Confirmed source: <code>{status.confirmedCommit}</code>.</p>}
+  {status.retryAt && <p>Next retry: {new Date(status.retryAt).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})} (Brisbane).</p>}
+  {status.canRetry && <form method="post" action="/_publishing/retry"><p>After resolving a conflict or build failure, retry the pending release. This preserves any uncertain Git commit and never overwrites CMS drafts.</p><button type="submit">Retry publishing</button></form>}
+  <p><a href="/_publishing">Refresh status</a> · <a href="/" target="_blank" rel="noopener noreferrer">Open public website</a></p>
+</main></body></html>
+<style>body{margin:0;background:#faf7f2;color:#302b25;font:1rem/1.6 system-ui,sans-serif}main{max-width:46rem;margin:3rem auto;padding:1.5rem}h1{line-height:1.2}a{color:#705237;text-underline-offset:.2em}button{font:inherit;border:1px solid #705237;background:#705237;color:white;padding:.75rem 1.25rem;cursor:pointer;border-radius:0}code{overflow-wrap:anywhere}:focus-visible{outline:3px solid #92714c;outline-offset:4px}@media(max-width:640px){main{margin:.5rem auto;padding:1.25rem}}</style>

@@ -5,7 +5,7 @@ import ts from 'typescript';
 async function loadSource(path, imports) {
   let source = await readFile(new URL(path, import.meta.url), 'utf8');
   for (const [specifier, replacement] of Object.entries(imports)) {
-    source = source.replaceAll(`from "${specifier}"`, `from "${replacement}"`);
+    source = source.replaceAll(`from "${specifier}"`, `from "${replacement}"`).replaceAll(`from '${specifier}'`, `from "${replacement}"`);
   }
   const output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText;
   return import(`data:text/javascript,${encodeURIComponent(output)}`);
@@ -60,6 +60,10 @@ delete globalThis.performanceCmsTest;
 
 const { onRequest } = await loadSource('../src/middleware.ts', {
   'astro:middleware': moduleUrl('export const defineMiddleware = fn => fn;'),
+  'emdash': moduleUrl('export const getRequestContext = () => undefined; export const getEmDashEntry = async () => ({});'),
+  './lib/media-access.mjs': new URL('../src/lib/media-access.mjs', import.meta.url).href,
+  './lib/published-media': moduleUrl('export const committedMedia = () => undefined;'),
+  './lib/editor-auth': moduleUrl('export const isEditor = async () => false;'),
   './data/redirects.json': moduleUrl('export const redirects = [{ source: "/old", destination: "/contact" }];'),
 });
 const run = (path, init = {}) => onRequest({ url: new URL(path, 'https://marriedbyjake.com'), redirect: (url,status) => new Response(null,{status,headers:{Location:url}}) }, async () => new Response('bytes', {headers: {'Cache-Control':'public, max-age=31536000, immutable','Content-Type':'image/webp',...init.headers},status:init.status ?? 200}));

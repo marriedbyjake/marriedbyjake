@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import { PTImage as PreviewImage } from 'emdash/ui';
+import { getRequestContext, sanitizeHref } from 'emdash';
+import { committedImage } from '@/lib/published-media';
+const {node} = Astro.props;
+const preview = getRequestContext()?.preview;
+const resolved = preview ? undefined : committedImage(node.asset?._ref);
+const number = (value: unknown, fallback: number) => typeof value === 'number' && Number.isFinite(value) ? Math.min(1,Math.max(0,value)) : fallback;
+const position = resolved ? `${number(node.focalX ?? resolved.item.focalX,0.5)*100}% ${number(node.focalY ?? resolved.item.focalY,0.5)*100}%` : undefined;
+const width = resolved ? Math.min(resolved.image.width,Number(node.displayWidth) || 1600) : undefined;
+const displayHeight = Number(node.displayHeight);
+const imageStyle = `object-position:${position}${displayHeight > 0 && Number.isFinite(displayHeight) ? `;aspect-ratio:${width}/${displayHeight}` : ''}`;
+const link = sanitizeHref(typeof node.link === 'string' ? node.link : node.link?.href || '');
+const blank = !!link && !link.startsWith('#') && typeof node.link === 'object' && node.link.blank;
+---
+{preview ? <PreviewImage node={node} /> : resolved && <figure class="published-image">
+  {link ? <a href={link} target={blank ? '_blank' : undefined} rel={blank ? 'noopener noreferrer' : undefined}>
+    <Image src={resolved.image} alt={node.alt ?? resolved.item.alt} width={width} widths={[320,640,960,1600].filter(w => w <= resolved.image.width)} sizes="(max-width: 768px) 100vw, 960px" loading="lazy" style={imageStyle} />
+  </a> : <Image src={resolved.image} alt={node.alt ?? resolved.item.alt} width={width} widths={[320,640,960,1600].filter(w => w <= resolved.image.width)} sizes="(max-width: 768px) 100vw, 960px" loading="lazy" style={imageStyle} />}
+  {node.caption && <figcaption>{node.caption}</figcaption>}
+</figure>}
+<style>.published-image{margin:1.5rem 0}.published-image :global(img){max-width:100%;height:auto;object-fit:cover;border-radius:0}.published-image figcaption{margin-top:.5rem;font-size:.875rem}</style>

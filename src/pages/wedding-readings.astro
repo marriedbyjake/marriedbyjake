@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from "@/lib/cms";
-import { PortableText } from "emdash/ui";
+import PortableText from '@/components/content/PublishedText.astro';
 
 const readingsCollection = await getCollection("readings");
 

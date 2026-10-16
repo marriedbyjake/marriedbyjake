@@ -16,9 +16,9 @@ Inspect `git status`, the branch, relevant diffs and current source before editi
 
 ## EmDash content contract
 
-The site renders published content from D1 per request. `src/live.config.ts` registers the EmDash live loader. Public templates read through `getCollection()` and `getEntry()` in `src/lib/cms.ts`, which normalize CMS fields, media and canonical content links. Keep the collection slugs `posts`, `weddingtestimonials`, `services`, `readings`, `infopages` and `pricing` consistent with the live model. Rich content uses Portable Text, not archived Markdown rendering.
+The public site renders committed published snapshots from `content/published/` and `src/images/published/`. EmDash/D1 remains the editing surface and holds private drafts; `cms-live.ts` is reserved for signed previews. Follow [publishing operations](docs/PUBLISHING_SERVICE.md) for the current account and activation state. `src/live.config.ts` registers the EmDash live loader. Public templates read through `getCollection()` and `getEntry()` in `src/lib/cms.ts`, which normalize CMS fields, media and canonical content links. Keep the collection slugs `posts`, `weddingtestimonials`, `services`, `readings`, `infopages` and `pricing` consistent with the live model. Rich content uses Portable Text, not archived Markdown rendering.
 
-For content edits, use the authenticated CMS, preserve the existing slug unless a URL change is intended, save a draft, review, then Publish. A draft revision must leave the published page intact; signed previews remain restricted to their authorized viewer. Publishing updates relevant pages, search, RSS and sitemap without rebuilding. Do not expose drafts by loosening collection filters or preview checks. Do not invent copy, reviews, pricing, credentials or vendor identities. Never overwrite a real entry merely to test publishing.
+For content edits, use the authenticated CMS, preserve the existing slug unless a URL change is intended, save a draft, review, then Publish. A draft revision must leave the published page intact; signed previews remain restricted to their authorized viewer. Publishing queues a complete Git release and Cloudflare static build. A CMS save is separate from live confirmation; use the authenticated editor status page and exact live source SHA/content hash. Do not expose drafts by loosening collection filters or preview checks. Do not invent copy, reviews, pricing, credentials or vendor identities. Never overwrite a real entry merely to test publishing.
 
 Use CMS Media for uploaded images, preserve appropriate alt text, and edit testimonial map latitude/longitude in the CMS. Avoid slugs belonging to static routes such as `/contact` and `/faq`.
 
@@ -49,7 +49,7 @@ Local Wrangler state does not mirror production D1/R2. A fresh checkout may lack
 - `npm run validate` runs content tests, binding type generation, Astro diagnostics and the production build.
 - `npm run types` regenerates binding types after `wrangler.jsonc` changes; the check script also runs it.
 - `npm run cms:validate` validates the seed schema when it changes.
-- `npm run verify:seo -- --url <running-site-url>` checks rendered output. SSR pages are not static HTML in `dist/`.
+- `npm run verify:seo -- --url <running-site-url>` checks rendered output. Public HTML is in `dist/client/`; CMS/private previews remain dynamic.
 
 For documentation-only edits, check paths, links and command names against the source; a Worker deployment is unnecessary unless requested. Do not claim a build, publication or deployment was verified when only documentation was checked.
 
@@ -57,11 +57,11 @@ For documentation-only edits, check paths, links and command names against the s
 
 Cloudflare Workers is the only production deployment target. Do not configure another hosting provider as production. Use Node 24 LTS and the configured Withers Co account/Worker `marriedbyjake`; `wrangler.jsonc` is the resource and route source of truth.
 
-Commit and push intended source changes to `main` separately from deployment. A Git push does not deploy the Worker. Reconcile remote work before release, confirm the deployed checkout matches the intended `main` revision and preserve unrelated changes. Deploy from a fresh build of that revision, not an older `dist/`.
+Commit and push intended source changes to `main` separately from deployment. A Git push triggers Cloudflare Builds only when the reviewed integration is active; verify the exact deployed SHA. Reconcile remote work before release, confirm the deployed checkout matches the intended `main` revision and preserve unrelated changes. Deploy from a fresh build of that revision, not an older `dist/`.
 
 1. Install dependencies with `npm ci`.
 2. Authenticate with `npx wrangler login --device --browser=false`. Keep the command active and approve its verification URL in the browser within five minutes. Restart the flow if the code expires. Confirm account access with `npx wrangler whoami`; keep authentication codes and credentials private.
-3. Run `npm run deploy`. This runs the required content tests, type checks and build before `wrangler deploy`. Optionally annotate with `npm run deploy -- --message "main COMMIT: change description"`, using the actual commit.
+3. Normal production releases run in Cloudflare Builds: `npm ci && npm run validate`, then `npm run deploy:ci`. The source/deploy gates reject wrong SHA, dirty/non-main source, stale assets and competing deployments. Local `npm run deploy` requires Cloudflare CI identity. Follow the publishing runbook for the separately controlled first bootstrap or rollback; preserve runtime variables with `--keep-vars`.
 4. Check the active deployment with `npx wrangler deployments list`. Confirm the intended version and traffic allocation, not merely upload success.
 5. Verify the canonical site with `npm run verify:seo -- --url https://marriedbyjake.com`.
 

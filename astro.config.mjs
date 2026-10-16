@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { buildSource } from './scripts/lib/build-source.mjs';
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
@@ -6,8 +6,7 @@ import react from "@astrojs/react";
 import emdash from "emdash/astro";
 import { d1, r2 } from "@emdash-cms/cloudflare";
 
-const sourceCommit = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
-const sourceDirty = execFileSync("git", ["status", "--porcelain", "--untracked-files=normal", "--", ".", ":(exclude).astro"], { encoding: "utf8" }).trim() !== "";
+const {commit:sourceCommit} = buildSource();
 
 export default defineConfig({
   output: "static",
@@ -21,7 +20,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     define: { "import.meta.env.EMDASH_PREVIEW_PATH_PATTERN": JSON.stringify("/_preview/{collection}/{id}"),
-      "import.meta.env.PUBLISHED_SOURCE_COMMIT": JSON.stringify(sourceDirty ? null : sourceCommit) },
+      "import.meta.env.PUBLISHED_SOURCE_COMMIT": JSON.stringify(sourceCommit) },
   },
   integrations: [
     {
@@ -32,6 +31,10 @@ export default defineConfig({
           // filesystem router. Register these intentionally private paths here.
           injectRoute({ pattern: "/__published/testimonial-pages/[page]", entrypoint: "./src/routes/TestimonialPagination.astro", prerender: true });
           injectRoute({ pattern: "/_preview/[collection]/[id]", entrypoint: "./src/routes/ContentPreview.astro", prerender: false });
+          injectRoute({ pattern: "/_publishing", entrypoint: "./src/routes/Publishing.astro", prerender: false });
+          injectRoute({ pattern: "/_publishing/status", entrypoint: "./src/routes/PublishingStatus.ts", prerender: false });
+          injectRoute({ pattern: "/_publishing/retry", entrypoint: "./src/routes/PublishingRetry.ts", prerender: false });
+          injectRoute({ pattern: "/_private-image", entrypoint: "./src/routes/PrivateImage.ts", prerender: false });
         },
       },
     },

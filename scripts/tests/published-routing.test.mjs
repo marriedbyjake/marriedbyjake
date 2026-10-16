@@ -29,7 +29,8 @@ test('canonical and historical redirects preserve established behavior',()=>{
 test('the real Worker public path never touches the CMS database or handler',async()=>{
  let dynamic=0;globalThis.publishingWorkerTest={dynamic:()=>{dynamic++;return new Response('private',{headers:{'Cache-Control':'private, no-store'}});}};
  let source=await readFile(new URL('../../src/worker.ts',import.meta.url),'utf8');
- source=source.replace('from "./publishing/publisher.mjs"',`from "${moduleUrl('export const runPublisher=async()=>({phase:"disabled"});')}"`);
+ source=source.replace("from './publishing/deployment-lock.mjs'",`from "${moduleUrl('export const deploymentLock=async()=>new Response(null,{status:401});')}"`);
+ source=source.replace('from "./publishing/publisher.mjs"' ,`from "${moduleUrl('export const runPublisher=async()=>({phase:"disabled"});')}"`);
  source=source.replace('from "./lib/published-routing"' ,`from "${routingModule}"`).replace('from "@emdash-cms/cloudflare/worker"',`from "${moduleUrl('export default {fetch:()=>globalThis.publishingWorkerTest.dynamic()};export const createScheduledHandler=()=>()=>{};')}"`);
  const {default:worker}=await import(compile(source));const assetRequests=[];
  const env={DB:{prepare(){throw Error('Public request touched D1');}},ASSETS:{fetch:async(url)=>{assetRequests.push(url);return new Response('static HTML',{headers:{'Content-Type':'text/html'}});}}};

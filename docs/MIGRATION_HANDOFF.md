@@ -1,5 +1,7 @@
 # Married by Jake: account migration and publishing handoff — 16 October 2026
 
+> Updated decision, 16 October 2026: Josh deferred the account move and authorized completing the static publishing workflow in the existing Withers Co `marriedbyjake` Worker. The repository-owner publisher App and separate Cloudflare GitHub connection have been approved and installed. See [current publishing operations](PUBLISHING_SERVICE.md) for the current activation state and release procedure. The earlier account-migration plan below remains dated evidence; no new account or DNS move is authorized.
+
 Continue from the tested local checkpoint below. Prefer completing the publishing workflow in a Jake-owned Cloudflare account while the existing site remains live, then perform a separately approved, verified cutover. Josh is creating the account himself. His planning questions do **not** authorize resource creation, paid upgrades, integration activation, account movement or DNS changes.
 
 ## Open this checkout in the new Codex thread

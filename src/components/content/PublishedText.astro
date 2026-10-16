@@ -1,0 +1,8 @@
+---
+import { PortableText, type PortableTextProps } from 'emdash/ui';
+import PublishedImage from './PublishedImage.astro';
+import PublishedGallery from './PublishedGallery.astro';
+interface Props { value: PortableTextProps['value'] }
+const {value} = Astro.props;
+---
+<PortableText value={value} components={{type:{image:PublishedImage,gallery:PublishedGallery}}} />

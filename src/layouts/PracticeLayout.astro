@@ -1,4 +1,5 @@
 ---
+import { imagePosition } from "@/lib/media-position";
 // Assets
 import { Image } from "astro:assets";
 import "@/styles/prose.css";
@@ -22,6 +23,7 @@ const { frontmatter, description } = Astro.props;
         {frontmatter.image?.url ? (
           <Image
             src={frontmatter.image.url}
+            style={imagePosition(frontmatter.image)}
             alt={frontmatter.image.alt}
             widths={[800, 1200, 1600]}
             sizes="100vw"

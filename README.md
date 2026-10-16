@@ -1,6 +1,6 @@
 # Married by Jake
 
-Jake’s public website and EmDash editor run together on Cloudflare Workers. Astro renders pages from published CMS content in D1; uploaded media is stored in a private R2 bucket. Source changes are released from `main`. Publishing CMS content and deploying website code are separate operations.
+Jake’s public website and EmDash editor run together in the existing Cloudflare Worker. EmDash keeps authoring data and private drafts in D1/R2. The publisher commits complete published content and referenced images to Git; Astro builds public pages, search, RSS and sitemap from that exact commit. See [publishing operations](docs/PUBLISHING_SERVICE.md) for activation state, owner access, build gates and rollback. The Jake-owned account move is deferred.
 
 - [Website](https://marriedbyjake.com)
 - [EmDash editor](https://marriedbyjake.com/_emdash/admin)
@@ -13,7 +13,7 @@ Use Node 24 LTS, version 24.15 or newer. The project uses Astro, Tailwind CSS, R
 
 | Change | Source of truth | How it reaches the website |
 | --- | --- | --- |
-| Blog posts, testimonials, services, readings, info pages and pricing | EmDash editor / production D1 | Save a draft, review it, then Publish; no code deployment is needed |
+| Blog posts, testimonials, services, readings, info pages and pricing | EmDash editor / production D1 | Save a draft, review, then Publish; the Cloudflare publisher commits a release and Builds deploys it |
 | Page structure, navigation, static landing-page copy and components | `src/pages/`, `src/layouts/`, `src/components/` | Validate, commit and push to `main`, then deploy the Worker |
 | Public styling | `src/styles/` and component styles | Deploy the Worker; preserve the existing design and square corners |
 | Titles and descriptions | Page/layout props, `src/components/fundations/head/Seo.astro`, `src/data/seo.json` | Check route-specific overrides as well as CMS fields, then deploy source changes |
@@ -28,7 +28,7 @@ Markdown under `src/content/` is the original migration source and an archive. E
 
 ## How EmDash works here
 
-`astro.config.mjs` enables server rendering and connects EmDash to the `DB` and `MEDIA` bindings. `src/live.config.ts` registers the runtime loader. Public templates use `getCollection()` and `getEntry()` from `src/lib/cms.ts`; that adapter normalizes CMS field names, media references and internal links for the site’s existing templates. Rich content is Portable Text, rendered with EmDash’s `PortableText` component or the testimonial renderer.
+`astro.config.mjs` prerenders public pages from `content/published/` through `src/content.config.ts` and `src/lib/cms.ts`. `src/live.config.ts` and `cms-live.ts` retain the EmDash loader for private signed previews. Rich content remains complete Portable Text; the published image/gallery renderers resolve verified assets from Git. The Worker serves public assets before EmDash or D1.
 
 | CMS collection slug | Content | Public route |
 | --- | --- | --- |
@@ -39,7 +39,7 @@ Markdown under `src/content/` is the original migration source and an archive. E
 | `infopages` | Information pages | `/<slug>` |
 | `pricing` | Australian ceremonies, international ceremonies and MC pricing | `/serviceandprice` |
 
-To edit content, sign in at the editor with your own passkey, choose the collection and entry, save a draft, review it, then Publish. A saved draft revision leaves the published version intact. Publishing updates the public page and relevant search, RSS and sitemap output without rebuilding. Signed previews are for authorized viewers; ordinary public requests must not expose drafts. Archiving an entry removes it from public output. Avoid slugs reserved by static pages, such as `/contact` and `/faq`.
+To edit content, sign in at the editor with your own passkey, choose the collection and entry, save a draft, review it, then Publish. A saved draft revision leaves the published version intact. Publishing queues a Git release and a static build. The editor banner and `/_publishing` show pending/failure/retry status; a CMS save is separate from a confirmed live release. Export, conflict and build failures retain the last healthy website. Signed previews are for authorized viewers; ordinary public requests must not expose drafts. Archiving an entry queues its removal in the next successful release. Avoid slugs reserved by static pages, such as `/contact` and `/faq`.
 
 Use the CMS Media picker for uploaded images and supply appropriate alt text. Testimonial overview-map positions come from the CMS latitude and longitude fields. The detail map also uses venue and location text. Local source images and public assets remain separate from CMS uploads.
 
@@ -51,10 +51,10 @@ Map popups list the full testimonial links for reviews with the same explicit ve
 
 `ContextualReviews.astro` shows up to three short review excerpts on the five city landing pages and the wedding celebrant, MC and elopement service pages. City matches require an explicit city name in the published CMS location field. Service matches reuse reviewed inline-link selections only while their phrases remain in the current quote. Vendor credits never establish a match. The component links to the full testimonials and falls back to the general directory when none match. See [selection notes](docs/TESTIMONIAL_INLINE_LINKS.md) for maintenance rules. It uses the existing request-scoped collection cache and adds no browser JavaScript or per-review database reads.
 
-Review rich text and plain text are normalized lazily, once per entry within the current request. Ratings, map metadata and card selection do not process unused review bodies. Responsive CMS review/service cards use EmDash's `Image` component with the full media value, preserving focal points and media metadata; repository assets continue to use Astro's image components.
-The narrow canonical CMS-file `image.remotePatterns` rule in `astro.config.mjs` is required because EmDash supplies absolute media URLs. Without it, Astro returns original files instead of real responsive transforms. Do not broaden it to unrelated hosts or API routes.
+Review rich text and plain text are normalized lazily, once per entry within the current request. Ratings, map metadata and card selection do not process unused review bodies. Public review/service images use verified committed originals through Astro’s build-time image pipeline, preserving focal metadata. Private preview media stays authenticated and cannot enter public build output.
+The narrow canonical CMS-file image allowlist supports private previews. Original files and transform aliases pass the same authorization check; public pages use committed assets. Do not broaden it to unrelated hosts or API routes.
 
-`src/lib/pricing.ts` reads the published EmDash `pricing/index` entry. The pricing page and reusable `PricingReference.astro` on FAQ, services and cost pages share that source; archived Markdown is not the live price source. Complete CMS price strings are preserved. Conflicting GST/travel inclusion prose remains pending an owner decision; see [performance and pricing notes](docs/PERFORMANCE.md).
+`src/lib/pricing.ts` reads the committed published `pricing/index` snapshot from EmDash. The pricing page and reusable `PricingReference.astro` on FAQ, services and cost pages share that source; archived Markdown is not the live price source. Complete CMS price strings are preserved. Conflicting GST/travel inclusion prose remains pending an owner decision; see [performance and pricing notes](docs/PERFORMANCE.md).
 
 ### Testimonial editing rules
 
@@ -95,49 +95,11 @@ Local Worker bindings use local Wrangler state; a fresh checkout does not mirror
 
 ## Deploy to Cloudflare Workers
 
-Cloudflare Workers is the only production target. The Worker is `marriedbyjake`, in the Withers Co account configured in `wrangler.jsonc`. Git pushes do not deploy it.
+Use the existing Withers Co `marriedbyjake` Worker and configured resources. Normal production releases run in Cloudflare Builds from `main`, with Node 24.21.0, `npm ci && npm run validate`, then `npm run deploy:ci`. The gate verifies the exact CI/checkout SHA, clean source, release manifest, current Git main and an exclusive deployment lease. It preserves runtime variables. Local `npm run deploy` intentionally rejects a missing Cloudflare CI identity.
 
-For a source release, inspect the working tree, fetch and integrate current remote work, and commit/push the intended source changes to `main`. Preserve unrelated changes and avoid force pushes. Confirm that the checkout contains the exact revision you intend to deploy. Then follow this procedure:
+Fetch and reconcile remote work before committing or pushing; preserve unrelated work and never force-push. This task's `origin` is omarchy; `github` explicitly targets the public repository. A Git push and an active verified deployment remain separate evidence layers. Follow [publishing operations](docs/PUBLISHING_SERVICE.md) for initial bootstrap, activation and emergency rollback. No account/DNS move or paid upgrade is implied.
 
-1. Use Node 24 LTS and install the locked dependencies:
-
-   ```sh
-   npm ci
-   ```
-
-2. Authenticate using the [Wrangler device login flow](https://developers.cloudflare.com/workers/wrangler/commands/general/#use-wrangler-login-without-a-local-callback-server):
-
-   ```sh
-   npx wrangler login --device --browser=false
-   ```
-
-   Keep the command running, open its verification URL in a browser and approve within five minutes. If the code expires, restart the command. Confirm access to the configured Withers Co account with `npx wrangler whoami`. Keep login codes and credential files private.
-
-3. Validate, build and deploy from that checkout:
-
-   ```sh
-   npm run deploy
-   ```
-
-   This runs `npm run validate` before `wrangler deploy`. To annotate the release, use `npm run deploy -- --message "main COMMIT: change description"`, replacing `COMMIT` with the actual Git revision. Do not deploy a stale `dist/` from a different source revision.
-
-4. Inspect the active deployment:
-
-   ```sh
-   npx wrangler deployments list
-   ```
-
-   Confirm the intended version and traffic allocation. Upload success alone is not proof that the version is active.
-
-5. Check the rendered canonical website:
-
-   ```sh
-   npm run verify:seo -- --url https://marriedbyjake.com
-   ```
-
-   The checker reads the live sitemap, fetches published pages and checks internal-link responses, metadata, testimonial markup and natural inline links. An SSR build does not emit static HTML for these CMS pages, so this check needs a running site.
-
-For material changes, also smoke-test `/`, a blog post, a testimonial with an image, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml` and `/_emdash/admin`. Check `www` and historical redirects, actual image responses, and desktop/mobile browser behavior for affected UI. Report the Git revision, Worker version, active traffic and completed checks, along with any verification gap. Append release evidence to [project history](docs/PROJECT_HISTORY.md); old counts and version IDs there are dated evidence.
+After deployment, inspect `npx wrangler deployments list`, live `/release.json`, `npm run verify:seo -- --url https://marriedbyjake.com`, representative routes, actual image bytes, signed previews and CMS sign-in. Check affected desktop/mobile UI and record the source SHA, content hash and active Worker traffic separately. Keep dated evidence in [project history](docs/PROJECT_HISTORY.md).
 
 ### IndexNow
 
@@ -145,7 +107,7 @@ The only accepted query URLs are canonical testimonial directory pages (`/weddin
 
 The root verification file in `public/` and `src/data/indexnow.json` configure IndexNow for the canonical domain. `scripts/submit-indexnow.mjs` verifies the deployed key, reads the live published sitemap, validates canonical URLs and submits batches of at most 10,000 to the shared IndexNow endpoint. If that endpoint reports `SiteVerificationNotCompleted`, the script submits through the official Yandex participant, which shares submissions through IndexNow; other errors still fail. The npm `postdeploy` hook runs this after every successful `npm run deploy`; local builds do not submit unpublished changes. Direct `wrangler deploy` bypasses the hook, so run `npm run indexnow` afterwards.
 
-Use `npm run indexnow -- --dry-run` to verify the live key and sitemap without submitting. A submission error leaves the successful Worker deployment in place; retry with `npm run indexnow`. HTTP 200 means received, and HTTP 202 means received with key validation pending; neither guarantees indexing. CMS publishing without deployment does not invoke this hook; run the command manually when needed. Protocol: [IndexNow documentation](https://www.indexnow.org/documentation).
+Use `npm run indexnow -- --dry-run` to verify the live key and sitemap without submitting. A submission error leaves the successful Worker deployment in place; retry with `npm run indexnow`. HTTP 200 means received, and HTTP 202 means received with key validation pending; neither guarantees indexing. Content releases now deploy through Builds and invoke IndexNow after successful deployment. Protocol: [IndexNow documentation](https://www.indexnow.org/documentation).
 
 ### Production resources and recovery
 
@@ -161,6 +123,7 @@ A Worker rollback restores application code, not CMS data or media. Before a dat
 
 - [AGENTS.md](AGENTS.md): required workflow and constraints for coding agents.
 - [CMS operations](docs/CMS.md): accounts, resources, editing, migration and recovery.
+- [Publishing operations](docs/PUBLISHING_SERVICE.md): Git releases, status, Cloudflare Builds, activation and rollback.
 - [Homepage video](docs/VIDEO.md): Stream uploads, posters and playback verification.
 - [Vendor research](docs/VENDOR_LINKS.md): verified vendors and historical URL decisions.
 - [Testimonial inline links](docs/TESTIMONIAL_INLINE_LINKS.md): reviewed phrase selections and rationale.

@@ -21,7 +21,7 @@ function normalize<C extends Collection>(entry: ContentEntry<object>, collection
   let body: string | undefined;
   const richContent = () => content ??= canonicalContentLinks(Array.isArray(raw.content) ? raw.content : []);
   const media = raw.featured_image as {
-    id: string; src?: string; width?: number; height?: number; filename?: string; mimeType?: string; alt?: string; meta?: { storageKey?: string };
+    id: string; src?: string; width?: number; height?: number; filename?: string; mimeType?: string; alt?: string; focalX?: number; focalY?: number; meta?: { storageKey?: string };
   } | undefined;
   const image = media?.id ? {
     url: {
@@ -31,6 +31,7 @@ function normalize<C extends Collection>(entry: ContentEntry<object>, collection
       format: (media.mimeType?.split("/")[1]?.replace("jpeg", "jpg") || "jpg") as ImageMetadata["format"],
     },
     alt: media.alt || String(raw.title || raw.couple_name || ""),
+    focalX: media.focalX, focalY: media.focalY,
   } : undefined;
   const titleCase = (value: unknown) => typeof value === "string"
     ? value.replace(/\w\S*/g, (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())

@@ -8,7 +8,7 @@ export function publicRoute(url: URL) {
     return { redirect: canonical.href, status: 301 };
   }
   const pathname = url.pathname;
-  if (pathname.startsWith('/_emdash/') || pathname.startsWith('/_preview/') || pathname === '/_image') return { dynamic: true };
+  if (pathname.startsWith('/_emdash/') || pathname.startsWith('/_preview/') || pathname === '/_publishing' || pathname.startsWith('/_publishing/') || pathname === '/_image' || pathname === '/_private-image') return { dynamic: true };
   if (pathname !== '/' && pathname.endsWith('/')) {
     const canonical = new URL(url); canonical.pathname = pathname.replace(/\/+$/, '');
     return { redirect: canonical.href, status: 301 };

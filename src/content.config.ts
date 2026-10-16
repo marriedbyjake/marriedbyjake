@@ -27,6 +27,8 @@ const posts = defineCollection({
       description: z.string(),
       image: z.object({
         url: image(),
+        focalX: z.number().nullish(),
+        focalY: z.number().nullish(),
         alt: z.string(),
       }),
       tags: z.array(z.string()).optional(),
@@ -55,6 +57,8 @@ const services = defineCollection({
       image: z
         .object({
           url: image(),
+        focalX: z.number().nullish(),
+        focalY: z.number().nullish(),
           alt: z.string(),
         })
         .optional(),
@@ -83,6 +87,8 @@ const weddingtestimonials = defineCollection({
       image: z
         .object({
           url: image(),
+        focalX: z.number().nullish(),
+        focalY: z.number().nullish(),
           alt: z.string().nullable().optional(),
         })
         .optional(),

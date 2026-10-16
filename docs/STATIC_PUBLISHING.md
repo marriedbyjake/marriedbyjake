@@ -1,5 +1,7 @@
 # Git-authoritative published releases
 
+> Updated decision, 16 October 2026: Josh deferred the account move and authorized completing the static publishing workflow in the existing Withers Co `marriedbyjake` Worker. The repository-owner publisher App and separate Cloudflare GitHub connection have been approved and installed. See [current publishing operations](PUBLISHING_SERVICE.md) for the current activation state and release procedure. The earlier account-migration plan below remains dated evidence; no new account or DNS move is authorized.
+
 Josh accepted this workflow on 16 October 2026: private drafts stay in EmDash, complete published content is committed to Git, and public static pages build from that exact commit. Failed exports, conflicts and builds retain the last healthy public deployment. The familiar CMS remains the editing surface; the historical Markdown archive is not imported over current CMS data.
 
 ## Current state

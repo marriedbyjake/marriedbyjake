@@ -1,4 +1,5 @@
 ---
+import { imagePosition } from "@/lib/media-position";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { Image } from "astro:assets";
@@ -61,10 +62,10 @@ const formatDate = (d?: Date) =>
                 {t.data.image?.url ? (
                   <Image
                     src={t.data.image.url}
+            style={imagePosition(t.data.image)}
                   widths={[320, 640, 1000]}
                     alt={t.data.image.alt || t.data.coupleName}
                     width={1200}
-                    height={800}
                     sizes="(min-width: 1024px) calc((100vw - 224px) / 3), (min-width: 768px) calc((100vw - 128px) / 2), calc(100vw - 80px)"
                     class="object-cover object-top w-full h-56 lg:h-64"
                     loading="lazy"

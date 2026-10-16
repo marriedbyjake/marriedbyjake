@@ -1,5 +1,6 @@
 ---
-import { PortableText, type PortableTextProps } from "emdash/ui";
+import type { PortableTextProps } from 'emdash/ui';
+import PortableText from '@/components/content/PublishedText.astro';
 import type { Block, Credit } from "@/lib/testimonial-format";
 interface Props { review: Block[]; credits: Credit[]; coupleName: string }
 const { review, credits, coupleName } = Astro.props;

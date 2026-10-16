@@ -1,5 +1,9 @@
 import { defineMiddleware } from "astro:middleware";
 import { redirects } from "./data/redirects.json";
+import { getRequestContext, getEmDashEntry } from 'emdash';
+import { mediaRequest, authorizeMedia, privateHeaders } from './lib/media-access.mjs';
+import { committedMedia } from './lib/published-media';
+import { isEditor } from './lib/editor-auth';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   if (context.url.hostname === "www.marriedbyjake.com") {
@@ -8,6 +12,20 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect(canonical.toString(), 301);
   }
   const pathname = context.url.pathname;
+  const target = mediaRequest(context.url);
+  if (target) {
+    const editor = await isEditor(context);
+    const preview = getRequestContext()?.preview;
+    // Historical public originals resolve to immutable Git bytes, never a
+    // replaceable R2 key that might now belong to a private revision.
+    const committed = !editor && !preview && target.original ? committedMedia(target.key) : undefined;
+    if (committed) return new Response(null,{status:302,headers:{...privateHeaders,Location:committed.src}});
+    const allowed = await authorizeMedia({target,editor,preview,
+      loadEntry:async (collection: string,id: string) => (await getEmDashEntry(collection,id)).entry,
+      loadMedia:async (key: string) => context.locals.emdash?.db.selectFrom('media').select('id').where('storage_key','=',key).executeTakeFirst(),
+    });
+    if (!allowed) return new Response('Not found',{status:404,headers:privateHeaders});
+  }
   if (!pathname.startsWith("/_emdash/") && pathname !== "/" && pathname.endsWith("/")) {
     const canonical = new URL(context.url);
     canonical.pathname = pathname.replace(/\/+$/, "");
@@ -28,6 +46,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Cloudflare cache hits have immutable headers, so copy before changing them.
   const headers = new Headers(response.headers);
   headers.set("Cache-Control", "private, no-store");
+  headers.set('Referrer-Policy','no-referrer');
+  if (pathname.startsWith('/_preview/') || pathname.startsWith('/_publishing') || target) headers.set('X-Robots-Tag','noindex, nofollow');
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,

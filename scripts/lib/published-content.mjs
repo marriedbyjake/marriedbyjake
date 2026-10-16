@@ -42,7 +42,8 @@ function referencedMedia(value, media, found) {
     if (!media.has(value.id)) throw new Error('Published content references missing media');
     found.add(value.id);
   }
-  if (value._type === 'image' && value.asset?._ref) {
+  if (value._type === 'image') {
+    if (!value.asset?._ref) throw new Error('Published inline images require a referenced CMS asset');
     if (value.asset.provider && value.asset.provider !== 'local') throw new Error('An external media provider needs an explicit static renderer before publication');
     if (!media.has(value.asset._ref)) throw new Error('Published content references missing media');
     found.add(value.asset._ref);

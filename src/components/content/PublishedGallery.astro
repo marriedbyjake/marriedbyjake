@@ -1,0 +1,10 @@
+---
+import PublishedImage from './PublishedImage.astro';
+const {node} = Astro.props;
+const columns = Math.min(4,Math.max(1,Number(node.columns) || 2));
+type GalleryImage = Record<string,unknown>;
+---
+<div class="published-gallery" style={`--columns:${columns}`}>
+  {node.images.map((image: GalleryImage) => <PublishedImage node={image} />)}
+</div>
+<style>.published-gallery{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));gap:1rem}@media(max-width:640px){.published-gallery{grid-template-columns:1fr}}</style>

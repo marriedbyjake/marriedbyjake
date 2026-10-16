@@ -1,4 +1,5 @@
 ---
+import { imagePosition } from "@/lib/media-position";
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
@@ -69,9 +70,9 @@ const formatDate = (d?: Date) =>
               {t.data.image?.url && (
                 <Image
                   width={1000}
-                  height={1000}
                   sizes="(min-width: 1024px) calc((100vw - 224px) / 4), (min-width: 768px) calc(100vw - 96px), calc(100vw - 64px)"
                   src={t.data.image.url}
+            style={imagePosition(t.data.image)}
                   widths={[320, 640, 1000]}
                   alt={t.data.image.alt || t.data.coupleName}
                   class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
@@ -111,9 +112,9 @@ const formatDate = (d?: Date) =>
             {t.data.image?.url && (
               <Image
                 width={1000}
-                height={1000}
                 sizes="(min-width: 1024px) calc((100vw - 224px) / 4), (min-width: 768px) calc(100vw - 96px), calc(100vw - 64px)"
                 src={t.data.image.url}
+            style={imagePosition(t.data.image)}
                   widths={[320, 640, 1000]}
                 alt={t.data.image.alt || t.data.coupleName}
                 class="object-cover w-full aspect-square object-top transition-transform duration-300 group-hover:scale-[1.02]"
