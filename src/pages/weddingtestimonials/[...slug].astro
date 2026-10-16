@@ -11,11 +11,9 @@ import { linkTestimonialReview } from "@/lib/testimonial-inline-links";
 const page = await getEntry("weddingtestimonials", Astro.params.slug || "");
 if (!page) return new Response("Not found", { status: 404 });
 const fm = page.data;
-const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 const mapQuery = [fm.venue, fm.location].filter(Boolean).join(" ");
-const mapEmbedSrc = GOOGLE_MAPS_API_KEY
-  ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(mapQuery)}&zoom=14`
-  : `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=14`;
+// The overview key is restricted to Maps JavaScript API, not Maps Embed API.
+const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=14`;
 const { review, credits, reviewText: bodyText } = formatTestimonial(page.content, page.id, fm.venue || "");
 const description = `Read ${fm.coupleName}'s wedding review of Jake Smith, marriage celebrant${fm.venue ? ` at ${fm.venue}` : ""}. Explore personal ceremonies and wedding planning ideas.`;
 const headingTitle = fm.venue

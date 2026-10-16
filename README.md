@@ -72,7 +72,7 @@ npm run dev
 
 Local Worker bindings use local Wrangler state; a fresh checkout does not mirror production D1 or R2. CMS-driven pages require local content and media, so the local inventory can differ from production. Do not repair an empty local database by replacing production data. [CMS operations](docs/CMS.md) explains the historical snapshot tools and their limitations.
 
-`PUBLIC_GOOGLE_MAPS_API_KEY` is a build-time value used by browser maps. Keep the existing value in the ignored `.env`, with Google API restrictions for the canonical domain. Builds no longer invoke the old geocoder; its cache is retained as migration reference.
+`PUBLIC_GOOGLE_MAPS_API_KEY` is a build-time value used by the testimonial overview map's Maps JavaScript API loader. Keep the existing value in the ignored `.env`, with Google API restrictions for the canonical domain and Maps JavaScript API. Testimonial detail iframes use the existing keyless Google Maps embed URL, independently of that key. Builds no longer invoke the old geocoder; its cache is retained as migration reference.
 
 | Command | Purpose |
 | --- | --- |
