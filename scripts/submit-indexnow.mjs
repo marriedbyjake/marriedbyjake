@@ -22,7 +22,8 @@ const urls = [...new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((matc
 if (!urls.length) throw new Error('The published sitemap contains no URLs.');
 for (const value of urls) {
   const url = new URL(value);
-  if (url.origin !== origin || url.search || url.hash || url.pathname.startsWith('/_emdash')) {
+  const directoryPage = url.pathname === '/weddingtestimonials' && /^\?page=(?:[2-9]|[1-9]\d+)$/.test(url.search);
+  if (url.origin !== origin || (url.search && !directoryPage) || url.hash || url.pathname.startsWith('/_emdash')) {
     throw new Error(`Unexpected sitemap URL: ${value}`);
   }
 }
