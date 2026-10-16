@@ -26,7 +26,8 @@ export async function claimPublishingLease(db,now=Date.now(),option=publishingOp
  }};
 }
 export async function retryPublishing(db,now=Date.now()){
- // Preserve pending commit intent so an uncertain accepted push is recovered.
- const row=await db.prepare("UPDATE options SET value=json_set(json_remove(value,'$.reason','$.retryAt'),'$.failures',0,'$.phase',CASE WHEN json_extract(value,'$.pending') IS NOT NULL THEN 'awaiting-build' WHEN json_extract(value,'$.job') IS NOT NULL THEN 'preparing' ELSE 'healthy' END),revision=revision+1 WHERE name=? AND COALESCE(json_extract(value,'$.leaseUntil'),0)<=? AND json_extract(value,'$.baselineHash') IS NOT NULL RETURNING value").bind(publishingOption,now).first();
+ // Preserve uncertain commit intent. Initialization failures also need a retry;
+ // runPublisher still verifies the configured Git baseline before proceeding.
+ const row=await db.prepare("UPDATE options SET value=json_set(json_remove(value,'$.reason','$.retryAt'),'$.failures',0,'$.phase',CASE WHEN json_extract(value,'$.pending') IS NOT NULL THEN 'awaiting-build' WHEN json_extract(value,'$.job') IS NOT NULL THEN 'preparing' ELSE 'healthy' END),revision=revision+1 WHERE name=? AND COALESCE(json_extract(value,'$.leaseUntil'),0)<=? AND json_extract(value,'$.phase') IN ('paused','retrying') RETURNING value").bind(publishingOption,now).first();
  return !!row;
 }

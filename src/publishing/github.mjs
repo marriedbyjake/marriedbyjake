@@ -8,7 +8,12 @@ const oid=value=>typeof value==='string'&&/^[a-f0-9]{40}$/.test(value);
 export const managedPath=value=>/^content\/published\/[a-z]+\.json$/.test(value)||/^src\/images\/published\/[a-f0-9]{64}\.(?:jpg|png|webp)$/.test(value);
 export const gitBlobHash=bytes=>createHash('sha1').update(`blob ${Buffer.byteLength(bytes)}\0`).update(bytes).digest('hex');
 export class GitHubPublisher {
- constructor(config,fetcher=fetch,guard=async()=>{}){this.config=config;this.fetcher=fetcher;this.guard=guard;}
+ constructor(config,fetcher=fetch,guard=async()=>{}){
+  this.config=config;
+  // Calling the Workers fetch intrinsic as a client method changes its receiver.
+  this.fetcher=(...args)=>fetcher(...args);
+  this.guard=guard;
+ }
  async token(){
   if(this.access&&this.expires>Date.now()+60_000)return this.access;
   const {GITHUB_APP_ID:app,GITHUB_INSTALLATION_ID:installation,GITHUB_REPOSITORY_ID:repo,GITHUB_APP_PRIVATE_KEY:key}=this.config;

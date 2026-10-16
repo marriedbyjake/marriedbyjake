@@ -9,6 +9,7 @@ import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {schemaSql,seed} from './fixtures/cms.mjs';
 import {snapshotSql,projectPublished,releaseFiles,json,sha256} from '../lib/published-content.mjs';
 import {gitBlobHash} from '../../src/publishing/github.mjs';
+import {retryPublishing} from '../../src/publishing/ledger.mjs';
 const {privateKey}=generateKeyPairSync('rsa',{modulusLength:2048});
 const bundle=await build({entryPoints:['scripts/integration/fixtures/publisher-worker.mjs'],bundle:true,write:false,format:'esm',platform:'neutral',external:['node:*'],target:'es2022'});
 async function fixture(fn){
@@ -37,6 +38,23 @@ async function republish(db,title='New synthetic published title'){
  await db.prepare("INSERT INTO revisions(id,created_at) VALUES('new-live-revision','2026-02-02T00:00:00Z') ON CONFLICT(id) DO NOTHING").run();
  await db.prepare("UPDATE ec_posts SET title=?,live_revision_id='new-live-revision' WHERE id='posts-id'").bind(title).run();
 }
+test('native GitHub transport preserves the Workers fetch receiver',async()=>{
+ const native=await build({stdin:{contents:`import {GitHubPublisher} from './src/publishing/github.mjs';export default {async fetch(request,env){try{return Response.json({head:await new GitHubPublisher(env).head()});}catch(error){return Response.json({error:error.message},{status:500});}}}`,resolveDir:process.cwd()},bundle:true,write:false,format:'esm',platform:'neutral',external:['node:*'],target:'es2022'});
+ const calls=[];
+ const mf=new Miniflare(convertV4MiniflareOptions({script:native.outputFiles[0].text,modules:true,host:'127.0.0.1',port:0,compatibilityDate:'2026-10-01',compatibilityFlags:['nodejs_compat'],bindings:{GITHUB_APP_ID:'123',GITHUB_INSTALLATION_ID:'456',GITHUB_REPOSITORY_ID:'1104160905',GITHUB_APP_PRIVATE_KEY:privateKey.export({type:'pkcs8',format:'pem'})},outboundService:async request=>{
+  const url=new URL(request.url);calls.push(url.pathname);assert.equal(url.hostname,'api.github.com');
+  if(url.pathname==='/app/installations/456/access_tokens')return Response.json({token:'synthetic-token',permissions:{contents:'write'},repositories:[{id:1104160905,full_name:'marriedbyjake/marriedbyjake'}],expires_at:new Date(Date.now()+3600_000).toISOString()});
+  if(url.pathname==='/repos/marriedbyjake/marriedbyjake/git/ref/heads/main')return Response.json({object:{sha:'a'.repeat(40)}});
+  return new Response('External network forbidden',{status:599});
+ }}));
+ try{const response=await mf.dispatchFetch('http://localhost/');const result=await response.json();assert.equal(response.status,200,JSON.stringify(result));assert.equal(result.head,'a'.repeat(40));assert.equal(calls.length,2);}finally{await mf.dispose();}
+});
+test('a failed initial GitHub check can retry without an existing baseline',()=>fixture(async f=>{
+ assert.equal((await f.tick('/tick?scenario=network-error')).phase,'retrying');
+ assert.equal((await f.state()).baselineHash,undefined);
+ assert.equal(await retryPublishing(f.db),true);
+ await bootstrap(f);
+}));
 test('native D1/R2 controller excludes drafts and recovers commit intent after Worker restart',()=>fixture(async f=>{
  assert.equal((await f.tick('/disabled')).phase,'disabled');assert.equal((await f.db.prepare("SELECT COUNT(*) AS n FROM options").first()).n,0);
  await bootstrap(f);const before=(await f.get('calls')).length;
