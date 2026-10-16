@@ -1,12 +1,8 @@
 ---
 import { getCollection } from "@/lib/cms";
+import { testimonialMapLocations } from "@/lib/testimonial-map";
 const testimonials = await getCollection("weddingtestimonials");
-const locationsData = Object.fromEntries(testimonials
-  .filter(({ data }) => typeof data.latitude === "number" && typeof data.longitude === "number")
-  .map(({ data }) => {
-    const name = [data.venue, data.location].filter(Boolean).join(", ");
-    return [name, { lat: data.latitude, lon: data.longitude, display_name: name }];
-  }));
+const locationsData = testimonialMapLocations(testimonials);
 const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
 ---
 
@@ -68,7 +64,7 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
           fullscreenControl: true,
         });
 
-        const infoWindow = new google.maps.InfoWindow();
+        const infoWindow = new google.maps.InfoWindow({ maxWidth: 360 });
         const bounds = new google.maps.LatLngBounds();
         let count = 0;
 
@@ -79,29 +75,37 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || "";
           if (loc && typeof loc.lat === 'number' && typeof loc.lon === 'number') {
             const position = { lat: loc.lat, lng: loc.lon };
             const safeName = escapeHtml(name);
-            const safeDisplayName = escapeHtml(loc.display_name || "");
             
             const marker = new Marker({
               map,
               position: position,
               title: name,
+              optimized: false, // Google requires this for keyboard-accessible legacy markers.
               animation: google.maps.Animation.DROP,
             });
 
             marker.addListener("click", () => {
+              const reviews = loc.reviews || [];
+              const reviewLinks = reviews.length
+                ? `<ul aria-label="Wedding reviews" class="space-y-1">${reviews.map(([slug, coupleName]) => `
+                    <li><a href="/weddingtestimonials/${escapeHtml(slug)}" class="block min-h-11 py-2 text-sm text-accent-800 underline focus-visible:outline-2 focus-visible:outline-offset-2">${coupleName === "Wedding review" ? "Read wedding review" : `Read ${escapeHtml(coupleName)}’s review`}</a></li>
+                  `).join("")}</ul>`
+                : '<a href="/weddingtestimonials" class="block min-h-11 py-2 text-sm text-accent-800 underline focus-visible:outline-2 focus-visible:outline-offset-2">Browse all wedding reviews</a>';
+              infoWindow.close();
+              infoWindow.setOptions({ ariaLabel: `Wedding reviews at ${name}` });
               infoWindow.setContent(`
-                <div class="p-2 max-w-xs">
-                    <h3 class="font-bold text-lg text-accent-800 mb-1">${safeName}</h3>
-                    <p class="text-sm text-gray-600 mb-2">${safeDisplayName}</p>
-                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.display_name || name)}" 
+                <div class="p-2 max-w-xs max-h-64 overflow-y-auto">
+                    <h2 class="font-bold text-lg text-accent-800 mb-1">${safeName}</h2>
+                    ${reviewLinks}
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lon}"
                        target="_blank" 
                        rel="noopener noreferrer"
-                       class="text-xs text-blue-600 hover:underline">
-                       View on Google Maps
+                       class="inline-block min-h-11 py-2 mt-2 text-xs text-base-700 underline focus-visible:outline-2 focus-visible:outline-offset-2">
+                       Directions on Google Maps (opens in a new tab)
                     </a>
                 </div>
               `);
-              infoWindow.open(map, marker);
+              infoWindow.open({ map, anchor: marker, shouldFocus: true });
             });
 
             bounds.extend(position);
