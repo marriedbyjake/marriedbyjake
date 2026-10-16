@@ -1,6 +1,6 @@
 # Cloudflare publishing: owner setup and activation proposal
 
-Prepared 16 October 2026. Current-account activation is paused while Josh creates a Jake-owned Cloudflare account. The account move is a planning decision, not authorization to create resources, change DNS or deploy. This supersedes the uninstalled omarchy/systemd proposal. All implementation remains local and inactive. See MIGRATION_HANDOFF.md for the latest checkpoint and continuation instructions.
+Prepared 16 October 2026. Current-account activation is paused while Josh creates a Jake-owned Cloudflare account. The account move is a planning decision, not authorization to create resources, change DNS or deploy. This supersedes the uninstalled omarchy/systemd proposal. All implementation remains local and inactive. See [the migration handoff](MIGRATION_HANDOFF.md) and [new-thread prompt](CODEX_HANDOFF_PROMPT.md) for the latest checkpoint and continuation instructions.
 
 ## Concrete architecture
 
