@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
@@ -5,16 +6,35 @@ import react from "@astrojs/react";
 import emdash from "emdash/astro";
 import { d1, r2 } from "@emdash-cms/cloudflare";
 
+const sourceCommit = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+const sourceDirty = execFileSync("git", ["status", "--porcelain", "--untracked-files=normal", "--", ".", ":(exclude).astro"], { encoding: "utf8" }).trim() !== "";
+
 export default defineConfig({
-  output: "server",
-  adapter: cloudflare(),
+  output: "static",
+  build: { format: "file" },
+  adapter: cloudflare({ imageService: "compile" }),
   // EmDash media values carry absolute canonical URLs. Permit only this file
   // route so Astro generates real variants instead of returning the original.
   image: {
     remotePatterns: [{ protocol: "https", hostname: "marriedbyjake.com", pathname: "/_emdash/api/media/file/**" }],
   },
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    define: { "import.meta.env.EMDASH_PREVIEW_PATH_PATTERN": JSON.stringify("/_preview/{collection}/{id}"),
+      "import.meta.env.PUBLISHED_SOURCE_COMMIT": JSON.stringify(sourceDirty ? null : sourceCommit) },
+  },
   integrations: [
+    {
+      name: "published-content-routes",
+      hooks: {
+        "astro:config:setup": ({ injectRoute }) => {
+          // Files/directories beginning with underscore are excluded by Astro's
+          // filesystem router. Register these intentionally private paths here.
+          injectRoute({ pattern: "/__published/testimonial-pages/[page]", entrypoint: "./src/routes/TestimonialPagination.astro", prerender: true });
+          injectRoute({ pattern: "/_preview/[collection]/[id]", entrypoint: "./src/routes/ContentPreview.astro", prerender: false });
+        },
+      },
+    },
     react(),
     emdash({
       database: d1({ binding: "DB" }),

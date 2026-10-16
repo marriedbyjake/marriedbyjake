@@ -1,0 +1,719 @@
+{
+  "entries": {
+    "celebrantcost": {
+      "cmsId": "01M3VHHQ275BEDMPR9816C1DN2",
+      "data": {
+        "content": [
+          {
+            "_key": "key-2-pgpp6",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-1-j1iac",
+                "_type": "span",
+                "text": "What do Celebrants Charge?"
+              }
+            ],
+            "style": "h2"
+          },
+          {
+            "_key": "key-4-lxu2n",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-3-qeg5e",
+                "_type": "span",
+                "text": "I get asked about pricing a lot — some people wonder how it’s so cheap, others wonder why it’s so much. Perspective, huh!"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-6-0qw3w",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-5-fvsyw",
+                "_type": "span",
+                "text": "When people wonder why it’s expensive"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-8-w8cae",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-7-kau8o",
+                "_type": "span",
+                "text": "They often assume that I arrive, chat with people, speak for a bit, have a laugh, shed a tear, shake hands and leave — and think that’s all I do. They also compare my price to others who may be a few hundred dollars cheaper."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-10-hc4v7",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-9-438gp",
+                "_type": "span",
+                "text": "When people wonder how it’s so cheap"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-12-cqr4w",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-11-pbh0a",
+                "_type": "span",
+                "text": "They’ve often been to weddings where the ceremony almost ruined the whole day. They notice how personal our ceremony feels and how much creative thought it requires. They appreciate the difference between an average wedding experience and what we created together — and often tell me, “You should charge more!”"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-14-bivsz",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-13-ptwgx",
+                "_type": "span",
+                "text": "They also compare my price to others who may only be a few hundred dollars cheaper."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-16-z9nrp",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-15-nx6l9",
+                "_type": "span",
+                "text": "So, I thought I’d clarify my pricing for anyone who’s interested."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-18-e7mvu",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-17-g202w",
+                "_type": "span",
+                "text": "The real costs behind the work"
+              }
+            ],
+            "style": "h2"
+          },
+          {
+            "_key": "key-20-0a0dj",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-19-xw307",
+                "_type": "span",
+                "text": "For all celebrants, there are many ongoing costs to absorb:"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-22-1v5lp",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-21-t8aee",
+                "_type": "span",
+                "text": "Legally required ongoing training"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-24-8bm5z",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-23-5ua9d",
+                "_type": "span",
+                "text": "Registration fees"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-26-8gl84",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-25-f0lco",
+                "_type": "span",
+                "text": "Administration software"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-28-ofxjz",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-27-anb2w",
+                "_type": "span",
+                "text": "Transport and logistics"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-30-pgznp",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-29-mbvgj",
+                "_type": "span",
+                "text": "Marketing"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-32-v9muo",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-31-vqcbr",
+                "_type": "span",
+                "text": "Legal stationery"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-34-ryusn",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-33-f86yz",
+                "_type": "span",
+                "text": "Consumables"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-36-hbo21",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-35-pvir8",
+                "_type": "span",
+                "text": "Capital investment and equipment maintenance"
+              }
+            ],
+            "level": 1,
+            "listItem": "bullet",
+            "style": "normal"
+          },
+          {
+            "_key": "key-38-1vnv8",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-37-tyy1c",
+                "_type": "span",
+                "text": "Additionally, to excel as a celebrant we need to invest in the quality of our public speaking, appearance, self‑development and people skills."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-40-5itb4",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-39-ndrx0",
+                "_type": "span",
+                "text": "Appearance isn’t a one‑off"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-42-fmbr0",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-41-hz77f",
+                "_type": "span",
+                "text": "Unless you’re having a ’70s‑themed wedding, you probably want your celebrant to wear an outfit from the current decade. For a good celebrant, appearance is an ongoing — not a once‑off — expense. If a celebrant hasn’t had a haircut for three weeks, wears an old suit or could really use a breath mint, it reflects poorly on the wedding."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-44-k4u8d",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-43-oiets",
+                "_type": "span",
+                "text": "People skills matter"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-46-e1nib",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-45-3e719",
+                "_type": "span",
+                "text": "It’s subtle, but it makes a huge difference on the day. A good celebrant needs the right balance: caring enough — and being knowledgeable and tactful enough — to know when (and how) to step in and make the day work."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-48-s89x0",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-47-6jpk0",
+                "_type": "span",
+                "text": "We can’t be dismissive and let everything fall flat, nor can we be control freaks and go bananas telling everyone what to do."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-50-3gcja",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-49-gb6ft",
+                "_type": "span",
+                "text": "Time and creative work"
+              }
+            ],
+            "style": "h2"
+          },
+          {
+            "_key": "key-52-fk4x4",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-51-sftso",
+                "_type": "span",
+                "text": "I spend hours (usually when everyone in my family is asleep!) doing the creative writing and editing required to make the process empowering, simple and fun. Then, more hours preparing and checking all the documents required before the wedding, on the day, and afterwards while my couples are off enjoying their honeymoon."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-54-9hbh1",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-53-ijxyk",
+                "_type": "span",
+                "text": "Also, I spent $8,500* last year at coffee shops — I still can’t believe that!"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-56-bdf9l",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-55-mjm0t",
+                "_type": "span",
+                "text": "Why price isn’t everything"
+              }
+            ],
+            "style": "h2"
+          },
+          {
+            "_key": "key-58-dj75n",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-57-pha19",
+                "_type": "span",
+                "text": "I love creating weddings for my family of clients and seeing the incredible gratitude on people’s faces as they thank me after their ceremony."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-60-5j8hc",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-59-tonev",
+                "_type": "span",
+                "text": "If you’re deciding on a celebrant based on price, please remember we’re not all the same. A couple of hundred dollars is a significant amount of money, but a poorly orchestrated ceremony can ruin your wedding."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-62-oqgpf",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-61-kn9kb",
+                "_type": "span",
+                "text": "Don’t use price alone to determine who will be standing with you on your wedding day."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-64-fm3w0",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-63-3trj7",
+                "_type": "span",
+                "text": "* The coffees were not all for me. Honest!"
+              }
+            ],
+            "style": "normal"
+          }
+        ],
+        "page": "What do celebrants charge and how much do celebrants cost",
+        "pub_date": "2025-12-18T00:00:00.000Z"
+      },
+      "publishedAt": "2026-10-01T10:53:16.743Z",
+      "updatedAt": "2026-10-01 10:53:16"
+    },
+    "privacy": {
+      "cmsId": "01M3VHHQ28RZ96R1MRZSS5C70G",
+      "data": {
+        "content": [
+          {
+            "_key": "key-2-k4kvv",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-1-95gim",
+                "_type": "span",
+                "text": "We respect your privacy and are committed to protecting your personal information."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-4-q31cg",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-3-0q2fv",
+                "_type": "span",
+                "text": "When you make an enquiry or contact Jake Smith, we collect only the details needed to respond, check availability, and provide celebrant services. Your information is never sold, and it’s only shared with government authorities when required to legally register your marriage under the Marriage Act 1961."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-9-p6es8",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-5-d2urf",
+                "_type": "span",
+                "text": "Any data you submit through forms or email is stored securely and used solely for communication, booking, and legal paperwork relating to your wedding. You can request access to, or deletion of, your personal information at any time by contacting Jake directly at "
+              },
+              {
+                "_key": "key-7-b8p7a",
+                "_type": "span",
+                "marks": [
+                  "key-6-jhe7q"
+                ],
+                "text": "hello@marriedbyjake.com"
+              },
+              {
+                "_key": "key-8-fcf5t",
+                "_type": "span",
+                "text": "."
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "key-6-jhe7q",
+                "_type": "link",
+                "href": "mailto:hello@marriedbyjake.com"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-11-rbqfz",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-10-dbzqb",
+                "_type": "span",
+                "text": "By using this website, you agree to this policy."
+              }
+            ],
+            "style": "normal"
+          }
+        ],
+        "page": "Privacy Policy",
+        "pub_date": "2025-11-25T00:00:00.000Z"
+      },
+      "publishedAt": "2026-10-01T10:53:16.744Z",
+      "updatedAt": "2026-10-01 10:53:16"
+    },
+    "terms": {
+      "cmsId": "01M3VHHQ29C5WJZZJFV825M39D",
+      "data": {
+        "content": [
+          {
+            "_key": "key-2-x5t9l",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-1-ysl68",
+                "_type": "span",
+                "text": "This website is operated by Jake Smith, authorised Commonwealth Civil Marriage Celebrant. By using this site, you agree to the following terms."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-4-50quv",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-3-o7gmd",
+                "_type": "span",
+                "text": "General Use"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-6-5vjow",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-5-fggik",
+                "_type": "span",
+                "text": "Information on this website is provided for general guidance only. While efforts are made to keep content accurate and current, no guarantee is given regarding completeness or suitability for any particular purpose."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-8-5hutj",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-7-mtsy1",
+                "_type": "span",
+                "text": "Enquiries and Bookings"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-10-g97ko",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-9-05i5y",
+                "_type": "span",
+                "text": "Submitting an enquiry does not secure a wedding booking."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-12-1a9rt",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-11-nk5f4",
+                "_type": "span",
+                "text": "A wedding date is only confirmed once Jake has accepted the booking and all required steps—such as payment of any booking fee and completion of legal documentation—have been finalised."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-14-u2fb2",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-13-m2x6e",
+                "_type": "span",
+                "text": "Legal Ceremonies"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-16-oei2s",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-15-5agph",
+                "_type": "span",
+                "text": "All legal marriage services are performed in accordance with the Marriage Act 1961 (Cth). Couples must meet identification requirements, lodge the Notice of Intended Marriage within the statutory timeframe, and comply with all legal conditions for their marriage to be recognised in Australia."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-18-4kdvk",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-17-x2so3",
+                "_type": "span",
+                "text": "External Links"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-20-wz2sd",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-19-smsax",
+                "_type": "span",
+                "text": "This website may contain links to third-party sites. These are provided for convenience only. Jake Smith is not responsible for the content, accuracy or privacy practices of external websites."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-22-cqogu",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-21-cvrbs",
+                "_type": "span",
+                "text": "Intellectual Property"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-24-e17t2",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-23-v3q7i",
+                "_type": "span",
+                "text": "All text, images, videos and materials on this website are the property of Jake Smith unless otherwise stated. Content may not be copied, reproduced or redistributed without written permission."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-26-e3rj3",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-25-cw189",
+                "_type": "span",
+                "text": "Privacy"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-28-tao8g",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-27-s9zpw",
+                "_type": "span",
+                "text": "Personal information submitted via this website is handled in accordance with our Privacy Policy."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-30-3rj4c",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-29-w4riv",
+                "_type": "span",
+                "text": "Contact"
+              }
+            ],
+            "style": "h3"
+          },
+          {
+            "_key": "key-35-ggnmz",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-31-ahmiq",
+                "_type": "span",
+                "text": "For any questions regarding these terms, please contact "
+              },
+              {
+                "_key": "key-33-s9o5e",
+                "_type": "span",
+                "marks": [
+                  "key-32-qrq5w",
+                  "strong"
+                ],
+                "text": "hello@marriedbyjake.com"
+              },
+              {
+                "_key": "key-34-thuvv",
+                "_type": "span",
+                "text": "."
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "key-32-qrq5w",
+                "_type": "link",
+                "href": "mailto:hello@marriedbyjake.com"
+              }
+            ],
+            "style": "normal"
+          }
+        ],
+        "page": "Terms and Conditions",
+        "pub_date": "2025-11-25T00:00:00.000Z"
+      },
+      "publishedAt": "2026-10-01T10:53:16.745Z",
+      "updatedAt": "2026-10-01 10:53:16"
+    }
+  },
+  "formatVersion": 1
+}

@@ -1,3 +1,5 @@
+import { runPublisher } from "./publishing/publisher.mjs";
+import { publicRoute } from "./lib/published-routing";
 import handler, { createScheduledHandler } from "@emdash-cms/cloudflare/worker";
 import { timingSafeEqual } from "node:crypto";
 import type { ExportedHandler } from "@cloudflare/workers-types";
@@ -9,6 +11,19 @@ type CmsWorkerEnv = Env & {
 export default {
   ...handler,
   async fetch(request, env, ctx) {
+    const route = publicRoute(new URL(request.url));
+    if (route.redirect) return new Response(null, { status: route.status, headers: { Location: route.redirect } });
+    if (route.denied) return new Response("Unavailable", { status: route.denied, headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex" } });
+    if (route.asset) {
+      if (!["GET", "HEAD"].includes(request.method)) return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+      const url = new URL(request.url); url.pathname = route.asset; url.search = "";
+      // Public HTML and data are immutable products of this deployment's Git
+      // commit. Serve assets before EmDash, sessions or any D1 access.
+      const response = await env.ASSETS.fetch(url.href, { method: request.method, headers: request.headers });
+      const headers = new Headers(response.headers);
+      if (!route.asset.startsWith("/_astro/")) headers.set("Cache-Control", "public, max-age=0, must-revalidate");
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
     const pathname = new URL(request.url).pathname;
     const needsSetupGuard = pathname.startsWith("/_emdash/admin")
       || pathname.startsWith("/_emdash/api/setup")
@@ -32,5 +47,13 @@ export default {
     }
     return handler.fetch!(request, env, ctx);
   },
-  scheduled: createScheduledHandler(),
+  async scheduled(controller, env, ctx) {
+    // Preserve EmDash's scheduled publication and maintenance work. Publishing
+    // reconciliation runs independently; a publisher failure cannot skip it.
+    const outcomes = await Promise.allSettled([
+      createScheduledHandler()(controller, env, ctx),
+      runPublisher(env),
+    ]);
+    if (outcomes.some(result => result.status === "rejected")) throw new Error("Scheduled CMS or publishing work failed; inspect private status");
+  },
 } satisfies ExportedHandler<CmsWorkerEnv>;

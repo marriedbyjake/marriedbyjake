@@ -7,6 +7,12 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none",
+    "not_found_handling": "404-page"
+  },
   "workers_dev": true,
   "preview_urls": false,
   "d1_databases": [
@@ -26,7 +32,12 @@
     "binding": "IMAGES"
   },
   "vars": {
-    "EMDASH_SITE_URL": "https://marriedbyjake.com"
+    "EMDASH_SITE_URL": "https://marriedbyjake.com",
+    "PUBLISHING_ENABLED": "false",
+    "PUBLISHING_BASELINE_HASH": "",
+    "GITHUB_APP_ID": "",
+    "GITHUB_INSTALLATION_ID": "",
+    "GITHUB_REPOSITORY_ID": "1104160905"
   },
   "triggers": {
     "crons": [

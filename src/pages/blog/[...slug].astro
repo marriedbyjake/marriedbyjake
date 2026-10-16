@@ -1,9 +1,12 @@
 ---
 import BlogLayout from "@/layouts/BlogLayout.astro";
-import { getEntry } from "@/lib/cms";
+import { getCollection, getEntry } from "@/lib/cms";
 import { PortableText } from "emdash/ui";
+export async function getStaticPaths() {
+  return (await getCollection("posts")).map(entry => ({ params: { slug: entry.id } }));
+}
 const entry = await getEntry("posts", Astro.params.slug || "");
-if (!entry) return new Response("Not found", { status: 404 });
+if (!entry) throw new Error("Missing published post");
 ---
 <BlogLayout frontmatter={entry.data} slug={entry.id}>
   <PortableText value={entry.content} />

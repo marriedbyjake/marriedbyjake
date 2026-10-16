@@ -1,0 +1,10 @@
+---
+import TestimonialDirectory from "@/components/testimonials/TestimonialDirectory.astro";
+import { getCollection } from "@/lib/cms";
+import { testimonialPageCount } from "@/lib/testimonial-pagination";
+export async function getStaticPaths() {
+  const count = testimonialPageCount((await getCollection("weddingtestimonials")).length);
+  return Array.from({ length: count - 1 }, (_, i) => ({ params: { page: String(i + 2) } }));
+}
+---
+<TestimonialDirectory pageNumber={Number(Astro.params.page)} />

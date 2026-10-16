@@ -10,7 +10,7 @@
     "start": "astro dev",
     "build": "astro build",
     "check": "npm run types && astro check",
-    "validate": "npm run test:content && npm run check && npm run build",
+    "validate": "npm run test:content && npm run test:publishing && npm run test:publishing:runtime && npm run check && npm run build",
     "preview": "astro preview",
     "astro": "astro",
     "build:locations": "node scripts/build-locations.mjs",
@@ -22,7 +22,11 @@
     "verify:seo": "node scripts/verify-seo.mjs",
     "test:content": "node scripts/test-testimonial-format.mjs && node scripts/test-testimonial-pagination.mjs && node scripts/test-contextual-reviews.mjs && node scripts/test-testimonial-map.mjs && node scripts/test-pricing.mjs && node scripts/test-performance.mjs && node scripts/test-indexnow.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
-    "postdeploy": "npm run indexnow"
+    "postdeploy": "npm run indexnow",
+    "prebuild": "node scripts/verify-published.mjs",
+    "test:publishing": "node --test scripts/tests/*.test.mjs",
+    "postbuild": "node scripts/verify-static-build.mjs",
+    "test:publishing:runtime": "node --test scripts/integration/publishing-runtime.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",
@@ -52,7 +56,9 @@
     "kysely-d1": "^0.4.0",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3",
-    "wrangler": "^4.151.0"
+    "wrangler": "^4.151.0",
+    "miniflare": "5.20261012.0-beta",
+    "esbuild": "0.28.2"
   },
   "type": "module",
   "emdash": {

@@ -1,0 +1,87 @@
+---
+import { PortableText } from "emdash/ui";
+import PracticeLayout from "@/layouts/PracticeLayout.astro";
+import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
+import ContextualReviews from "@/components/testimonials/ContextualReviews.astro";
+import { isReviewContext } from "@/lib/contextual-reviews";
+import PricingReference from "@/components/services/PricingReference.astro";
+const { page } = Astro.props;
+const slug = page.id;
+const isInfoPage = page.collection === "infopages";
+const siteOrigin = Astro.site ? Astro.site.origin : "https://marriedbyjake.com";
+const canonicalUrl = `${siteOrigin}/${slug}`;
+const crumbName = isInfoPage ? page.data.page : page.data.title;
+const bodyDescription = (page.body || "")
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+  .replace(/[#>*_`~]/g, "")
+  .replace(/\s+/g, " ")
+  .trim();
+const metaDescription = isInfoPage
+  ? bodyDescription.slice(0, 158)
+  : page.data.summary || page.data.description || bodyDescription.slice(0, 158);
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
+    ...(isInfoPage
+      ? []
+      : [{ "@type": "ListItem", position: 2, name: "Services", item: `${siteOrigin}/services` }]),
+    {
+      "@type": "ListItem",
+      position: isInfoPage ? 2 : 3,
+      name: crumbName,
+      item: canonicalUrl,
+    },
+  ],
+};
+const serviceJsonLd = isInfoPage
+  ? null
+  : {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${canonicalUrl}#service`,
+      name: page.data.title,
+      description: page.data.summary || page.data.description || undefined,
+      provider: { "@id": "https://marriedbyjake.com/#business" },
+      areaServed: [
+        { "@type": "City", name: "Brisbane" },
+        { "@type": "City", name: "Sydney" },
+        { "@type": "City", name: "Byron Bay" },
+        { "@type": "City", name: "Gold Coast" },
+        { "@type": "City", name: "Sunshine Coast" },
+      ],
+      url: canonicalUrl,
+    };
+---
+{isInfoPage ? (
+  <LegalPagesLayout frontmatter={page.data} description={metaDescription}>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+    />
+    <PortableText value={page.content} />
+    {slug === "celebrantcost" && <PricingReference />}
+  </LegalPagesLayout>
+) : (
+  <PracticeLayout frontmatter={page.data} description={metaDescription}>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
+    />
+    {serviceJsonLd && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceJsonLd, null, 2).replace(/</g, "\\u003c")}
+      />
+    )}
+    <PortableText value={page.content} />
+    {["wedding-celebrant", "master-of-ceremonies"].includes(slug) && <PricingReference service={slug === "master-of-ceremonies" ? "mc" : "ceremony"} />}
+    <Fragment slot="reviews">
+      {isReviewContext(slug) && <ContextualReviews context={slug} />}
+    </Fragment>
+  </PracticeLayout>
+)}

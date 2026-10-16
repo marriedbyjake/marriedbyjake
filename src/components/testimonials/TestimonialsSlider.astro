@@ -1,7 +1,7 @@
 ---
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { Image } from "emdash/ui";
+import { Image } from "astro:assets";
 import { getCollection } from "@/lib/cms";
 const testimonials = (await getCollection("weddingtestimonials"))
   .filter((t) => t.data.featured && t.data.image?.url)
@@ -60,7 +60,8 @@ const formatDate = (d?: Date) =>
               <div class="bg-white overflow-hidden shadow-sm">
                 {t.data.image?.url ? (
                   <Image
-                    image={t.data.featured_image || t.data.image.url.src}
+                    src={t.data.image.url}
+                  widths={[320, 640, 1000]}
                     alt={t.data.image.alt || t.data.coupleName}
                     width={1200}
                     height={800}

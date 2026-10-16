@@ -1,6 +1,14 @@
 import { defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
+import { file } from "astro/loaders";
+import { parsePublished } from "./lib/published-loader";
+import type { PortableTextProps } from "emdash/ui";
 import { z } from "astro/zod";
+
+const publishedFields = {
+  cmsId: z.string(),
+  updatedAt: z.coerce.date(),
+  content: z.custom<PortableTextProps["value"]>(Array.isArray).optional().default([]),
+};
 
 function toTitleCase(value: string) {
   return value.replace(
@@ -10,9 +18,10 @@ function toTitleCase(value: string) {
 }
 
 const posts = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
+  loader: file("./content/published/posts.json", { parser: parsePublished }),
   schema: ({ image }) =>
     z.object({
+      ...publishedFields,
       title: z.string(),
       pubDate: z.coerce.date(),
       description: z.string(),
@@ -26,36 +35,41 @@ const posts = defineCollection({
 });
 
 const infopages = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/infopages" }),
+  loader: file("./content/published/infopages.json", { parser: parsePublished }),
   schema: z.object({
+      ...publishedFields,
     page: z.string(),
     pubDate: z.coerce.date(),
   }),
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/services" }),
+  loader: file("./content/published/services.json", { parser: parsePublished }),
   schema: ({ image }) =>
     z.object({
+      ...publishedFields,
       title: z.string(),
-      summary: z.string().optional(),
-      description: z.string().optional(),
-      order: z.number().optional(),
+      summary: z.string().nullish().transform(value => value || undefined),
+      description: z.string().nullish().transform(value => value || undefined),
+      order: z.number().nullish().transform(value => value ?? undefined),
       image: z
         .object({
           url: image(),
           alt: z.string(),
         })
         .optional(),
-      icon: z.string().optional(),
+      icon: z.string().nullish().transform(value => value || undefined),
     }),
 });
 
 const weddingtestimonials = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/weddingtestimonials" }),
+  loader: file("./content/published/weddingtestimonials.json", { parser: parsePublished }),
   schema: ({ image }) =>
     z.object({
+      ...publishedFields,
       coupleName: z.string(),
+      latitude: z.number().nullish().transform(value => value ?? undefined),
+      longitude: z.number().nullish().transform(value => value ?? undefined),
       location: z
         .string()
         .nullable()
@@ -79,17 +93,19 @@ const weddingtestimonials = defineCollection({
 });
 
 const readings = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/readings" }),
+  loader: file("./content/published/readings.json", { parser: parsePublished }),
   schema: z.object({
+      ...publishedFields,
     title: z.string(),
-    author: z.string().optional(),
-    order: z.number().optional(),
+    author: z.string().nullish().transform(value => value || undefined),
+    order: z.number().nullish().transform(value => value ?? undefined),
   }),
 });
 
 const pricing = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/pricing" }),
+  loader: file("./content/published/pricing.json", { parser: parsePublished }),
   schema: z.object({
+      ...publishedFields,
     australianCeremonies: z.object({
       title: z.string(),
       price: z.string(),

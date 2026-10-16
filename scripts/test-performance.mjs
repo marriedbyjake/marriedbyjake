@@ -26,7 +26,7 @@ globalThis.performanceCmsTest = {
     return fail ? { error: new Error('unavailable') } : { entries: [{ id: 'a', data: { content: [], rating: 5 } }, { id: 'b', data: { content: [], rating: 5 } }] };
   },
 };
-const { getCollection } = await loadSource('../src/lib/cms.ts', {
+const { getCollection } = await loadSource('../src/lib/cms-live.ts', {
   emdash: moduleUrl('export const getRequestContext = () => globalThis.performanceCmsTest.context(); export const getEmDashCollection = (...args) => globalThis.performanceCmsTest.load(...args); export const getEmDashEntry = () => {}; export const extractPlainText = () => globalThis.performanceCmsTest.plainText();'),
   './internal-links': moduleUrl('export const canonicalContentLinks = value => globalThis.performanceCmsTest.links(value);'),
 });

@@ -8,3 +8,7 @@ type ImagesBinding = import("@cloudflare/workers-types").ImagesBinding;
 interface Window {
   dataLayer: any[];
 }
+
+namespace App {
+  interface Locals { publishedCanonical?: string; }
+}

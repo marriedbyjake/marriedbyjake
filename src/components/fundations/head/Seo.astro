@@ -27,7 +27,11 @@ const {
 const defaultTitle = "Married by Jake";
 const defaultDescription =
   "Jake Smith is a warm, trusted civil marriage celebrant helping couples create meaningful, personal wedding ceremonies for all backgrounds across Australia.";
-const pathKey = Astro.url.pathname.replace(/\/$/, "") || "/";
+// File-format build paths are implementation details; public URLs stay clean.
+const builtPath = Astro.url.pathname === "/index.html" ? "/" : Astro.url.pathname.replace(/\.html$/, "");
+const pageUrl = new URL(Astro.locals.publishedCanonical || userCanonical || builtPath, Astro.site ?? Astro.url);
+const pagePath = pageUrl.pathname;
+const pathKey = pagePath.replace(/\/$/, "") || "/";
 const titleOverrides: Record<string, string> = seo.titles;
 const descriptionOverrides: Record<string, string> = seo.descriptions;
 const resolvedTitle = titleOverrides[pathKey] ?? title ?? defaultTitle;
@@ -36,11 +40,12 @@ const resolvedDescription = rawDescription.length > 160
   ? rawDescription.slice(0, 157).replace(/\s+\S*$/, "") + "…"
   : rawDescription;
 const cleanPath =
-  Astro.url.pathname.endsWith("/") && Astro.url.pathname.length > 1
-    ? Astro.url.pathname.slice(0, -1)
-    : Astro.url.pathname;
-const canonical = userCanonical
-  ? new URL(userCanonical, Astro.site ?? Astro.url).toString()
+  pagePath.endsWith("/") && pagePath.length > 1
+    ? pagePath.slice(0, -1)
+    : pagePath;
+const requestedCanonical = Astro.locals.publishedCanonical || userCanonical;
+const canonical = requestedCanonical
+  ? new URL(requestedCanonical, Astro.site ?? Astro.url).toString()
   : Astro.site
     ? new URL(cleanPath, Astro.site).toString()
     : Astro.url.href;
@@ -64,6 +69,7 @@ const absoluteVideo = toAbsoluteUrl(video);
 ---
 
 <title>{resolvedTitle}</title>
+{Astro.locals.publishedCanonical && <meta name="robots" content="noindex, nofollow" />}
 <meta name="description" content={resolvedDescription} />
 <link rel="canonical" href={canonical} />
 
