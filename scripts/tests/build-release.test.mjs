@@ -1,11 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp,writeFile,rm} from 'node:fs/promises';
+import {mkdtemp,writeFile,readFile,mkdir,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {execFileSync} from 'node:child_process';
 import {DatabaseSync} from 'node:sqlite';
 import {buildSource} from '../lib/build-source.mjs';
 import {guardedDeployment} from '../lib/deployment-gate.mjs';
+import {prepareDeploymentConfig} from '../lib/deployment-config.mjs';
+test('CI upload omits only the activation switch, preserving owner pauses without changing source or resource bindings',async()=>{
+ const root=await mkdtemp(tmpdir()+'/mbj-deploy-config-');
+ try{
+  await mkdir(root+'/.wrangler/deploy',{recursive:true});await mkdir(root+'/dist/server',{recursive:true});
+  const source={name:'synthetic-worker',account_id:'synthetic-account',vars:{PUBLISHING_ENABLED:'false',GITHUB_APP_ID:'synthetic-app'}};
+  const generated={...source,main:'entry.mjs',d1_databases:[{binding:'DB',database_id:'synthetic-db'}]};
+  await writeFile(root+'/.wrangler/deploy/config.json',JSON.stringify({configPath:'../../dist/server/wrangler.json'}));await writeFile(root+'/dist/server/wrangler.json',JSON.stringify(generated));
+  await prepareDeploymentConfig(source,{root});
+  const actual=JSON.parse(await readFile(root+'/dist/server/wrangler.json','utf8'));const expected=structuredClone(generated);delete expected.vars.PUBLISHING_ENABLED;
+  assert.deepEqual(actual,expected);assert.equal(source.vars.PUBLISHING_ENABLED,'false');
+  await writeFile(root+'/.wrangler/deploy/config.json',JSON.stringify({configPath:'../../source.json'}));await assert.rejects(prepareDeploymentConfig(source,{root}),/Unexpected/);
+ }finally{await rm(root,{recursive:true,force:true});}
+});
 function database(){const sqlite=new DatabaseSync(':memory:');sqlite.exec('CREATE TABLE options(name TEXT PRIMARY KEY,value TEXT,revision INTEGER DEFAULT 0)');return {sqlite,prepare(sql){return {bind(...args){return {first:async()=>sqlite.prepare(sql).get(...args)||null,run:async()=>sqlite.prepare(sql).run(...args)};}};}};}
 test('CI source gate rejects dirty checkouts, wrong SHA, missing CI and non-main builds',async()=>{
  const root=await mkdtemp(tmpdir()+'/mbj-source-');

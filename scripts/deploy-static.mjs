@@ -3,6 +3,7 @@ import {spawn,execFileSync} from 'node:child_process';
 import {buildSource} from './lib/build-source.mjs';
 import {verifyPublished} from './verify-published.mjs';
 import {guardedDeployment} from './lib/deployment-gate.mjs';
+import {prepareDeploymentConfig} from './lib/deployment-config.mjs';
 const source=buildSource({strict:true});
 if(process.env.PUBLISHING_DEPLOY_APPROVED!=='true')throw Error('Owner-approved CI deployment configuration is required');
 const config=JSON.parse(await readFile('wrangler.jsonc','utf8'));
@@ -12,6 +13,7 @@ const manifest=await verifyPublished();
 const release=JSON.parse(await readFile('dist/client/release.json','utf8'));
 if(release.sourceCommit!==source.commit||release.contentHash!==manifest.contentHash)throw Error('Build output is stale or from a different commit');
 if(!process.env.PUBLISHING_BUILD_SECRET)throw Error('Missing dedicated build-lock secret');
+await prepareDeploymentConfig(config);
 const gate=async(body)=>{
  const response=await fetch('https://marriedbyjake.com/_publishing/deployment',{method:'POST',headers:{Authorization:`Bearer ${process.env.PUBLISHING_BUILD_SECRET}`,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(20_000)});
  if(!response.ok)throw Error(`Deployment gate unavailable (${response.status}); retry after checking the active build`);

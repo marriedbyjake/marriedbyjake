@@ -2,3 +2,6 @@
 #website-publishing-status p{margin:0 0 .25rem}
 #website-publishing-status a{color:#705237;text-decoration:underline;text-underline-offset:.2em}
 #website-publishing-status a:focus-visible{outline:3px solid #92714c;outline-offset:3px}
+#website-publishing-status button{margin-left:1rem;min-height:44px;padding:.4rem .6rem;border:1px solid #92714c;border-radius:0;background:#fff;color:#302b25;cursor:pointer}
+#website-publishing-status button:focus-visible{outline:3px solid #92714c;outline-offset:3px}
+#website-publishing-status button:disabled{opacity:.6;cursor:wait}
