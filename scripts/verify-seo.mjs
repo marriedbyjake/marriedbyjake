@@ -19,7 +19,8 @@ if (baseUrl) {
   if (!sitemap.ok) throw new Error(`Sitemap returned ${sitemap.status}`);
   sitemapUrls = readXmlUrls(await sitemap.text());
   pages = await mapLimit(sitemapUrls, async url => {
-    const route = new URL(url).pathname;
+    const parsed = new URL(url);
+    const route = parsed.pathname + parsed.search;
     const response = await fetch(new URL(route, baseUrl), { redirect: 'manual' });
     if (response.status !== 200) throw new Error(`${route} returned ${response.status}`);
     return { route, html: await response.text() };
@@ -55,7 +56,7 @@ for (const page of pages) {
     const pathname = decodeURIComponent(url.pathname);
     if (pathname !== '/' && pathname.endsWith('/')) errors.add(`Trailing slash: ${raw}`);
     if (exactRedirects.has(pathname)) errors.add(`Link redirects: ${pathname} -> ${exactRedirects.get(pathname)}`);
-    internalTargets.add(pathname);
+    internalTargets.add(pathname + url.search);
     if (!baseUrl && !fs.existsSync(path.join(dist, pathname, 'index.html')) && !fs.existsSync(path.join(dist, pathname)) && !fs.existsSync(path.join(dist, pathname + '.html'))) errors.add(`Missing link target: ${pathname}`);
 
   }
@@ -74,6 +75,8 @@ for (const page of pages) {
     if (title.length > 60) errors.add(`Long testimonial title (${title.length}): ${route}`);
   }
   if (route !== '/404' && route !== '/thank-you') {
+    const canonical = decode(html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]*)"/)?.[1] || '');
+    if (canonical !== new URL(route, 'https://marriedbyjake.com').href) errors.add(`Unexpected canonical ${canonical}: ${route}`);
     const description = decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] || '');
     if (description.length < 110 || description.length > 160) errors.add(`Description length ${description.length}: ${route}`);
   }

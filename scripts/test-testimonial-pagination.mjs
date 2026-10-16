@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { paginateTestimonials } from '../src/lib/testimonial-pagination.ts';
+import { paginateTestimonials, testimonialPageCount, testimonialPageUrl } from '../src/lib/testimonial-pagination.ts';
 
 const entries = Array.from({ length: 61 }, (_, i) => ({
   id: String(i), body: `Review ${i}`,
@@ -21,4 +21,7 @@ for (const input of [null, '0', '-1', 'bad', '1.5']) assert.equal(paginateTestim
 for (const input of ['99', '9'.repeat(400)]) assert.equal(paginateTestimonials(entries, input).page, 3);
 const empty = paginateTestimonials([], '2');
 assert.deepEqual([empty.page, empty.pageCount, empty.start, empty.end], [1,1,0,0]);
+assert.deepEqual([0, 1, 24, 25, 585].map(testimonialPageCount), [1, 1, 1, 2, 25]);
+assert.equal(testimonialPageUrl(1), '/weddingtestimonials');
+assert.equal(testimonialPageUrl(25), '/weddingtestimonials?page=25');
 console.log('Testimonial pagination passed: preserved order, complete coverage, boundaries, invalid inputs, empty collection.');

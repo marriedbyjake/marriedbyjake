@@ -7,13 +7,12 @@ import { Image } from "astro:assets";
 // Content
 import { getCollection } from "@/lib/cms";
 const allTestimonials = await getCollection("weddingtestimonials");
-import { paginateTestimonials } from "@/lib/testimonial-pagination";
+import { paginateTestimonials, testimonialPageUrl as pageUrl } from "@/lib/testimonial-pagination";
 import LocationsMap from "@/components/testimonials/LocationsMap.astro";
 
 const { featuredTestimonials, otherTestimonialsWithImages, otherTestimonialsWithoutImages,
   page, pageCount, total, start, end } = paginateTestimonials(allTestimonials, Astro.url.searchParams.get("page"));
-const pageUrl = (value: number) => value === 1 ? "/weddingtestimonials" : `/weddingtestimonials?page=${value}`;
-if (Astro.url.searchParams.has("page") && Astro.url.searchParams.get("page") !== String(page)) {
+if (Astro.url.searchParams.has("page") && (Astro.url.searchParams.get("page") !== String(page) || page === 1)) {
   return Astro.redirect(pageUrl(page), 302);
 }
 const excerpt = (s: string, n = 180) => {
@@ -166,11 +165,23 @@ const formatDate = (d?: Date) =>
           </article>
         ))}
       </div>
-      <nav aria-label="Testimonial pages" class="flex flex-wrap items-center justify-center gap-4 mt-12">
-        {page > 1 && <a rel="prev" href={pageUrl(page - 1)} class="border border-base-300 px-4 py-2 hover:bg-base-50">Previous</a>}
-        <p class="text-sm text-base-700" aria-live="polite">Reviews {start}–{end} of {total} · Page {page} of {pageCount}</p>
-        {page < pageCount && <a rel="next" href={pageUrl(page + 1)} class="border border-base-300 px-4 py-2 hover:bg-base-50">Next</a>}
+      <nav aria-label="Testimonial pages" class="mt-12 text-base-700">
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          {page > 1 && <a rel="prev" href={pageUrl(page - 1)} class="page-link border border-base-300 px-4 py-3 hover:bg-base-50">Previous</a>}
+          <p class="text-sm text-center">Reviews {start}–{end} of {total} · Page {page} of {pageCount}</p>
+          {page < pageCount && <a rel="next" href={pageUrl(page + 1)} class="page-link border border-base-300 px-4 py-3 hover:bg-base-50">Next</a>}
+        </div>
+        <ul class="flex flex-wrap justify-center gap-2 mt-6">
+          {Array.from({ length: pageCount }, (_, index) => index + 1).map(number => (
+            <li><a href={pageUrl(number)} aria-label={`Testimonial page ${number}`} aria-current={number === page ? "page" : undefined}
+              class:list={["page-link flex size-11 items-center justify-center rounded-full border", number === page ? "bg-accent-800 text-white border-accent-800" : "border-base-300 hover:bg-base-50"]}>{number}</a></li>
+          ))}
+        </ul>
       </nav>
     </Wrapper>
   </section>
 </BaseLayout>
+
+<style>
+  .page-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+</style>

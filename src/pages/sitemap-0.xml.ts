@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "@/lib/cms";
+import { testimonialPageCount, testimonialPageUrl } from "@/lib/testimonial-pagination";
 
 const escapeXml = (value: string) => value.replace(/[<>&"']/g, (char) => ({
   "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;",
@@ -14,6 +15,9 @@ export const GET: APIRoute = async ({ site }) => {
     "/blog", "/weddingtestimonials", "/brisbane", "/sydney", "/byron-bay", "/gold-coast", "/sunshine-coast"];
   const urls = [
     ...staticPaths.map((path) => ({ path, updatedAt: undefined as Date | undefined })),
+    ...Array.from({ length: testimonialPageCount(testimonials.length) - 1 }, (_, index) => ({
+      path: testimonialPageUrl(index + 2), updatedAt: undefined as Date | undefined,
+    })),
     ...posts.map((entry) => ({ path: `/blog/${entry.id}`, updatedAt: entry.updatedAt })),
     ...testimonials.map((entry) => ({ path: `/weddingtestimonials/${entry.id}`, updatedAt: entry.updatedAt })),
     ...[...services, ...infoPages].map((entry) => ({ path: `/${entry.id}`, updatedAt: entry.updatedAt })),

@@ -1,0 +1,40 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "@/lib/cms";
+import { contextualReviews, type ReviewContext } from "@/lib/contextual-reviews";
+
+interface Props { context: ReviewContext }
+const { title, reviews } = contextualReviews(await getCollection("weddingtestimonials"), Astro.props.context);
+---
+
+<section class="bg-base-50" aria-label={reviews.length ? title : "Couple reviews"}>
+  <Wrapper variant="standard" class="py-12 mb-12">
+    <Text tag="h2" variant="displayLG" class="text-accent-800 font-display">
+      {reviews.length ? title : "What couples say"}
+    </Text>
+    {reviews.length > 0 && (
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {reviews.map(review => (
+          <li class="bg-white p-6 flex flex-col gap-4">
+            <figure class="flex-1">
+              <blockquote class="text-base-700 leading-relaxed"><p>{review.excerpt}</p></blockquote>
+              <figcaption class="mt-4">
+                <Text tag="p" variant="textBase" class="text-accent-800 font-display">{review.coupleName}</Text>
+                {review.location && <Text tag="p" variant="textXS" class="text-base-600 mt-1">{review.location}</Text>}
+              </figcaption>
+            </figure>
+            <a href={`/weddingtestimonials/${review.id}`} class="review-link py-2 text-accent-800 underline underline-offset-4">
+              Read full review<span class="sr-only"> from {review.coupleName}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+    <a href="/weddingtestimonials" class="review-link inline-block mt-6 py-2 text-accent-800 underline underline-offset-4">Browse all wedding reviews</a>
+  </Wrapper>
+</section>
+
+<style>
+  .review-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+</style>

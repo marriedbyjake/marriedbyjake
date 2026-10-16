@@ -1,5 +1,9 @@
 import type { CmsEntry } from "./cms";
 
+const perPage = 24;
+export const testimonialPageCount = (total: number) => Math.max(1, Math.ceil(total / perPage));
+export const testimonialPageUrl = (page: number) => page === 1 ? "/weddingtestimonials" : `/weddingtestimonials?page=${page}`;
+
 export function paginateTestimonials(entries: CmsEntry<"weddingtestimonials">[], requestedPage: string | null) {
   const byDate = (a: CmsEntry<"weddingtestimonials">, b: CmsEntry<"weddingtestimonials">) =>
     new Date(b.data.pubDate || 0).getTime() - new Date(a.data.pubDate || 0).getTime();
@@ -8,8 +12,7 @@ export function paginateTestimonials(entries: CmsEntry<"weddingtestimonials">[],
     ...entries.filter((t) => !t.data.featured && t.data.image?.url).sort(byDate),
     ...entries.filter((t) => !t.data.featured && !t.data.image?.url).sort(byDate),
   ];
-  const perPage = 24;
-  const pageCount = Math.max(1, Math.ceil(ordered.length / perPage));
+  const pageCount = testimonialPageCount(ordered.length);
   const parsed = requestedPage && /^\d+$/.test(requestedPage) ? Number(requestedPage) : 1;
   const page = Math.min(pageCount, Math.max(1, parsed));
   const visible = ordered.slice((page - 1) * perPage, page * perPage);

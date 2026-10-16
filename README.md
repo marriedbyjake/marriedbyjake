@@ -45,7 +45,9 @@ Use the CMS Media picker for uploaded images and supply appropriate alt text. Te
 
 Josh and Jake use separate administrator accounts. Passkeys and private copied invitation/recovery links are the documented access method; email delivery is not configured in the runbook. Follow [CMS operations](docs/CMS.md) for account recovery. `npm run cms:access` creates production access credentials in an ignored private file; it is an operator recovery action, not a development or deployment prerequisite.
 
-The testimonial directory renders 24 reviews per page, preserving featured-first, image-first and date ordering. Previous/next links reach every published review; each page has its own canonical query URL. The location map appears on the first page and loads as it approaches the viewport.
+The testimonial directory renders 24 reviews per page, preserving featured-first, image-first and date ordering. Numbered links reach every directory page directly, alongside previous/next links. Each page has its own canonical query URL and is included in the live sitemap; page one uses `/weddingtestimonials` without a query. The location map appears on the first page and loads as it approaches the viewport.
+
+`ContextualReviews.astro` shows up to three short review excerpts on the five city landing pages and the wedding celebrant, MC and elopement service pages. City matches require an explicit city name in the published CMS location field. Service matches reuse reviewed inline-link selections only while their phrases remain in the current quote. Vendor credits never establish a match. The component links to the full testimonials and falls back to the general directory when none match. See [selection notes](docs/TESTIMONIAL_INLINE_LINKS.md) for maintenance rules. It uses the existing request-scoped collection cache and adds no browser JavaScript or per-review database reads.
 
 ### Testimonial editing rules
 

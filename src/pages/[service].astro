@@ -3,6 +3,8 @@ import { getEntry } from "@/lib/cms";
 import { PortableText } from "emdash/ui";
 import PracticeLayout from "@/layouts/PracticeLayout.astro";
 import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
+import ContextualReviews from "@/components/testimonials/ContextualReviews.astro";
+import { isReviewContext } from "@/lib/contextual-reviews";
 const slug = Astro.params.service || "";
 const page = await getEntry("services", slug) || await getEntry("infopages", slug);
 if (!page) return new Response("Not found", { status: 404 });
@@ -77,5 +79,8 @@ const serviceJsonLd = isInfoPage
       />
     )}
     <PortableText value={page.content} />
+    <Fragment slot="reviews">
+      {isReviewContext(slug) && <ContextualReviews context={slug} />}
+    </Fragment>
   </PracticeLayout>
 )}
