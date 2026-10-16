@@ -5,6 +5,10 @@
   const aggregateEntry = () => location.pathname.match(/^\/_emdash\/admin\/content\/(readings|pricing)\/([A-Z0-9]{26})$/);
   const previewSavedDraft = async (button) => {
     const entry=aggregateEntry(); if(!entry)return;
+    // Open during the click's user activation, before the signing request.
+    // Drop the opener immediately; retain a normal link if popups are blocked.
+    const previewWindow=window.open('about:blank','_blank');
+    if(previewWindow)previewWindow.opener=null;
     button.disabled=true;
     try {
       // Use EmDash's authenticated, CSRF-protected signer. Aggregate pages
@@ -14,8 +18,12 @@
       if(!response.ok)throw Error('Preview unavailable');
       const payload=await response.json();const url=new URL(payload.data?.url,location.origin);
       if(url.origin!==location.origin||url.pathname!==`/_preview/${entry[1]}/${entry[2]}`||!url.searchParams.has('_preview'))throw Error('Unexpected preview destination');
-      window.open(url.href,'_blank','noopener,noreferrer');button.textContent='Preview saved draft';
-    } catch { button.textContent='Preview unavailable — try again'; }
+      const banner=button.parentElement;
+      banner.querySelector('.saved-preview-link')?.remove();
+      const link=document.createElement('a');link.className='saved-preview-link';link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';link.referrerPolicy='no-referrer';link.dataset.entryPath=location.pathname;link.textContent='Open prepared preview';banner.append(link);
+      if(previewWindow&&!previewWindow.closed)previewWindow.location.replace(url.href);
+      button.textContent='Preview saved draft';
+    } catch { if(previewWindow&&!previewWindow.closed)previewWindow.close();button.textContent='Preview unavailable — try again'; }
     finally {button.disabled=false;}
   };
   const update = async () => {
@@ -37,6 +45,7 @@
       let preview=banner.querySelector('button');
       if(aggregateEntry()&&!preview){preview=document.createElement('button');preview.type='button';preview.textContent='Preview saved draft';preview.addEventListener('click',()=>{void previewSavedDraft(preview);});banner.append(preview);}
       if(!aggregateEntry())preview?.remove();
+      const prepared=banner.querySelector('.saved-preview-link');if(prepared?.dataset.entryPath!==location.pathname)prepared?.remove();
     } catch {
       const text=document.querySelector('#website-publishing-status p');
       if(text)text.textContent='Publishing status is unavailable. Check before assuming your changes are live.';
