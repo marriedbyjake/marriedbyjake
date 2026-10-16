@@ -47,7 +47,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Cloudflare cache hits have immutable headers, so copy before changing them.
   const headers = new Headers(response.headers);
   headers.set("Cache-Control", "private, no-store");
-  headers.set('Referrer-Policy','no-referrer');
+  // A native POST form from a no-referrer page sends Origin: null. The editor
+  // status page contains no preview token and needs an exact same-origin POST.
+  headers.set('Referrer-Policy',pathname === '/_publishing' ? 'same-origin' : 'no-referrer');
   if (pathname.startsWith('/_preview/') || pathname.startsWith('/_publishing') || target) headers.set('X-Robots-Tag','noindex, nofollow');
   return new Response(response.body, {
     status: response.status,

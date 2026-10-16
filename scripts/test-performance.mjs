@@ -71,6 +71,11 @@ for (const path of ['/', '/_emdash/admin', '/_image?href=%2F_emdash%2Fapi%2Fmedi
   assert.equal((await run(path)).headers.get('Cache-Control'), 'private, no-store');
 }
 const staticImage = '/_image?href=/_astro/jake-menu.Bq79GrgU.jpg&w=600';
+assert.equal((await run('/_publishing')).headers.get('Referrer-Policy'),'same-origin');
+for (const path of ['/_preview/services/example?_preview=synthetic', '/_publishing/status', '/_emdash/admin']) {
+  assert.equal((await run(path)).headers.get('Referrer-Policy'),'no-referrer');
+  assert.equal((await run(path)).headers.get('Cache-Control'),'private, no-store');
+}
 assert.match((await run(staticImage)).headers.get('Cache-Control'), /immutable/);
 assert.equal((await run(staticImage,{headers:{'Set-Cookie':'test=value'}})).headers.get('Cache-Control'),'private, no-store');
 assert.equal((await run(staticImage,{status:404})).headers.get('Cache-Control'),'private, no-store');

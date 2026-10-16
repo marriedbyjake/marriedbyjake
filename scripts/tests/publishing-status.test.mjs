@@ -10,6 +10,8 @@ test('disabled publishing status never creates a ledger; retry is authenticated,
  const request=(origin='https://marriedbyjake.com')=>new Request('https://marriedbyjake.com/_publishing/retry',{method:'POST',headers:{Origin:origin}});
  assert.equal((await retryFromEditor(request(),env,false)).status,403);
  assert.equal((await retryFromEditor(request('https://foreign.example'),env,true)).status,403);
+ assert.equal((await retryFromEditor(request('null'),env,true)).status,403);
+ assert.equal((await retryFromEditor(new Request('https://marriedbyjake.com/_publishing/retry',{method:'POST'}),env,true)).status,403);
  assert.equal((await retryFromEditor(request(),env,true)).status,409);
 });
 test('editor status shows a failed release without leaking private jobs, and retry preserves uncertain commit intent',async()=>{
