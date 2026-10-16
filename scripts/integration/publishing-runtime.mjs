@@ -55,6 +55,18 @@ test('a failed initial GitHub check can retry without an existing baseline',()=>
  assert.equal(await retryPublishing(f.db),true);
  await bootstrap(f);
 }));
+test('automatic initialization recovery clears the old failure and retry time',()=>fixture(async f=>{
+ assert.equal((await f.tick('/tick?scenario=network-error')).phase,'retrying');
+ await f.db.prepare("UPDATE options SET value=json_set(value,'$.retryAt',0) WHERE name='marriedbyjake:publishing'").run();
+ await bootstrap(f);
+ const state=await f.state();assert.equal(state.reason,undefined);assert.equal(state.retryAt,undefined);
+}));
+test('an unchanged healthy snapshot clears a recovered fingerprint failure',()=>fixture(async f=>{
+ await bootstrap(f);
+ await f.db.prepare("UPDATE options SET value=json_set(value,'$.phase','retrying','$.failures',1,'$.retryAt',0,'$.reason','Synthetic fingerprint read failure') WHERE name='marriedbyjake:publishing'").run();
+ assert.equal((await f.tick()).phase,'healthy');
+ const state=await f.state();assert.equal(state.phase,'healthy');assert.equal(state.failures,0);assert.equal(state.reason,undefined);assert.equal(state.retryAt,undefined);
+}));
 test('native D1/R2 controller excludes drafts and recovers commit intent after Worker restart',()=>fixture(async f=>{
  assert.equal((await f.tick('/disabled')).phase,'disabled');assert.equal((await f.db.prepare("SELECT COUNT(*) AS n FROM options").first()).n,0);
  await bootstrap(f);const before=(await f.get('calls')).length;

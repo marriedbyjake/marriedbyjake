@@ -32,7 +32,7 @@ export async function runPublisher(env,dependencies={}){
     if(!blob||!item.size||!item.sourceHash||!/^[a-f0-9]{64}$/.test(item.sha256))throw new PublicationPaused('The reviewed Git baseline has incomplete image metadata');
     cache[cacheKey({content_hash:item.sourceHash,size:item.size})]={hash:item.sha256,blob,sourceHash:item.sourceHash,size:item.size};
    }
-   await save({...state,baselineHash:base.manifest.contentHash,baselinePathsHash:pathsHash(base.paths),cache,phase:'healthy',failures:0});
+   await save({...state,baselineHash:base.manifest.contentHash,baselinePathsHash:pathsHash(base.paths),cache,phase:'healthy',failures:0,retryAt:undefined,reason:undefined});
    return {phase:'initialized'};
   }
   if(state.pending){
@@ -46,10 +46,13 @@ export async function runPublisher(env,dependencies={}){
   }
   const current=await fingerprint();
   if(state.job&&state.job.fingerprint!==current){
-   await save({...state,phase:'healthy',job:undefined,failures:0,reason:undefined});return {phase:'cms-changed'};
+   await save({...state,phase:'healthy',job:undefined,failures:0,retryAt:undefined,reason:undefined});return {phase:'cms-changed'};
   }
   if(!state.job){
-   if(state.sourceFingerprint===current)return {phase:'healthy'};
+   if(state.sourceFingerprint===current){
+    if(state.phase!=='healthy'||state.failures||state.retryAt||state.reason)await save({...state,phase:'healthy',failures:0,retryAt:undefined,reason:undefined});
+    return {phase:'healthy'};
+   }
    const base=await client.remote();
    if(base.manifest.contentHash!==state.baselineHash||pathsHash(base.paths)!==state.baselinePathsHash)throw new PublicationConflict('Published Git files changed independently; reconcile before resuming');
    await save({...state,phase:'preparing',job:{fingerprint:current,base:{head:base.head,tree:base.tree,nodeId:base.nodeId,paths:base.paths},files:{}}});
@@ -79,7 +82,7 @@ export async function runPublisher(env,dependencies={}){
    await save({...state,cache:{...state.cache,[key]:{hash,blob,sourceHash:row.content_hash,size:row.size}}});return {hash};
   }});
   if(await fingerprint()!==current)throw Error('CMS changed during export; preparing a fresh release');
-  if(projected.contentHash===state.baselineHash){await save({...state,phase:'healthy',sourceFingerprint:current,job:undefined,failures:0,retryAt:undefined});return {phase:'healthy'};}
+  if(projected.contentHash===state.baselineHash){await save({...state,phase:'healthy',sourceFingerprint:current,job:undefined,failures:0,retryAt:undefined,reason:undefined});return {phase:'healthy'};}
   const paths={};const {files}=releaseFiles(projected);
   let metadataUploads=0;
   for(const [name,body] of Object.entries(files)){
