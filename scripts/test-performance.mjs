@@ -77,6 +77,17 @@ for (const path of ['/?preview=signed-value', '/_emdash/api/auth/me', '/_emdash/
 }
 console.log('Performance checks passed: request isolation, concurrent reads, independent arrays, error retry, private CMS/preview responses, immutable static images, redirects.');
 
+// EmDash absolutizes CMS media URLs. Without this allowlist Astro returns the
+// original file for every responsive descriptor instead of a transformed URL.
+const { default: astroConfig } = await import('../astro.config.mjs');
+const { isRemoteAllowed } = await import('@astrojs/internal-helpers/remote');
+const imageConfig = { domains: [], ...astroConfig.image };
+assert.equal(isRemoteAllowed('https://marriedbyjake.com/_emdash/api/media/file/example.jpg', imageConfig), true);
+for (const url of ['https://elsewhere.example/_emdash/api/media/file/example.jpg', 'https://marriedbyjake.com/_emdash/api/auth/me', 'http://marriedbyjake.com/_emdash/api/media/file/example.jpg']) {
+  assert.equal(isRemoteAllowed(url, imageConfig), false);
+}
+console.log('CMS image optimization passed: canonical file URLs allowed; foreign origins and unrelated API routes excluded.');
+
 // Exercise the actual inline map loader without making external requests.
 const { runInNewContext } = await import('node:vm');
 const mapSource = await readFile(new URL('../src/components/testimonials/LocationsMap.astro', import.meta.url), 'utf8');

@@ -8,6 +8,11 @@ import { d1, r2 } from "@emdash-cms/cloudflare";
 export default defineConfig({
   output: "server",
   adapter: cloudflare(),
+  // EmDash media values carry absolute canonical URLs. Permit only this file
+  // route so Astro generates real variants instead of returning the original.
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "marriedbyjake.com", pathname: "/_emdash/api/media/file/**" }],
+  },
   vite: { plugins: [tailwindcss()] },
   integrations: [
     react(),
