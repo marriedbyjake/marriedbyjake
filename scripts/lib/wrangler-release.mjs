@@ -4,9 +4,11 @@ import path from 'node:path';
 import {randomUUID} from 'node:crypto';
 
 export async function wranglerReleaseTools({config,workerName,commit}) {
- const receipt=path.resolve(`.emdash/version-upload-${randomUUID()}.jsonl`);
+ // Preserve Cloudflare's structured output channel so Builds can associate
+ // the exact uploaded/deployed version with its source commit in the UI.
+ const receipt=process.env.WRANGLER_OUTPUT_FILE_PATH||path.resolve(`.emdash/version-upload-${randomUUID()}.jsonl`);
  await fs.mkdir(path.dirname(receipt),{recursive:true});
- await fs.writeFile(receipt,'',{mode:0o600});
+ await fs.appendFile(receipt,'',{mode:0o600});
  const run=(args,{signal,capture=false}={})=>new Promise((resolve,reject)=>{
   let output='';
   const child=spawn('npx',['wrangler',...args,'--config',config],{env:{...process.env,WRANGLER_SEND_METRICS:'false',WRANGLER_OUTPUT_FILE_PATH:receipt},stdio:['ignore',capture?'pipe':'inherit','inherit'],signal,timeout:240_000});

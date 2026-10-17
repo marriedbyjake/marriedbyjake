@@ -60,3 +60,26 @@ Full raw public probe results, build log, local crawl and live/privacy summaries
 ## Approved isolated public-delivery pilot — 17 October afternoon
 
 Josh approved a separate public-only Worker with no production routes or CMS access. It is deployed and its actual isolation, all 652 document checks, same-machine regional comparisons and limitations are recorded in [the pilot runbook](PUBLIC_DELIVERY_PILOT.md). The first six-path comparison has pilot median/p95 TTFB 198.5/445 ms versus canonical production 426.5/934 ms; repeat sets show a smaller slow tail while some warmed production requests remain faster. This supports developing a small production delivery layer, not switching the deliberately restricted pilot into production or claiming every live page is now fast. Production source, traffic, CMS and publishing remain unchanged.
+
+## Completed public delivery cutover — 17 October evening
+
+Josh requested completion after the pilot results. Implemented and tested `marriedbyjake-public`, a 12,218-byte complete upload with ASSETS and a CMS service binding only. The original Worker retains EmDash, private resources, secrets, the sole publisher/maintenance cron and its public fallback. Both hosted main-branch jobs use their own CI identity and a shared deployment lease; public activation waits for the matching backend SHA/hash. Failed/uncertain activation restores the prior healthy version. See [operations and recovery](PUBLIC_DELIVERY.md).
+
+The first cutover source was `d14f9f2ea1e8ac27197f6082ed593102191869bb`, public version `6c22c6e6-90c2-48a3-9f77-2ac3ed7d81fb`, CMS `9e99dae4-ad74-4751-bbc1-373d7fc9a9de`, both at 100%. An isolated rollback rehearsal restored prior code/assets and then the hosted version before moving either production route. The existing canonical/www route IDs were reassigned to the public Worker; DNS and the CMS's private resources were unchanged. Later finalization versions may supersede this checkpoint; read current Git/live state.
+
+The same six probe machines compare the same six representative paths with fresh HTTP/2/gzip connections (36 samples before and 36 after):
+
+| Navigation TTFB | Before cutover | After cutover |
+| --- | ---: | ---: |
+| Median | 550.5 ms | 94 ms |
+| p95, nearest rank | 1,099 ms | 401 ms |
+| Maximum | 1,611 ms | 406 ms |
+| Above 500 ms | 24/36 | 0/36 |
+
+All 54 URLs in the supplied Ahrefs export also return 200 from one fixed London/OVH probe: median 182 ms, p95 305 ms, maximum 387 ms, none above 500 ms. That probe reaches LHR; it is a separate coverage check from the matched six-machine comparison. Globalping reuse ignores a newly supplied smaller limit; two initial harness attempts therefore returned six probes rather than one and are excluded from the 54-URL single-probe summary. Those requests remain within the anonymous free quota. No account or paid credits were used.
+
+An unthrottled desktop trace of the worst review records LCP 166 ms, TTFB 68 ms and CLS 0. A mobile 390×844, DPR 3, Slow-4G/4x-CPU trace records LCP 1,571 ms, TTFB 47 ms and CLS 0.02, with no horizontal overflow or visible broken images. The earlier desktop trace was already fast locally (LCP 173 ms); the material improvement is in regional waiting, not a new claim about every browser or network. No field/CrUX data or new Ahrefs crawl is claimed.
+
+Canonical SEO checks pass all 652 URLs and 585 reviews. Real editor cookies remain valid through the service binding. Native preview signing succeeds; anonymous signed HTML/media retain private/no-store/noindex/no-referrer and exclude analytics; wrong-entry and tampered tokens return 403. The legacy public original-image redirect still returns committed bytes with matching SHA256. Before/after native backups match every one of 14 exported tables, including all 616 reviews, 31 private drafts, 697 revisions and 308 media records.
+
+A local-versus-hosted byte comparison exposed SQLite `CURRENT_TIMESTAMP` strings being interpreted in the build machine's timezone: local sitemap modification times differed from Cloudflare's UTC values by ten hours. The loader now explicitly marks those stored UTC strings before schema coercion; UTC/Hobart/New York regression tests pass and existing Cloudflare dates are preserved. The final source/live byte checks and deployment identities are recorded separately in `../qa/performance-audit/public-delivery-20261017/`, alongside all raw probes, privacy checks and recovery evidence. A fresh Ahrefs crawl remains necessary to clear its own warning.

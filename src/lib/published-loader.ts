@@ -13,8 +13,12 @@ export function parsePublished(text: string) {
     const titleCase = (value: unknown) => typeof value === 'string'
       ? value.replace(/\w\S*/g, part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()) : undefined;
     const group = (prefix: string) => ({ title: raw[`${prefix}_title`], price: raw[`${prefix}_price`], description: raw[`${prefix}_description`] });
+    // SQLite CURRENT_TIMESTAMP is UTC but omits its zone. Make it explicit
+    // before schema coercion so Mac and hosted builds emit identical dates.
+    const updatedAt = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(?:\.\d+)?$/.test(entry.updatedAt)
+      ? entry.updatedAt.replace(' ', 'T') + 'Z' : entry.updatedAt;
     return {
-      ...raw, id, cmsId: entry.cmsId, updatedAt: entry.updatedAt,
+      ...raw, id, cmsId: entry.cmsId, updatedAt,
       pubDate: raw.pub_date || undefined,
       ...(asset ? { image: { url: `../../src/images/published/${asset.asset}`, alt: source.alt || asset.alt || raw.title || raw.couple_name || '', focalX: source.focalX ?? asset.focalX, focalY: source.focalY ?? asset.focalY } } : {}),
       coupleName: raw.couple_name,

@@ -27,29 +27,30 @@ Email delivery is not configured. Passkeys and copied invitation links work; ema
 
 Account: Withers Co (`60ef6bd2c48d5beb6fd6a093cff863cf`).
 
-- Worker: `marriedbyjake`
+- CMS/private Worker: `marriedbyjake`
+- Canonical public Worker: `marriedbyjake-public`, ASSETS plus CMS service binding only
 - D1: `marriedbyjake-emdash` (`a9e0e146-602f-411c-b9d7-a46be3299f3a`)
 - R2: `marriedbyjake-emdash-media` (private)
 - Sessions: `marriedbyjake-session` KV (`8fa1ec227c9a446390a6299856e15f6e`)
 - Images binding: `IMAGES`
 - Scheduled EmDash maintenance: every minute
-- Preview: https://marriedbyjake.withersco.workers.dev
+- Backend release/fallback hostname: https://marriedbyjake.withersco.workers.dev (production bindings, not isolated staging)
 
-`wrangler.jsonc` is the resource and routing source of truth. Full-site Worker routes handle both proxied hostnames. DNS is hosted in the same Cloudflare account, with authoritative nameservers `armando.ns.cloudflare.com` and `celine.ns.cloudflare.com`. The apex uses a proxied `AAAA` record pointing to `100::`, and `www` uses a proxied `CNAME` pointing to `marriedbyjake.com`. This is Cloudflare’s [documented placeholder configuration for an originless Worker route](https://developers.cloudflare.com/workers/best-practices/workers-best-practices/#set-up-custom-domains-or-routes-correctly); the website has no Vercel origin dependency. The custom Worker entry uses EmDash’s fetch and scheduled handlers. A temporary setup Basic-auth gate protects an empty database until setup is complete and an administrator exists; established accounts use EmDash authentication.
+`wrangler.jsonc` defines CMS resources; `workers/public/wrangler.jsonc` defines public route ownership. Canonical/www traffic enters the small public Worker, which forwards private Requests unchanged to the existing CMS Worker. See [delivery operations](PUBLIC_DELIVERY.md). DNS remains in the same Cloudflare account; the public delivery cutover changed only the two existing Worker-route targets. The earlier DNS configuration below is dated deployment evidence: authoritative nameservers `armando.ns.cloudflare.com` and `celine.ns.cloudflare.com`, proxied apex `AAAA` → `100::`, proxied `www` CNAME → apex. The CMS entry retains EmDash fetch/scheduled handlers and its uninitialized-setup guard. Established accounts retain normal EmDash authentication.
 
 Required secrets: `EMDASH_ENCRYPTION_KEY` (generate with `npx emdash secrets generate`) and `EMDASH_SETUP_PASSWORD` (random initial setup credential). Set them with `npx wrangler secret put <NAME>`. Store the encryption key securely; replacing it can invalidate encrypted settings. `.dev.vars` is local and ignored. `EMDASH_SITE_URL` is the public canonical URL, not a secret.
 
 ## Deployment and verification
 
-Production runs only on Cloudflare Workers. Use Node 24 LTS and follow this procedure:
+Production runs only on Cloudflare Workers. Use Node 24 LTS and the coordinated hosted release procedure:
 
 1. Run `npm ci`.
-2. Authenticate with `npx wrangler login --device --browser=false`, then approve the login in a browser within five minutes.
-3. Run `npm run deploy`. This runs validation and builds the site before publishing the Worker.
-4. Check the active version with `npx wrangler deployments list`.
+2. Run `npm run validate`, commit intended source, fetch/reconcile main and push without force.
+3. Both main-branch Builds jobs validate independently. The CMS uses `npm run deploy:ci`; the public job waits for its matching CMS release, then uses `npm run deploy:public:ci`. Read their root-directory/command settings in [the delivery runbook](PUBLIC_DELIVERY.md). Local normal deployment requires genuine Cloudflare CI identity; do not fake it.
+4. Verify both active versions/100% traffic, canonical source/hash and editor health. For operator read-only inspection, use normal Wrangler authentication and the explicit configuration for each Worker.
 5. Run `npm run verify:seo -- --url https://marriedbyjake.com` to check rendered internal links, metadata, testimonial markup and the live sitemap.
 
-Commit and push source changes to `main` separately from deployment. A Git push does not publish the Worker. Check `/`, a blog post, a testimonial with an image, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml` and `/_emdash/admin` on the canonical hostname after a material change. Verify image bytes and use a browser to check the editor when those areas changed. Never overwrite a real entry to test draft, publish or archival behavior.
+A Git push triggers Builds but does not prove successful activation or public confirmation. Check `/`, a blog post, an image-bearing testimonial, `/serviceandprice`, `/wedding-readings`, `/search.json`, `/rss.xml`, `/sitemap-0.xml` and `/_emdash/admin` after a material change. Verify image bytes and actual editor/private-preview behavior. Never overwrite a real entry to test draft, publish or archival behavior.
 
 Public HTML and content endpoints are committed static build artifacts. Private CMS, signed previews and authorized mutable-media responses use `private, no-store`; drafts never enter the public snapshot. Astro’s generated assets and successful image transforms of fingerprinted `/_astro/` sources retain immutable browser caching. CMS-media transforms remain private. Collection normalization is reused only within the current EmDash request, with separate arrays for callers; no published content or previews are retained across requests by this adapter. Redirect rules live in `src/data/redirects.json` with the shape `{ "redirects": [...] }`; `www` redirects to the canonical hostname. Public internal links omit trailing slashes except for `/`.
 

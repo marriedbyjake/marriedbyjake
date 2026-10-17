@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {releaseVersion,awaitBackendRelease,claimDeployment} from '../lib/version-release.mjs';
+import {wranglerReleaseTools} from '../lib/wrangler-release.mjs';
+import fs from 'node:fs/promises';
+import os from 'node:os';
 const old='11111111-1111-4111-8111-111111111111',next='22222222-2222-4222-8222-222222222222';
 function fixture(patch={}){
  let current=old;const events=[];
@@ -33,4 +36,12 @@ test('coordinated builds retry a busy deployment lease, but stop for stale sourc
  assert.equal(await claimDeployment({commit:'exact',head:async()=>'exact',claim:async()=>++tries<3?busy():'lease',now:()=>now,wait:async ms=>{now+=ms;}}),'lease');assert.equal(tries,3);
  await assert.rejects(claimDeployment({commit:'exact',head:async()=>'new',claim:async()=>assert.fail('must not claim')}),/Stale/);
  await assert.rejects(claimDeployment({commit:'exact',head:async()=>'exact',claim:async()=>{throw Error('unauthorized');}}),/unauthorized/);
+});
+test('version operations preserve Cloudflare Builds existing structured receipts',async()=>{
+ const dir=await fs.mkdtemp(os.tmpdir()+'/mbj-ci-receipt-');const previous=process.env.WRANGLER_OUTPUT_FILE_PATH;
+ try{
+  process.env.WRANGLER_OUTPUT_FILE_PATH=dir+'/output.jsonl';await fs.writeFile(process.env.WRANGLER_OUTPUT_FILE_PATH,'{"type":"existing-ci-event"}\n');
+  await wranglerReleaseTools({config:'synthetic-config',workerName:'synthetic-worker',commit:'synthetic'});
+  assert.equal(await fs.readFile(process.env.WRANGLER_OUTPUT_FILE_PATH,'utf8'),'{"type":"existing-ci-event"}\n');
+ }finally{if(previous===undefined)delete process.env.WRANGLER_OUTPUT_FILE_PATH;else process.env.WRANGLER_OUTPUT_FILE_PATH=previous;await fs.rm(dir,{recursive:true,force:true});}
 });

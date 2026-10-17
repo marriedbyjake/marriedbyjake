@@ -1,6 +1,6 @@
 # Married by Jake
 
-Jake’s public website and EmDash editor run together in the existing Cloudflare Worker. EmDash keeps authoring data and private drafts in D1/R2. The publisher commits complete published content and referenced images to Git; Astro builds public pages, search, RSS and sitemap from that exact commit. See [publishing operations](docs/PUBLISHING_SERVICE.md) for activation state, owner access, build gates and rollback. The Jake-owned account move is deferred.
+Jake’s website runs in the existing Withers Co Cloudflare account. The small `marriedbyjake-public` Worker serves committed public assets and forwards private editor requests to the existing `marriedbyjake` Worker. EmDash retains authoring data, drafts, revisions and media there. Its publisher commits complete published content and referenced images to Git; coordinated hosted builds deploy the exact commit. See [public delivery](docs/PUBLIC_DELIVERY.md) and [publishing operations](docs/PUBLISHING_SERVICE.md) for build gates and rollback. The Jake-owned account move is deferred.
 
 - [Website](https://marriedbyjake.com)
 - [EmDash editor](https://marriedbyjake.com/_emdash/admin)
@@ -22,7 +22,7 @@ Use Node 24 LTS, version 24.15 or newer. The project uses Astro, Tailwind CSS, R
 | Verified vendor websites and unavailable links | `src/data/testimonial-vendors.json`, `src/data/unavailable-vendor-urls.json` | Record research in `docs/VENDOR_LINKS.md`, test and deploy |
 | Redirects and canonical internal links | `src/data/redirects.json`, `src/middleware.ts`, `src/lib/internal-links.ts` | Preserve existing redirect rules, test and deploy |
 | Homepage background videos and matching posters | `src/data/hero-video.ts` and poster assets | Follow [the video runbook](docs/VIDEO.md), then deploy |
-| Worker bindings, routes and runtime configuration | `wrangler.jsonc`, `src/worker.ts`, `src/cms-worker.ts`, `astro.config.mjs` | Regenerate types, validate and deploy |
+| Worker bindings, routes and runtime configuration | `wrangler.jsonc`, `workers/public/wrangler.jsonc`, `src/public-worker.ts`, `src/worker.ts`, `src/cms-worker.ts`, `astro.config.mjs` | Regenerate types, validate and release through the coordinated Builds jobs |
 
 Markdown under `src/content/` is the original migration source and an archive. Editing it does not publish content. The old `.pages.yml` is migration reference only. Never reimport archived content over production to apply an ordinary edit.
 
@@ -30,9 +30,9 @@ Markdown under `src/content/` is the original migration source and an archive. E
 
 `astro.config.mjs` prerenders public pages from `content/published/` through `src/content.config.ts` and `src/lib/cms.ts`. `src/live.config.ts` and `cms-live.ts` retain the EmDash loader for private signed previews. Rich content remains complete Portable Text; the published image/gallery renderers resolve verified assets from Git. The Worker serves public assets before EmDash or D1.
 
-`src/worker.ts` contains the public router and lazily imports `src/cms-worker.ts` for CMS, signed previews, protected image requests, publishing controls and scheduled work. Keep that boundary: the postbuild check follows the emitted static module imports, limits the public startup graph to 32 KiB, and requires a separately deferred CMS chunk. See the dated [performance evidence](docs/PERFORMANCE.md) for implementation and deployment status.
+Canonical traffic enters `src/public-worker.ts`, whose complete upload is 12,218 bytes. It serves public assets and forwards canonical CMS/preview/media/publishing requests through the CMS service binding. `src/worker.ts` retains the complete public fallback and lazily loads `src/cms-worker.ts` for private/scheduled work in the original Worker. Keep both boundaries: postbuild checks the backend fallback graph, separately bundles the entire public upload below 32 KiB, and tests every canonical document plus private service forwarding in native workerd. See [delivery operations](docs/PUBLIC_DELIVERY.md) and dated [performance evidence](docs/PERFORMANCE.md).
 
-The approved [public delivery pilot](docs/PUBLIC_DELIVERY_PILOT.md) serves the same public build on a separate test hostname through a 12,151-byte Worker, without CMS access. Its regional comparison has a smaller slow tail; production still uses the existing Worker. `npm run build:public-pilot` prepares an exact-commit package after `npm run build`; `npm run test:public-pilot` checks it in native workerd. These commands do not deploy or alter the production build pipeline. Connecting CMS services or switching canonical traffic requires separate approval after the production design is implemented and tested.
+The earlier [public delivery pilot](docs/PUBLIC_DELIVERY_PILOT.md) remains a fixed, noindex experiment without CMS access; it is not production or an automatic publication target. Its evidence led to the approved production delivery layer. `npm run build:public-pilot` and `npm run test:public-pilot` remain optional diagnostic commands. Ordinary publishing uses the two guarded main-branch Builds jobs and retains the last healthy public version on failure.
 
 | CMS collection slug | Content | Public route |
 | --- | --- | --- |

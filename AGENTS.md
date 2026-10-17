@@ -12,7 +12,7 @@ Inspect `git status`, the branch, relevant diffs and current source before editi
 - Layout, navigation, static landing-page copy and UI belong in `src/pages/`, `src/layouts/`, `src/components/` and `src/styles/`. Source changes require a Worker deployment.
 - Check `src/data/seo.json` and `src/components/fundations/head/Seo.astro` when changing page titles or descriptions; route overrides can take precedence over CMS descriptions.
 - Hero video URLs and matching posters are configured in `src/data/hero-video.ts`. Follow the video runbook and preserve decorative playback, poster fallback and reduced-motion behavior.
-- Worker bindings/routes belong in `wrangler.jsonc`; preserve the Astro Cloudflare/EmDash integration in `astro.config.mjs` and the custom entry in `src/worker.ts`. Keep public startup limited to routing/assets; `src/cms-worker.ts` is deferred for private requests and scheduled work. The postbuild check enforces the emitted module boundary and 32 KiB public startup budget.
+- CMS bindings belong in `wrangler.jsonc`; public bindings/routes belong in `workers/public/wrangler.jsonc`. Preserve the Astro Cloudflare/EmDash integration and existing `src/worker.ts`/`src/cms-worker.ts` fallback. Canonical traffic enters `src/public-worker.ts`, whose entire upload must stay below 32 KiB and contain only routing/assets plus the CMS service binding. Follow [public delivery](docs/PUBLIC_DELIVERY.md).
 
 ## EmDash content contract
 
@@ -55,14 +55,14 @@ For documentation-only edits, check paths, links and command names against the s
 
 ## Production deployment
 
-Cloudflare Workers is the only production deployment target. Do not configure another hosting provider as production. Use Node 24 LTS and the configured Withers Co account/Worker `marriedbyjake`; `wrangler.jsonc` is the resource and route source of truth.
+Cloudflare Workers is the only production target. Use Node 24 LTS in the existing Withers Co account: `marriedbyjake` retains CMS/private resources and the sole publishing cron; `marriedbyjake-public` serves canonical traffic. Their source configurations are `wrangler.jsonc` and `workers/public/wrangler.jsonc`. Do not move accounts, change DNS or configure another production provider.
 
 Commit and push intended source changes to `main` separately from deployment. A Git push triggers Cloudflare Builds only when the reviewed integration is active; verify the exact deployed SHA. Reconcile remote work before release, confirm the deployed checkout matches the intended `main` revision and preserve unrelated changes. Deploy from a fresh build of that revision, not an older `dist/`.
 
 1. Install dependencies with `npm ci`.
 2. Authenticate with `npx wrangler login --device --browser=false`. Keep the command active and approve its verification URL in the browser within five minutes. Restart the flow if the code expires. Confirm account access with `npx wrangler whoami`; keep authentication codes and credentials private.
-3. Normal production releases run in Cloudflare Builds: `npm ci && npm run validate`, then `npm run deploy:ci`. The source/deploy gates reject wrong SHA, dirty/non-main source, stale assets and competing deployments. Local `npm run deploy` requires Cloudflare CI identity. Follow the publishing runbook for the separately controlled first bootstrap or rollback; preserve runtime variables with `--keep-vars`.
-4. Check the active deployment with `npx wrangler deployments list`. Confirm the intended version and traffic allocation, not merely upload success.
+3. Normal releases run in two Cloudflare Builds jobs with their own CI identity. The CMS job uses the repository root, `npm ci && npm run validate`, then `npm run deploy:ci`. The public job uses root `/workers/public`, build `cd ../.. && npm ci && npm run validate`, deploy `cd ../.. && npm run deploy:public:ci`. It waits for the exact matching CMS SHA/hash before claiming the shared lease. Source/deploy gates reject wrong SHA, dirty/non-main source, stale assets and competing deployments. Uploads preserve variables and remain inactive until guarded version activation; failed live checks restore the previous version. Never fake CI identity or replace these commands with an unguarded production deploy.
+4. Check active versions/100% traffic for both Workers with `npx wrangler deployments list --config wrangler.jsonc` and the generated `.emdash/public-delivery/wrangler.json`. Routine version releases do not mutate routes/cron or take routes back from an operator-selected rollback target. Route changes follow the reviewed cutover/recovery runbook.
 5. Verify the canonical site with `npm run verify:seo -- --url https://marriedbyjake.com`.
 
 After a material change, smoke-test home, a blog post, an image-bearing testimonial, pricing, readings, search JSON, RSS, sitemap and CMS sign-in. Check canonical/historical redirects and image bytes, and browser-test affected UI. Do not create or publish disposable production content without task authorization.
@@ -71,7 +71,7 @@ Report source commit/remote parity, Worker version/active traffic, validation an
 
 ## Credentials, media and recovery
 
-EmDash uses D1 `DB`, private R2 `MEDIA`, KV `SESSION` and Cloudflare Images `IMAGES`. The custom Worker delegates fetch and scheduled maintenance to EmDash and retains the setup guard for an uninitialized CMS. Do not bypass that guard or normal CMS authentication.
+EmDash uses D1 `DB`, private R2 `MEDIA`, KV `SESSION` and Cloudflare Images `IMAGES`, all retained in the existing CMS Worker. The public Worker has only ASSETS and CMS → `marriedbyjake`, with no runtime secrets or cron. Forward private Requests and Responses unchanged so canonical Origin, passkeys, cookies, CSRF, preview scopes and privacy headers retain their meaning. Keep the CMS setup guard and authentication intact; public pages must remain available if the CMS fails.
 
 Keep credentials, access links, secret values and private rollback data out of Git, logs and responses. Production values go in Wrangler secrets. Preserve `EMDASH_ENCRYPTION_KEY`; replacing it can invalidate encrypted settings. `.env`, `.dev.vars`, `.emdash/`, Wrangler credentials and generated local state remain private/ignored. `PUBLIC_GOOGLE_MAPS_API_KEY` is build-time browser configuration; preserve its canonical-domain restrictions.
 
