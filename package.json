@@ -26,6 +26,8 @@
     "prebuild": "node scripts/verify-published.mjs",
     "test:publishing": "node --test scripts/tests/*.test.mjs",
     "postbuild": "node scripts/verify-static-build.mjs",
+    "build:public-pilot": "node scripts/build-public-pilot.mjs",
+    "test:public-pilot": "node --test scripts/integration/public-pilot-runtime.mjs",
     "test:publishing:runtime": "node --test scripts/integration/publishing-runtime.mjs",
     "deploy:ci": "node scripts/deploy-static.mjs",
     "postdeploy:ci": "npm run indexnow"

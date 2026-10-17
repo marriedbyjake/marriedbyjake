@@ -32,6 +32,8 @@ Markdown under `src/content/` is the original migration source and an archive. E
 
 `src/worker.ts` contains the public router and lazily imports `src/cms-worker.ts` for CMS, signed previews, protected image requests, publishing controls and scheduled work. Keep that boundary: the postbuild check follows the emitted static module imports, limits the public startup graph to 32 KiB, and requires a separately deferred CMS chunk. See the dated [performance evidence](docs/PERFORMANCE.md) for implementation and deployment status.
 
+The optional [public delivery pilot](docs/PUBLIC_DELIVERY_PILOT.md) packages the same public build behind a complete Worker upload below 32 KiB, without CMS access. `npm run build:public-pilot` prepares an exact-commit package after `npm run build`; `npm run test:public-pilot` checks it in native workerd. These commands do not deploy or alter the production build pipeline. Creating the isolated pilot resource and any later canonical cutover require separate approval.
+
 | CMS collection slug | Content | Public route |
 | --- | --- | --- |
 | `posts` | Blog posts | `/blog/<slug>` |
