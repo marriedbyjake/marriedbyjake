@@ -4,11 +4,11 @@ Josh requested completion of the production delivery work on 17 October 2026, au
 
 ## Resources and boundaries
 
-`marriedbyjake-public` is the small public Worker described by `wrangler.public.jsonc`. It serves the exact committed Astro output, including historical/canonical redirects and testimonial query pagination. Its only bindings are ASSETS and the HTTP service binding CMS → `marriedbyjake`. Public requests never load Astro/EmDash or access D1, R2, sessions, Images or publishing credentials. The complete script is limited to 32 KiB, with a strict dependency allowlist. Production JavaScript, Maps, videos and forms retain their existing behavior.
+`marriedbyjake-public` is the small public Worker described by `workers/public/wrangler.jsonc`. It serves the exact committed Astro output, including historical/canonical redirects and testimonial query pagination. Its only bindings are ASSETS and the HTTP service binding CMS → `marriedbyjake`. Public requests never load Astro/EmDash or access D1, R2, sessions, Images or publishing credentials. The complete script is limited to 32 KiB, with a strict dependency allowlist. Production JavaScript, Maps, videos and forms retain their existing behavior.
 
 The existing `marriedbyjake` Worker retains EmDash, all private resources and secrets, the sole maintenance/publishing cron and its public fallback assets. Original private Requests are forwarded through the service binding, preserving their canonical URL, Origin, cookies, body and signed-preview token. Responses stream back with their authentication/privacy headers and Set-Cookie unchanged. Private operations on the public workers.dev hostname are denied instead of adding that hostname as a trusted passkey/CSRF origin. Its public diagnostic pages are noindex and its robots.txt disallows crawling. A CMS transport failure returns a private 503 for the editor while committed public pages remain available.
 
-Canonical and www route ownership is declared in `wrangler.public.jsonc`; the backend configuration declares no public routes. Route activation is a separate reviewed operation, never part of ordinary version releases. Existing routes remain intact while the isolated public endpoint is prepared and tested. Both Workers retain workers.dev access for release checks; that address is not an isolated CMS staging database.
+Canonical and www route ownership is declared in `workers/public/wrangler.jsonc`; the backend configuration declares no public routes. Route activation is a separate reviewed operation, never part of ordinary version releases. Existing routes remain intact while the isolated public endpoint is prepared and tested. Both Workers retain workers.dev access for release checks; that address is not an isolated CMS staging database.
 
 ## Hosted build sequence
 
@@ -16,8 +16,10 @@ Both Workers connect only to `marriedbyjake/marriedbyjake`, `main`, with preview
 
 | Target | Build command | Deploy command |
 | --- | --- | --- |
-| Existing CMS Worker | `npm ci && npm run validate` | `npm run deploy:ci` |
-| Public Worker | `npm ci && npm run validate` | `npm run deploy:public:ci` |
+| Existing CMS Worker, root `/` | `npm ci && npm run validate` | `npm run deploy:ci` |
+| Public Worker, root `/workers/public` | `cd ../.. && npm ci && npm run validate` | `cd ../.. && npm run deploy:public:ci` |
+
+The public job has its own configuration directory so Cloudflare identifies the correct Worker without suggesting a change to the CMS configuration name. Commands return to the repository root for the shared build; source/CI checks remain intact.
 
 Use Node 24.21.0, existing restricted Maps build configuration, account ID and the approved interim dedicated Cloudflare Builds credential. Both jobs need `PUBLISHING_DEPLOY_APPROVED=true` and the same masked deployment-lock `PUBLISHING_BUILD_SECRET`. That secret operates only the deployment lease, never CMS content, media or Cloudflare APIs. The publisher App key and encryption key remain only in the CMS runtime and private recovery storage. The public Worker has no runtime secret. Account ownership changes remain separate from this delivery release.
 

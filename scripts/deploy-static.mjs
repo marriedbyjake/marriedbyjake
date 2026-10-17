@@ -12,7 +12,7 @@ const target=process.argv[2]||'cms';
 if(!['cms','public'].includes(target))throw Error('Unknown release target');
 const source=buildSource({strict:true});
 if(process.env.PUBLISHING_DEPLOY_APPROVED!=='true')throw Error('Owner-approved CI deployment configuration is required');
-const reviewed=JSON.parse(await readFile(target==='cms'?'wrangler.jsonc':'wrangler.public.jsonc','utf8'));
+const reviewed=JSON.parse(await readFile(target==='cms'?'wrangler.jsonc':'workers/public/wrangler.jsonc','utf8'));
 if(process.env.CLOUDFLARE_ACCOUNT_ID!==reviewed.account_id)throw Error('CI account differs from the reviewed Worker configuration');
 if(!process.env.CLOUDFLARE_API_TOKEN||!process.env.PUBLISHING_BUILD_SECRET)throw Error('Missing owner-controlled Builds credentials or dedicated build-lock secret');
 const manifest=await verifyPublished();

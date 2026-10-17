@@ -1,11 +1,11 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
+  "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "marriedbyjake-public",
   "account_id": "60ef6bd2c48d5beb6fd6a093cff863cf",
-  "main": "src/public-worker.ts",
+  "main": "../../src/public-worker.ts",
   "compatibility_date": "2026-10-17",
   "assets": {
-    "directory": "dist/client",
+    "directory": "../../dist/client",
     "binding": "ASSETS",
     "run_worker_first": true,
     "html_handling": "none",
