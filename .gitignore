@@ -12,5 +12,6 @@ build log.txt
 .emdash/
 emdash-env.d.ts
 worker-configuration.d.ts
+public-worker-configuration.d.ts
 data.db*
 uploads/

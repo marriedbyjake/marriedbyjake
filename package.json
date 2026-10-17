@@ -17,7 +17,7 @@
     "deploy": "npm run validate && node scripts/deploy-static.mjs",
     "cms:prepare": "node scripts/prepare-cms.mjs",
     "cms:validate": "emdash seed seed/seed.json --validate",
-    "types": "wrangler types --include-runtime false",
+    "types": "wrangler types --include-runtime false && wrangler types --config wrangler.public.jsonc --env-file /dev/null --env-interface PublicEnv --include-runtime false public-worker-configuration.d.ts",
     "cms:access": "node scripts/create-admin-access.mjs",
     "verify:seo": "node scripts/verify-seo.mjs",
     "test:content": "node scripts/test-testimonial-format.mjs && node scripts/test-testimonial-pagination.mjs && node scripts/test-contextual-reviews.mjs && node scripts/test-testimonial-map.mjs && node scripts/test-pricing.mjs && node scripts/test-performance.mjs && node scripts/test-indexnow.mjs",
@@ -25,12 +25,13 @@
     "postdeploy": "npm run indexnow",
     "prebuild": "node scripts/verify-published.mjs",
     "test:publishing": "node --test scripts/tests/*.test.mjs",
-    "postbuild": "node scripts/verify-static-build.mjs",
+    "postbuild": "node scripts/verify-static-build.mjs && node scripts/build-public.mjs && node --test scripts/integration/public-delivery-runtime.mjs",
     "build:public-pilot": "node scripts/build-public-pilot.mjs",
     "test:public-pilot": "node --test scripts/integration/public-pilot-runtime.mjs",
     "test:publishing:runtime": "node --test scripts/integration/publishing-runtime.mjs",
     "deploy:ci": "node scripts/deploy-static.mjs",
-    "postdeploy:ci": "npm run indexnow"
+    "deploy:public:ci": "node scripts/deploy-static.mjs public",
+    "postdeploy:public:ci": "npm run indexnow"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",

@@ -55,14 +55,5 @@
       "id": "8fa1ec227c9a446390a6299856e15f6e"
     }
   ],
-  "routes": [
-    {
-      "pattern": "marriedbyjake.com/*",
-      "zone_id": "240f3283c1efa4405979f3bda0c5896e"
-    },
-    {
-      "pattern": "www.marriedbyjake.com/*",
-      "zone_id": "240f3283c1efa4405979f3bda0c5896e"
-    }
-  ]
+  "routes": []
 }
