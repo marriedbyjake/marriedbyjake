@@ -57,6 +57,7 @@
     "@types/react-dom": "^19.3.0",
     "astro": "^7.4.0",
     "gray-matter": "^4.0.3",
+    "js-yaml": "4.3.2",
     "kysely": "^0.29.6",
     "kysely-d1": "^0.4.0",
     "sharp": "^0.35.5",
@@ -64,6 +65,14 @@
     "wrangler": "^4.151.0",
     "miniflare": "5.20261012.0-beta",
     "esbuild": "0.28.2"
+  },
+  "overrides": {
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "7.1.6"
+    },
+    "gray-matter": {
+      "js-yaml": "$js-yaml"
+    }
   },
   "type": "module",
   "emdash": {

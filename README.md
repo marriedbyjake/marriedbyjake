@@ -4,6 +4,7 @@ Jake’s website runs in the existing Withers Co Cloudflare account. The small `
 
 - [Website](https://marriedbyjake.com)
 - [EmDash editor](https://marriedbyjake.com/_emdash/admin)
+- [Jake’s editing walkthrough](docs/JAKE_WALKTHROUGH.md)
 - [Agent instructions](AGENTS.md)
 - [CMS operations, access and recovery](docs/CMS.md)
 
@@ -61,7 +62,7 @@ Map popups list the full testimonial links for reviews with the same explicit ve
 Review rich text and plain text are normalized lazily, once per entry within the current request. Ratings, map metadata and card selection do not process unused review bodies. Public review/service images use verified committed originals through Astro’s build-time image pipeline, preserving focal metadata. Private preview media stays authenticated and cannot enter public build output.
 The narrow canonical CMS-file image allowlist supports private previews. Original files and transform aliases pass the same authorization check; public pages use committed assets. Do not broaden it to unrelated hosts or API routes.
 
-`src/lib/pricing.ts` reads the committed published `pricing/index` snapshot from EmDash. The pricing page and reusable `PricingReference.astro` on FAQ, services and cost pages share that source; archived Markdown is not the live price source. Complete CMS price strings are preserved. The owner confirmed that additional travel fees can apply beyond the usual service area; the FAQ and pricing-page Website sections now share that wording. The conflicting GST inclusion prose still needs an owner decision; see [performance and pricing notes](docs/PERFORMANCE.md).
+`src/lib/pricing.ts` reads the committed published `pricing/index` snapshot from EmDash. The pricing page and reusable `PricingReference.astro` on FAQ, services and cost pages share that source; archived Markdown is not the live price source. Complete CMS price strings are preserved. The owner confirmed the Australian ceremony fee is $2,000 including GST, with additional travel fees beyond the usual service area. The native Pricing entry and FAQ/pricing-page Website sections carry those terms; see [performance and pricing notes](docs/PERFORMANCE.md).
 
 ### Testimonial editing rules
 

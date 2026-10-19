@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import matter from "gray-matter";
+import {archiveFrontmatter as matter} from "./lib/archive-frontmatter.mjs";
 import sharp from "sharp";
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import { htmlToPortableText } from "@emdash-cms/gutenberg-to-portable-text";
