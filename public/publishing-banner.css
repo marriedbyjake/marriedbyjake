@@ -1,8 +1,8 @@
-#website-publishing-status{padding:.75rem 1rem;border-bottom:1px solid #d6c8b8;background:#faf7f2;color:#302b25;font:14px/1.5 system-ui,sans-serif;overflow-wrap:anywhere}
-#website-publishing-status p{margin:0 0 .25rem}
-#website-publishing-status a{color:#705237;text-decoration:underline;text-underline-offset:.2em}
+#website-publishing-status{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 1rem;padding:.75rem 1rem;border-bottom:1px solid #d6c8b8;background:#faf7f2;color:#302b25;font:14px/1.5 system-ui,sans-serif;overflow-wrap:anywhere}
+#website-publishing-status p{flex-basis:100%;margin:0}
+#website-publishing-status a{display:inline-flex;align-items:center;min-height:44px;color:#705237;text-decoration:underline;text-underline-offset:.2em}
 #website-publishing-status a:focus-visible{outline:3px solid #92714c;outline-offset:3px}
-#website-publishing-status button{margin-left:1rem;min-height:44px;padding:.4rem .6rem;border:1px solid #92714c;border-radius:0;background:#fff;color:#302b25;cursor:pointer}
+#website-publishing-status button{min-height:44px;padding:.4rem .6rem;border:1px solid #92714c;border-radius:0;background:#fff;color:#302b25;cursor:pointer}
 #website-publishing-status button:focus-visible{outline:3px solid #92714c;outline-offset:3px}
 #website-publishing-status button:disabled{opacity:.6;cursor:wait}
-#website-publishing-status .saved-preview-link{display:inline-flex;align-items:center;min-height:44px;margin-left:1rem}
+#website-publishing-status .saved-preview-link{display:inline-flex;align-items:center;min-height:44px}
