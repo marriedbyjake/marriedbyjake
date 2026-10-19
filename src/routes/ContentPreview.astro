@@ -5,11 +5,13 @@ import { getEntry, type Collection } from '@/lib/cms-live';
 import ServicePage from '@/components/content/ServicePage.astro';
 import TestimonialPage from '@/components/content/TestimonialPage.astro';
 import BlogLayout from '@/layouts/BlogLayout.astro';
+import websiteDefaults from '@/data/website-defaults.json';
+import WebsitePreview from '@/components/content/WebsitePreview.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 export const prerender = false;
 const { collection, id } = Astro.params;
 const preview = getRequestContext()?.preview;
-const allowed = ['posts','services','infopages','weddingtestimonials','readings','pricing'];
+const allowed = ['posts','services','infopages','weddingtestimonials','readings','pricing','website'];
 // Signed tokens authorize exactly one entry. A token for another entry, an
 // invalid token, or an ordinary editor cookie cannot grant preview access here.
 if (!preview || preview.collection !== collection || preview.id !== id || !allowed.includes(collection!)) {
@@ -17,14 +19,16 @@ if (!preview || preview.collection !== collection || preview.id !== id || !allow
 }
 const page = await getEntry(collection as Collection, id!);
 if (!page) return new Response('Preview unavailable', { status: 404 });
+Astro.locals.publishedSearch=page.data;
 Astro.locals.publishedCanonical = collection === 'posts' ? `/blog/${page.id}`
   : collection === 'weddingtestimonials' ? `/weddingtestimonials/${page.id}`
+  : collection === 'website' ? websiteDefaults[page.id as keyof typeof websiteDefaults]?.previewPath || '/'
   : collection === 'pricing' ? '/serviceandprice'
   : collection === 'readings' ? '/wedding-readings' : `/${page.id}`;
 Astro.response.headers.set('Cache-Control','private, no-store');
 Astro.response.headers.set('X-Robots-Tag','noindex, nofollow');
 ---
-{collection === 'posts' ? <BlogLayout frontmatter={page.data} slug={page.id}><PortableText value={page.content} /></BlogLayout>
+{collection === 'website' ? <WebsitePreview sectionId={page.id} /> : collection === 'posts' ? <BlogLayout frontmatter={page.data} slug={page.id}><PortableText value={page.content} /></BlogLayout>
   : collection === 'weddingtestimonials' ? <TestimonialPage page={page} />
   : ['services','infopages'].includes(collection!) ? <ServicePage page={page} />
   : <BaseLayout title="Content preview"><section class="mx-auto max-w-4xl px-8 pt-48 pb-16">

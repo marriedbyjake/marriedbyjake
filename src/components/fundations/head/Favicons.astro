@@ -1,3 +1,9 @@
-<!-- Favicons -->
+---
+import {siteSettings} from '@/lib/website';
+import {committedImage} from '@/lib/published-media';
+const icon=siteSettings['site:favicon']?.mediaId ? committedImage(siteSettings['site:favicon'].mediaId).image : undefined;
+---
+{icon ? <link rel="icon" href={icon.src} type={`image/${icon.format === 'jpg' ? 'jpeg' : icon.format}`} /> : <>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" type="image/png" href="/favicon.png" />
+</>}

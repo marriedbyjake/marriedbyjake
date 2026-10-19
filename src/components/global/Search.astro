@@ -1,4 +1,5 @@
 ---
+const {label="Search site"}=Astro.props;
 import Button from "@/components/fundations/elements/Button.astro";
 import SearchIcon from "@/components/fundations/icons/Search.astro";
 ---
@@ -10,7 +11,7 @@ import SearchIcon from "@/components/fundations/icons/Search.astro";
     iconOnly={true}
     type="button"
     id="searchButton"
-    aria-label="Search site"
+    aria-label={label}
   >
     <SearchIcon slot="icon" size="base" />
   </Button>

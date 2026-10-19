@@ -1,4 +1,9 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('blog-intro');
+
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
@@ -23,21 +28,17 @@ allPosts.sort((a, b) => {
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
       <div class="text-center max-w-xl mx-auto">
-        <Text
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text
           tag="h1"
           variant="displayXL"
           class="text-accent-800 font-display text-balance"
-        >
-          Wedding Tips and Advice
-        </Text>
+        >{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
         <Text
           tag="p"
           variant="textBase"
           class="text-base-600 leading-relaxed border-accent-500 mt-2 lg:text-balance"
-        >
-          Practical, honest advice from Jake Smith — wedding celebrant and steady hand on your wedding day. These short guides answer real questions couples ask, from ceremony planning and vows to timing, structure and how to keep things calm. Simple, helpful and written to make your wedding easier, clearer and more meaningful.
-          clients and professionals.
-        </Text>
+        ><WebsiteText inline value={[section.body[0]]} /></Text>
       </div>
       <div class="flex flex-col mt-12 lg:mt-24 gap-8">
         {allPosts.slice(0, 1).map((post) => <BigBlogCard post={post} headingTag="h2" />)}

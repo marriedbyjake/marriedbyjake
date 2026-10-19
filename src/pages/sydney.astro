@@ -1,4 +1,9 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('sydney-details');
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import HeroCity from "@/components/landing/HeroCity.astro";
 import LandingStats from "@/components/landing/LandingStats.astro";
@@ -40,25 +45,18 @@ const breadcrumbJsonLd = {
   canonical="/sydney"
 >
   <link slot="head" rel="preload" as="image" href="/images/calile-poster.webp" type="image/webp" fetchpriority="high" />
-  <HeroCity
+  <HeroCity sectionKey="sydney-hero"
     headline="Sydney Wedding Celebrant. Warm, Real, and Fully Present."
     intro="You want a Sydney ceremony that feels honest, grounded and heartfelt — not overdone, not awkward, and never rushed. <strong>Jake Smith</strong> flies in regularly from Brisbane to lead calm, personal weddings across the Harbour, Northern Beaches, Eastern Suburbs and Inner West. He helps you breathe, enjoy the moment, and feel completely looked after."
   />
-  <VideoShowcase
-    videos={[
-      { playbackId: "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck", title: "Start here!" },
-      { playbackId: "1Akx1AW3TDYWjAq85qvI5spkhubW02sFXVLqHyhumHn00", title: "Want to elope?" },
-      { playbackId: "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4", title: "A month in the life of Married by Jake" },
-    ]}
-  />
+  <VideoShowcase />
   <LandingStats />
   <section>
     <Wrapper variant="standard" class="py-12">
       <div class="max-w-3xl">
-        <Text tag="h2" variant="displayLG" class="text-accent-800 font-display text-balance">Sydney Wedding Celebrant</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-2">
-          Jake regularly travels to Sydney for weddings across the Harbour foreshore, Centennial Park, the Royal Botanic Garden, Palm Beach, Watsons Bay, Manly and Bondi. Calm guidance, clear process, and a ceremony that feels like you — wherever in Sydney you're saying "I do".
-        </Text>
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text tag="h2" variant="displayLG" class="text-accent-800 font-display text-balance">{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2"><WebsiteText inline value={[section.body[0]]} /></Text>
       </div>
     </Wrapper>
   </section>

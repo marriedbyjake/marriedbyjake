@@ -1,4 +1,9 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('readings-intro');
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -34,8 +39,9 @@ const readings = await Promise.all(
   <section>
     <Wrapper variant="standard" class="pb-24 pt-48">
       <div class="max-w-3xl mx-auto">
-        <Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance text-center">Wedding Readings</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-3 text-center">A calm, elegant collection of readings and poems for your ceremony. Browse classics and modern pieces.</Text>
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance text-center">{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-3 text-center"><WebsiteText inline value={[section.body[0]]} /></Text>
 
         <div class="mt-10 lg:mt-12">
           <label for="readings-search" class="sr-only">Search wedding readings</label>

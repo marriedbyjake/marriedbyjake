@@ -1,13 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { collections, digest, sha256 } from './lib/published-content.mjs';
+import { collections, legacyCollectionNames, digest, sha256 } from './lib/published-content.mjs';
 
 export async function verifyPublished(root = '.') {
   const directory = path.join(root, 'content/published');
   const read = name => fs.readFile(path.join(directory, name), 'utf8');
   const manifest = JSON.parse(await read('manifest.json'));
   if (manifest.formatVersion !== 1) throw Error('Unknown release format');
-  const expectedFiles = [...Object.keys(collections).map(name => `${name}.json`),'media.json','shared.json'].sort();
+  const names = Object.hasOwn(manifest.counts,'website') ? Object.keys(collections) : legacyCollectionNames;
+  const expectedFiles = [...names.map(name => `${name}.json`),'media.json','shared.json'].sort();
   if (JSON.stringify(Object.keys(manifest.files).sort()) !== JSON.stringify(expectedFiles)) throw Error('Incomplete release manifest');
   const release = {formatVersion:1, collections:{}, media:{}, shared:{}};
   for (const name of expectedFiles) {
@@ -22,6 +23,10 @@ export async function verifyPublished(root = '.') {
       release.collections[collection] = data.entries;
       if (Object.keys(data.entries).length !== manifest.counts[collection]) throw Error(`Release count mismatch: ${collection}`);
     }
+  }
+  if (release.collections.website) {
+    const {validateWebsiteEntry,websiteDefaults} = await import('./lib/website-model.mjs');
+    for(const slug of Object.keys(websiteDefaults)) { const entry=release.collections.website[slug]; if(!entry)throw Error(`Missing website section ${slug}`); validateWebsiteEntry(slug,entry.data); }
   }
   if (!release.collections.pricing.index) throw Error('Published pricing is required');
   if (digest(release) !== manifest.contentHash) throw Error('Release digest mismatch');

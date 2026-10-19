@@ -1,6 +1,7 @@
 ---
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { heroVideo } from "@/data/hero-video";
+import { getHeroVideo } from "@/data/hero-video";
+const heroVideo=await getHeroVideo();
 ---
 
 <Wrapper variant="paddingLess">
@@ -14,7 +15,7 @@ import { heroVideo } from "@/data/hero-video";
       />
       <img
         src={heroVideo.desktop.poster}
-        alt="Jake Smith leading a wedding ceremony as the bride and groom hold hands"
+        alt={heroVideo.alt}
         width={heroVideo.desktop.width}
         height={heroVideo.desktop.height}
         fetchpriority="high"

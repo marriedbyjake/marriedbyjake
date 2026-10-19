@@ -1,4 +1,8 @@
 ---
+import {websiteSection,siteSettings,websiteMenu} from "@/lib/website";
+const business=await websiteSection("footer");
+const siteName=siteSettings["site:title"] || "Married by Jake";
+const socialProfiles=websiteMenu("social-links").map(item=>item.href);
 import Seo from "@/components/fundations/head/Seo.astro";
 import Meta from "@/components/fundations/head/Meta.astro";
 import Fonts from "@/components/fundations/head/Fonts.astro";
@@ -41,7 +45,7 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
           "@type": "WebSite",
           "@id": "https://marriedbyjake.com/#website",
           url: "https://marriedbyjake.com",
-          name: "Married by Jake",
+          name: siteName,
           description:
             "Jake Smith — Australia's most-reviewed marriage celebrant. Warm, personal wedding ceremonies based in Brisbane, available across Australia and internationally.",
           inLanguage: "en-AU",
@@ -50,13 +54,12 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
         {
           "@type": "ProfessionalService",
           "@id": "https://marriedbyjake.com/#business",
-          name: "Married by Jake",
+          name: siteName,
           image: "https://marriedbyjake.com/logo.png",
           url: "https://marriedbyjake.com",
-          description:
-            "Jake Smith is a warm, calm civil marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond.",
-          telephone: "+61434648064",
-          email: "hello@marriedbyjake.com",
+          description: business.menu_description,
+          telephone: business.phone,
+          email: business.email,
           priceRange: "$$$",
           areaServed: [
             { "@type": "City", name: "Brisbane" },
@@ -84,14 +87,7 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
             bestRating: "5",
             worstRating: "1",
           },
-          sameAs: [
-            "https://www.instagram.com/marriedbyjake/",
-            "https://au.linkedin.com/in/jake-smith-2095743b",
-            "https://www.tiktok.com/@married.by.jake",
-            "https://www.facebook.com/MarriedByJake/",
-            "https://www.threads.net/@marriedbyjake",
-            "https://maps.app.goo.gl/fMV6LTR53uuViekU6",
-          ],
+          sameAs: socialProfiles,
           employee: { "@id": "https://marriedbyjake.com/#jake-smith" },
         },
         {
@@ -102,15 +98,9 @@ const ratingValue = reviewCount > 0 ? (ratingSum / reviewCount).toFixed(1) : "5.
           description:
             "Jake Smith is an authorised Commonwealth Civil Marriage Celebrant who creates warm, personal and legally valid wedding ceremonies for couples of every background.",
           image: "https://marriedbyjake.com/images/hello-jake.jpg",
-          telephone: "+61434648064",
-          email: "hello@marriedbyjake.com",
-          sameAs: [
-            "https://www.instagram.com/marriedbyjake/",
-            "https://au.linkedin.com/in/jake-smith-2095743b",
-            "https://www.tiktok.com/@married.by.jake",
-            "https://www.facebook.com/MarriedByJake/",
-            "https://www.threads.net/@marriedbyjake",
-          ],
+          telephone: business.phone,
+          email: business.email,
+          sameAs: socialProfiles,
           knowsAbout: [
             "Wedding celebrant",
             "Inclusive wedding ceremonies",

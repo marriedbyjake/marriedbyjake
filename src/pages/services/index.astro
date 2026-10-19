@@ -1,4 +1,9 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('services-intro');
+
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
@@ -25,20 +30,17 @@ const allServices = (await getCollection("services"))
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
       <div class="max-w-xl">
-        <Text
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text
           tag="h1"
           variant="displayLG"
           class="text-accent-800 font-display text-balance"
-        >
-          Services
-        </Text>
+        >{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
         <Text
           tag="p"
           variant="textSM"
           class="text-base-600 leading-relaxed border-accent-500 mt-2"
-        >
-          Explore Jake's wedding services, including ceremonies, elopements, destination weddings, and more.
-        </Text>
+        ><WebsiteText inline value={[section.body[0]]} /></Text>
         <PricingReference />
       </div>
 

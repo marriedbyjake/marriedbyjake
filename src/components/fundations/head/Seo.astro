@@ -1,5 +1,7 @@
 ---
 import seo from "@/data/seo.json";
+import {pageSearch,contentSearch,siteSettings,websiteImage} from "@/lib/website";
+const fallbackSocialImage={src:"/og-image.jpg",width:1200,height:630,format:"jpg" as const};
 const {
   title,
   description,
@@ -34,8 +36,11 @@ const pagePath = pageUrl.pathname;
 const pathKey = pagePath.replace(/\/$/, "") || "/";
 const titleOverrides: Record<string, string> = seo.titles;
 const descriptionOverrides: Record<string, string> = seo.descriptions;
-const resolvedTitle = titleOverrides[pathKey] ?? title ?? defaultTitle;
-const rawDescription = descriptionOverrides[pathKey] ?? description ?? defaultDescription;
+const pageSettings=await pageSearch(pathKey);
+const entrySettings=Astro.locals.publishedSearch || await contentSearch(pathKey);
+const noIndex=!!Astro.locals.publishedCanonical || !!entrySettings?.hide_from_search || !!pageSettings?.no_index;
+const resolvedTitle = entrySettings?.search_title || pageSettings?.title || titleOverrides[pathKey] || title || siteSettings['site:title'] || defaultTitle;
+const rawDescription = entrySettings?.search_description || pageSettings?.description || descriptionOverrides[pathKey] || description || siteSettings['site:tagline'] || defaultDescription;
 const resolvedDescription = rawDescription.length > 160
   ? rawDescription.slice(0, 157).replace(/\s+\S*$/, "") + "…"
   : rawDescription;
@@ -43,13 +48,15 @@ const cleanPath =
   pagePath.endsWith("/") && pagePath.length > 1
     ? pagePath.slice(0, -1)
     : pagePath;
-const requestedCanonical = Astro.locals.publishedCanonical || userCanonical;
+const requestedCanonical = Astro.locals.publishedCanonical || entrySettings?.preferred_url || pageSettings?.canonical || userCanonical;
 const canonical = requestedCanonical
   ? new URL(requestedCanonical, Astro.site ?? Astro.url).toString()
   : Astro.site
     ? new URL(cleanPath, Astro.site).toString()
     : Astro.url.href;
-const resolvedImage =
+const cmsImage=entrySettings?.social_image || pageSettings?.image;
+const selectedImage=cmsImage?.id ? websiteImage(cmsImage,fallbackSocialImage) : undefined;
+const resolvedImage = selectedImage ? {url:selectedImage.image.src,alt:selectedImage.alt || resolvedTitle,width:selectedImage.image.width,height:selectedImage.image.height,type:`image/${selectedImage.image.format === 'jpg' ? 'jpeg' : selectedImage.image.format}`} :
   typeof image === "string"
     ? { url: image, alt: resolvedTitle, width: 1200, height: 630, type: "image/jpeg" }
     : image ?? {
@@ -69,11 +76,12 @@ const absoluteVideo = toAbsoluteUrl(video);
 ---
 
 <title>{resolvedTitle}</title>
-{Astro.locals.publishedCanonical && <meta name="robots" content="noindex, nofollow" />}
+<meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+<meta name="googlebot" content={noIndex ? "noindex, nofollow" : "index, follow"} />
 <meta name="description" content={resolvedDescription} />
 <link rel="canonical" href={canonical} />
 
-<meta property="og:site_name" content="Married by Jake" />
+<meta property="og:site_name" content={siteSettings["site:title"] || defaultTitle} />
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={resolvedDescription} />

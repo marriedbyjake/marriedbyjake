@@ -1,4 +1,8 @@
 ---
+import {websiteSection,websiteImage} from "@/lib/website";
+import WebsiteText from "@/components/content/WebsiteText.astro";
+const pricingPage=await websiteSection("pricing-page");
+const siteImages=await websiteSection("site-images");
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -83,7 +87,7 @@ const currentYear = new Date().getFullYear();
     <Wrapper variant="paddingLess">
       <div class="relative overflow-hidden">
         <Image
-          src={HeroImage}
+          src={websiteImage(siteImages.pricing,HeroImage).image}
           alt="Jake Smith — Wedding Celebrant"
           width={1440}
           height={900}
@@ -97,41 +101,21 @@ const currentYear = new Date().getFullYear();
 
     <Wrapper variant="standard" class="pb-12 pt-48">
       <div class="max-w-2xl">
-        <Text tag="h1" variant="displayLG" class="text-accent-800 font-display text-balance">Married by Jake</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Marriages made relevant and real.</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-6">Every wedding should feel unique and personal — never awkward, boring or irrelevant. Your ceremony is the moment you arrive as two and leave as one, surrounded by your nearest and dearest. It deserves more than “okay”; it should be meaningful, personal and enjoyable.</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Thousands of delighted couples have been married by Jake — Australia’s most‑reviewed celebrant — and here’s what you can expect.</Text>
+        <Text tag="h1" variant="displayLG" class="text-accent-800 font-display text-balance">{pricingPage.heading}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2"><WebsiteText inline value={pricingPage.tagline} /></Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6"><WebsiteText inline value={pricingPage.introduction} /></Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2"><WebsiteText inline value={pricingPage.review_introduction} /></Text>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 lg:mt-24">
         <div>
-          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What you won’t get</Text>
-          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
-            <li class="text-base-600 text-sm">That horrible, awkward feeling (cringe) at a ceremony</li>
-            <li class="text-base-600 text-sm">Guests who have no idea what’s happening</li>
-            <li class="text-base-600 text-sm">Unnecessary stress</li>
-            <li class="text-base-600 text-sm">A celebrant who is nervous, practising or just reading a script</li>
-            <li class="text-base-600 text-sm">Forced “jokey” humour — playfulness is welcome, awkwardness is not</li>
-          </ul>
+          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{pricingPage.excluded_heading}</Text>
+          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">{pricingPage.excluded_items.split('\n').filter(Boolean).map((item:string)=><li class="text-base-600 text-sm">{item}</li>)}</ul>
         </div>
         <div>
-          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What’s included</Text>
-          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
-            <li class="text-base-600 text-sm">Obligation‑free chat about your day</li>
-            <li class="text-base-600 text-sm">Creation of a personal, meaningful and enjoyable ceremony</li>
-            <li class="text-base-600 text-sm">Unlimited email communication</li>
-            <li class="text-base-600 text-sm">Practical wedding ceremony tips and advice</li>
-            <li class="text-base-600 text-sm">Optional ceremony run‑through chat once your ceremony is drafted</li>
-            <li class="text-base-600 text-sm">Preparation of your printed Australian Federal Government marriage certificate</li>
-            <li class="text-base-600 text-sm">Preparation of all legal paperwork for Births, Deaths and Marriages</li>
-            <li class="text-base-600 text-sm">Lodgement with the relevant Births, Deaths and Marriages to register your marriage</li>
-            <li class="text-base-600 text-sm">Collaboration with your venue and vendors to keep everything smooth</li>
-            <li class="text-base-600 text-sm">Confident, warm ceremony delivery by a professional public speaker</li>
-            <li class="text-base-600 text-sm">Professional‑grade portable PA system if required</li>
-            <li class="text-base-600 text-sm">Calm support from enquiry to “I do”</li>
-            <li class="text-base-600 text-sm">GST included</li>
-          </ul>
-          <Text tag="p" variant="textXS" class="text-base-500 mt-3">Travel may be included within the service area; additional travel fees can apply depending on distance and timing.</Text>
+          <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{pricingPage.included_heading}</Text>
+          <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">{pricingPage.included_items.split('\n').filter(Boolean).map((item:string)=><li class="text-base-600 text-sm">{item}</li>)}</ul>
+          <Text tag="p" variant="textXS" class="text-base-500 mt-3"><WebsiteText inline value={pricingPage.travel_note} /></Text>
         </div>
       </div>
 
@@ -150,7 +134,7 @@ const currentYear = new Date().getFullYear();
             </div>
           </div>
         </div>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-6">If Jake is available for your date, you’ll receive a personal quote as soon as we get your enquiry.</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6"><WebsiteText inline value={pricingPage.quote_note} /></Text>
         <Text tag="p" variant="textSM" class="text-base-600 mt-3">Here’s <a href="/celebrantcost" class="underline underline-offset-4">what goes into a celebrant’s fee</a>.</Text>
       </div>
 
@@ -165,22 +149,17 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="bg-base-50 p-8 lg:p-12 mt-12">
-        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">Booking procedure</Text>
-        <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">
-          <li class="text-base-600 text-sm">Receive a booking link to view your invoice and contract</li>
-          <li class="text-base-600 text-sm">Once booked, Jake turns away other enquiries for your date</li>
-          <li class="text-base-600 text-sm">You’ll be guided through all legal paperwork and timelines</li>
-          <li class="text-base-600 text-sm">Helpful information and ceremony planning support provided</li>
-        </ul>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-6">If you’d like to understand more about pricing and inclusions, our FAQs cover what Jake’s fee includes and how travel works.</Text>
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{pricingPage.booking_heading}</Text>
+        <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">{pricingPage.booking_steps.split('\n').filter(Boolean).map((item:string)=><li class="text-base-600 text-sm">{item}</li>)}</ul>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-6"><WebsiteText inline value={pricingPage.booking_note} /></Text>
         <div class="mt-3">
           <Button isLink={true} href="/faq" variant="muted" size="xs" class="w-full lg:w-fit">Read FAQs</Button>
         </div>
       </div>
 
       <div class="bg-white p-8 lg:p-12 mt-12">
-        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">What’s next?</Text>
-        <Text tag="p" variant="textSM" class="text-base-600 mt-2">Complete a short enquiry and we’ll confirm Jake’s availability and send a quote tailored to your day.</Text>
+        <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{pricingPage.next_heading}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 mt-2"><WebsiteText inline value={pricingPage.next_text} /></Text>
         <div class="mt-3">
           <Button isLink={true} href="/contact" variant="default" size="sm" class="w-full lg:w-fit">Enquire Now</Button>
         </div>

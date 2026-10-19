@@ -1,4 +1,6 @@
 ---
+const siteImages=await websiteSection("site-images");
+import {websiteSection,websiteImage} from "@/lib/website";
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 // Sections
@@ -11,7 +13,8 @@ import VideoShowcase from "@/components/landing/VideoShowcase.astro";
 import { Image } from "astro:assets";
 import JakeWide from "@/images/jake-wide-1.jpg"
 import TestimonialsSlider from "@/components/testimonials/TestimonialsSlider.astro";
-import { heroVideo } from "@/data/hero-video";
+import { getHeroVideo } from "@/data/hero-video";
+const heroVideo=await getHeroVideo();
 ---
 
 <BaseLayout navTransparent={true} title="Jake Smith — Christian Wedding Celebrant - Married By Jake" description="Jake Smith is a warm, calm civil and christian marriage celebrant creating personal, meaningful wedding ceremonies for couples of every background across Brisbane and beyond." ogType="website" video="https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4" image="/jake.gif">
@@ -19,13 +22,7 @@ import { heroVideo } from "@/data/hero-video";
   <link slot="head" rel="preload" as="image" href={heroVideo.mobile.poster} type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
   <link slot="head" rel="preload" as="image" href={heroVideo.desktop.poster} type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
   <Hero />
-  <VideoShowcase
-    videos={[
-      { playbackId: "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck", title: "Start here!" },
-      { playbackId: "1Akx1AW3TDYWjAq85qvI5spkhubW02sFXVLqHyhumHn00", title: "Want to elope?" },
-      { playbackId: "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4", title: "A month in the life of Married by Jake" },
-    ]}
-  />
+  <VideoShowcase />
   <LandingStats />
   
   <Philosophy />
@@ -33,7 +30,7 @@ import { heroVideo } from "@/data/hero-video";
   <Aproach />
   <div>
     <Image
-      src={JakeWide}
+      src={websiteImage(siteImages.wide,JakeWide).image}
       alt="Jake Smith, Wedding Celebrant"
       width={1451 }
       height={ 967}

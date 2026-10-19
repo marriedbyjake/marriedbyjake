@@ -1,3 +1,4 @@
+import {websiteDefaults} from '../lib/website-model.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -12,15 +13,16 @@ function fixture() {
     tables['ec_'+name] = [row,{...row,id:'private-draft',slug:'private-draft',status:'draft',content:'private draft must never appear'}, {...row,id:'trash-id',slug:'trashed',deleted_at:'2026-03-01'}];
     tables.revisions.push({id:row.live_revision_id,created_at:'2026-02-02T00:00:00Z',data:'private revision payload'});
   }
+  tables.ec_website=Object.entries(websiteDefaults).map(([slug,entry])=>({...tables.ec_website[0],id:slug+'-id',slug,title:entry.title,content:structuredClone(entry.content)}));
   tables.options = [{name:'emdash:site_title',value:'"Published title"'},{name:'emdash:preview_secret',value:'"PRIVATE-SECRET"'}];
   return {tables};
 }
 test('only published live values enter Git; rich text is lossless and drafts do not change digest',async()=>{
  const source=fixture(); const result=await projectPublished(source,async()=>bytes);
  for (const [name,entries] of Object.entries(result.release.collections)) {
-   assert.deepEqual(Object.keys(entries),[name==='pricing'?'index':'public-entry']);
+   assert.deepEqual(Object.keys(entries).sort(),name==='website'?Object.keys(websiteDefaults).sort():[name==='pricing'?'index':'public-entry']);
    assert.equal(Object.values(entries)[0].updatedAt,'2026-02-02T00:00:00Z');
-   if(name!=='pricing') assert.deepEqual(Object.values(entries)[0].data.content,source.tables['ec_'+name][0].content);
+   if(!['pricing','website'].includes(name)) assert.deepEqual(Object.values(entries)[0].data.content,source.tables['ec_'+name][0].content);
  }
  const serialized=JSON.stringify(result.release);
  for(const privateValue of ['private-draft','private revision payload','PRIVATE-SECRET','draft_revision_id','updated_at'])assert.ok(!serialized.includes(privateValue));

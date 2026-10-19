@@ -1,5 +1,5 @@
 import { redirects } from '../data/redirects.json';
-import shared from '../../content/published/shared.json';
+import cmsRedirects from '../../content/published/shared.json?public-redirects';
 import manifest from '../../content/published/manifest.json';
 
 export function publicRoute(url: URL) {
@@ -13,8 +13,8 @@ export function publicRoute(url: URL) {
     const canonical = new URL(url); canonical.pathname = pathname.replace(/\/+$/, '');
     return { redirect: canonical.href, status: 301 };
   }
-  const redirect = [...shared.redirects, ...redirects].find(({ source }) => source.endsWith(':path*') ? pathname.startsWith(source.slice(0,-6)) : source === pathname);
-  if (redirect) return { redirect: redirect.destination, status: 301 };
+  const redirect = [...cmsRedirects, ...redirects].find(({ source }) => source.endsWith(':path*') ? pathname.startsWith(source.slice(0,-6)) : source === pathname);
+  if (redirect) return { redirect: redirect.destination, status: Number((redirect as {type?:number}).type || 301) };
   // Internal pagination assets have public query canonicals, never public aliases.
   if (pathname.startsWith('/__published/')) return { denied: 404 };
   // Old signed URLs must not silently display a public page as a draft preview.

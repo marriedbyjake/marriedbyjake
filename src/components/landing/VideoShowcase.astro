@@ -8,10 +8,12 @@ interface VideoItem {
 }
 
 interface Props {
-  videos: VideoItem[];
+  videos?: VideoItem[];
 }
 
-const { videos } = Astro.props;
+import {websiteSection} from '@/lib/website';
+const section=await websiteSection('videos');
+const videos:VideoItem[] = Astro.props.videos || section.videos.map((v:any)=>({title:v.title,playbackId:v.playback_id}));
 
 const resolved = videos.map((v) => ({
   ...v,

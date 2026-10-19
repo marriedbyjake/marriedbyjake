@@ -3,7 +3,7 @@ import { extractPlainText } from 'emdash';
 import type { PortableTextProps } from 'emdash/ui';
 import { canonicalContentLinks } from './internal-links';
 
-export type Collection = 'posts' | 'services' | 'weddingtestimonials' | 'readings' | 'infopages' | 'pricing';
+export type Collection = 'posts' | 'services' | 'weddingtestimonials' | 'readings' | 'infopages' | 'pricing' | 'website';
 export type CmsEntry<C extends Collection> = CollectionEntry<C> & {
   content: PortableTextProps['value'];
   updatedAt?: Date;

@@ -1,3 +1,4 @@
+import {publicRoutingEsbuild} from './lib/public-routing-data.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {build} from 'esbuild';
@@ -10,8 +11,8 @@ const snapshot=await verifyPublished();
 const release=JSON.parse(await fs.readFile('dist/client/release.json','utf8'));
 if(release.sourceCommit!==source.commit||release.contentHash!==snapshot.contentHash)throw Error('Public output differs from the exact source/snapshot');
 const reviewed=JSON.parse(await fs.readFile('workers/public/wrangler.jsonc','utf8'));
-const allowed=['src/public-worker.ts','src/lib/published-routing.ts','src/data/redirects.json','content/published/shared.json','content/published/manifest.json'];
-const bundle=await build({entryPoints:['src/public-worker.ts'],bundle:true,write:false,format:'esm',platform:'browser',target:'es2022',minify:true,metafile:true});
+const allowed=['src/public-worker.ts','src/lib/published-routing.ts','src/data/redirects.json','content/published/shared.json?public-redirects','content/published/manifest.json'];
+const bundle=await build({entryPoints:['src/public-worker.ts'],bundle:true,write:false,format:'esm',platform:'browser',target:'es2022',minify:true,metafile:true,plugins:[publicRoutingEsbuild()]});
 if(Object.keys(bundle.metafile.inputs).some(file=>!allowed.includes(file))||Object.values(bundle.metafile.outputs).some(output=>output.imports.length))throw Error('Unexpected public Worker dependency');
 const worker=bundle.outputFiles[0].contents;
 if(worker.byteLength>32768)throw Error('Complete public Worker exceeds 32 KiB');

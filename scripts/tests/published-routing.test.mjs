@@ -6,7 +6,7 @@ const moduleUrl=source=>`data:text/javascript,${encodeURIComponent(source)}`;
 const compile=source=>moduleUrl(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText);
 const routingSource=(await readFile(new URL('../../src/lib/published-routing.ts',import.meta.url),'utf8'))
  .replace("from '../data/redirects.json'",`from '${moduleUrl('export const redirects=[{source:"/old",destination:"/contact"}];')}'`)
- .replace("from '../../content/published/shared.json'",`from '${moduleUrl('export default {redirects:[]};')}'`)
+ .replace("from '../../content/published/shared.json?public-redirects'",`from '${moduleUrl('export default [];')}'`)
  .replace("from '../../content/published/manifest.json'",`from '${moduleUrl('export default {counts:{weddingtestimonials:585}};')}'`);
 const routingModule=compile(routingSource);const {publicRoute}=await import(routingModule);
 const route=path=>publicRoute(new URL(path,'https://marriedbyjake.com'));

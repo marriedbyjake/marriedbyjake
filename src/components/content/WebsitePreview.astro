@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import WebsiteText from './WebsiteText.astro';
+import {websiteSection,type WebsiteSection} from '@/lib/website';
+import defaults from '@/data/website-defaults.json';
+const {sectionId}=Astro.props;
+const section=await websiteSection(sectionId as WebsiteSection);
+const definition=(defaults as any)[sectionId];
+const hidden=new Set(['_type','_key','_version','desktop_poster_path','mobile_poster_path','poster_path']);
+---
+<BaseLayout title={`Preview · ${definition.title}`}>
+<section class="mx-auto max-w-4xl px-8 pt-40 pb-16">
+ <p class="text-sm mb-4">Private draft preview · {definition.title}</p>
+ {Object.entries(section).filter(([key])=>!hidden.has(key)).map(([key,value]:[string,any])=><section class="mb-8">
+ <h2 class="text-sm uppercase text-secondary-800 mb-2">{key.replaceAll('_',' ')}</h2>
+ {Array.isArray(value) && value[0]?._type==='block' ? <div class="prose"><WebsiteText value={value}/></div>
+ : Array.isArray(value) ? <ul class="space-y-4">{value.map(row=><li>{Object.entries(row).filter(([k])=>!k.startsWith('_')).map(([k,v])=><p><strong>{k.replaceAll('_',' ')}: </strong>{String(v)}</p>)}</li>)}</ul>
+ : value?.id ? <img src={value.src||`/_emdash/api/media/file/${encodeURIComponent(value.meta?.storageKey||value.id)}`} alt={value.alt||''} class="max-h-80"/>
+ : typeof value==='string' ? <p class="whitespace-pre-line">{value}</p> : typeof value==='number' ? <p>{value}</p> : typeof value==='boolean' ? <p>{value?'Yes':'No'}</p> : null}
+ </section>)}
+ <p class="text-sm">The published section uses the website’s existing layout. <a class="underline" href={definition.previewPath}>View the current published page</a>.</p>
+</section>
+</BaseLayout>

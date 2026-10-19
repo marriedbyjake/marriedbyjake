@@ -1,4 +1,10 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+const siteImages=await websiteSection("site-images");
+import {websiteSection,websiteImage} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('thank-you');
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -15,7 +21,6 @@ const ogImage = {
 ---
 
 <BaseLayout navTransparent={true} title="Thanks for Your Enquiry" description="Thank you so much — someone will respond via email ASAP." canonical="/thank-you" image={ogImage}>
-  <meta slot="head" name="robots" content="noindex, nofollow" />
   <section>
     <Wrapper variant="paddingLess">
       <script is:inline>
@@ -31,7 +36,7 @@ const ogImage = {
       </noscript>
       <div class="relative overflow-hidden">
         <Image
-          src={pool}
+          src={websiteImage(siteImages.thank_you,pool).image}
           alt="Pool image"
           width={1440}
           height={900}
@@ -44,18 +49,9 @@ const ogImage = {
     </Wrapper>
     <Wrapper variant="standard" class="pb-12 pt-12 lg:pt-24">
       <div class="max-w-2xl">
-        <Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance">
-          Thanks for Your Enquiry
-        </Text>
-        <Text tag="p" variant="textSM" class="text-base-600 leading-relaxed mt-2">
-          Thankyou so much! Hope I’m able to help with your plans!
-        </Text>
-        <Text tag="p" variant="textSM" class="text-base-600 leading-relaxed mt-2">
-          Someone will respond via email ASAP… keep an eye on your spam folder :)
-        </Text>
-        <Text tag="p" variant="textSM" class="text-base-600 leading-relaxed mt-6">
-          In the meantime, if you haven't already, you can check out the following links:
-        </Text>
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text tag="h1" variant="displayXL" class="text-accent-800 font-display text-balance">{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
+        {section.body.map((paragraph:any)=>(<Text tag="p" variant="textSM" class="text-base-600 leading-relaxed mt-2"><WebsiteText inline value={[paragraph]} /></Text>))}
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">

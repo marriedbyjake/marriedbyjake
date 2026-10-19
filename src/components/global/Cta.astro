@@ -1,4 +1,8 @@
 ---
+import {websiteSection,websiteImage} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('call-to-action');
+
 // Assets
 import { Image } from "astro:assets";
 import HeroImage from "@/images/jake-flowers-1.jpg";
@@ -19,46 +23,33 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
             tag="h2"
             variant="displayMD"
             class="text-accent-800 font-display"
-          >
-            Ready to talk about your wedding ceremony?
-          </Text>
+          >{section.heading}</Text>
 
           <Text
             tag="p"
             variant="textSM"
             class="text-base-700 leading-relaxed mt-4"
-          >
-            Whether you&apos;re planning a faith-based wedding or simply want a
-            warm, grounded ceremony, Jake Smith is here to help. As an
-            authorised Commonwealth Civil Marriage Celebrant, he&apos;ll guide you
-            through the process with calm, clarity and genuine care.
-          </Text>
+          ><WebsiteText inline value={section.body} /></Text>
 
           <div class="flex flex-col sm:flex-row gap-2 items-center mt-12">
             <Button
               variant="default"
               size="xs"
               isLink={true}
-              href="/contact"
+              href={section.primary_url}
               class="w-full lg:w-fit"
-            >
-              Check availability &amp; enquire
-            </Button>
+            >{section.primary_label}</Button>
 
             <Button
               variant="muted"
               size="xs"
               isLink={true}
-              href="/weddingtestimonials"
+              href={section.secondary_url}
               class="w-full lg:w-fit"
-            >
-              Read real couples&apos; reviews
-            </Button>
+            >{section.secondary_label}</Button>
           </div>
 
-          <Text tag="p" variant="textXS" class="text-base-700 mt-4">
-            No pressure • Friendly, honest chat • Quick replies
-          </Text>
+          <Text tag="p" variant="textXS" class="text-base-700 mt-4">{section.note}</Text>
         </div>
 
         <!--<div class="mt-8 text-xs mt-4 pt-4 border-t border-base-200">
@@ -81,10 +72,10 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
       </div>
 
       <Image
-        src={HeroImage}
+        src={websiteImage(section.image,HeroImage).image}
         width={1440}
         height={900}
-        alt="Jake Smith — wedding celebrant leading a ceremony"
+        alt={websiteImage(section.image,HeroImage).alt || "Jake Smith — wedding celebrant leading a ceremony"}
         class="object-cover object-center size-full"
         loading="lazy"
         decoding="async"

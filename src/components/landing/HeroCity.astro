@@ -1,33 +1,37 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import HeroMedia from "@/components/landing/HeroMedia.astro";
 
 interface Props {
+  sectionKey: import("@/lib/website").WebsiteSection;
   headline: string;
   intro: string;
 }
 
-const { headline, intro } = Astro.props;
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section=await websiteSection(Astro.props.sectionKey);
 ---
 
 <section>
   <HeroMedia />
   <Wrapper variant="standard" class="py-12">
     <div class="grid grid-cols-1 lg:grid-cols-3 lg:items-end gap-y-4">
-      <Text
+      {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text
         tag="h1"
         variant="displayXL"
         class="text-accent-800 font-display text-balance lg:col-span-2"
       >
-        {headline}
+        {section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}
       </Text>
       <Text
         tag="p"
         variant="textSM"
         class="text-base-600 leading-relaxed border-accent-500"
-        set:html={intro}
-      />
+      ><WebsiteText inline value={section.body}/></Text>
     </div>
   </Wrapper>
 </section>

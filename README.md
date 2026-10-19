@@ -14,14 +14,16 @@ Use Node 24 LTS, version 24.15 or newer. The project uses Astro, Tailwind CSS, R
 | Change | Source of truth | How it reaches the website |
 | --- | --- | --- |
 | Blog posts, testimonials, services, readings, info pages and pricing | EmDash editor / production D1 | Save a draft, review, then Publish; the Cloudflare publisher commits a release and Builds deploys it |
-| Page structure, navigation, static landing-page copy and components | `src/pages/`, `src/layouts/`, `src/components/` | Validate, commit and push to `main`, then deploy the Worker |
+| Homepage, city/About/FAQ copy, shared sections, photographs, videos and footer | EmDash → Website sections | Save draft, preview, Publish; wait for a confirmed release |
+| Navigation, social and featured links | EmDash → Menus | Save; the publisher queues a complete release |
+| Page structure and component behavior | `src/pages/`, `src/layouts/`, `src/components/` | Validate and push to `main`; coordinated Builds release the Workers |
 | Public styling | `src/styles/` and component styles | Deploy the Worker; preserve the existing design and square corners |
-| Titles and descriptions | Page/layout props, `src/components/fundations/head/Seo.astro`, `src/data/seo.json` | Check route-specific overrides as well as CMS fields, then deploy source changes |
+| Titles, descriptions, social images, indexing and canonical preferences | Revision-managed CMS entry fields; Website sections for static pages | Publish normally; repository metadata remains a fallback |
 | Testimonial quote formatting and wedding-team presentation | `src/lib/testimonial-format.ts`, `src/components/testimonials/TestimonialContent.astro` | Run `npm run test:content`, then deploy the renderer |
 | Natural links inside testimonial quotes | `src/lib/testimonial-inline-links.ts`, `src/data/testimonial-inline-links.json` | Preserve existing review words; test and deploy |
 | Verified vendor websites and unavailable links | `src/data/testimonial-vendors.json`, `src/data/unavailable-vendor-urls.json` | Record research in `docs/VENDOR_LINKS.md`, test and deploy |
 | Redirects and canonical internal links | `src/data/redirects.json`, `src/middleware.ts`, `src/lib/internal-links.ts` | Preserve existing redirect rules, test and deploy |
-| Homepage background videos and matching posters | `src/data/hero-video.ts` and poster assets | Follow [the video runbook](docs/VIDEO.md), then deploy |
+| Homepage background videos and matching posters | Website sections → Background videos and posters | Publish matching values together; follow [the video runbook](docs/VIDEO.md) |
 | Worker bindings, routes and runtime configuration | `wrangler.jsonc`, `workers/public/wrangler.jsonc`, `src/public-worker.ts`, `src/worker.ts`, `src/cms-worker.ts`, `astro.config.mjs` | Regenerate types, validate and release through the coordinated Builds jobs |
 
 Markdown under `src/content/` is the original migration source and an archive. Editing it does not publish content. The old `.pages.yml` is migration reference only. Never reimport archived content over production to apply an ordinary edit.
@@ -30,7 +32,7 @@ Markdown under `src/content/` is the original migration source and an archive. E
 
 `astro.config.mjs` prerenders public pages from `content/published/` through `src/content.config.ts` and `src/lib/cms.ts`. `src/live.config.ts` and `cms-live.ts` retain the EmDash loader for private signed previews. Rich content remains complete Portable Text; the published image/gallery renderers resolve verified assets from Git. The Worker serves public assets before EmDash or D1.
 
-Canonical traffic enters `src/public-worker.ts`, whose complete upload is 12,218 bytes. It serves public assets and forwards canonical CMS/preview/media/publishing requests through the CMS service binding. `src/worker.ts` retains the complete public fallback and lazily loads `src/cms-worker.ts` for private/scheduled work in the original Worker. Keep both boundaries: postbuild checks the backend fallback graph, separately bundles the entire public upload below 32 KiB, and tests every canonical document plus private service forwarding in native workerd. See [delivery operations](docs/PUBLIC_DELIVERY.md) and dated [performance evidence](docs/PERFORMANCE.md).
+Canonical traffic enters `src/public-worker.ts`, whose complete upload is checked below 32 KiB. It serves public assets and forwards canonical CMS/preview/media/publishing requests through the CMS service binding. `src/worker.ts` retains the complete public fallback and lazily loads `src/cms-worker.ts` for private/scheduled work in the original Worker. Keep both boundaries: postbuild checks the backend fallback graph, separately bundles the entire public upload below 32 KiB, and tests every canonical document plus private service forwarding in native workerd. See [delivery operations](docs/PUBLIC_DELIVERY.md) and dated [performance evidence](docs/PERFORMANCE.md).
 
 The earlier [public delivery pilot](docs/PUBLIC_DELIVERY_PILOT.md) remains a fixed, noindex experiment without CMS access; it is not production or an automatic publication target. Its evidence led to the approved production delivery layer. `npm run build:public-pilot` and `npm run test:public-pilot` remain optional diagnostic commands. Ordinary publishing uses the two guarded main-branch Builds jobs and retains the last healthy public version on failure.
 
@@ -42,6 +44,7 @@ The earlier [public delivery pilot](docs/PUBLIC_DELIVERY_PILOT.md) remains a fix
 | `readings` | Readings, poems and blessings | `/wedding-readings` |
 | `infopages` | Information pages | `/<slug>` |
 | `pricing` | Australian ceremonies, international ceremonies and MC pricing | `/serviceandprice` |
+| `website` | 47 named page/shared sections and static metadata | Existing pages; no separate section routes |
 
 To edit content, sign in at the editor with your own passkey, choose the collection and entry, save a draft, review it, then Publish. A saved draft revision leaves the published version intact. Publishing queues a Git release and a static build. The editor banner and `/_publishing` show pending/failure/retry status; a CMS save is separate from a confirmed live release. Export, conflict and build failures retain the last healthy website. Signed previews are for authorized viewers; ordinary public requests must not expose drafts. Archiving an entry queues its removal in the next successful release. Avoid slugs reserved by static pages, such as `/contact` and `/faq`.
 

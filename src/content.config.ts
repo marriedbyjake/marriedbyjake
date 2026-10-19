@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import manifest from "../content/published/manifest.json";
 import { defineCollection } from "astro:content";
 import { file } from "astro/loaders";
 import { parsePublished } from "./lib/published-loader";
@@ -6,6 +8,11 @@ import { z } from "astro/zod";
 
 const publishedFields = {
   cmsId: z.string(),
+  search_title: z.string().nullish(),
+  search_description: z.string().nullish(),
+  social_image: z.any().optional(),
+  preferred_url: z.string().nullish(),
+  hide_from_search: z.union([z.boolean(),z.number()]).nullish(),
   updatedAt: z.coerce.date(),
   content: z.custom<PortableTextProps["value"]>(Array.isArray).optional().default([]),
 };
@@ -130,7 +137,14 @@ const pricing = defineCollection({
   }),
 });
 
-export const collections = {
+const website = defineCollection({
+ loader: async () => {
+   if (!Object.hasOwn(manifest.counts,'website')) return [];
+   return parsePublished(await readFile('./content/published/website.json','utf8'));
+ },
+ schema: z.object({...publishedFields,title:z.string()}),
+});
+export const collections = {website,
   infopages,
   posts,
   pricing,

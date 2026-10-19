@@ -1,0 +1,1714 @@
+{
+  "home-hero": {
+    "title": "Home · Main introduction",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "home-hero",
+        "heading": "Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy4",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy1",
+                "text": "You want a ceremony that feels honest, grounded and heartfelt — not overdone, not awkward, and never rushed. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy2",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy3",
+                "text": " brings a calm, steady presence that helps you breathe, enjoy the moment, and feel looked after. He leads with warmth and experience, making sure your vows land with the meaning they deserve while your guests feel connected and cared for.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "brisbane-hero": {
+    "title": "Brisbane · Main introduction",
+    "previewPath": "/brisbane",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "brisbane-hero",
+        "heading": "Brisbane Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy8",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy5",
+                "text": "You want a ceremony in Brisbane that feels honest, grounded and heartfelt — not overdone, not awkward, and never rushed. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy6",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy7",
+                "text": " brings a calm, steady presence that helps you breathe, enjoy the moment, and feel looked after. He leads with warmth and experience, making sure your vows land with the meaning they deserve while your guests feel connected and cared for.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "gold-coast-hero": {
+    "title": "gold coast · Main introduction",
+    "previewPath": "/gold-coast",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "gold-coast-hero",
+        "heading": "Gold Coast Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy12",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy9",
+                "text": "You want a Gold Coast ceremony that feels honest, grounded and heartfelt — beachfront, bayside or up in the hinterland. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy10",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy11",
+                "text": " works across the entire Gold Coast — from Burleigh and Kirra to Tamborine Mountain — bringing warmth, calm and a ceremony that fits you exactly.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sunshine-coast-hero": {
+    "title": "sunshine coast · Main introduction",
+    "previewPath": "/sunshine-coast",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "sunshine-coast-hero",
+        "heading": "Sunshine Coast Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy16",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy13",
+                "text": "You want a Sunshine Coast ceremony that feels honest, grounded and heartfelt — beachfront in Noosa or up in the Maleny hinterland. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy14",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy15",
+                "text": " works across the entire Sunshine Coast, bringing warmth, calm and a ceremony that fits you exactly.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "byron-bay-hero": {
+    "title": "byron bay · Main introduction",
+    "previewPath": "/byron-bay",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "byron-bay-hero",
+        "heading": "Byron Bay Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy20",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy17",
+                "text": "You want a Byron Bay ceremony that feels honest, grounded and heartfelt — barefoot on the sand or under hinterland trees. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy18",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy19",
+                "text": " drives down regularly from Brisbane to lead calm, personal weddings across Byron, Suffolk Park, Lennox, Bangalow and the Northern Rivers.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sydney-hero": {
+    "title": "sydney · Main introduction",
+    "previewPath": "/sydney",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "sydney-hero",
+        "heading": "Sydney Wedding Celebrant. Warm, Real, and Fully Present.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy24",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy21",
+                "text": "You want a Sydney ceremony that feels honest, grounded and heartfelt — not overdone, not awkward, and never rushed. ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy22",
+                "text": "Jake Smith",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy23",
+                "text": " flies in regularly from Brisbane to lead calm, personal weddings across the Harbour, Northern Beaches, Eastern Suburbs and Inner West. He helps you breathe, enjoy the moment, and feel completely looked after.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "brisbane-details": {
+    "title": "brisbane · Local information",
+    "previewPath": "/brisbane",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "brisbane-details",
+        "heading": "Brisbane Wedding Celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy26",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy25",
+                "text": "Jake Smith is a Brisbane-based civil marriage celebrant creating relaxed, personal ceremonies for couples across the city and surrounds — from New Farm Park and the City Botanic Gardens to Howard Smith Wharves, The Calile, Lightspace and Brisbane Powerhouse. Calm guidance, clear process and a ceremony that feels like you.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "gold-coast-details": {
+    "title": "gold coast · Local information",
+    "previewPath": "/gold-coast",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "gold-coast-details",
+        "heading": "Gold Coast Wedding Celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy28",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy27",
+                "text": "Jake performs ceremonies all over the Gold Coast — Burleigh Heads, Kirra, Currumbin, Coolangatta, Broadbeach, Main Beach and the hinterland venues at Tamborine, Mt Nathan and Maleny. Calm guidance and a personal ceremony that feels like you.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sunshine-coast-details": {
+    "title": "sunshine coast · Local information",
+    "previewPath": "/sunshine-coast",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "sunshine-coast-details",
+        "heading": "Sunshine Coast Wedding Celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy30",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy29",
+                "text": "Jake regularly performs Sunshine Coast weddings — from Noosa Heads, Sunshine Beach and Peregian to Maleny Manor, Montville, Flaxton and Bundaleer Rainforest Gardens. Calm guidance, clear process and a ceremony that feels like you.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "byron-bay-details": {
+    "title": "byron bay · Local information",
+    "previewPath": "/byron-bay",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "byron-bay-details",
+        "heading": "Byron Bay Wedding Celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy32",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy31",
+                "text": "Jake regularly officiates Byron Bay weddings — from beach ceremonies at Wategos and Tallow Beach to estates and rainforest venues across Newrybar, Federal, Bangalow and Mullumbimby. Relaxed, personal, and never rushed.",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sydney-details": {
+    "title": "sydney · Local information",
+    "previewPath": "/sydney",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "sydney-details",
+        "heading": "Sydney Wedding Celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy34",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy33",
+                "text": "Jake regularly travels to Sydney for weddings across the Harbour foreshore, Centennial Park, the Royal Botanic Garden, Palm Beach, Watsons Bay, Manly and Bondi. Calm guidance, clear process, and a ceremony that feels like you — wherever in Sydney you're saying \"I do\".",
+                "marks": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "values": {
+    "title": "Shared · Values and philosophy",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "values",
+        "_version": 1,
+        "_key": "values",
+        "eyebrow": "Jake’s Values",
+        "heading": "A Philosophy Shaped by Experience & Care",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy36",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy35",
+                "text": "Jake Smith brings together years of experience as a wedding celebrant to create ceremonies that feel genuine, joyful and grounded. His focus is simple: honour your story, support you wholeheartedly, and treat your commitment with the respect it deserves.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "secondary_body": [
+          {
+            "_type": "block",
+            "_key": "copy41",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "copy38",
+                "_type": "link",
+                "href": "/services"
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy37",
+                "text": "He combines thoughtful preparation with a calm, steady presence. Whether you’re planning ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy39",
+                "text": "a ceremony with faith elements or a civil celebration",
+                "marks": [
+                  "copy38"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy40",
+                "text": " for guests of all backgrounds, Jake guides you with kindness, clarity and a genuine desire to serve you well.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "cards": [
+          {
+            "icon": "integrity",
+            "title": "Respect & Care",
+            "description": "As an authorised civil marriage celebrant, Jake Smith approaches every ceremony with sincerity, humility and deep respect for the commitment you're making—welcoming couples of every background and belief."
+          },
+          {
+            "icon": "action",
+            "title": "Excellence in Ceremony",
+            "description": "Jake prepares thoroughly, communicates clearly and guides couples with a calm, confident presence—ensuring your wedding feels warm, meaningful and truly personal."
+          },
+          {
+            "icon": "partnership",
+            "title": "Walking With You",
+            "description": "Jake sees each wedding as a partnership. He listens to your story, supports you through the planning, and stands with you on the day to ensure your ceremony reflects who you are."
+          }
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "title": "Shared · Experience and statistics",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "statistics",
+        "_version": 1,
+        "_key": "statistics",
+        "heading": "Get Married by Jake!",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy46",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy43",
+                "text": "Australia's most reviewed wedding celebrant",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy44",
+                "text": "\n",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy45",
+                "text": "Jake’s reviews come from couples who felt seen, supported and genuinely cared for. They talk about the calm way he leads the room, how natural everything feels, and how the ceremony becomes the part everyone remembers — not endures. When someone with this many real couples vouching for him turns up to your wedding, you know you’re in steady, experienced hands.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy51",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy48",
+                "text": "Jake brings calm to the day.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy49",
+                "text": "\n",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy50",
+                "text": " Weddings can feel chaotic, but Jake has a way of settling the room — steady voice, clear direction, no fuss. Couples feel looked after, and guests feel included rather than lectured to.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy56",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy53",
+                "text": "He makes the ceremony about you, not him.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy54",
+                "text": "\n",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy55",
+                "text": " Everything is tailored to your story. No generic scripts, no padding, no awkward theatrics. Just a ceremony that feels honest, personal and unmistakably yours.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy61",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy58",
+                "text": "He leads with warmth and real care.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy59",
+                "text": "\n",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy60",
+                "text": " Jake treats marriage with deep respect and welcomes couples from all backgrounds. That mix of conviction and kindness is why so many people walk away saying it’s the best ceremony they’ve ever been to.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "stats": [
+          {
+            "value": "19",
+            "label": "Years Experience"
+          },
+          {
+            "value": "2,300+",
+            "label": "Weddings"
+          },
+          {
+            "value": "138,000+",
+            "label": "Guests"
+          },
+          {
+            "value": "700+",
+            "label": "5-Star Reviews"
+          },
+          {
+            "value": "5/5",
+            "label": "Avg. Rating"
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "approach": {
+    "title": "Shared · How it works",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "approach",
+        "_version": 1,
+        "_key": "approach",
+        "eyebrow": "how it works",
+        "heading": "Getting married with Jake, step by step",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy63",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy62",
+                "text": "Every couple, story and wedding is different. Jake’s process keeps things simple and calm, so you always know what’s next — from the first enquiry and the legal paperwork, through to standing there together on the day, actually getting married.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "steps": [
+          {
+            "title": "Say hi & check your date",
+            "description": "Everything starts with a quick hello. You reach out, Jake checks his availability, and you get a clear sense of whether he’s the right fit for your day.",
+            "bullets": "Send an enquiry with your date and venue details\nJake confirms availability and shares his fee and inclusions\nJump on a short chat if you’d like to meet before booking"
+          },
+          {
+            "title": "Lock it in & start the paperwork",
+            "description": "Once you’re ready, you secure the booking and Jake walks you through the legal bits in plain language, so nothing feels confusing or stressful.",
+            "bullets": "Pay a booking fee to reserve your date in Jake’s calendar\nComplete the Notice of Intended Marriage (NOIM) together\nGet clear guidance on what ID and documents you’ll need"
+          },
+          {
+            "title": "Plan a ceremony that feels like you",
+            "description": "Together you shape a ceremony that’s honest, warm and unmistakably about you — with just enough structure so you feel supported, never scripted.",
+            "bullets": "Have a planning session to talk through your story and hopes\nShape the flow of the ceremony, readings and any rituals\nGet help with vows, wording and how it will all feel on the day"
+          },
+          {
+            "title": "Celebrate the day & make it official",
+            "description": "On the day, Jake leads the room with calm confidence, keeps things running smoothly, and quietly takes care of all the legal details in the background.",
+            "bullets": "Jake arrives early, checks the space and coordinates key people\nHe guides you and your guests through a relaxed, meaningful ceremony\nAll paperwork is lodged so your marriage is registered properly"
+          }
+        ],
+        "quote": "Jake was absolutely amazing as our celebrant!",
+        "quote_author": "Maddison & Matthew",
+        "quote_url": "/weddingtestimonials/maddison-and-matthew",
+        "image": null
+      }
+    ]
+  },
+  "call-to-action": {
+    "title": "Shared · Enquiry invitation",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "cta",
+        "_version": 1,
+        "_key": "call-to-action",
+        "heading": "Ready to talk about your wedding ceremony?",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy65",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy64",
+                "text": "Whether you're planning a faith-based wedding or simply want a warm, grounded ceremony, Jake Smith is here to help. As an authorised Commonwealth Civil Marriage Celebrant, he'll guide you through the process with calm, clarity and genuine care.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "primary_label": "Check availability & enquire",
+        "primary_url": "/contact",
+        "secondary_label": "Read real couples' reviews",
+        "secondary_url": "/weddingtestimonials",
+        "note": "No pressure • Friendly, honest chat • Quick replies",
+        "image": null
+      }
+    ]
+  },
+  "review-call-to-action": {
+    "title": "Reviews · Enquiry invitation",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "cta",
+        "_version": 1,
+        "_key": "review-call-to-action",
+        "heading": "Meet your wedding celebrant Jake Smith",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy69",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy68",
+                "text": "Whether you're planning a faith-based wedding or simply want a warm, grounded ceremony, Jake Smith is here to help. As an authorised Commonwealth Civil Marriage Celebrant, Jake will lovingly guide you through the process with calm, clarity and genuine care.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "primary_label": "Check availability & enquire",
+        "primary_url": "/contact",
+        "secondary_label": "Read more real couples' reviews",
+        "secondary_url": "/weddingtestimonials",
+        "note": "No pressure • Friendly, honest chat • Quick replies",
+        "image": null
+      }
+    ]
+  },
+  "videos": {
+    "title": "Shared · Video showcase",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "videos",
+        "_version": 1,
+        "_key": "videos",
+        "videos": [
+          {
+            "title": "Start here!",
+            "playback_id": "zO02blWs3rsXT7myr4SpF52kudJVxpxuUQtN01fjRfdck"
+          },
+          {
+            "title": "Want to elope?",
+            "playback_id": "1Akx1AW3TDYWjAq85qvI5spkhubW02sFXVLqHyhumHn00"
+          },
+          {
+            "title": "A month in the life of Married by Jake",
+            "playback_id": "T1xtBn00jsI3gy5HuUyrRYUpVMTanx00LbyNeYk8bS00p4"
+          }
+        ]
+      }
+    ]
+  },
+  "hero-media": {
+    "title": "Shared · Background videos and posters",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "hero_media",
+        "_version": 1,
+        "_key": "hero-media",
+        "desktop_video": "https://customer-vz6hppt2iburon88.cloudflarestream.com/4a1ba53dd23a1545ed96ead8b4f15829/downloads/default.mp4",
+        "mobile_video": "https://customer-vz6hppt2iburon88.cloudflarestream.com/f8741641ee3f9dcaf868fa8f2675ebfd/downloads/default.mp4",
+        "desktop_poster": null,
+        "mobile_poster": null,
+        "desktop_poster_path": "/images/calile-poster.webp",
+        "mobile_poster_path": "/images/calile-poster-mobile.webp",
+        "poster_alt": "Jake Smith leading a wedding ceremony as the bride and groom hold hands"
+      }
+    ]
+  },
+  "about": {
+    "title": "About Jake · Biography",
+    "previewPath": "/about-jake",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "about",
+        "heading": "About Jake Smith",
+        "eyebrow": "Jake Smith never set out to become a wedding celebrant.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy71",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy70",
+                "text": "Back in 2007, a couple asked if he’d marry them. One ceremony led to another, and he quickly realised how much he loved walking with couples through such a meaningful moment. What began as a favour grew into a calling: helping people feel calm, understood and genuinely excited about the step they were taking.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy73",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy72",
+                "text": "Over the years, he’s performed hundreds of weddings across every kind of venue and setting. Jake brings the same steady presence to each one — listening carefully, planning thoughtfully and shaping a ceremony that feels personal rather than scripted. He enjoys every part of the process: the first enquiry, the planning conversations, liaising with photographers and venues, supporting family on the day and, yes, even lodging the paperwork afterwards. It all matters, because it all contributes to a ceremony that feels honest and joyful.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy75",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy74",
+                "text": "Jake gladly works with couples from all beliefs or none at all. He leads with warmth, integrity and respect — values that help couples feel safe, supported and never judged. Whether you want a ceremony with faith elements or a civil celebration, Jake meets you where you are.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy77",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy76",
+                "text": "At home, Jake is deeply grateful for his wife, Leone, and their daughters, Abigail and Isabel. Being a husband and father only strengthens his commitment to helping couples build not just a memorable wedding day, but a strong marriage beyond it. He cares about people, he cares about marriage, and he would love to contribute that care to your marriage story.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "about-video": {
+    "title": "About Jake · Introduction video",
+    "previewPath": "/about-jake",
+    "content": [
+      {
+        "_type": "video",
+        "_version": 1,
+        "_key": "about-video",
+        "src": "https://marriedbyjake.s3.ap-southeast-2.amazonaws.com/hello-jake.mp4",
+        "poster_path": "/images/hello-jake.jpg",
+        "poster": null,
+        "captions": "/hello-jake.vtt",
+        "title": "Meet Jake Smith"
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQs · Questions and answers",
+    "previewPath": "/faq",
+    "content": [
+      {
+        "_type": "faq",
+        "_version": 1,
+        "_key": "faq",
+        "heading": "Frequently Asked Questions",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy79",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy78",
+                "text": "Don't see your question here? Get in touch, I'm here to help!",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "primary_label": "Contact Jake",
+        "primary_url": "/contact",
+        "questions": [
+          {
+            "question": "Are you legally authorised to marry us?",
+            "answer": "Yes. Jake Smith is an authorised Commonwealth Civil Marriage Celebrant. He can prepare and witness your NOIM, conduct your ceremony, and lodge all paperwork so your marriage is legally registered in Australia.",
+            "show_pricing": false
+          },
+          {
+            "question": "Do you only perform Christian wedding ceremonies?",
+            "answer": "While Jake is a Christian and an ordained pastor he is a civil celebrant and over half of the weddings he conducts are not religious in any way. He creates warm, relaxed, meaningful ceremonies for couples of any belief or background.",
+            "show_pricing": false
+          },
+          {
+            "question": "How far in advance should we book?",
+            "answer": "Jake books out early, especially on weekends, unfortunately we have to turn away over 800 couples every year. Most couples enquire 6–18 months in advance however the sooner you enquire, the greater the likelihood of Jake being available for you. If your wedding is happening soon it’s still worth checking — Jake often has midweek availability at short-notice.",
+            "show_pricing": false
+          },
+          {
+            "question": "What does your fee include?",
+            "answer": "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, all travel required for your booking, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
+            "show_pricing": true
+          },
+          {
+            "question": "Do you help with writing vows?",
+            "answer": "Absolutely. Jake provides guidance, examples, and a simple structure to help you craft vows that feel natural and personal. If writing isn’t your thing, he’ll gently coach you through it.",
+            "show_pricing": false
+          },
+          {
+            "question": "What documents do we need to get married?",
+            "answer": "You’ll need ID such as a passport or birth certificate plus photo ID. If either of you has been married before, you’ll need evidence of divorce or your previous partner’s death. Jake will guide you through all requirements.",
+            "show_pricing": false
+          },
+          {
+            "question": "When do we need to lodge the NOIM?",
+            "answer": "The Notice of Intended Marriage must be lodged with Jake at least one month before the wedding date. He’ll help you complete and submit it correctly so everything is legally compliant.",
+            "show_pricing": false
+          },
+          {
+            "question": "Do you do elopements or small weddings?",
+            "answer": "Yes. Jake loves intimate weddings. Whether it’s the two of you and two witnesses over 18 or a tiny gathering with close family, he’ll create a ceremony that still feels meaningful and well-supported.",
+            "show_pricing": false
+          },
+          {
+            "question": "Will you travel for our wedding?",
+            "answer": "Jake regularly performs ceremonies across Australia and abroad. He’s based in Brisbane so over half his ceremonies are in South East Queensland, however he flies to over 50 weddings every year, he’d love to help you no matter where you’re getting married!",
+            "show_pricing": false
+          },
+          {
+            "question": "How long does a typical ceremony run?",
+            "answer": "Most ceremonies run around 18–25 minutes, depending on readings, rituals and how you want the moment to feel. Jake keeps things engaging, personal and well-paced.",
+            "show_pricing": false
+          },
+          {
+            "question": "Do you attend rehearsals?",
+            "answer": "Jake isn't able to attend on-site rehearsals but you will have a video-chat with Jake to discuss any details of your day.",
+            "show_pricing": false
+          },
+          {
+            "question": "Can we meet you before booking?",
+            "answer": "Yes. Jake is happy to have a quick video chat so you can make sure he feels like the right fit. There’s no pressure and no obligation — just a friendly conversation.",
+            "show_pricing": false
+          },
+          {
+            "question": "What happens after the wedding?",
+            "answer": "Jake submits your marriage documents to Births, Deaths and Marriages. You can then order your official marriage certificate directly from BDM in your state once processing is complete.",
+            "show_pricing": false
+          }
+        ]
+      }
+    ]
+  },
+  "blog-intro": {
+    "title": "Blog · Introduction",
+    "previewPath": "/blog",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "blog-intro",
+        "heading": "Wedding Tips and Advice",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy81",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy80",
+                "text": "Practical, honest advice from Jake Smith — wedding celebrant and steady hand on your wedding day. These short guides answer real questions couples ask, from ceremony planning and vows to timing, structure and how to keep things calm. Simple, helpful and written to make your wedding easier, clearer and more meaningful.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "services-intro": {
+    "title": "Services · Introduction",
+    "previewPath": "/services",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "services-intro",
+        "heading": "Services",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy83",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy82",
+                "text": "Explore Jake's wedding services, including ceremonies, elopements, destination weddings, and more.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "readings-intro": {
+    "title": "Readings · Introduction",
+    "previewPath": "/wedding-readings",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "readings-intro",
+        "heading": "Wedding Readings",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy85",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy84",
+                "text": "A calm, elegant collection of readings and poems for your ceremony. Browse classics and modern pieces.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "testimonials-intro": {
+    "title": "Testimonials · Introduction",
+    "previewPath": "/weddingtestimonials",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "testimonials-intro",
+        "heading": "Australia's most reviewed wedding celebrant",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy87",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy86",
+                "text": "Real stories from couples Married by Jake, highlighting venues, locations, and heartfelt experiences.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "contact-intro": {
+    "title": "Contact · Introduction",
+    "previewPath": "/contact",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "contact-intro",
+        "heading": "Contact Jake",
+        "body": [],
+        "image": null
+      }
+    ]
+  },
+  "thank-you": {
+    "title": "Thank you · Enquiry confirmation",
+    "previewPath": "/thank-you",
+    "content": [
+      {
+        "_type": "intro",
+        "_version": 1,
+        "_key": "thank-you",
+        "heading": "Thanks for Your Enquiry",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "copy89",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy88",
+                "text": "Thankyou so much! Hope I’m able to help with your plans!",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy91",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy90",
+                "text": "Someone will respond via email ASAP… keep an eye on your spam folder :)",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "copy93",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy92",
+                "text": "In the meantime, if you haven't already, you can check out the following links:",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "image": null
+      }
+    ]
+  },
+  "contact-form": {
+    "title": "Contact · Studio Ninja form",
+    "previewPath": "/contact",
+    "content": [
+      {
+        "_type": "contact_form",
+        "_version": 1,
+        "_key": "contact-form",
+        "url": "https://app.studioninja.co/contactform/parser/0a800fc9-6fb5-18c4-816f-b6071676039b/0a800fc9-7ac4-1365-817a-e124acbe7fe7?wmode=opaque",
+        "title": "Contact form for Married By Jake",
+        "height": 1888
+      }
+    ]
+  },
+  "footer": {
+    "title": "Shared · Footer and legal notice",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "footer",
+        "_version": 1,
+        "_key": "footer",
+        "description": [
+          {
+            "_type": "block",
+            "_key": "copy95",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy94",
+                "text": "Jake Smith is a warm, trusted wedding celebrant helping couples create meaningful, personal ceremonies for all backgrounds across Australia.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "legal_notice": [
+          {
+            "_type": "block",
+            "_key": "copy97",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy96",
+                "text": "Jake Smith is an authorised Commonwealth Civil Marriage Celebrant. This means he is legally appointed under the Australian Marriage Act 1961 to prepare the required documentation, witness your NOIM, receive the notice more than one month before your wedding, conduct your ceremony, and register your marriage with the appropriate state authority. Couples must provide valid identification and meet all legal timeframes and requirements for their marriage to be recognised in Australia.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "logo": null,
+        "logo_alt": "Married by Jake logo",
+        "copyright_name": "Married by Jake",
+        "copyright_suffix": [
+          {
+            "_type": "block",
+            "_key": "copy105",
+            "style": "normal",
+            "markDefs": [
+              {
+                "_key": "copy99",
+                "_type": "link",
+                "href": "https://unpopular.au"
+              },
+              {
+                "_key": "copy102",
+                "_type": "link",
+                "href": "https://theinternet.com.au"
+              }
+            ],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "copy98",
+                "text": "All rights reserved. Another ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy100",
+                "text": "Unpopular",
+                "marks": [
+                  "copy99"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy101",
+                "text": " website on ",
+                "marks": []
+              },
+              {
+                "_type": "span",
+                "_key": "copy103",
+                "text": "The Internet",
+                "marks": [
+                  "copy102"
+                ]
+              },
+              {
+                "_type": "span",
+                "_key": "copy104",
+                "text": ".",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "badge_label": "Luminary Celebrant",
+        "badge_url": "https://australianweddingcelebrants.com.au/directory/married-by-jake/",
+        "quick_links_label": "Quick Links",
+        "social_links_label": "Social Media",
+        "found_on_label": "Found On",
+        "explore_label": "Explore",
+        "enquire_label": "Enquire Now",
+        "search_label": "Search site",
+        "email": "hello@marriedbyjake.com",
+        "phone": "+61434648064",
+        "phone_label": "0434 648 064",
+        "enquire_url": "/contact",
+        "menu_heading": "About Jake Smith",
+        "menu_description": "Jake Smith is a warm, calm wedding celebrant who creates personal, welcoming ceremonies for couples of every background, helping them start marriage with confidence and joy.",
+        "tips_label": "Wedding Tips",
+        "reviews_label": "Wedding Testimonials",
+        "all_tips_label": "Wedding Tips Blog",
+        "all_reviews_label": "View all testimonials"
+      }
+    ]
+  },
+  "seo-home": {
+    "title": "Search · /",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-home",
+        "path": "/",
+        "title": "Jake Smith — Christian Wedding Celebrant - Married By Jake",
+        "description": "Jake Smith creates warm, personal civil and Christian wedding ceremonies across Brisbane and beyond. Meet your celebrant and plan a meaningful wedding.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-about-jake": {
+    "title": "Search · /about-jake",
+    "previewPath": "/about-jake",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-about-jake",
+        "path": "/about-jake",
+        "title": "About Married By Jake - Christian Wedding Celebrant",
+        "description": "Meet Jake Smith, a civil and Christian marriage celebrant based in Brisbane. Discover his approach to personal ceremonies, destination weddings and receptions.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-faq": {
+    "title": "Search · /faq",
+    "previewPath": "/faq",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-faq",
+        "path": "/faq",
+        "title": "Frequently Asked Questions Married By Jake",
+        "description": "Answers about booking Jake Smith, ceremony fees, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-contact": {
+    "title": "Search · /contact",
+    "previewPath": "/contact",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-contact",
+        "path": "/contact",
+        "title": "Contact Married By Jake - Wedding Celebrant",
+        "description": "Ask Jake Smith about availability, ceremony plans and a personal quote for your wedding in Brisbane, across Australia or overseas.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-blog": {
+    "title": "Search · /blog",
+    "previewPath": "/blog",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-blog",
+        "path": "/blog",
+        "title": "Married By Jake — Wedding Tips and Blog",
+        "description": "Practical wedding advice from celebrant Jake Smith, covering ceremonies, vows, timing, planning, suppliers and calm preparation for the day.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-services": {
+    "title": "Search · /services",
+    "previewPath": "/services",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-services",
+        "path": "/services",
+        "title": "Married By Jake Services",
+        "description": "Explore Jake Smith's personal wedding ceremonies, Christian ceremonies, elopements, destination weddings and Master of Ceremonies services.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-serviceandprice": {
+    "title": "Search · /serviceandprice",
+    "previewPath": "/serviceandprice",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-serviceandprice",
+        "path": "/serviceandprice",
+        "title": "Wedding Celebrant Service and Price",
+        "description": "Explore Jake Smith’s wedding celebrant services and pricing for Australian ceremonies, destination weddings and reception MC services. Plan your celebration.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-wedding-readings": {
+    "title": "Search · /wedding-readings",
+    "previewPath": "/wedding-readings",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-wedding-readings",
+        "path": "/wedding-readings",
+        "title": "Wedding Readings",
+        "description": "Find wedding readings, poems, scripture and blessings for your ceremony. Browse Jake’s collection and choose words that reflect your story and beliefs.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-weddingtestimonials": {
+    "title": "Search · /weddingtestimonials",
+    "previewPath": "/weddingtestimonials",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-weddingtestimonials",
+        "path": "/weddingtestimonials",
+        "title": "Married By Jake Testimonials",
+        "description": "Read real wedding testimonials from couples married by Jake Smith across Brisbane, South East Queensland, Australia and destination weddings.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-thank-you": {
+    "title": "Search · /thank-you",
+    "previewPath": "/thank-you",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-thank-you",
+        "path": "/thank-you",
+        "title": "Thanks for Your Enquiry",
+        "description": "Thank you so much — someone will respond via email ASAP.",
+        "canonical": "",
+        "no_index": true,
+        "image": null
+      }
+    ]
+  },
+  "seo-404": {
+    "title": "Search · /404",
+    "previewPath": "/404",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-404",
+        "path": "/404",
+        "title": "Lost? Let&#39;s play a game — Married by Jake",
+        "description": "This page could not be found. Return to Married by Jake or try the wedding venue game.",
+        "canonical": "",
+        "no_index": true,
+        "image": null
+      }
+    ]
+  },
+  "seo-brisbane": {
+    "title": "Search · /brisbane",
+    "previewPath": "/brisbane",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-brisbane",
+        "path": "/brisbane",
+        "title": "Brisbane Wedding Celebrant | Jake Smith",
+        "description": "Plan a personal ceremony with Brisbane wedding celebrant Jake Smith. Explore weddings across the city, from New Farm to the Botanic Gardens and beyond.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-gold-coast": {
+    "title": "Search · /gold-coast",
+    "previewPath": "/gold-coast",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-gold-coast",
+        "path": "/gold-coast",
+        "title": "Gold Coast Wedding Celebrant | Jake Smith",
+        "description": "Gold Coast wedding celebrant Jake Smith creates warm, personal ceremonies from Burleigh and Kirra to the hinterland. Explore his approach and services.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-sunshine-coast": {
+    "title": "Search · /sunshine-coast",
+    "previewPath": "/sunshine-coast",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-sunshine-coast",
+        "path": "/sunshine-coast",
+        "title": "Sunshine Coast Wedding Celebrant | Jake Smith",
+        "description": "Sunshine Coast wedding celebrant Jake Smith creates personal ceremonies in Noosa, Maleny, Montville and beyond. Plan a relaxed, meaningful wedding day.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-byron-bay": {
+    "title": "Search · /byron-bay",
+    "previewPath": "/byron-bay",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-byron-bay",
+        "path": "/byron-bay",
+        "title": "Byron Bay Wedding Celebrant | Jake Smith",
+        "description": "Byron Bay wedding celebrant Jake Smith creates warm, personal ceremonies across the Northern Rivers. Explore beach elopements and hinterland weddings.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "seo-sydney": {
+    "title": "Search · /sydney",
+    "previewPath": "/sydney",
+    "content": [
+      {
+        "_type": "page_seo",
+        "_version": 1,
+        "_key": "seo-sydney",
+        "path": "/sydney",
+        "title": "Sydney Wedding Celebrant | Jake Smith",
+        "description": "Sydney wedding celebrant Jake Smith creates warm, personal ceremonies across the Harbour, Northern Beaches and Inner West. Explore his wedding services.",
+        "canonical": "",
+        "no_index": false,
+        "image": null
+      }
+    ]
+  },
+  "pricing-page": {
+    "title": "Service and price · Page copy and inclusions",
+    "previewPath": "/serviceandprice",
+    "content": [
+      {
+        "_type": "pricing_page",
+        "_version": 1,
+        "_key": "pricing-page",
+        "heading": "Married by Jake",
+        "tagline": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s1",
+                "text": "Marriages made relevant and real.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "introduction": [
+          {
+            "_type": "block",
+            "_key": "p2",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s3",
+                "text": "Every wedding should feel unique and personal — never awkward, boring or irrelevant. Your ceremony is the moment you arrive as two and leave as one, surrounded by your nearest and dearest. It deserves more than “okay”; it should be meaningful, personal and enjoyable.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "review_introduction": [
+          {
+            "_type": "block",
+            "_key": "p4",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s5",
+                "text": "Thousands of delighted couples have been married by Jake — Australia’s most‑reviewed celebrant — and here’s what you can expect.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "excluded_heading": "What you won’t get",
+        "included_heading": "What’s included",
+        "travel_note": [
+          {
+            "_type": "block",
+            "_key": "p6",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s7",
+                "text": "Travel may be included within the service area; additional travel fees can apply depending on distance and timing.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "quote_note": [
+          {
+            "_type": "block",
+            "_key": "p8",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s9",
+                "text": "If Jake is available for your date, you’ll receive a personal quote as soon as we get your enquiry.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "booking_heading": "Booking procedure",
+        "booking_note": [
+          {
+            "_type": "block",
+            "_key": "p10",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s11",
+                "text": "If you’d like to understand more about pricing and inclusions, our FAQs cover what Jake’s fee includes and how travel works.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "next_heading": "What’s next?",
+        "next_text": [
+          {
+            "_type": "block",
+            "_key": "p12",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s13",
+                "text": "Complete a short enquiry and we’ll confirm Jake’s availability and send a quote tailored to your day.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "excluded_items": "That horrible, awkward feeling (cringe) at a ceremony\nGuests who have no idea what’s happening\nUnnecessary stress\nA celebrant who is nervous, practising or just reading a script\nForced “jokey” humour — playfulness is welcome, awkwardness is not",
+        "included_items": "Obligation‑free chat about your day\nCreation of a personal, meaningful and enjoyable ceremony\nUnlimited email communication\nPractical wedding ceremony tips and advice\nOptional ceremony run‑through chat once your ceremony is drafted\nPreparation of your printed Australian Federal Government marriage certificate\nPreparation of all legal paperwork for Births, Deaths and Marriages\nLodgement with the relevant Births, Deaths and Marriages to register your marriage\nCollaboration with your venue and vendors to keep everything smooth\nConfident, warm ceremony delivery by a professional public speaker\nProfessional‑grade portable PA system if required\nCalm support from enquiry to “I do”\nGST included",
+        "booking_steps": "Receive a booking link to view your invoice and contract\nOnce booked, Jake turns away other enquiries for your date\nYou’ll be guided through all legal paperwork and timelines\nHelpful information and ceremony planning support provided"
+      }
+    ]
+  },
+  "site-images": {
+    "title": "Shared · Page photographs",
+    "previewPath": "/",
+    "content": [
+      {
+        "_type": "site_images",
+        "_version": 1,
+        "_key": "site-images",
+        "wide": null,
+        "menu": null,
+        "pricing": null,
+        "thank_you": null
+      }
+    ]
+  }
+}

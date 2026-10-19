@@ -1,0 +1,8 @@
+---
+import {PortableText} from 'emdash/ui';
+import InlineBlock from './InlineBlock.astro';
+import PublishedImage from './PublishedImage.astro';
+import PublishedGallery from './PublishedGallery.astro';
+const {value=[],inline=false}=Astro.props;
+---
+<PortableText value={value} components={{...(inline?{block:{normal:InlineBlock}}:{}),type:{image:PublishedImage,gallery:PublishedGallery}}} />

@@ -1,4 +1,5 @@
 ---
+import websiteDefaults from '@/data/website-defaults.json';
 import {env} from 'cloudflare:workers';
 import {isEditor} from '@/lib/editor-auth';
 import {publishingStatus} from '@/publishing/status.mjs';
@@ -25,5 +26,14 @@ catch { status = {phase:'unavailable',message:'Publishing status is unavailable.
   {status.retryAt && <p>Next retry: {new Date(status.retryAt).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})} (Brisbane).</p>}
   {status.canRetry && <form method="post" action="/_publishing/retry"><p>After resolving a conflict or build failure, retry the pending release. This preserves any uncertain Git commit and never overwrites CMS drafts.</p><button type="submit">Retry publishing</button></form>}
   <p><a href="/_publishing">Refresh status</a> · <a href="/" target="_blank" rel="noopener noreferrer">Open public website</a></p>
+  <section id="editing">
+    <h2>Editing the website</h2>
+    <p><a href="/_emdash/admin/content/website">Website sections</a> controls page introductions, About Jake, questions and answers, inclusions, shared sections, photographs, videos, the contact form, footer and search metadata. Search by the page or section name below.</p>
+    <p>Open an existing named section and expand its settings block. Save draft keeps your changes private. Preview saved draft shows the saved values; Publish queues a complete website release. Wait for the publishing status to confirm it is live. Keep the named sections and their slugs; unpublishing a required section stops the next release to protect the healthy site.</p>
+    <p><a href="/_emdash/admin/menus">Menus</a> controls the header, Explore menu, footer, social profiles and featured links. Use custom links or links to published posts and pages. Menu and general site-setting changes have no draft step and queue a release when saved.</p>
+    <p>Blog posts, testimonials, services, readings, information pages and prices remain in their original collections. Search title, Search description, Social preview image, Preferred canonical URL and the indexing switch publish with their entry. Readings share the reading page’s search settings.</p>
+    <p>Upload replacement photographs through Media, then select them in the section. Update a background video and its matching poster together. Video hosting, layout, styling, forms processing and account/security settings still need their existing technical controls.</p>
+    <details><summary>Find a website section</summary><ul>{Object.values(websiteDefaults).map(section=><li><strong>{section.title}</strong> — <a href={section.previewPath}>published page</a></li>)}</ul></details>
+  </section>
 </main></body></html>
 <style>body{margin:0;background:#faf7f2;color:#302b25;font:1rem/1.6 system-ui,sans-serif}main{max-width:46rem;margin:3rem auto;padding:1.5rem}h1{line-height:1.2}a{color:#705237;text-underline-offset:.2em}button{font:inherit;border:1px solid #705237;background:#705237;color:white;padding:.75rem 1.25rem;cursor:pointer;border-radius:0}code{overflow-wrap:anywhere}:focus-visible{outline:3px solid #92714c;outline-offset:4px}@media(max-width:640px){main{margin:.5rem auto;padding:1.25rem}}</style>

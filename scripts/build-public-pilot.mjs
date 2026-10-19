@@ -1,3 +1,4 @@
+import {publicRoutingEsbuild} from './lib/public-routing-data.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {build} from 'esbuild';
@@ -12,9 +13,9 @@ const manifest=await verifyPublished();
 const release=JSON.parse(await fs.readFile('dist/client/release.json','utf8'));
 if(release.sourceCommit!==source.commit||release.contentHash!==manifest.contentHash)throw Error('Run npm run build from this exact clean commit before packaging the pilot');
 const production=JSON.parse(await fs.readFile('wrangler.jsonc','utf8'));
-const bundle=await build({entryPoints:['src/public-pilot-worker.ts'],bundle:true,write:false,format:'esm',platform:'browser',target:'es2022',minify:true,metafile:true});
+const bundle=await build({entryPoints:['src/public-pilot-worker.ts'],bundle:true,write:false,format:'esm',platform:'browser',target:'es2022',minify:true,metafile:true,plugins:[publicRoutingEsbuild()]});
 if(Object.values(bundle.metafile.outputs).some(output=>output.imports.length))throw Error('The pilot must be one self-contained module');
-if(Object.keys(bundle.metafile.inputs).some(file=>!['src/public-pilot-worker.ts','src/lib/published-routing.ts','src/data/redirects.json','content/published/shared.json','content/published/manifest.json'].includes(file)))throw Error('Unexpected dependency in public-only pilot');
+if(Object.keys(bundle.metafile.inputs).some(file=>!['src/public-pilot-worker.ts','src/lib/published-routing.ts','src/data/redirects.json','content/published/shared.json?public-redirects','content/published/manifest.json'].includes(file)))throw Error('Unexpected dependency in public-only pilot');
 const worker=bundle.outputFiles[0].contents;
 if(worker.byteLength>32768)throw Error('Pilot exceeds the 32 KiB complete-upload budget');
 const directory=path.resolve('.emdash/public-pilot');

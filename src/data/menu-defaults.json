@@ -1,0 +1,220 @@
+{
+  "explore-navigation": {
+    "label": "Explore navigation",
+    "items": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About Jake",
+        "href": "/about-jake"
+      },
+      {
+        "label": "Testimonials",
+        "href": "/weddingtestimonials"
+      },
+      {
+        "label": "Tips",
+        "href": "/blog"
+      },
+      {
+        "label": "FAQs",
+        "href": "/faq"
+      },
+      {
+        "label": "Readings",
+        "href": "/wedding-readings"
+      },
+      {
+        "label": "Master of Ceremonies",
+        "href": "/master-of-ceremonies"
+      },
+      {
+        "label": "Destination Elopements",
+        "href": "/elopements"
+      },
+      {
+        "label": "Service and Price",
+        "href": "/serviceandprice"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ]
+  },
+  "primary-navigation": {
+    "label": "Header shortcuts",
+    "items": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About Jake",
+        "href": "/about-jake"
+      },
+      {
+        "label": "Testimonials",
+        "href": "/weddingtestimonials"
+      },
+      {
+        "label": "Tips",
+        "href": "/blog"
+      },
+      {
+        "label": "FAQs",
+        "href": "/faq"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ]
+  },
+  "footer-navigation": {
+    "label": "Footer quick links",
+    "items": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About Jake",
+        "href": "/about-jake"
+      },
+      {
+        "label": "Testimonials",
+        "href": "/weddingtestimonials"
+      },
+      {
+        "label": "Tips",
+        "href": "/blog"
+      },
+      {
+        "label": "FAQs",
+        "href": "/faq"
+      },
+      {
+        "label": "Readings",
+        "href": "/wedding-readings"
+      },
+      {
+        "label": "Master of Ceremonies",
+        "href": "/master-of-ceremonies"
+      },
+      {
+        "label": "Destination Elopements",
+        "href": "/elopements"
+      },
+      {
+        "label": "Service and Price",
+        "href": "/serviceandprice"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ]
+  },
+  "social-links": {
+    "label": "Footer social links",
+    "items": [
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/marriedbyjake/"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://au.linkedin.com/in/jake-smith-2095743b"
+      },
+      {
+        "label": "TikTok",
+        "href": "https://www.tiktok.com/@married.by.jake"
+      },
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/MarriedByJake/"
+      },
+      {
+        "label": "Threads",
+        "href": "https://www.threads.com/@marriedbyjake"
+      },
+      {
+        "label": "Youtube",
+        "href": "https://www.youtube.com/@marriedbyjake-celebrant"
+      }
+    ]
+  },
+  "found-on-links": {
+    "label": "Footer featured links",
+    "items": [
+      {
+        "label": "Wed Co Podcast",
+        "href": "https://www.youtube.com/watch?v=dfvrU4UW_Do"
+      },
+      {
+        "label": "The Wedding Magazine",
+        "href": "https://weddingmagazine.com.au/directory/married-by-jake-d3fe/"
+      },
+      {
+        "label": "Three Best Rated",
+        "href": "https://threebestrated.com.au/marriage-celebrants-in-brisbane-qld"
+      },
+      {
+        "label": "Gabbinbar Blog",
+        "href": "https://www.gabbinbar.com.au/ideas-and-inspiration/10-of-the-best-brisbane-marriage-celebrants"
+      },
+      {
+        "label": "Refinery Events",
+        "href": "https://refinery-events.com/vendors#CELEBRANTS"
+      },
+      {
+        "label": "ABIA Wedding Awards",
+        "href": "https://abia.com.au/abia-awards/2018-queensland-abia-awards"
+      },
+      {
+        "label": "Preston Manor",
+        "href": "https://www.prestonmanor.com.au/vendors"
+      },
+      {
+        "label": "Preston Peak Functions",
+        "href": "https://www.prestonpeakfunctions.com.au/vendor-love"
+      },
+      {
+        "label": "Jimbour",
+        "href": "https://jimbour.com/blog/vendor-spotlight-married-by-jake/"
+      },
+      {
+        "label": "Braeside Estate",
+        "href": "https://www.braesideestate.com.au/vendors-we-love"
+      },
+      {
+        "label": "Australian Wedding Celebrants",
+        "href": "https://australianweddingcelebrants.com.au"
+      },
+      {
+        "label": "Luke Middlemiss",
+        "href": "https://www.lukemiddlemiss.com/celebrants/married-by-jake/"
+      },
+      {
+        "label": "Tara Lee",
+        "href": "https://taraleephotography.com.au/sunshine-coast-celebrant-married-by-jake/"
+      }
+    ]
+  },
+  "legal-links": {
+    "label": "Footer legal links",
+    "items": [
+      {
+        "label": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Terms of Service",
+        "href": "/terms"
+      }
+    ]
+  }
+}

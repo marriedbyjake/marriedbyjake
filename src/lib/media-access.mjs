@@ -36,7 +36,7 @@ export function mediaIds(value, ids = new Set()) {
 export async function authorizeMedia({target, editor, preview, loadEntry, loadMedia}) {
   if (!target || !/^[A-Za-z0-9._-]+$/.test(target.key)) return false;
   if (editor) return true;
-  if (!preview || !['posts','services','infopages','weddingtestimonials','readings','pricing'].includes(preview.collection)) return false;
+  if (!preview || !['posts','services','infopages','weddingtestimonials','readings','pricing','website'].includes(preview.collection)) return false;
   const entry = await loadEntry(preview.collection,preview.id);
   if (!entry) return false;
   const item = await loadMedia(target.key);

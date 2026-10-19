@@ -1,4 +1,6 @@
 import { createHash } from 'node:crypto';
+import {publishedSeoFields, validateWebsiteEntry, websiteDefaults, safePublicHref} from './website-model.mjs';
+import menuDefaults from '../../src/data/menu-defaults.json' with {type:'json'};
 
 export const collections = {
   infopages: ['page', 'pub_date', 'content'],
@@ -8,10 +10,12 @@ export const collections = {
   services: ['title', 'summary', 'description', 'order', 'featured_image', 'icon', 'content'],
   weddingtestimonials: ['couple_name', 'venue', 'location', 'featured_image', 'featured', 'rating', 'pub_date', 'latitude', 'longitude', 'content'],
 };
+for (const [name,fields] of Object.entries(collections)) if(name !== 'readings') fields.push(...publishedSeoFields.map(field => field.slug));
+collections.website = ['title','content'];
+export const legacyCollectionNames = Object.keys(collections).filter(name => name !== 'website');
 // Only values that are safe to publish. Credentials/plugin configuration are never selected.
-export const publicSettingNames = ['emdash:site_title', 'emdash:site_tagline', 'emdash:locale'];
-// The existing templates use repository navigation, not CMS menu assignments.
-export const publicMenuNames = [];
+export const publicSettingNames = ['emdash:site_title', 'emdash:site_tagline', 'emdash:locale', 'site:title', 'site:tagline', 'site:logo', 'site:favicon'];
+export const publicMenuNames = Object.keys(menuDefaults);
 export const sha256 = value => createHash('sha256').update(value).digest('hex');
 export function canonical(value) {
   if (Array.isArray(value)) return value.map(canonical);
@@ -38,9 +42,10 @@ function assertPublicText(value) {
 function referencedMedia(value, media, found) {
   if (Array.isArray(value)) return value.forEach(child => referencedMedia(child, media, found));
   if (!value || typeof value !== 'object') return;
-  if (value.id && (value.provider === 'local' || value.meta?.storageKey)) {
-    if (!media.has(value.id)) throw new Error('Published content references missing media');
-    found.add(value.id);
+  if (value.mediaId || (value.id && (value.provider === 'local' || value.meta?.storageKey))) {
+    const id = value.mediaId || value.id;
+    if (!media.has(id)) throw new Error('Published content references missing media');
+    found.add(id);
   }
   if (value._type === 'image') {
     if (!value.asset?._ref) throw new Error('Published inline images require a referenced CMS asset');
@@ -69,8 +74,10 @@ export async function projectPublished(snapshot, loadMedia, options = {}) {
       const data = {};
       for (const field of fields) {
         if (!Object.hasOwn(row, field)) throw new Error(`Missing ${name}.${field}`);
-        data[field] = ['content','featured_image','tags'].includes(field) && row[field] != null ? parse(row[field]) : row[field];
+        data[field] = ['content','featured_image','social_image','tags'].includes(field) && row[field] != null ? parse(row[field]) : row[field];
       }
+      if (name === 'website') validateWebsiteEntry(row.slug,data);
+      if (data.preferred_url && !safePublicHref(data.preferred_url)) throw Error('Invalid preferred canonical URL');
       if (name !== 'pricing' && !Array.isArray(data.content)) throw new Error(`Missing rich content in ${name}/${row.slug}`);
       // Draft saves can advance updated_at; use only the published revision's date.
       const updatedAt = revisions.get(row.live_revision_id)?.created_at || row.published_at || row.created_at;
@@ -80,7 +87,13 @@ export async function projectPublished(snapshot, loadMedia, options = {}) {
     }
     result.collections[name] = Object.fromEntries(Object.entries(entries).sort(([a],[b]) => a.localeCompare(b, 'en')));
   }
+  for (const slug of Object.keys(websiteDefaults)) if (!result.collections.website[slug]) throw Error(`Required website section is not published: ${slug}`);
   if (!result.collections.pricing.index) throw new Error('The published pricing entry is missing');
+  const publishedReferences = new Map();
+  for (const [name, entries] of Object.entries(result.collections)) for (const [slug, entry] of Object.entries(entries)) {
+    const row = tables[`ec_${name}`].find(row => row.id === entry.cmsId);
+    if(row.translation_group) publishedReferences.set(`${name}:${row.translation_group}`,name === 'posts' ? `/blog/${slug}` : name === 'weddingtestimonials' ? `/weddingtestimonials/${slug}` : name === 'pricing' ? '/serviceandprice' : name === 'readings' ? `/wedding-readings#${slug}` : name === 'website' ? null : `/${slug}`);
+  }
   const publishedIds = new Set(Object.values(result.collections).flatMap(entries => Object.values(entries).map(entry => entry.cmsId)));
   const assignments = (tables.content_taxonomies || []).filter(row => publishedIds.has(row.entry_id) && row.status === 'published' && !row.deleted_at);
   const terms = new Map((tables.taxonomies || []).map(row => [row.id,row]));
@@ -94,17 +107,31 @@ export async function projectPublished(snapshot, loadMedia, options = {}) {
     return Object.fromEntries(['id','name','slug','label','parent_id','data','locale','translation_group','sort_order'].map(key => [key, key === 'data' && row[key] ? parse(row[key]) : row[key] ?? null]));
   });
   result.shared.assignments = assignments.map(row => ({ collection:row.collection, entryId:row.entry_id, taxonomyId:row.taxonomy_id })).sort((a,b) => json(a).localeCompare(json(b)));
-  for (const row of tables.options || []) if (publicSettingNames.includes(row.name)) result.shared.settings[row.name] = parse(row.value);
+  for (const row of tables.options || []) if (publicSettingNames.includes(row.name)) {result.shared.settings[row.name] = parse(row.value); referencedMedia(result.shared.settings[row.name],media,usedMedia);}
   result.shared.menus = (tables._emdash_menus || []).filter(row => publicMenuNames.includes(row.name)).map(row => ({id:row.id,name:row.name,label:row.label,locale:row.locale}));
   const publicMenus = new Set(result.shared.menus.map(row => row.id));
   result.shared.menuItems = (tables._emdash_menu_items || []).filter(row => publicMenus.has(row.menu_id)).map(row => Object.fromEntries(['id','menu_id','parent_id','sort_order','type','reference_collection','reference_id','custom_url','label','title_attr','target','css_classes','locale'].map(key => [key,row[key] ?? null])));
+  for (const row of result.shared.menuItems) {
+    const href = row.type === 'custom' ? row.custom_url : publishedReferences.get(`${row.reference_collection}:${row.reference_id}`);
+    if (!href || !safePublicHref(href)) throw Error('A menu link needs a safe URL or a published content reference');
+    row.href = href;
+    if (row.target && !['_self','_blank'].includes(row.target)) throw Error('Unsupported menu link target');
+  }
+  for (const menu of result.shared.menus) {
+    const items = result.shared.menuItems.filter(item => item.menu_id === menu.id);
+    for (const item of items) {
+      const seen = new Set([item.id]); let parent = item.parent_id;
+      while(parent) {if(seen.has(parent)) throw Error('A menu cannot contain a cycle'); seen.add(parent); const ancestor=items.find(row=>row.id===parent); if(!ancestor) throw Error('Missing menu parent'); parent=ancestor.parent_id;}
+    }
+  }
   if ((tables._emdash_redirects || []).some(row => row.enabled && row.is_pattern)) throw new Error('Pattern CMS redirects require an explicit edge renderer before publication');
   result.shared.redirects = (tables._emdash_redirects || []).filter(row => row.enabled).map(row => ({source:row.source,destination:row.destination,type:row.type,isPattern:!!row.is_pattern})).sort((a,b) => a.source.localeCompare(b.source));
+  for (const redirect of result.shared.redirects) if(!safePublicHref(redirect.source)||!safePublicHref(redirect.destination)||![301,302,307,308].includes(Number(redirect.type))) throw Error('Unsupported CMS redirect');
   assertPublicText(result.shared);
   const assets = new Map();
   for (const id of [...usedMedia].sort()) {
     const row = media.get(id);
-    if (!row || !['image/jpeg','image/png','image/webp'].includes(row.mime_type)) throw new Error('Unsupported or missing published image');
+    if (!row || !['image/jpeg','image/png','image/webp'].includes(row.mime_type)) throw new Error('Unsupported published image: use a complete JPEG, PNG or WebP asset');
     const resolved = options.resolveMedia ? await options.resolveMedia(row) : undefined;
     const bytes = resolved ? undefined : await loadMedia(row);
     const hash = resolved?.hash || verifyMedia(bytes, row.content_hash, row.size);
@@ -124,7 +151,7 @@ export function snapshotSql({ fingerprint = false } = {}) {
   const aggregate = (table, fields, where='') => `(SELECT json_group_array(json_object(${fields.flatMap(field => [`'${field}'`, `t.\"${field}\"`]).join(',')})) FROM \"${table}\" t ${where})`;
   const parts = [];
   for (const [name, fields] of Object.entries(collections)) {
-    parts.push(`'ec_${name}'`, `json(${aggregate(`ec_${name}`, ['id','slug','status','deleted_at','created_at','published_at','live_revision_id',...(fingerprint ? [] : fields)], "WHERE t.status='published' AND t.deleted_at IS NULL")})`);
+    parts.push(`'ec_${name}'`, `json(${aggregate(`ec_${name}`, ['id','slug','status','deleted_at','created_at','published_at','live_revision_id','translation_group',...(fingerprint ? [] : fields)], "WHERE t.status='published' AND t.deleted_at IS NULL")})`);
   }
   parts.push("'media'", `json(${aggregate('media',['id','filename','mime_type','size','width','height','alt','caption','storage_key','content_hash','focal_x','focal_y','blurhash','dominant_color'])})`);
   parts.push("'revisions'", fingerprint ? "json('[]')" : `json(${aggregate('revisions',['id','created_at'], `WHERE ${Object.keys(collections).map(name => `t.id IN (SELECT live_revision_id FROM ec_${name} WHERE status='published' AND deleted_at IS NULL)`).join(' OR ')}`)})`);
@@ -136,7 +163,7 @@ export function snapshotSql({ fingerprint = false } = {}) {
     content_taxonomies:['collection','entry_id','taxonomy_id','status','deleted_at'],
     _emdash_redirects:['source','destination','type','is_pattern','enabled'],
   })) {
-    const where = table === 'options' ? `WHERE t.name IN (${publicSettingNames.map(name=>`'${name}'`).join(',')})` : '';
+    const where = table === 'options' ? `WHERE t.name IN (${publicSettingNames.map(name=>`'${name}'`).join(',')})` : table === '_emdash_menus' ? `WHERE t.name IN (${publicMenuNames.map(name=>`'${name}'`).join(',')})` : table === '_emdash_menu_items' ? `WHERE t.menu_id IN (SELECT id FROM _emdash_menus WHERE name IN (${publicMenuNames.map(name=>`'${name}'`).join(',')}))` : '';
     parts.push(`'${table}'`, `json(${aggregate(table,fields,where)})`);
   }
   return `SELECT json_object('tables',json_object(${parts.join(',')})) AS snapshot;`;

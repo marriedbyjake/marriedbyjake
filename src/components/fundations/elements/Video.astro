@@ -32,7 +32,7 @@ const computedMuted = autoplay ? true : muted;
     <button
       type="button"
       data-overlay
-      aria-label="Play video"
+      aria-label={rest["aria-label"] ? `Play: ${rest["aria-label"]}` : "Play video"}
       class="absolute inset-0 grid place-items-center"
     >
       <span

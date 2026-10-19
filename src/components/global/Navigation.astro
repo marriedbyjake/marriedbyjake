@@ -1,4 +1,8 @@
 ---
+import {websiteSection,siteSettings,websiteImage} from "@/lib/website";
+const section=await websiteSection("footer");
+import {Image} from "astro:assets";
+import LogoImage from "@/images/logo.png";
 import Logo from "@/components/assets/Logo.astro";
 // Icons
 import Close from "@/components/fundations/icons/Close.astro";
@@ -25,10 +29,10 @@ const isTransparent = !!transparent;
     <div class="flex py-3 items-center justify-between">
       <a href="/" aria-label="Home" class="focus:outline-none">
         <span class="sr-only">Home</span>
-        <Logo
+        {siteSettings['site:logo']?.mediaId ? <Image src={websiteImage({id:siteSettings['site:logo'].mediaId,provider:'local'},LogoImage).image} alt={siteSettings['site:logo'].alt || 'Married by Jake'} class="h-12 w-auto max-w-48 object-contain"/> :         <Logo
           data-logo
           class={`h-12 ${isTransparent ? "text-white" : "text-base-800"}`}
-        />
+        />}
       </a>
       <div class="hidden lg:flex items-center gap-6">
         <MegaMenu inverted={isTransparent} />
@@ -36,7 +40,7 @@ const isTransparent = !!transparent;
           {
             primaryShortcuts.map((l) => (
               <a
-                href={l.href}
+                href={l.href} target={l.target} rel={l.target === "_blank" ? "noopener noreferrer" : undefined}
                 class={`text-sm ${isTransparent ? "text-white" : "text-base-800"}`}
                 data-primary-link
               >
@@ -47,15 +51,15 @@ const isTransparent = !!transparent;
         </div>
       </div>
       <div class="hidden lg:flex gap-2 items-center">
-        <Search />
+        <Search label={section.search_label} />
         <Button
           isLink={true}
-          href="/contact"
+          href={section.enquire_url}
           variant="default"
           size="xs"
           class="hidden lg:flex"
         >
-          Enquire Now
+          {section.enquire_label}
         </Button>
       </div>
       <button
@@ -90,7 +94,7 @@ const isTransparent = !!transparent;
         <div class="flex flex-col gap-3 text-right">
           {
             navLinks.map((link) => (
-              <a href={link.href} class=" text-white text-sm">
+              <a href={link.href} target={link.target} rel={link.target === "_blank" ? "noopener noreferrer" : undefined} class=" text-white text-sm">
                 {link.label}
               </a>
             ))
@@ -99,26 +103,26 @@ const isTransparent = !!transparent;
         <div class="mt-8 space-y-2">
           <Button
             isLink={true}
-            href="/contact"
+            href={section.enquire_url}
             variant="muted"
             size="sm"
             class="w-full"
           >
-            Enquire Now
+            {section.enquire_label}
           </Button>
         </div>
         <div class="mt-4 flex w-full flex-col space-y-2 border-t border-white/10 pt-4">
           <a
-            href="mailto:hello@marriedbyjake.com"
+            href={`mailto:${section.email}`}
             class="text-base-300 hover:text-white transition-colors text-xs"
           >
-            hello@marriedbyjake.com
+            {section.email}
           </a>
           <a
-            href="tel:+61434648064"
+            href={`tel:${section.phone}`}
             class="text-base-300 hover:text-white transition-colors text-xs"
           >
-            0434 648 064
+            {section.phone_label}
           </a>
         </div>
       </div>

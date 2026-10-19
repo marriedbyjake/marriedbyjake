@@ -1,4 +1,7 @@
 ---
+const siteImages=await websiteSection("site-images");
+import {websiteSection,websiteMenu,websiteImage} from "@/lib/website";
+const section=await websiteSection("footer");
 // Assets
 import { Image } from "astro:assets";
 import HeroImage from "@/images/jake-menu.jpg";
@@ -10,13 +13,7 @@ import { getCollection } from "@/lib/cms";
 import { navLinks } from "@/components/global/navLinks";
 const { inverted = true } = Astro.props;
 const triggerColor = inverted ? "text-white" : "text-base-800";
-const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/marriedbyjake/" },
-  { label: "Facebook", href: "https://www.facebook.com/MarriedByJake/" },
-  { label: "Threads", href: "https://www.threads.com/@marriedbyjake" },
-  { label: "LinkedIn", href: "https://au.linkedin.com/in/jake-smith-2095743b" },
-  { label: "TikTok", href: "https://www.tiktok.com/@married.by.jake" },
-];
+const socialLinks=websiteMenu('social-links');
 const [allPosts, allTestimonials] = await Promise.all([getCollection("posts"), getCollection("weddingtestimonials")]);
 const posts = allPosts
   .slice()
@@ -59,7 +56,7 @@ const testimonials = allTestimonials
     data-mega-trigger
     data-explore-trigger
   >
-    <span>Explore</span>
+    <span>{section.explore_label}</span>
     <svg
       class="size-4 transition-transform group-hover:rotate-180"
       viewBox="0 0 24 24"
@@ -87,7 +84,7 @@ const testimonials = allTestimonials
           <div class="p-6 h-full">
             <div class="flex flex-col h-full items-start">
               <Image
-                src={HeroImage}
+                src={websiteImage(siteImages.menu,HeroImage).image}
                 width={600}
                 height={600}
                 alt="Pastor Jake Smith, Wedding Celebrant"
@@ -100,28 +97,28 @@ const testimonials = allTestimonials
                 variant="textXL"
                 class="font-display text-white mt-4"
               >
-                About Jake Smith
+                {section.menu_heading}
               </Text>
               <Text tag="p" variant="textSM" class="text-base-600 mt-2">
-                Jake Smith is a warm, calm wedding celebrant who creates personal, welcoming ceremonies for couples of every background, helping them start marriage with confidence and joy.
+                {section.menu_description}
               </Text>
               <div
                 class="w-full mt-4 pt-4 border-t border-white/10 space-y-2 flex flex-col"
               >
                 <a
-                  href="mailto:hello@marriedbyjake.com"
+                  href={`mailto:${section.email}`}
                   class="text-base-300 hover:text-white transition-colors text-xs"
                 >
-                  hello@marriedbyjake.com
+                  {section.email}
                 </a>
                 <a
-                  href="tel:+61434648064"
+                  href={`tel:${section.phone}`}
                   class="text-base-300 hover:text-white transition-colors text-xs"
                 >
-                  0434 648 064
+                  {section.phone_label}
                 </a>
                 <a
-                  href="/contact"
+                  href={section.enquire_url}
                   class="text-xs text-white hover:text-accent-400 transition-colors"
                 >
                   Contact Jake
@@ -131,13 +128,13 @@ const testimonials = allTestimonials
           </div>
           <div class="p-6 h-full">
             <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
-              Explore
+              {section.explore_label}
             </Text>
             <ul class="space-y-2 mt-2 pt-2 border-t border-white/10">
               {
                 navLinks.map((link) => (
                   <li class=" group">
-                    <a href={link.href}>
+                    <a href={link.href} target={link.target} rel={link.target === "_blank" ? "noopener noreferrer" : undefined}>
                       <Text
                         tag="h4"
                         variant="textSM"
@@ -151,13 +148,13 @@ const testimonials = allTestimonials
               }
             </ul>
             <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2 mt-6">
-              Social Media
+              {section.social_links_label}
             </Text>
             <ul class="space-y-2 mt-2 pt-2 border-t border-white/10">
               {
                 socialLinks.map((social) => (
                   <li class=" group">
-                    <a href={social.href}>
+                    <a href={social.href} target={social.target} rel={social.target === "_blank" ? "noopener noreferrer" : undefined}>
                       <Text
                         tag="h4"
                         variant="textSM"
@@ -174,7 +171,7 @@ const testimonials = allTestimonials
           <div class="p-6 h-full flex flex-col justify-between">
             <div>
               <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
-                Wedding Tips
+                {section.tips_label}
               </Text>
               <ul class="mt-2 pt-2 border-t border-white/10">
                 {
@@ -210,13 +207,13 @@ const testimonials = allTestimonials
               href="/blog"
               class="text-sm text-white hover:text-accent-400 flex mt-4 pt-4 border-t border-white/10"
             >
-              Wedding Tips Blog
+              {section.all_tips_label}
             </a>
           </div>
           <div class="p-6 h-full flex flex-col justify-between">
             <div>
               <Text tag="h3" variant="textXS" class="text-secondary-400 gap-2">
-                Wedding Testimonials
+                {section.reviews_label}
               </Text>
               <ul class="mt-2 pt-2 border-t border-white/10">
                 {testimonials.map((t) => (
@@ -260,7 +257,7 @@ const testimonials = allTestimonials
               href="/weddingtestimonials"
               class="text-sm text-white hover:text-accent-400 flex mt-4 pt-4 border-t border-white/10"
             >
-              View all testimonials
+              {section.all_reviews_label}
             </a>
           </div>
         </div>

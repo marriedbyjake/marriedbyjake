@@ -1,4 +1,9 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('testimonials-intro');
+
 import { imagePosition } from "@/lib/media-position";
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -49,16 +54,13 @@ const formatDate = (d?: Date) =>
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
       <div class="max-width mb-2">
-        <Text
+        {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text
           tag="h1"
           variant="displayLG"
           class="text-accent-800 font-display text-center"
-        >
-          Australia's most reviewed wedding celebrant
-        </Text>
-        <Text tag="p" variant="textSM" class="text-base-600 text-center mt-2">
-          Real stories from couples Married by Jake, highlighting venues, locations, and heartfelt experiences.
-        </Text>
+        >{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
+        <Text tag="p" variant="textSM" class="text-base-600 text-center mt-2"><WebsiteText inline value={[section.body[0]]} /></Text>
       </div>
 
       <!-- Featured Testimonials -->

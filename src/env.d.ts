@@ -14,5 +14,10 @@ interface Window {
 }
 
 namespace App {
-  interface Locals { publishedCanonical?: string; }
+  interface Locals { publishedCanonical?: string; publishedSearch?: Record<string,any>; }
+}
+
+declare module '*?public-redirects' {
+ const redirects: {source:string;destination:string;type:number}[];
+ export default redirects;
 }

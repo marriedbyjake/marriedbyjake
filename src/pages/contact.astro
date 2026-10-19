@@ -1,4 +1,10 @@
 ---
+import PublishedImage from "@/components/content/PublishedImage.astro";
+import {websiteSection} from '@/lib/website';
+import WebsiteText from '@/components/content/WebsiteText.astro';
+const section = await websiteSection('contact-intro');
+const form=await websiteSection('contact-form');
+
 // Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
@@ -14,13 +20,12 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
       <div class="overflow-hidden grid grid-cols-1 lg:grid-cols-2">
         <div class="p-8 h-full flex flex-col justify-start bg-base-50">
           <div>
-            <Text
+            {section.image?.id && <PublishedImage node={{_type:'image',asset:{_ref:section.image.id},alt:section.image.alt||section.heading}}/>}
+<Text
               tag="h1"
               variant="displayMD"
               class="text-accent-800 font-display text-balance lg:col-span-2"
-            >
-              Contact Jake
-            </Text>
+            >{section.eyebrow && <span class="block text-sm font-sans mb-2">{section.eyebrow}</span>}{section.heading}</Text>
             <!--<div class="space-y-1 mt-8">
               {
                 contactInfo.map((info) => (
@@ -53,11 +58,11 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
                 ))
               }
             </div> -->
+            <div class="text-base-600 mt-4"><WebsiteText value={section.body} /></div>
           </div>
           
         </div>
-        <iframe allowfullscreen="" src="https://app.studioninja.co/contactform/parser/0a800fc9-6fb5-18c4-816f-b6071676039b/0a800fc9-7ac4-1365-817a-e124acbe7fe7?wmode=opaque" data-embed="true" style="min-width: 100%; max-width: 1440px; border: 0px; overflow: hidden; height: 1888px;" id="sn-form-mahsi" height="1488" title="Contact form for Married By Jake">
-</iframe>
+        <iframe src={form.url} title={form.title} data-embed="true" style={`width:100%; border:0; height:${form.height}px;`} height={form.height} allowfullscreen></iframe>
       </div>
     </Wrapper>
   </section>

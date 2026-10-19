@@ -1,3 +1,4 @@
+import {publicRoutingVite} from './scripts/lib/public-routing-data.mjs';
 import { buildSource } from './scripts/lib/build-source.mjs';
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
@@ -18,7 +19,7 @@ export default defineConfig({
     remotePatterns: [{ protocol: "https", hostname: "marriedbyjake.com", pathname: "/_emdash/api/media/file/**" }],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [publicRoutingVite(),tailwindcss()],
     define: { "import.meta.env.EMDASH_PREVIEW_PATH_PATTERN": JSON.stringify("/_preview/{collection}/{id}"),
       "import.meta.env.PUBLISHED_SOURCE_COMMIT": JSON.stringify(sourceCommit) },
   },

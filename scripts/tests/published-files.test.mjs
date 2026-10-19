@@ -1,3 +1,4 @@
+import {websiteDefaults} from '../lib/website-model.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -12,6 +13,7 @@ test('complete release replacement removes stale public assets without touching 
   await fs.mkdir(path.join(root,'src/images/published'),{recursive:true});await fs.writeFile(path.join(root,'src/images/published','obsolete.jpg'),'old');
   await fs.mkdir(path.join(root,'src/content/posts'),{recursive:true});await fs.writeFile(path.join(root,'src/content/posts/archive.md'),'preserve');
   const release={formatVersion:1,collections:Object.fromEntries(Object.keys(collections).map(name=>[name,{}])),media:{},shared:{settings:{},menus:[],menuItems:[],taxonomies:[],assignments:[],redirects:[]}};
+  release.collections.website=Object.fromEntries(Object.entries(websiteDefaults).map(([slug,entry])=>[slug,{cmsId:slug,data:{title:entry.title,content:entry.content}}]));
   release.collections.pricing.index={cmsId:'price',data:{australian_price:'Exact approved price'}};
   const projected={release,contentHash:digest(release),assets:new Map()};await writePublished(root,projected);
   assert.deepEqual(await fs.readdir(path.join(root,'src/images/published')),[]);assert.equal(await fs.readFile(path.join(root,'src/content/posts/archive.md'),'utf8'),'preserve');

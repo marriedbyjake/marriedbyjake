@@ -4,7 +4,7 @@ import type { ImageMetadata } from "astro";
 import { extractPlainText, getEmDashCollection, getEmDashEntry, getRequestContext, type ContentEntry, type MediaValue } from "emdash";
 import type { PortableTextProps } from "emdash/ui";
 
-export type Collection = "posts" | "services" | "weddingtestimonials" | "readings" | "infopages" | "pricing";
+export type Collection = "posts" | "services" | "weddingtestimonials" | "readings" | "infopages" | "pricing" | "website";
 export type CmsEntry<C extends Collection> = CollectionEntry<C> & {
   data: CollectionEntry<C>["data"] & { latitude?: number; longitude?: number; featured_image?: MediaValue };
   content: PortableTextProps["value"];

@@ -1,15 +1,18 @@
-// Replace the video URLs and their matching first-frame posters together.
-export const heroVideo = {
-  desktop: {
-    src: "https://customer-vz6hppt2iburon88.cloudflarestream.com/4a1ba53dd23a1545ed96ead8b4f15829/downloads/default.mp4",
-    poster: "/images/calile-poster.webp",
-    width: 1920,
-    height: 1080,
-  },
-  mobile: {
-    src: "https://customer-vz6hppt2iburon88.cloudflarestream.com/f8741641ee3f9dcaf868fa8f2675ebfd/downloads/default.mp4",
-    poster: "/images/calile-poster-mobile.webp",
-    width: 768,
-    height: 996,
-  },
-};
+import {getImage} from 'astro:assets';
+import {websiteSection,websiteImage} from '@/lib/website';
+// The layout and reduced-motion behavior remain code; published values come
+// from the revision-managed Background videos and posters section in EmDash.
+export async function getHeroVideo(){
+ const section=await websiteSection('hero-media');
+ const poster=async(value:any,path:string,width:number,height:number)=>{
+  if(!value?.id)return {poster:path,width,height};
+  const selected=websiteImage(value,{src:path,width,height,format:'webp'});
+  const transformed=await getImage({src:selected.image,width,format:'webp'});
+  return {poster:transformed.src,width:selected.image.width,height:selected.image.height};
+ };
+ return {
+  desktop:{src:section.desktop_video,...await poster(section.desktop_poster,section.desktop_poster_path,1920,1080)},
+  mobile:{src:section.mobile_video,...await poster(section.mobile_poster,section.mobile_poster_path,768,996)},
+  alt:section.poster_alt,
+ };
+}
