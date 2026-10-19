@@ -462,7 +462,7 @@
                 "show_pricing": false
               },
               {
-                "answer": "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, all travel required for your booking, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
+                "answer": "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages. Additional travel fees can apply beyond the usual service area.",
                 "question": "What does your fee include?",
                 "show_pricing": true
               },
@@ -517,7 +517,7 @@
         "title": "FAQs · Questions and answers"
       },
       "publishedAt": "2026-10-19T12:09:34.427Z",
-      "updatedAt": "2026-10-19 12:09:34"
+      "updatedAt": "2026-10-19 12:41:36"
     },
     "footer": {
       "cmsId": "01M5A12K3SA7GNGQRSE05FAC3F",
@@ -909,7 +909,7 @@
                     "_key": "s7",
                     "_type": "span",
                     "marks": [],
-                    "text": "Travel may be included within the service area; additional travel fees can apply depending on distance and timing."
+                    "text": "Additional travel fees can apply beyond the usual service area."
                   }
                 ],
                 "markDefs": [],
@@ -921,7 +921,7 @@
         "title": "Service and price · Page copy and inclusions"
       },
       "publishedAt": "2026-10-19T12:10:00.120Z",
-      "updatedAt": "2026-10-19 12:09:59"
+      "updatedAt": "2026-10-19 12:41:39"
     },
     "readings-intro": {
       "cmsId": "01M5A12E42JQ5N3TPXVY6TVQTM",
