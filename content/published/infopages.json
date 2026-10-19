@@ -438,8 +438,13 @@
             "style": "normal"
           }
         ],
+        "hide_from_search": null,
         "page": "What do celebrants charge and how much do celebrants cost",
-        "pub_date": "2025-12-18T00:00:00.000Z"
+        "preferred_url": null,
+        "pub_date": "2025-12-18T00:00:00.000Z",
+        "search_description": null,
+        "search_title": null,
+        "social_image": null
       },
       "publishedAt": "2026-10-01T10:53:16.743Z",
       "updatedAt": "2026-10-16 20:37:43"
@@ -517,8 +522,13 @@
             "style": "normal"
           }
         ],
+        "hide_from_search": null,
         "page": "Privacy Policy",
-        "pub_date": "2025-11-25T00:00:00.000Z"
+        "preferred_url": null,
+        "pub_date": "2025-11-25T00:00:00.000Z",
+        "search_description": null,
+        "search_title": null,
+        "social_image": null
       },
       "publishedAt": "2026-10-01T10:53:16.744Z",
       "updatedAt": "2026-10-01 10:53:16"
@@ -741,8 +751,13 @@
             "style": "normal"
           }
         ],
+        "hide_from_search": null,
         "page": "Terms and Conditions",
-        "pub_date": "2025-11-25T00:00:00.000Z"
+        "preferred_url": null,
+        "pub_date": "2025-11-25T00:00:00.000Z",
+        "search_description": null,
+        "search_title": null,
+        "social_image": null
       },
       "publishedAt": "2026-10-01T10:53:16.745Z",
       "updatedAt": "2026-10-01 10:53:16"

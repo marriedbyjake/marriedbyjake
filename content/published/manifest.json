@@ -1,22 +1,24 @@
 {
-  "contentHash": "99e71c4554c04351bdc245663fd9f1e856b57e2fcd251773c54757f73aee2c60",
+  "contentHash": "26e9dc63feb5bbb85a7508f72c661c76744c27d475cff5e7ca59bf688deed85a",
   "counts": {
     "infopages": 3,
     "posts": 22,
     "pricing": 1,
     "readings": 12,
     "services": 4,
+    "website": 47,
     "weddingtestimonials": 585
   },
   "files": {
-    "infopages.json": "76857ffa0a6edc055a7d22fc440781e67f8bbd1d28d8b1fc0085621ec756655a",
+    "infopages.json": "7f8073bd93a2c7d1e47244453806b2f08ba82d0b619150c06466bb3c54113211",
     "media.json": "9814bd7374d0b91d72be27e5107895de3b3a0cb64981870528453df152ccd024",
-    "posts.json": "3b79a52cf086620ae0368256907c6667ec2f0c4ae7c1bc567df9a83473578d96",
-    "pricing.json": "a6bb40497ced12c29641d34d24b33dd96b00acad56cbdccdeeb172644a2a20d7",
+    "posts.json": "a4eb45f545ffaee14b04a05ee69cfa05abd75c8f35a2c55a0da0728071b0fa6e",
+    "pricing.json": "0c6eaec286d193e7890da744baf83fa53879825a7753985b711184994de13bb0",
     "readings.json": "d786adc5142d120aab351083b8e7bd858dd7993f64406822c399feeb0b6bbfcd",
-    "services.json": "75edc679dbe3dae1b184d98f734809a1f0bf761927d8cf7dcd44a31a9d9606cf",
-    "shared.json": "32c7c98e87240626c02d708beff3800c37935e28c055ff2aa58edb5c63d368ce",
-    "weddingtestimonials.json": "114c404a1dc419758fb812c33c64c7f91eef5022860f8d54a6963da69031d881"
+    "services.json": "ad41b2a91e985cbf4659acc25cb66217c13bd7bc6dcfad9ce09da3a383c6676b",
+    "shared.json": "46b1401eb75507ac7c27950c0e63ea5f879516cfa020b6c1aa94dc257fdb2d57",
+    "website.json": "a3f4e2d7aa5ddfa60ac11ad810e58f1028eb868ff1ab522bab3250b6a6c6a92c",
+    "weddingtestimonials.json": "a9bb9784d3f25067b8edeabeb2b1c3a7e06a002dcc4df3dbe28f33b711e495f8"
   },
   "formatVersion": 1
 }

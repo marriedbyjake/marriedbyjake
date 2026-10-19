@@ -636,8 +636,13 @@
           "provider": "local",
           "width": 1200
         },
+        "hide_from_search": null,
         "icon": null,
         "order": 2,
+        "preferred_url": null,
+        "search_description": null,
+        "search_title": null,
+        "social_image": null,
         "summary": "Warm, thoughtful Christian wedding ceremonies that honour faith and your story.",
         "title": "Christian Wedding Celebrant"
       },
@@ -794,8 +799,13 @@
           "provider": "local",
           "width": 1600
         },
+        "hide_from_search": null,
         "icon": null,
         "order": 2,
+        "preferred_url": null,
+        "search_description": null,
+        "search_title": null,
+        "social_image": null,
         "summary": "Intimate elopements in stunning locations across Australia and beyond.",
         "title": "Destination and Christian Elopements"
       },
@@ -1190,8 +1200,13 @@
           "provider": "local",
           "width": 1200
         },
+        "hide_from_search": null,
         "icon": null,
         "order": 3,
+        "preferred_url": null,
+        "search_description": null,
+        "search_title": null,
+        "social_image": null,
         "summary": "Relaxed, professional MC to host your reception with warmth and clarity.",
         "title": "Master of Ceremonies"
       },
@@ -1492,8 +1507,13 @@
           "provider": "local",
           "width": 1200
         },
+        "hide_from_search": null,
         "icon": null,
         "order": 1,
+        "preferred_url": null,
+        "search_description": null,
+        "search_title": null,
+        "social_image": null,
         "summary": "Personal, meaningful ceremonies tailored to your story and beliefs.",
         "title": "Wedding Celebrant"
       },
