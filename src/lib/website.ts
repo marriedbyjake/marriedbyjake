@@ -8,6 +8,7 @@ import shared from '../../content/published/shared.json';
 import manifest from '../../content/published/manifest.json';
 import {committedImage} from './published-media';
 import {validateWebsiteEntry} from '../../scripts/lib/website-model.mjs';
+import {canonicalInternalLink} from './internal-links';
 import type {ImageMetadata} from 'astro';
 
 export type WebsiteSection = keyof typeof defaults;
@@ -33,7 +34,7 @@ export function websiteMenu(name:keyof typeof menuDefaults) {
  const menu=(shared.menus as any[]).find(menu=>menu.name===name);
  if(!menu){if(Object.hasOwn(manifest.counts,'website'))throw Error(`Required menu is missing: ${name}`);return menuDefaults[name].items;}
  const items=(shared.menuItems as any[]).filter(item=>item.menu_id===menu.id);
- const flatten=(parent:string|null,depth=0):any[]=>items.filter(item=>item.parent_id===parent).sort((a,b)=>a.sort_order-b.sort_order||a.id.localeCompare(b.id)).flatMap(item=>[{label:item.label,href:item.href,target:item.target||undefined,depth},...flatten(item.id,depth+1)]);
+ const flatten=(parent:string|null,depth=0):any[]=>items.filter(item=>item.parent_id===parent).sort((a,b)=>a.sort_order-b.sort_order||a.id.localeCompare(b.id)).flatMap(item=>[{label:item.label,href:canonicalInternalLink(item.href),target:item.target||undefined,depth},...flatten(item.id,depth+1)]);
  return flatten(null);
 }
 export const siteSettings=shared.settings as Record<string,any>;

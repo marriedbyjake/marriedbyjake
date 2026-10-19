@@ -22,7 +22,7 @@ catch { status = {phase:'unavailable',message:'Publishing status is unavailable.
   {status.reason && <p>{status.reason}</p>}
   {status.pendingCommit && <p>Waiting for release <code>{status.pendingCommit}</code>.</p>}
   {status.lastHealthyAt && <p>Last confirmed live: <time datetime={new Date(status.lastHealthyAt).toISOString()}>{new Date(status.lastHealthyAt).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})} (Brisbane)</time>.</p>}
-  {status.confirmedCommit && <p>Confirmed source: <code>{status.confirmedCommit}</code>.</p>}
+  {status.confirmedCommit && <p>Last confirmed content release: <code>{status.confirmedCommit}</code>.</p>}
   {status.retryAt && <p>Next retry: {new Date(status.retryAt).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})} (Brisbane).</p>}
   {status.canRetry && <form method="post" action="/_publishing/retry"><p>After resolving a conflict or build failure, retry the pending release. This preserves any uncertain Git commit and never overwrites CMS drafts.</p><button type="submit">Retry publishing</button></form>}
   <p><a href="/_publishing">Refresh status</a> · <a href="/" target="_blank" rel="noopener noreferrer">Open public website</a></p>

@@ -17,7 +17,7 @@ The compatible update reduced npm audit findings from six high/six moderate to z
 
 The live source is the EmDash `pricing/index` entry, not `src/content/pricing/index.md`. `src/lib/pricing.ts` exposes that entry to the pricing page and `PricingReference.astro`. FAQ, service and celebrant-cost references retain the complete published price string and link to `/serviceandprice`. Existing editorial prose is preserved. CMS publishing remains independent of deployment.
 
-An owner decision is still required for the exact GST and travel terms: the published Australian price says `$2,000 + tax and travel`, the pricing template says `GST included` and allows additional travel fees, while the FAQ says all required booking travel is included. Confirm whether the fee includes GST and which travel is included before reconciling those words. The implementation does not choose a tax policy or change the advertised amounts.
+On 19 October the owner confirmed that additional travel fees can apply beyond the usual service area. The FAQ and pricing-page Website sections were corrected through native EmDash drafts and publication. An owner decision is still required for GST: the published Australian price says `$2,000 + tax and travel`, while the pricing inclusions say `GST included`. The implementation does not choose a tax policy or change the advertised amounts.
 
 ## Verification
 
