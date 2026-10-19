@@ -35,13 +35,20 @@ export class GitHubPublisher {
   const value=await response.json();if(value.errors)throw new PublicationConflict('Git reference changed or the repository rejected this publication');return value;
  }
  async head(){const result=await this.request(`${root}/git/ref/heads/main`);if(!oid(result.object?.sha))throw Error('Invalid Git main reference');return result.object.sha;}
+ async isAncestor(base,head){
+  if(!oid(base)||!oid(head))return false;
+  if(base===head)return true;
+  const comparison=await this.request(`${root}/compare/${base}...${head}?per_page=1`);
+  return comparison.status==='ahead'&&comparison.behind_by===0&&comparison.ahead_by>0&&comparison.base_commit?.sha===base&&comparison.merge_base_commit?.sha===base;
+ }
  async blobJson(sha){
   if(!oid(sha))throw Error('Invalid Git blob');const blob=await this.request(`${root}/git/blobs/${sha}`);
   if(blob.encoding!=='base64'||blob.size>4*1024*1024)throw Error('Invalid or oversized Git release metadata');
   const bytes=Buffer.from(blob.content.replace(/\s/g,''),'base64');if(gitBlobHash(bytes)!==sha)throw Error('Git blob verification failed');return JSON.parse(bytes.toString('utf8'));
  }
- async remote(){
-  const head=await this.head();const commit=await this.request(`${root}/git/commits/${head}`);
+ async remote(head){
+  head??=await this.head();if(!oid(head))throw Error('Invalid Git release reference');
+  const commit=await this.request(`${root}/git/commits/${head}`);
   const tree=await this.request(`${root}/git/trees/${commit.tree.sha}?recursive=1`);
   if(tree.truncated||!Array.isArray(tree.tree)||tree.tree.length>20_000)throw Error('Incomplete or oversized Git tree');
   const paths=Object.fromEntries(tree.tree.filter(item=>item.type==='blob'&&managedPath(item.path)).map(item=>[item.path,item.sha]));

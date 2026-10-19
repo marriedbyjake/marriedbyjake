@@ -38,7 +38,16 @@ export async function runPublisher(env,dependencies={}){
   if(state.pending){
    const response=await (dependencies.fetcher||fetch)('https://marriedbyjake.com/release.json',{cache:'no-store',signal:AbortSignal.timeout(10_000)});
    if(!response.ok)throw Error('Live release status is unavailable');const live=await response.json();
-   if(live.contentHash===state.pending.contentHash&&live.sourceCommit===state.pending.commit){
+   let confirmed=live.contentHash===state.pending.contentHash&&live.sourceCommit===state.pending.commit;
+   // A later renderer commit can supersede the content build before activation.
+   // Verify ancestry and every managed blob at that exact deployed source;
+   // a matching manifest hash alone cannot authorize unrelated or edited files.
+   if(!confirmed&&live.contentHash===state.pending.contentHash&&await client.isAncestor(state.pending.commit,live.sourceCommit)){
+    const released=await client.remote(live.sourceCommit);
+    if(released.manifest.contentHash!==state.pending.contentHash||pathsHash(released.paths)!==state.baselinePathsHash)throw new PublicationConflict('The deployed descendant changed published Git files; reconcile before resuming');
+    confirmed=true;
+   }
+   if(confirmed){
     await save({...state,phase:'healthy',confirmedCommit:state.pending.commit,pending:undefined,failures:0,retryAt:undefined,reason:undefined,lastHealthyAt:Date.now()});return {phase:'healthy'};
    }
    if(Date.now()-state.pending.pushedAt>30*60_000)throw new PublicationPaused('Git release has not become live within 30 minutes; inspect Cloudflare Builds');

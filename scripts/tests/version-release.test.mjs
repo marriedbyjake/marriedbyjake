@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {releaseVersion,awaitBackendRelease,claimDeployment} from '../lib/version-release.mjs';
+import {releaseVersion,awaitBackendRelease,awaitLiveRelease,claimDeployment} from '../lib/version-release.mjs';
 import {wranglerReleaseTools} from '../lib/wrangler-release.mjs';
 import fs from 'node:fs/promises';
 import os from 'node:os';
@@ -36,6 +36,13 @@ test('coordinated builds retry a busy deployment lease, but stop for stale sourc
  assert.equal(await claimDeployment({commit:'exact',head:async()=>'exact',claim:async()=>++tries<3?busy():'lease',now:()=>now,wait:async ms=>{now+=ms;}}),'lease');assert.equal(tries,3);
  await assert.rejects(claimDeployment({commit:'exact',head:async()=>'new',claim:async()=>assert.fail('must not claim')}),/Stale/);
  await assert.rejects(claimDeployment({commit:'exact',head:async()=>'exact',claim:async()=>{throw Error('unauthorized');}}),/unauthorized/);
+});
+test('activation propagation keeps exact source/content checks and a bounded rollback deadline',async()=>{
+ const expected={sourceCommit:'exact',contentHash:'content'};let reads=0,clock=0,guards=0;
+ await awaitLiveRelease({expected,assertCurrent:async()=>{guards++;},read:async()=>++reads<3?{...expected,sourceCommit:'previous'}:expected,now:()=>clock,wait:async ms=>{clock+=ms;}});
+ assert.equal(reads,3);assert.equal(guards,3);
+ clock=0;await assert.rejects(awaitLiveRelease({expected,assertCurrent:async()=>{},read:async()=>({...expected,contentHash:'wrong'}),now:()=>clock,wait:async ms=>{clock+=ms;},timeoutMs:5_000}),/did not converge/);assert.equal(clock,5_000);
+ await assert.rejects(awaitLiveRelease({expected,assertCurrent:async()=>{throw Error('lease or source changed');},read:async()=>assert.fail('Must not read after the fence fails')}),/lease or source changed/);
 });
 test('version operations preserve Cloudflare Builds existing structured receipts',async()=>{
  const dir=await fs.mkdtemp(os.tmpdir()+'/mbj-ci-receipt-');const previous=process.env.WRANGLER_OUTPUT_FILE_PATH;

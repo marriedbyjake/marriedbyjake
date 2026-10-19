@@ -15,6 +15,11 @@ async function remote(request,init,env,scenario){
  if(pathname.endsWith('/access_tokens'))return Response.json({token:'synthetic-token',permissions:{contents:'write'},repositories:[{id:1104160905,full_name:'marriedbyjake/marriedbyjake'}],expires_at:new Date(Date.now()+3600_000).toISOString()});
  if(pathname.endsWith('/git/ref/heads/main'))return Response.json({object:{sha:(await get(env,'head'))||base.head}});
  if(pathname==='/repos/marriedbyjake/marriedbyjake')return Response.json({id:1104160905,full_name:'marriedbyjake/marriedbyjake',node_id:'synthetic-repository-node'});
+ if(method==='GET'&&pathname.includes('/compare/')){
+  const [ancestor,head]=pathname.split('/').at(-1).split('...');const queue=[head],seen=new Set();let found=false;
+  while(queue.length&&seen.size<100){const sha=queue.shift();if(sha===ancestor){found=true;break;}if(seen.has(sha))continue;seen.add(sha);const commit=await get(env,`commit/${sha}`);queue.push(...(commit?.parents||[]).map(parent=>typeof parent==='string'?parent:parent.sha));}
+  return Response.json({status:found?'ahead':'diverged',behind_by:found?0:1,ahead_by:1,base_commit:{sha:ancestor},merge_base_commit:{sha:found?ancestor:base.head}});
+ }
  if(method==='GET'&&pathname.includes('/git/commits/')){const commit=pathname.split('/').at(-1);return Response.json(await get(env,`commit/${commit}`));}
  if(method==='GET'&&pathname.includes('/git/trees/')){const tree=await get(env,`tree/${pathname.split('/').at(-1)}`);return Response.json({truncated:false,tree:Object.entries(tree).map(([path,sha])=>({path,sha,type:'blob',mode:'100644'}))});}
  if(method==='GET'&&pathname.includes('/git/blobs/')){const object=await env.MEDIA.get(`__test/blob/${pathname.split('/').at(-1)}`);const bytes=Buffer.from(await object.arrayBuffer());return Response.json({encoding:'base64',content:bytes.toString('base64'),size:bytes.length});}

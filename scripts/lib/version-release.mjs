@@ -36,6 +36,20 @@ export async function awaitBackendRelease({expected,read,head,now=Date.now,wait=
  throw Error('Matching CMS release was not healthy in time; existing public version retained');
 }
 
+// Traffic control can acknowledge activation before every request sees it.
+// Keep exact identity checks, the lease and source fence throughout a short,
+// bounded propagation window; the caller rolls back if it never converges.
+export async function awaitLiveRelease({expected,read,assertCurrent,now=Date.now,wait=ms=>new Promise(resolve=>setTimeout(resolve,ms)),timeoutMs=60_000}) {
+ const end=now()+timeoutMs;
+ while(true){
+  await assertCurrent();
+  const actual=await read().catch(()=>null);
+  if(actual?.sourceCommit===expected.sourceCommit&&actual?.contentHash===expected.contentHash)return;
+  if(now()>=end)throw Error('Live release identity did not converge before the deadline');
+  await wait(Math.min(3_000,end-now()));
+ }
+}
+
 export async function claimDeployment({claim,commit,head,now=Date.now,wait=ms=>new Promise(resolve=>setTimeout(resolve,ms)),timeoutMs=180_000}) {
  const end=now()+timeoutMs;
  while(true){

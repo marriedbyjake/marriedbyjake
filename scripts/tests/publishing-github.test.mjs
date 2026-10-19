@@ -21,6 +21,7 @@ function mock(options={}){
    return Response.json(options.conflict?{errors:[{message:'synthetic conflict'}]}:{data:{updateRefs:{clientMutationId:null}}});
   }
   if(url.endsWith('/git/ref/heads/main'))return Response.json({object:{sha:options.accepted?next:oid}});
+  if(url.includes('/compare/'))return Response.json({status:'ahead',behind_by:0,ahead_by:1,base_commit:{sha:oid},merge_base_commit:{sha:oid},...options.comparison});
   throw Error('Unexpected test request');
  };
  return {calls,client:new GitHubPublisher(config,fetcher,async()=>{guard++;}),guards:()=>guard};
@@ -43,4 +44,10 @@ test('unapproved targets and paths are rejected before any API write',async()=>{
  const {client,calls}=mock();await assert.rejects(client.request('https://example.invalid/steal','POST',{}),/Unapproved/);
  await assert.rejects(client.commit({paths:{}},{'src/worker.ts':oid},'hash'),/unapproved path/);assert.equal(calls.length,0);
  assert.ok(managedPath('content/published/posts.json'));assert.ok(!managedPath('content/published/../private.json'));
+});
+test('release ancestry requires exact valid references and an unambiguous ahead comparison',async()=>{
+ const {client,calls}=mock();assert.equal(await client.isAncestor(oid,'main/../../secret'),false);assert.equal(calls.length,0);
+ assert.equal(await client.isAncestor(oid,next),true);
+ for(const comparison of [{status:'diverged'},{behind_by:1},{base_commit:{sha:next}},{merge_base_commit:{sha:next}}])assert.equal(await mock({comparison}).client.isAncestor(oid,next),false);
+ await assert.rejects(client.remote('main/../../secret'),/Invalid Git release reference/);
 });

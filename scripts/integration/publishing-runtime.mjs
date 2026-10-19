@@ -90,6 +90,16 @@ test('native controller leaves private-only media out, publishes a referenced im
  commit=await f.get(`commit/${state.pending.commit}`);tree=await f.get(`tree/${commit.tree.sha}`);assert.ok(!tree[`src/images/published/${hash}.webp`]);
  const media=JSON.parse(await (await f.bucket.get(`__test/blob/${tree['content/published/media.json']}`)).text());assert.deepEqual(media.items,{});
 }));
+for(const changedContent of [false,true])test(`native controller ${changedContent?'rejects changed managed files in':'confirms unchanged content in'} a deployed descendant`,()=>fixture(async f=>{
+ await bootstrap(f);await republish(f.db);await f.tick();await f.tick();const state=await f.state(),pending=state.pending.commit;
+ const original=await f.get('commit/'+pending),tree={...await f.get('tree/'+original.tree.sha),'src/worker.ts':'9'.repeat(40)};
+ if(changedContent)tree['content/published/posts.json']='8'.repeat(40);
+ const treeId=gitBlobHash(Buffer.from(json(tree))),commit={tree:{sha:treeId},parents:[pending]},head=gitBlobHash(Buffer.from(json(commit)));
+ await f.put('tree/'+treeId,tree);await f.put('commit/'+head,commit);await f.put('head',head);await f.put('live',{sourceCommit:head,contentHash:state.pending.contentHash});
+ assert.equal((await f.tick()).phase,changedContent?'paused':'healthy');
+ const after=await f.state();if(changedContent)assert.equal(after.pending.commit,pending);else{assert.equal(after.pending,undefined);assert.equal(after.confirmedCommit,pending);assert.equal((await f.tick()).phase,'healthy');}
+ assert.equal(await f.get('head'),head);
+}));
 test('native controller rejects a Git race and preserves the other head',()=>fixture(async f=>{
  await bootstrap(f);await republish(f.db);await f.tick();assert.equal((await f.tick('/tick?scenario=git-race')).phase,'paused');assert.equal(await f.get('head'),'d'.repeat(40));assert.equal((await f.state()).pending,undefined);
 }));

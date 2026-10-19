@@ -5,7 +5,7 @@ import {buildSource} from './lib/build-source.mjs';
 import {verifyPublished} from './verify-published.mjs';
 import {guardedDeployment} from './lib/deployment-gate.mjs';
 import {prepareDeploymentConfig} from './lib/deployment-config.mjs';
-import {releaseVersion,awaitBackendRelease,claimDeployment} from './lib/version-release.mjs';
+import {releaseVersion,awaitBackendRelease,awaitLiveRelease,claimDeployment} from './lib/version-release.mjs';
 import {wranglerReleaseTools} from './lib/wrangler-release.mjs';
 
 const target=process.argv[2]||'cms';
@@ -58,8 +58,9 @@ const claim=async()=>{
 const tools=await wranglerReleaseTools({config,workerName:reviewed.name,commit:source.commit});
 const base=target==='cms'?backend:'https://marriedbyjake-public.withersco.workers.dev';
 const healthy=async()=>{
- const release=await json(base+'/release.json');
- if(release.sourceCommit!==source.commit||release.contentHash!==manifest.contentHash)throw Error('Live release identity mismatch');
+ await awaitLiveRelease({expected,read:()=>json(base+'/release.json'),assertCurrent:async()=>{
+  await lease.assert();if(await head()!==source.commit)throw Error('Stale build: main advanced during live verification');
+ }});
  for(const path of ['/','/weddingtestimonials?page=2','/search.json','/rss.xml','/sitemap-index.xml']){
   const response=await fetch(base+path,{headers:{'User-Agent':'Mozilla/5.0 MarriedByJakeRelease'},signal:AbortSignal.timeout(20_000)});
   if(!response.ok)throw Error(`Live release smoke check failed (${response.status})`);await response.body?.cancel();
