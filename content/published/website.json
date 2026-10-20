@@ -128,12 +128,12 @@
             "quote_url": "/weddingtestimonials/maddison-and-matthew",
             "steps": [
               {
-                "bullets": "Send an enquiry with your date and venue details\nJake confirms availability and shares his fee and inclusions\nJump on a short chat if you’d like to meet before booking",
+                "bullets": "Send an enquiry with your date and venue details\nJake confirms availability and shares what’s included\nJump on a short chat if you’d like to meet before booking",
                 "description": "Everything starts with a quick hello. You reach out, Jake checks his availability, and you get a clear sense of whether he’s the right fit for your day.",
                 "title": "Say hi & check your date"
               },
               {
-                "bullets": "Pay a booking fee to reserve your date in Jake’s calendar\nComplete the Notice of Intended Marriage (NOIM) together\nGet clear guidance on what ID and documents you’ll need",
+                "bullets": "Complete your booking to reserve your date in Jake’s calendar\nComplete the Notice of Intended Marriage (NOIM) together\nGet clear guidance on what ID and documents you’ll need",
                 "description": "Once you’re ready, you secure the booking and Jake walks you through the legal bits in plain language, so nothing feels confusing or stressful.",
                 "title": "Lock it in & start the paperwork"
               },
@@ -153,7 +153,7 @@
         "title": "Shared · How it works"
       },
       "publishedAt": "2026-10-19T12:09:27.617Z",
-      "updatedAt": "2026-10-19 12:09:27"
+      "updatedAt": "2026-10-20 00:19:25"
     },
     "blog-intro": {
       "cmsId": "01M5A12C0FVKD92J5YEDWR9SN2",
@@ -462,9 +462,9 @@
                 "show_pricing": false
               },
               {
-                "answer": "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages. Additional travel fees can apply beyond the usual service area.",
-                "question": "What does your fee include?",
-                "show_pricing": true
+                "answer": "Your ceremony includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
+                "question": "What is included in your ceremony?",
+                "show_pricing": false
               },
               {
                 "answer": "Absolutely. Jake provides guidance, examples, and a simple structure to help you craft vows that feel natural and personal. If writing isn’t your thing, he’ll gently coach you through it.",
@@ -517,7 +517,7 @@
         "title": "FAQs · Questions and answers"
       },
       "publishedAt": "2026-10-19T12:09:34.427Z",
-      "updatedAt": "2026-10-19 12:41:36"
+      "updatedAt": "2026-10-20 00:19:22"
     },
     "footer": {
       "cmsId": "01M5A12K3SA7GNGQRSE05FAC3F",
@@ -806,7 +806,7 @@
                     "_key": "s11",
                     "_type": "span",
                     "marks": [],
-                    "text": "If you’d like to understand more about pricing and inclusions, our FAQs cover what Jake’s fee includes and how travel works."
+                    "text": "For ceremony preparation, legal requirements and what happens next, read the FAQs."
                   }
                 ],
                 "markDefs": [],
@@ -818,7 +818,7 @@
             "excluded_items": "That horrible, awkward feeling (cringe) at a ceremony\nGuests who have no idea what’s happening\nUnnecessary stress\nA celebrant who is nervous, practising or just reading a script\nForced “jokey” humour — playfulness is welcome, awkwardness is not",
             "heading": "Married by Jake",
             "included_heading": "What’s included",
-            "included_items": "Obligation‑free chat about your day\nCreation of a personal, meaningful and enjoyable ceremony\nUnlimited email communication\nPractical wedding ceremony tips and advice\nOptional ceremony run‑through chat once your ceremony is drafted\nPreparation of your printed Australian Federal Government marriage certificate\nPreparation of all legal paperwork for Births, Deaths and Marriages\nLodgement with the relevant Births, Deaths and Marriages to register your marriage\nCollaboration with your venue and vendors to keep everything smooth\nConfident, warm ceremony delivery by a professional public speaker\nProfessional‑grade portable PA system if required\nCalm support from enquiry to “I do”\nGST included",
+            "included_items": "Obligation‑free chat about your day\nCreation of a personal, meaningful and enjoyable ceremony\nUnlimited email communication\nPractical wedding ceremony tips and advice\nOptional ceremony run‑through chat once your ceremony is drafted\nPreparation of your printed Australian Federal Government marriage certificate\nPreparation of all legal paperwork for Births, Deaths and Marriages\nLodgement with the relevant Births, Deaths and Marriages to register your marriage\nCollaboration with your venue and vendors to keep everything smooth\nConfident, warm ceremony delivery by a professional public speaker\nProfessional‑grade portable PA system if required\nCalm support from enquiry to “I do”",
             "introduction": [
               {
                 "_key": "p2",
@@ -909,7 +909,7 @@
                     "_key": "s7",
                     "_type": "span",
                     "marks": [],
-                    "text": "Additional travel fees can apply beyond the usual service area."
+                    "text": "GST and travel are additional to the Australian ceremony fee."
                   }
                 ],
                 "markDefs": [],
@@ -921,7 +921,7 @@
         "title": "Service and price · Page copy and inclusions"
       },
       "publishedAt": "2026-10-19T12:10:00.120Z",
-      "updatedAt": "2026-10-19 12:41:39"
+      "updatedAt": "2026-10-20 00:19:27"
     },
     "readings-intro": {
       "cmsId": "01M5A12E42JQ5N3TPXVY6TVQTM",
@@ -1129,7 +1129,7 @@
             "_type": "page_seo",
             "_version": 1,
             "canonical": "",
-            "description": "Answers about booking Jake Smith, ceremony fees, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines.",
+            "description": "Answers about booking Jake Smith, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines.",
             "image": null,
             "no_index": false,
             "path": "/faq",
@@ -1139,7 +1139,7 @@
         "title": "Search · /faq"
       },
       "publishedAt": "2026-10-19T12:09:45.533Z",
-      "updatedAt": "2026-10-19 12:09:45"
+      "updatedAt": "2026-10-20 00:19:30"
     },
     "seo-gold-coast": {
       "cmsId": "01M5A12ZXDKRKJ4PE4C6K8ZPNC",
@@ -1194,7 +1194,7 @@
             "canonical": "",
             "description": "Explore Jake Smith’s wedding celebrant services and pricing for Australian ceremonies, destination weddings and reception MC services. Plan your celebration.",
             "image": null,
-            "no_index": false,
+            "no_index": true,
             "path": "/serviceandprice",
             "title": "Wedding Celebrant Service and Price"
           }
@@ -1202,7 +1202,7 @@
         "title": "Search · /serviceandprice"
       },
       "publishedAt": "2026-10-19T12:09:49.625Z",
-      "updatedAt": "2026-10-19 12:09:49"
+      "updatedAt": "2026-10-20 00:19:32"
     },
     "seo-services": {
       "cmsId": "01M5A12RVN3M9C8S7M8YRX6XYP",

@@ -604,7 +604,7 @@
               {
                 "_key": "key-11-nk5f4",
                 "_type": "span",
-                "text": "A wedding date is only confirmed once Jake has accepted the booking and all required steps—such as payment of any booking fee and completion of legal documentation—have been finalised."
+                "text": "A wedding date is only confirmed once Jake has accepted the booking and all required steps—such as any required payment and completion of legal documentation—have been finalised."
               }
             ],
             "style": "normal"
@@ -760,7 +760,7 @@
         "social_image": null
       },
       "publishedAt": "2026-10-01T10:53:16.745Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-10-20 00:20:30"
     }
   },
   "formatVersion": 1

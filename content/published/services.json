@@ -660,7 +660,7 @@
               {
                 "_key": "key-1-2f90d",
                 "_type": "span",
-                "text": "For some couples, planning a traditional wedding becomes the very thing that gets in the way of actually getting married. The choices, expectations and costs can snowball until the joy disappears. Jake Smith loves helping couples flip that script — focusing on the heart of the moment rather than the weight of the planning. If you want a simple, meaningful way to get married without the stress, an elopement might be exactly what you need."
+                "text": "For some couples, planning a traditional wedding becomes the very thing that gets in the way of actually getting married. The choices and expectations can snowball until the joy disappears. Jake Smith loves helping couples flip that script — focusing on the heart of the moment rather than the weight of the planning. If you want a simple, meaningful way to get married without the stress, an elopement might be exactly what you need."
               }
             ],
             "style": "normal"
@@ -793,6 +793,9 @@
           "height": 1067,
           "id": "01M3VHHPD4DCDXYDHZJGAA5EQQ",
           "meta": {
+            "blurhash": null,
+            "caption": null,
+            "dominantColor": null,
             "storageKey": "import-02958b337a95757d314c0daf5d8c487d093d8aefca86cd280588f55207cbf76b.jpg"
           },
           "mimeType": "image/webp",
@@ -810,7 +813,7 @@
         "title": "Destination and Christian Elopements"
       },
       "publishedAt": "2026-10-01T10:53:16.729Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-10-20 00:19:34"
     },
     "master-of-ceremonies": {
       "cmsId": "01M3VHHQ1TV433Y51T5DZ6DV8C",

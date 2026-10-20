@@ -4,9 +4,9 @@
       "cmsId": "01M3VHHQ2ANQAJQESFT5Y0D4XX",
       "data": {
         "australian_description": "A personal quote is provided based on date, location and requirements.",
-        "australian_price": "$2,000 including GST for Australian ceremonies",
+        "australian_price": "$2,000 plus GST plus travel for Australian ceremonies",
         "australian_title": "Australian ceremonies",
-        "hide_from_search": null,
+        "hide_from_search": 1,
         "international_description": "Includes legals in Australia and a separate ceremony overseas. Pricing typically ranges depending on logistics.",
         "international_price": "from $2,500–$5000 for international ceremonies",
         "international_title": "International ceremonies",
@@ -20,7 +20,7 @@
         "title": "Service prices"
       },
       "publishedAt": "2026-10-01T10:53:16.746Z",
-      "updatedAt": "2026-10-19 21:39:57"
+      "updatedAt": "2026-10-20 00:19:20"
     }
   },
   "formatVersion": 1
