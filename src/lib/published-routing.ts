@@ -1,6 +1,7 @@
 import { redirects } from '../data/redirects.json';
 import cmsRedirects from '../../content/published/shared.json?public-redirects';
 import manifest from '../../content/published/manifest.json';
+import {unlistedDestination} from './page-discovery.mjs';
 
 export function publicRoute(url: URL) {
   if (url.hostname === 'www.marriedbyjake.com') {
@@ -9,6 +10,12 @@ export function publicRoute(url: URL) {
   }
   const pathname = url.pathname;
   if (pathname.startsWith('/_emdash/') || pathname.startsWith('/_preview/') || pathname === '/_publishing' || pathname.startsWith('/_publishing/') || pathname === '/_image' || pathname === '/_private-image') return { dynamic: true };
+  const unlisted = unlistedDestination(pathname);
+  if (unlisted && (url.searchParams.has('_preview') || url.searchParams.has('_edit'))) return {denied: 403};
+  if (unlisted && pathname !== unlisted) {
+    const canonical = new URL(url); canonical.pathname = unlisted;
+    return {redirect: canonical.pathname + canonical.search, status: 301, noIndex: true};
+  }
   if (pathname !== '/' && pathname.endsWith('/')) {
     const canonical = new URL(url); canonical.pathname = pathname.replace(/\/+$/, '');
     return { redirect: canonical.href, status: 301 };
@@ -31,5 +38,5 @@ export function publicRoute(url: URL) {
     if (url.searchParams.has('page') && (value !== String(page) || page === 1)) return { redirect: page === 1 ? pathname : `${pathname}?page=${page}`, status: 302 };
     return { asset: page === 1 ? '/weddingtestimonials.html' : `/__published/testimonial-pages/${page}.html` };
   }
-  return { asset: pathname === '/' ? '/index.html' : /\.[^/]+$/.test(pathname) ? pathname : `${pathname}.html` };
+  return { asset: pathname === '/' ? '/index.html' : /\.[^/]+$/.test(pathname) ? pathname : `${pathname}.html`, noIndex: !!unlisted };
 }

@@ -66,14 +66,13 @@ export const GET: APIRoute = async () => {
   lines.push(`- [Home](${SITE}/): Overview of Jake Smith's wedding celebrant services across Brisbane and Australia.`);
   lines.push(`- [About Jake](${SITE}/about-jake): Background, story and credentials of celebrant Jake Smith.`);
   lines.push(`- [Contact](${SITE}/contact): Enquire about availability and book Jake for your wedding.`);
-  lines.push(`- [Frequently Asked Questions](${SITE}/faq): Legal requirements, NOIM, booking, fees, travel and more.`);
+  lines.push(`- [Frequently Asked Questions](${SITE}/faq): Legal requirements, NOIM, booking, travel and more.`);
   lines.push(`- [Brisbane Weddings](${SITE}/brisbane): Information for couples getting married in Brisbane.`);
   lines.push(`- [Sydney Weddings](${SITE}/sydney): Information for couples getting married in Sydney.`);
   lines.push(`- [Byron Bay Weddings](${SITE}/byron-bay): Information for couples getting married in Byron Bay and the Northern Rivers.`);
   lines.push(`- [Gold Coast Weddings](${SITE}/gold-coast): Information for couples getting married on the Gold Coast.`);
   lines.push(`- [Sunshine Coast Weddings](${SITE}/sunshine-coast): Information for couples getting married on the Sunshine Coast.`);
   lines.push(`- [Services](${SITE}/services): Full list of ceremony and MC services Jake offers.`);
-  lines.push(`- [Service & Pricing](${SITE}/serviceandprice): Current ceremony pricing and inclusions.`);
   lines.push(`- [Wedding Readings](${SITE}/wedding-readings): Curated collection of readings and poems for ceremonies.`);
   lines.push(`- [Wedding Testimonials](${SITE}/weddingtestimonials): Index of real wedding reviews from past couples.`);
   lines.push(`- [Blog](${SITE}/blog): Articles on wedding planning, ceremonies and Jake's work.`);

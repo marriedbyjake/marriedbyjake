@@ -1,8 +1,9 @@
 ---
 import { getCollection, getEntry } from "@/lib/cms";
 import ServicePage from "@/components/content/ServicePage.astro";
+import {isUnlistedPage} from '@/lib/page-discovery.mjs';
 export async function getStaticPaths() {
-  return [...await getCollection("services"), ...await getCollection("infopages")].map(entry => ({ params: { service: entry.id } }));
+  return [...await getCollection("services"), ...await getCollection("infopages")].filter(entry=>!isUnlistedPage('/'+entry.id)).map(entry => ({ params: { service: entry.id } }));
 }
 const page = await getEntry("services", Astro.params.service!) || await getEntry("infopages", Astro.params.service!);
 if (!page) throw new Error("Missing published service page");

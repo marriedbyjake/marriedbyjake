@@ -1,5 +1,6 @@
 ---
 import seo from "@/data/seo.json";
+import {isUnlistedPage} from '@/lib/page-discovery.mjs';
 import {pageSearch,contentSearch,siteSettings,websiteImage} from "@/lib/website";
 const fallbackSocialImage={src:"/og-image.jpg",width:1200,height:630,format:"jpg" as const};
 const {
@@ -38,7 +39,7 @@ const titleOverrides: Record<string, string> = seo.titles;
 const descriptionOverrides: Record<string, string> = seo.descriptions;
 const pageSettings=await pageSearch(pathKey);
 const entrySettings=Astro.locals.publishedSearch || await contentSearch(pathKey);
-const noIndex=!!Astro.locals.publishedCanonical || !!entrySettings?.hide_from_search || !!pageSettings?.no_index;
+const noIndex=isUnlistedPage(pathKey) || !!Astro.locals.publishedCanonical || !!entrySettings?.hide_from_search || !!pageSettings?.no_index;
 const resolvedTitle = entrySettings?.search_title || pageSettings?.title || titleOverrides[pathKey] || title || siteSettings['site:title'] || defaultTitle;
 const rawDescription = entrySettings?.search_description || pageSettings?.description || descriptionOverrides[pathKey] || description || siteSettings['site:tagline'] || defaultDescription;
 const resolvedDescription = rawDescription.length > 160

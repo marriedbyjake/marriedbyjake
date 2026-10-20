@@ -6,7 +6,7 @@ import { publicRoute } from './lib/published-routing';
 export default {
   async fetch(request: Request, env: PublicEnv) {
     const route = publicRoute(new URL(request.url));
-    if (route.redirect) return new Response(null, { status: route.status, headers: { Location: route.redirect } });
+    if (route.redirect) return new Response(null, { status: route.status, headers: { Location: route.redirect, ...(route.noIndex ? {'X-Robots-Tag':'noindex, nofollow'} : {}) } });
     if (route.denied) return new Response('Unavailable', { status: route.denied, headers: { 'Cache-Control': 'private, no-store', 'X-Robots-Tag': 'noindex' } });
     if (route.dynamic) {
       // Do not expand the trusted passkey origin to the diagnostic hostname.
@@ -20,7 +20,7 @@ export default {
     const url = new URL(request.url); url.pathname = route.asset!; url.search = '';
     const response = await env.ASSETS.fetch(url.href, { method: request.method, headers: request.headers });
     const headers = new Headers(response.headers);
-    if (diagnostic) headers.set('X-Robots-Tag', 'noindex, nofollow');
+    if (diagnostic || route.noIndex) headers.set('X-Robots-Tag', 'noindex, nofollow');
     if (!route.asset!.startsWith('/_astro/')) headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   },

@@ -7,7 +7,8 @@ const compile=source=>moduleUrl(ts.transpileModule(source,{compilerOptions:{targ
 const routingSource=(await readFile(new URL('../../src/lib/published-routing.ts',import.meta.url),'utf8'))
  .replace("from '../data/redirects.json'",`from '${moduleUrl('export const redirects=[{source:"/old",destination:"/contact"}];')}'`)
  .replace("from '../../content/published/shared.json?public-redirects'",`from '${moduleUrl('export default [];')}'`)
- .replace("from '../../content/published/manifest.json'",`from '${moduleUrl('export default {counts:{weddingtestimonials:585}};')}'`);
+ .replace("from '../../content/published/manifest.json'",`from '${moduleUrl('export default {counts:{weddingtestimonials:585}};')}'`)
+ .replace("from './page-discovery.mjs'",`from '${new URL('../../src/lib/page-discovery.mjs',import.meta.url).href}'`);
 const routingModule=compile(routingSource);const {publicRoute}=await import(routingModule);
 const route=path=>publicRoute(new URL(path,'https://marriedbyjake.com'));
 test('query pagination maps to generated assets and clamps aliases',()=>{
@@ -26,6 +27,11 @@ test('canonical and historical redirects preserve established behavior',()=>{
  assert.equal(route('/blog/post.html').redirect,'https://marriedbyjake.com/blog/post');
  assert.equal(route('/_astro/file.webp').asset,'/_astro/file.webp');assert.equal(route('/rss.xml').asset,'/rss.xml');
 });
+test('direct pricing stays available and noindex while historical aliases preserve query strings',()=>{
+ assert.deepEqual(route('/serviceandprice?source=email'),{asset:'/serviceandprice.html',noIndex:true});
+ for(const path of ['/celebrantcost','/celebrantcost.html','/serviceandprice.html','/serviceandprice/'])assert.deepEqual(route(path+'?source=email'),{redirect:'/serviceandprice?source=email',status:301,noIndex:true});
+ for(const path of ['/serviceandprice','/celebrantcost','/serviceandprice.html'])assert.equal(route(path+'?_preview=invalid').denied,403);
+});
 async function workerWithCms(source){
  const worker=await readFile(new URL('../../src/worker.ts',import.meta.url),'utf8');
  return (await import(compile(worker.replace('from "./lib/published-routing"',`from "${routingModule}"`).replaceAll('import("./cms-worker")',`import("${moduleUrl(source)}")`)))).default;
@@ -36,8 +42,9 @@ test('public requests do not initialize the CMS, even before the first private r
  assert.equal(initialized,0,'Importing the public entry must not initialize the CMS');
  const assetRequests=[];
  const env={DB:{prepare(){throw Error('Public request touched D1');}},ASSETS:{fetch:async(url)=>{assetRequests.push(url);return new Response('static HTML',{headers:{'Content-Type':'text/html'}});}}};
- for(const path of ['/','/weddingtestimonials?page=25','/blog/post','/search.json','/missing']){
+ for(const path of ['/','/weddingtestimonials?page=25','/blog/post','/search.json','/missing','/serviceandprice']){
   const response=await worker.fetch(new Request('https://marriedbyjake.com'+path),env,{});assert.equal(await response.text(),'static HTML');assert.match(response.headers.get('Cache-Control'),/^public/);
+  if(path==='/serviceandprice')assert.match(response.headers.get('X-Robots-Tag'),/noindex/);
  }
  assert.equal(initialized,0);assert.equal(dynamic,0);assert.ok(assetRequests[1].endsWith('/__published/testimonial-pages/25.html'));
  for(const [path,status] of [['/?_preview=expired',403],['/__published/testimonial-pages/25.html',404],['https://www.marriedbyjake.com/contact?test=preserved',301],['/contact/',301]])assert.equal((await worker.fetch(new Request(new URL(path,'https://marriedbyjake.com')),env,{})).status,status);

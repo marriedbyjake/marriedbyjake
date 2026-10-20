@@ -39,7 +39,7 @@ There are 47 named Website sections and six connected menus. The private [editin
 
 **Reviews:** preserve the couple’s words and attribution. Venue and location fields control review associations; latitude and longitude control the overview map position. The existing 31 private draft reviews remain private. Complete and review an entry before publishing it.
 
-**Prices:** the Australian ceremony fee is **$2,000 including GST**. Additional travel fees can apply beyond the usual service area. The Pricing entry supplies the shared price references; the pricing-page and FAQ sections supply the explanatory wording.
+**Prices:** the Australian ceremony fee is **$2,000 plus GST plus travel**. Edit the Pricing entry and **Service and price · Page copy and inclusions**. Share [the pricing page](https://marriedbyjake.com/serviceandprice) directly when appropriate. It is excluded from menus, site search, the sitemap and search-engine indexing. Keep pricing copy and links off other public pages. The old `/celebrantcost` URL forwards to this page; its original content remains in EmDash.
 
 **Menus and general settings:** these save directly and queue a release without a draft step. Review those changes before saving. Ordinary content and Website sections have the draft → preview → publish workflow.
 

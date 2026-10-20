@@ -9,6 +9,7 @@ import manifest from '../../content/published/manifest.json';
 import {committedImage} from './published-media';
 import {validateWebsiteEntry} from '../../scripts/lib/website-model.mjs';
 import {canonicalInternalLink} from './internal-links';
+import {isUnlistedPage} from './page-discovery.mjs';
 import type {ImageMetadata} from 'astro';
 
 export type WebsiteSection = keyof typeof defaults;
@@ -32,10 +33,10 @@ export function websiteImage(source:any,fallback:ImageMetadata) {
 }
 export function websiteMenu(name:keyof typeof menuDefaults) {
  const menu=(shared.menus as any[]).find(menu=>menu.name===name);
- if(!menu){if(Object.hasOwn(manifest.counts,'website'))throw Error(`Required menu is missing: ${name}`);return menuDefaults[name].items;}
+ if(!menu){if(Object.hasOwn(manifest.counts,'website'))throw Error(`Required menu is missing: ${name}`);return menuDefaults[name].items.filter(item=>!isUnlistedPage(item.href));}
  const items=(shared.menuItems as any[]).filter(item=>item.menu_id===menu.id);
  const flatten=(parent:string|null,depth=0):any[]=>items.filter(item=>item.parent_id===parent).sort((a,b)=>a.sort_order-b.sort_order||a.id.localeCompare(b.id)).flatMap(item=>[{label:item.label,href:canonicalInternalLink(item.href),target:item.target||undefined,depth},...flatten(item.id,depth+1)]);
- return flatten(null);
+ return flatten(null).filter(item=>!isUnlistedPage(item.href));
 }
 export const siteSettings=shared.settings as Record<string,any>;
 export async function pageSearch(path:string) {

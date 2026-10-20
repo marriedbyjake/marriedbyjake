@@ -1,4 +1,5 @@
 import {pageSearch,contentSearch} from "@/lib/website";
+import {isUnlistedPage} from '@/lib/page-discovery.mjs';
 import type { APIRoute } from "astro";
 import { getCollection } from "@/lib/cms";
 import { testimonialPageCount, testimonialPageUrl } from "@/lib/testimonial-pagination";
@@ -24,6 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...[...services, ...infoPages].map((entry) => ({ path: `/${entry.id}`, updatedAt: entry.updatedAt })),
   ];
   const visible = (await Promise.all(urls.map(async entry=>{
+    if(isUnlistedPage(entry.path))return undefined;
     const clean=entry.path.split('?')[0];
     const settings=await pageSearch(clean), content=await contentSearch(clean);
     const canonical=content?.preferred_url || settings?.canonical;

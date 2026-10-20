@@ -652,12 +652,12 @@
           {
             "title": "Say hi & check your date",
             "description": "Everything starts with a quick hello. You reach out, Jake checks his availability, and you get a clear sense of whether he’s the right fit for your day.",
-            "bullets": "Send an enquiry with your date and venue details\nJake confirms availability and shares his fee and inclusions\nJump on a short chat if you’d like to meet before booking"
+            "bullets": "Send an enquiry with your date and venue details\nJake confirms availability and shares what’s included\nJump on a short chat if you’d like to meet before booking"
           },
           {
             "title": "Lock it in & start the paperwork",
             "description": "Once you’re ready, you secure the booking and Jake walks you through the legal bits in plain language, so nothing feels confusing or stressful.",
-            "bullets": "Pay a booking fee to reserve your date in Jake’s calendar\nComplete the Notice of Intended Marriage (NOIM) together\nGet clear guidance on what ID and documents you’ll need"
+            "bullets": "Complete your booking to reserve your date in Jake’s calendar\nComplete the Notice of Intended Marriage (NOIM) together\nGet clear guidance on what ID and documents you’ll need"
           },
           {
             "title": "Plan a ceremony that feels like you",
@@ -920,9 +920,9 @@
             "show_pricing": false
           },
           {
-            "question": "What does your fee include?",
-            "answer": "Jake’s fee includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, all travel required for your booking, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
-            "show_pricing": true
+            "question": "What is included in your ceremony?",
+            "answer": "Your ceremony includes an initial and final video chat discussing processes and key moments with you, ceremony preparation and delivery, PA system use, conducting the ceremony and lodging all legal paperwork with the relevant Births, Deaths and Marriages.",
+            "show_pricing": false
           },
           {
             "question": "Do you help with writing vows?",
@@ -1337,7 +1337,7 @@
         "_key": "seo-faq",
         "path": "/faq",
         "title": "Frequently Asked Questions Married By Jake",
-        "description": "Answers about booking Jake Smith, ceremony fees, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines.",
+        "description": "Answers about booking Jake Smith, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines.",
         "canonical": "",
         "no_index": false,
         "image": null
@@ -1407,7 +1407,7 @@
         "title": "Wedding Celebrant Service and Price",
         "description": "Explore Jake Smith’s wedding celebrant services and pricing for Australian ceremonies, destination weddings and reception MC services. Plan your celebration.",
         "canonical": "",
-        "no_index": false,
+        "no_index": true,
         "image": null
       }
     ]
@@ -1634,7 +1634,7 @@
               {
                 "_type": "span",
                 "_key": "s7",
-                "text": "Travel may be included within the service area; additional travel fees can apply depending on distance and timing.",
+                "text": "GST and travel are additional to the Australian ceremony fee.",
                 "marks": []
               }
             ]
@@ -1667,7 +1667,7 @@
               {
                 "_type": "span",
                 "_key": "s11",
-                "text": "If you’d like to understand more about pricing and inclusions, our FAQs cover what Jake’s fee includes and how travel works.",
+                "text": "For ceremony preparation, legal requirements and what happens next, read the FAQs.",
                 "marks": []
               }
             ]
@@ -1691,7 +1691,7 @@
           }
         ],
         "excluded_items": "That horrible, awkward feeling (cringe) at a ceremony\nGuests who have no idea what’s happening\nUnnecessary stress\nA celebrant who is nervous, practising or just reading a script\nForced “jokey” humour — playfulness is welcome, awkwardness is not",
-        "included_items": "Obligation‑free chat about your day\nCreation of a personal, meaningful and enjoyable ceremony\nUnlimited email communication\nPractical wedding ceremony tips and advice\nOptional ceremony run‑through chat once your ceremony is drafted\nPreparation of your printed Australian Federal Government marriage certificate\nPreparation of all legal paperwork for Births, Deaths and Marriages\nLodgement with the relevant Births, Deaths and Marriages to register your marriage\nCollaboration with your venue and vendors to keep everything smooth\nConfident, warm ceremony delivery by a professional public speaker\nProfessional‑grade portable PA system if required\nCalm support from enquiry to “I do”\nGST included",
+        "included_items": "Obligation‑free chat about your day\nCreation of a personal, meaningful and enjoyable ceremony\nUnlimited email communication\nPractical wedding ceremony tips and advice\nOptional ceremony run‑through chat once your ceremony is drafted\nPreparation of your printed Australian Federal Government marriage certificate\nPreparation of all legal paperwork for Births, Deaths and Marriages\nLodgement with the relevant Births, Deaths and Marriages to register your marriage\nCollaboration with your venue and vendors to keep everything smooth\nConfident, warm ceremony delivery by a professional public speaker\nProfessional‑grade portable PA system if required\nCalm support from enquiry to “I do”",
         "booking_steps": "Receive a booking link to view your invoice and contract\nOnce booked, Jake turns away other enquiries for your date\nYou’ll be guided through all legal paperwork and timelines\nHelpful information and ceremony planning support provided"
       }
     ]

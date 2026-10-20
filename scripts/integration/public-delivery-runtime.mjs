@@ -39,6 +39,13 @@ test('the complete public package preserves every page and native private servic
    assert.equal(hash(Buffer.from(await response.arrayBuffer())),hash(await fs.readFile(path.join(assets,file))),file);
   }
   const release=await(await get('/release.json')).json();assert.equal(release.sourceCommit,manifest.sourceCommit);assert.equal(release.contentHash,manifest.contentHash);
+  for(const method of ['GET','HEAD']){
+   const pricing=await get('/serviceandprice?source=direct',{method});assert.equal(pricing.status,200);assert.match(pricing.headers.get('X-Robots-Tag'),/noindex/);
+   if(method==='GET')assert.match(await pricing.text(),/<meta name="robots" content="noindex/);else assert.equal((await pricing.arrayBuffer()).byteLength,0);
+  }
+  for(const alias of ['/celebrantcost','/celebrantcost.html','/serviceandprice.html']){
+   const pricing=await get(alias+'?source=direct');assert.equal(pricing.status,301);assert.equal(pricing.headers.get('Location'),'/serviceandprice?source=direct');assert.match(pricing.headers.get('X-Robots-Tag'),/noindex/);
+  }
   for(const resource of ['/search.json','/rss.xml','/sitemap-index.xml'])assert.equal((await get(resource)).status,200);
   const requestBody=JSON.stringify({challenge:'synthetic-passkey-challenge'});
   for(const privatePath of ['/_emdash/api/auth/verify','/_publishing/deployment','/_preview/posts/synthetic?_preview=synthetic-token','/_image?href=synthetic-private']){

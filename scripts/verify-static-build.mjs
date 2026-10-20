@@ -2,12 +2,13 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import manifest from '../content/published/manifest.json' with {type:'json'};
 import {inspectWorkerStartup} from './lib/worker-startup.mjs';
+import {isUnlistedPage} from '../src/lib/page-discovery.mjs';
 const root='dist/client';
 const search=JSON.parse(await fs.readFile(path.join(root,'search.json'),'utf8'));
 const searchTargets=[];
 for(const name of ['posts','services','weddingtestimonials','infopages']){
  const {entries}=JSON.parse(await fs.readFile(`content/published/${name}.json`,'utf8'));
- for(const slug of Object.keys(entries))searchTargets.push(`${name==='posts'?'/blog':name==='weddingtestimonials'?'/weddingtestimonials':''}/${slug}`);
+ for(const slug of Object.keys(entries)){const url=`${name==='posts'?'/blog':name==='weddingtestimonials'?'/weddingtestimonials':''}/${slug}`;if(!isUnlistedPage(url))searchTargets.push(url);}
 }
 if(!Array.isArray(search.items)||JSON.stringify(search.items.map(item=>item.url).sort())!==JSON.stringify(searchTargets.sort()))throw Error('Static search does not contain exactly the published entries');
 const feed=await fs.readFile(path.join(root,'rss.xml'),'utf8');
@@ -18,6 +19,21 @@ const decode=value=>value.replaceAll('&amp;','&').replaceAll('&quot;','"').repla
 const sitemap=await fs.readFile(path.join(root,'sitemap-0.xml'),'utf8');
 const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match=>decode(match[1]));
 if(!urls.length||new Set(urls).size!==urls.length)throw Error('Empty or duplicate sitemap');
+if(urls.some(isUnlistedPage))throw Error('An unlisted pricing page entered the sitemap');
+const pricing=await fs.readFile(path.join(root,'serviceandprice.html'),'utf8');
+if(!/<meta name="robots" content="noindex/.test(pricing))throw Error('Direct-link pricing must stay noindex');
+if(await fs.access(path.join(root,'celebrantcost.html')).then(()=>true,()=>false))throw Error('The historical cost article must redirect instead of shipping another pricing page');
+for(const file of await fs.readdir(root,{recursive:true})){
+ if(!file.endsWith('.html')||file==='serviceandprice.html')continue;
+ const html=await fs.readFile(path.join(root,file),'utf8');
+ if([...html.matchAll(/\bhref=(["'])(.*?)\1/gi)].some(match=>isUnlistedPage(decode(match[2]))))throw Error('An unlisted pricing link entered '+file);
+ const visible=decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,'').replace(/<[^>]+>/g,' '));
+ if(/\b(?:prices?|pricing|costs?|fees?|GST)\b|\$\s*\d/i.test(visible)||/"(?:price|priceRange)"\s*:/.test(html))throw Error('Pricing escaped the direct-link page: '+file);
+}
+for(const file of ['search.json','llms.txt','llms-full.txt']){
+ const text=await fs.readFile(path.join(root,file),'utf8');
+ if(/serviceandprice|celebrantcost|\b(?:prices?|pricing|costs?|fees?|GST)\b|\$\s*\d/i.test(text))throw Error('Pricing entered a discovery feed: '+file);
+}
 for(const value of urls){
  const url=new URL(value);const page=url.searchParams.get('page');
  const file=page?`__published/testimonial-pages/${page}.html`:url.pathname==='/'?'index.html':`${url.pathname.slice(1)}.html`;

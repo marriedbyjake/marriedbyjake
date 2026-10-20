@@ -1,4 +1,5 @@
 import { getCollection } from "@/lib/cms";
+import {isUnlistedPage} from '@/lib/page-discovery.mjs';
 
 export const prerender = true;
 
@@ -38,7 +39,7 @@ export async function GET() {
     })),
   ];
 
-  return new Response(JSON.stringify({ items }), {
+  return new Response(JSON.stringify({ items: items.filter(item=>!isUnlistedPage(item.url)) }), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       "Cache-Control": "public, max-age=0, must-revalidate",

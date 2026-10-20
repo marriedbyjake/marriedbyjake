@@ -10,7 +10,6 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
 import ServiceCard from "@/components/services/ServiceCard.astro";
-import PricingReference from "@/components/services/PricingReference.astro";
 // Content
 import { getCollection } from "@/lib/cms";
 const allServices = (await getCollection("services"))
@@ -41,7 +40,6 @@ const allServices = (await getCollection("services"))
           variant="textSM"
           class="text-base-600 leading-relaxed border-accent-500 mt-2"
         ><WebsiteText inline value={[section.body[0]]} /></Text>
-        <PricingReference />
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 mt-12 lg:mt-24 gap-8">

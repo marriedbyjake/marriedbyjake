@@ -4,7 +4,6 @@ import PracticeLayout from "@/layouts/PracticeLayout.astro";
 import LegalPagesLayout from "@/layouts/LegalPagesLayout.astro";
 import ContextualReviews from "@/components/testimonials/ContextualReviews.astro";
 import { isReviewContext } from "@/lib/contextual-reviews";
-import PricingReference from "@/components/services/PricingReference.astro";
 const { page } = Astro.props;
 const slug = page.id;
 const isInfoPage = page.collection === "infopages";
@@ -62,7 +61,6 @@ const serviceJsonLd = isInfoPage
       set:html={JSON.stringify(breadcrumbJsonLd, null, 2).replace(/</g, "\\u003c")}
     />
     <PortableText value={page.content} />
-    {slug === "celebrantcost" && <PricingReference />}
   </LegalPagesLayout>
 ) : (
   <PracticeLayout frontmatter={page.data} description={metaDescription}>
@@ -79,7 +77,6 @@ const serviceJsonLd = isInfoPage
       />
     )}
     <PortableText value={page.content} />
-    {["wedding-celebrant", "master-of-ceremonies"].includes(slug) && <PricingReference service={slug === "master-of-ceremonies" ? "mc" : "ceremony"} />}
     <Fragment slot="reviews">
       {isReviewContext(slug) && <ContextualReviews context={slug} />}
     </Fragment>

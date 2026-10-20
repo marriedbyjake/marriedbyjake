@@ -15,9 +15,9 @@ The compatible update reduced npm audit findings from six high/six moderate to z
 
 ## Pricing contract
 
-The live source is the EmDash `pricing/index` entry, not `src/content/pricing/index.md`. `src/lib/pricing.ts` exposes that entry to the pricing page and `PricingReference.astro`. FAQ, service and celebrant-cost references retain the complete published price string and link to `/serviceandprice`. Existing editorial prose is preserved. CMS publishing remains independent of deployment.
+The live source is the EmDash `pricing/index` entry, not `src/content/pricing/index.md`. `src/lib/pricing.ts` exposes that entry only to the direct-link `/serviceandprice` page. The latest owner instruction on 20 October sets the ceremony amount to **$2,000 plus GST plus travel** and removes pricing mentions elsewhere. The page is excluded from navigation, search, sitemaps and the AI index, with noindex metadata/headers. The older `/celebrantcost` URL redirects there; its CMS entry is preserved. CMS publishing still runs through the exact-commit static release.
 
-On 19 October the owner confirmed that additional travel fees can apply beyond the usual service area. The FAQ and pricing-page Website sections were corrected through native EmDash drafts and publication. On 20 October the owner confirmed GST is included in the $2,000 Australian ceremony fee. The Pricing entry was corrected through a native draft and publication to `$2,000 including GST for Australian ceremonies`, retaining every other field. The existing `GST included` inclusion now agrees with that price.
+Earlier owner instructions on 19–20 October specified travel outside the usual service area and GST inclusion. Those were published through native drafts at the time. The later 20 October instruction explicitly supersedes that GST treatment: **GST and travel are additional**. The Pricing entry and pricing-page inclusion copy must agree; the FAQ and shared sections no longer mention fees.
 
 ## Verification
 

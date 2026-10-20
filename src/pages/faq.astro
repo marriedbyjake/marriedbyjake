@@ -10,7 +10,6 @@ import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Icons
 import Plus from "@/components/fundations/icons/Plus.astro";
-import PricingReference from "@/components/services/PricingReference.astro";
 const faqs = section.questions;
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -30,7 +29,7 @@ const faqJsonLd = {
 
 <BaseLayout
   title="Frequently Asked Questions Married By Jake"
-  description="Answers about booking Jake Smith, ceremony fees, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines."
+  description="Answers about booking Jake Smith, legal marriage documents, the NOIM, vows, rehearsals, travel, elopements and wedding timelines."
 >
   <section>
     <Wrapper variant="standard" class="pb-12 pt-48">
@@ -67,10 +66,6 @@ const faqJsonLd = {
                   <Text tag="p" variant="textBase">
                     {faq.answer}
                   </Text>
-                  {faq.show_pricing && <>
-                    <p class="mt-3">Read more about <a href="/celebrantcost" class="underline underline-offset-4">the time and work behind the fee</a>.</p>
-                    <PricingReference />
-                  </>}
                 </div>
               </details>
             ))
