@@ -28,6 +28,13 @@ assert.equal(canonicalInternalLink('https://vendor.example/weddings/'), 'https:/
 assert.equal(canonicalInternalLink('/'), '/');
 assert.equal(canonicalInternalLink('#vows'), '#vows');
 assert.equal(canonicalContentLinks([{ markDefs: [{ href: '/weddingtestimonials/' }] }])[0].markDefs[0].href, '/weddingtestimonials');
+const linkedPrice = [{_type:'block',markDefs:[{_key:'price',_type:'link',href:'https://www.marriedbyjake.com/celebrantcost/'},{_key:'service',_type:'link',href:'/services/'}],children:[{_type:'span',text:'an ongoing expense',marks:['em','price']},{_type:'span',text:' and a service',marks:['service']}]}];
+const originalLinkedPrice=JSON.stringify(linkedPrice),withoutPricingLink=canonicalContentLinks(linkedPrice);
+assert.equal(withoutPricingLink[0].children[0].text,linkedPrice[0].children[0].text);
+assert.deepEqual(withoutPricingLink[0].children[0].marks,['em']);
+assert.deepEqual(withoutPricingLink[0].children[1].marks,['service']);
+assert.deepEqual(withoutPricingLink[0].markDefs,[{_key:'service',_type:'link',href:'/services'}]);
+assert.equal(JSON.stringify(linkedPrice),originalLinkedPrice,'Keep the original CMS text, links and emphasis intact');
 const inlineInput = [block('', { children: [
   { _type: 'span', _key: 'a', text: 'Our wedding ', marks: ['em'] },
   { _type: 'span', _key: 'b', text: 'celebrant was wonderful.', marks: ['strong'] },
