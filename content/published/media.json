@@ -5236,6 +5236,23 @@
       "sourceHash": "sha1:42ba54ac9db28d21519dbd8ccbff6619f938accb",
       "sourceStorageKey": "01M4CJFFEVCSS0KQNGF30AZNBK.01M4CJFGH6SG17RVH3PM3GN6G2.PNG",
       "width": 2048
+    },
+    "01M5C02E7WXXYKW8T9ZJX3V7RX": {
+      "alt": "",
+      "asset": "d77c93050eb43e236d2824fbc2c14b9d78a26cd5169eabf613dcafb2360d3f33.png",
+      "blurhash": "LQK1RM-;IAIn~qt7x]%Mk=%M%gRP",
+      "caption": "",
+      "dominantColor": "rgb(153,140,127)",
+      "focalX": null,
+      "focalY": null,
+      "height": 2048,
+      "id": "01M5C02E7WXXYKW8T9ZJX3V7RX",
+      "mimeType": "image/png",
+      "sha256": "d77c93050eb43e236d2824fbc2c14b9d78a26cd5169eabf613dcafb2360d3f33",
+      "size": 7159299,
+      "sourceHash": "sha1:7d61682dc6960d9f18b3bc5e56941786649eb76c",
+      "sourceStorageKey": "01M5C02E7WDPSFFMZQCMPJ628P.01M5C02FPRNP0W5N5FEW6RF54F.PNG",
+      "width": 2048
     }
   }
 }
