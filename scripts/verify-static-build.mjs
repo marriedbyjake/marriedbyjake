@@ -28,7 +28,9 @@ for(const file of await fs.readdir(root,{recursive:true})){
  const html=await fs.readFile(path.join(root,file),'utf8');
  if([...html.matchAll(/\bhref=(["'])(.*?)\1/gi)].some(match=>isUnlistedPage(decode(match[2]))))throw Error('An unlisted pricing link entered '+file);
  const visible=decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,'').replace(/<[^>]+>/g,' '));
- if(/\b(?:prices?|pricing|costs?|fees?|GST)\b|\$\s*\d/i.test(visible)||/"(?:price|priceRange)"\s*:/.test(html))throw Error('Pricing escaped the direct-link page: '+file);
+ // Review excerpts can truncate "feel" to "fee…". Full review pages remain
+ // checked, so an ellipsis-ending fragment must not be treated as a fee claim.
+ if(/\b(?:prices?|pricing|costs?|fees?|GST)\b(?!…)|\$\s*\d/i.test(visible)||/"(?:price|priceRange)"\s*:/.test(html))throw Error('Pricing escaped the direct-link page: '+file);
 }
 for(const file of ['search.json','llms.txt','llms-full.txt']){
  const text=await fs.readFile(path.join(root,file),'utf8');
