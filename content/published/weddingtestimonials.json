@@ -10180,6 +10180,193 @@
       "publishedAt": "2026-10-01T10:53:16.247Z",
       "updatedAt": "2026-10-01 10:53:16"
     },
+    "ash-and-ewan": {
+      "cmsId": "01M3VHHPJSFT6WVJE2KR5475WV",
+      "data": {
+        "content": [
+          {
+            "_key": "key-2-7lvow",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-1-16fvd",
+                "_type": "span",
+                "text": "We could not have been happier to have Jake as our marriage celebrant. From our very first meeting, we felt completely at ease and confident that we were in the best hands."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-4-mwxnn",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-3-irq82",
+                "_type": "span",
+                "text": "Jake took the time to genuinely get to know us, our story, and what we wanted for our ceremony, and what he delivered was personal, relaxed, and heartfelt. It was everything we had hoped for and more."
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "key-6-d2ilj",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "key-5-36g94",
+                "_type": "span",
+                "text": "Thank you Jake for making our day so special. We couldn’t recommend you more highly!"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "owfnaukv5",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "bi36if9t4",
+                "_type": "span",
+                "marks": [
+                  "23t3kufgt"
+                ],
+                "text": "Hillstone St Lucia"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "23t3kufgt",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.hillstonestlucia.com.au/weddings/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "vcxhul0u3",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "9j4vxxixa",
+                "_type": "span",
+                "text": "Photography & Videography | "
+              },
+              {
+                "_key": "jqunouk0b",
+                "_type": "span",
+                "marks": [
+                  "tqfqt9336"
+                ],
+                "text": "The Infinity Collective"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "tqfqt9336",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.theinfinitycollective.com/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "slld4ew0z",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "rk4ywpyco",
+                "_type": "span",
+                "text": "Live Music | "
+              },
+              {
+                "_key": "m03ia5war",
+                "_type": "span",
+                "marks": [
+                  "yixptufdn"
+                ],
+                "text": "Artela Music"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "yixptufdn",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.artela.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "qa99f9vi3",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "3z883cq3k",
+                "_type": "span",
+                "text": "DJ | DJ Corey"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "69jbjpumw",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "e4k7ij0i0",
+                "_type": "span",
+                "text": "Florals | Blooms by Ella"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "yjw5w6czc",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "v2x4zrul0",
+                "_type": "span",
+                "text": "Styling | Beautiful Weddings and Events"
+              }
+            ],
+            "style": "normal"
+          }
+        ],
+        "couple_name": "Ash & Ewan",
+        "featured": 1,
+        "featured_image": {
+          "alt": "Ash and Ewan on their wedding day, photo by The Infinity Collective",
+          "blurhash": "LFIrEB.600_4?GNH-=I9?vt7%MR*",
+          "dominantColor": "rgb(139,141,122)",
+          "filename": "hero_B2.jpg",
+          "height": 2048,
+          "id": "01M5VCQ0Z8490550DVMX9197K0",
+          "meta": {
+            "storageKey": "01M5VCPZ1TYEZ4QF5CM67BDCHN.jpg"
+          },
+          "mimeType": "image/jpeg",
+          "provider": "local",
+          "width": 2048
+        },
+        "hide_from_search": null,
+        "latitude": -27.5032143,
+        "location": "Brisbane, Queensland",
+        "longitude": 152.9918332,
+        "preferred_url": null,
+        "pub_date": "2026-10-26T00:00:00.000Z",
+        "rating": 5,
+        "search_description": null,
+        "search_title": null,
+        "social_image": null,
+        "venue": "Hillstone St Lucia"
+      },
+      "publishedAt": "2026-10-01T10:53:16.249Z",
+      "updatedAt": "2026-10-26 06:08:47"
+    },
     "ash-and-filip": {
       "cmsId": "01M3VHHPJTCXQ5QV3FC2T70Z40",
       "data": {

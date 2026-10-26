@@ -5253,6 +5253,23 @@
       "sourceHash": "sha1:7d61682dc6960d9f18b3bc5e56941786649eb76c",
       "sourceStorageKey": "01M5C02E7WDPSFFMZQCMPJ628P.01M5C02FPRNP0W5N5FEW6RF54F.PNG",
       "width": 2048
+    },
+    "01M5VCQ0Z8490550DVMX9197K0": {
+      "alt": "Ash and Ewan on their wedding day, photo by The Infinity Collective",
+      "asset": "397383e47d81ff81c71699b77aae38a40b7c72a6d6de16d9d1a43232814a5d6f.jpg",
+      "blurhash": "LFIrEB.600_4?GNH-=I9?vt7%MR*",
+      "caption": "",
+      "dominantColor": "rgb(139,141,122)",
+      "focalX": null,
+      "focalY": null,
+      "height": 2048,
+      "id": "01M5VCQ0Z8490550DVMX9197K0",
+      "mimeType": "image/jpeg",
+      "sha256": "397383e47d81ff81c71699b77aae38a40b7c72a6d6de16d9d1a43232814a5d6f",
+      "size": 1454581,
+      "sourceHash": "sha1:9fea4b661aa03bce9fd9aba2a612dca50896d076",
+      "sourceStorageKey": "01M5VCPZ1TYEZ4QF5CM67BDCHN.jpg",
+      "width": 2048
     }
   }
 }
