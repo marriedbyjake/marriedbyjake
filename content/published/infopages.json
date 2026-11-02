@@ -559,7 +559,7 @@
                 "text": "General Use"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-6-5vjow",
@@ -583,7 +583,7 @@
                 "text": "Enquiries and Bookings"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-10-g97ko",
@@ -619,7 +619,7 @@
                 "text": "Legal Ceremonies"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-16-oei2s",
@@ -643,7 +643,7 @@
                 "text": "External Links"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-20-wz2sd",
@@ -667,7 +667,7 @@
                 "text": "Intellectual Property"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-24-e17t2",
@@ -691,7 +691,7 @@
                 "text": "Privacy"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-28-tao8g",
@@ -715,7 +715,7 @@
                 "text": "Contact"
               }
             ],
-            "style": "h3"
+            "style": "h2"
           },
           {
             "_key": "key-35-ggnmz",
@@ -760,7 +760,7 @@
         "social_image": null
       },
       "publishedAt": "2026-10-01T10:53:16.745Z",
-      "updatedAt": "2026-10-20 00:20:30"
+      "updatedAt": "2026-11-02 08:00:38"
     }
   },
   "formatVersion": 1
