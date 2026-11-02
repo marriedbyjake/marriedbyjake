@@ -3,6 +3,7 @@ import path from 'node:path';
 import manifest from '../content/published/manifest.json' with {type:'json'};
 import {inspectWorkerStartup} from './lib/worker-startup.mjs';
 import {isUnlistedPage} from '../src/lib/page-discovery.mjs';
+import {assertPageTitles} from './lib/page-titles.mjs';
 const root='dist/client';
 const search=JSON.parse(await fs.readFile(path.join(root,'search.json'),'utf8'));
 const searchTargets=[];
@@ -23,9 +24,12 @@ if(urls.some(isUnlistedPage))throw Error('An unlisted pricing page entered the s
 const pricing=await fs.readFile(path.join(root,'serviceandprice.html'),'utf8');
 if(!/<meta name="robots" content="noindex/.test(pricing))throw Error('Direct-link pricing must stay noindex');
 if(await fs.access(path.join(root,'celebrantcost.html')).then(()=>true,()=>false))throw Error('The historical cost article must redirect instead of shipping another pricing page');
+let titlePages=0;
 for(const file of await fs.readdir(root,{recursive:true})){
- if(!file.endsWith('.html')||file==='serviceandprice.html')continue;
+ if(!file.endsWith('.html'))continue;
  const html=await fs.readFile(path.join(root,file),'utf8');
+ assertPageTitles(html,file);titlePages++;
+ if(file==='serviceandprice.html')continue;
  if([...html.matchAll(/\bhref=(["'])(.*?)\1/gi)].some(match=>isUnlistedPage(decode(match[2]))))throw Error('An unlisted pricing link entered '+file);
  const visible=decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,'').replace(/<[^>]+>/g,' '));
  // Review excerpts can truncate "feel" to "fee…". Full review pages remain
@@ -56,4 +60,4 @@ const release=JSON.parse(await fs.readFile(path.join(root,'release.json'),'utf8'
 if(release.contentHash!==manifest.contentHash)throw Error('Static release content hash differs from Git snapshot');
 const startup=await inspectWorkerStartup();
 if(startup.bytes>32_768||!startup.deferred.some(file=>/^chunks\/cms-worker_[^/]+\.mjs$/.test(file)))throw Error('The public Worker entry must stay below 32 KiB with the CMS in a deferred module');
-console.log(JSON.stringify({verified:true,searchItems:search.items.length,rssItems:manifest.counts.posts,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,publicStartupBytes:startup.bytes,publicStartupModules:startup.files.length,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));
+console.log(JSON.stringify({verified:true,titlePages,searchItems:search.items.length,rssItems:manifest.counts.posts,sitemapURLs:urls.length,staticReviews:reviews,paginationPages:pages,privatePreviewRegistered:true,publicStartupBytes:startup.bytes,publicStartupModules:startup.files.length,contentHash:release.contentHash,sourceCommit:release.sourceCommit}));

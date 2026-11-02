@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {decodeHTMLStrict} from 'entities';
+import {inspectPageTitles} from './lib/page-titles.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(path.join(dir, entry.name)) : [path.join(dir, entry.name)]);
@@ -11,7 +13,7 @@ const mapLimit = async (items, fn) => {
   for (let i = 0; i < items.length; i += 8) results.push(...await Promise.all(items.slice(i, i + 8).map(fn)));
   return results;
 };
-const readXmlUrls = (xml) => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]).filter(url => !url.endsWith('.xml'));
+const readXmlUrls = (xml) => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => decodeHTMLStrict(m[1])).filter(url => !url.endsWith('.xml'));
 let sitemapUrls = files.filter(f => /sitemap.*\.xml$/.test(f)).flatMap(file => readXmlUrls(fs.readFileSync(file, 'utf8')));
 let pages;
 if (baseUrl) {
@@ -34,7 +36,16 @@ if (baseUrl) {
 }
 const internalTargets = new Set();
 const errors = new Set();
-const decode = (s) => s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+const decode = decodeHTMLStrict;
+// The sitemap intentionally excludes these pages. Their titles still ship.
+const extraTitlePages = baseUrl ? await mapLimit(['/404', '/thank-you', '/serviceandprice'], async route => {
+  const response = await fetch(new URL(route, baseUrl), {redirect: 'manual'});
+  if (!(route === '/404' ? [200, 404] : [200]).includes(response.status)) throw Error(`${route} returned ${response.status}`);
+  return {route, html: await response.text()};
+}) : [];
+for (const {route, html} of [...pages, ...extraTitlePages]) {
+  for (const error of inspectPageTitles(html).errors) errors.add(`${route}: ${error}`);
+}
 const redirects = JSON.parse(fs.readFileSync(path.join(root, 'src/data/redirects.json'), 'utf8')).redirects;
 const exactRedirects = new Map(redirects.filter(r => !r.source.includes(':')).map(r => [r.source, r.destination]));
 const locationLinks = new Map(['brisbane', 'gold-coast', 'sunshine-coast', 'byron-bay', 'sydney'].map(slug => ['/' + slug, 0]));
@@ -71,7 +82,7 @@ for (const page of pages) {
       if (locationLinks.has(pathname)) locationLinks.set(pathname, locationLinks.get(pathname) + 1);
     }
     if (/(?:Photographer|Videographer|Florist)\s*[:：]/i.test(quote)) errors.add(`Vendor credits inside quote: ${route}`);
-    const title = decode(html.match(/<title>(.*?)<\/title>/)?.[1] || '');
+    const {title} = inspectPageTitles(html);
     if (title.length > 60) errors.add(`Long testimonial title (${title.length}): ${route}`);
   }
   if (route !== '/404' && route !== '/thank-you') {

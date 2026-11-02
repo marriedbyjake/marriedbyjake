@@ -99,6 +99,8 @@ Local Worker bindings use local Wrangler state; a fresh checkout does not mirror
 | `npm run cms:validate` | Validate the schema-only `seed/seed.json`; does not validate production content |
 | `npm run verify:seo -- --url http://localhost:4321` | Check rendered pages on a running local server; use its actual URL/port |
 
+Page titles are plain text. The shared SEO renderer decodes imported HTML entities before Astro safely escapes the output. Every build checks browser-parsed page, Open Graph and Twitter titles across all generated HTML, including the 404 and direct-link pricing page. Missing, mismatched or still-encoded titles stop the release. Live SEO verification also checks titles on pages excluded from the sitemap.
+
 `npm run cms:prepare` recreates `.emdash/import.db` from the archive and writes migration files. It is not part of routine development or deployment and is not a current production backup. Never use that snapshot to overwrite live CMS content, users or credentials.
 
 ## Deploy to Cloudflare Workers
