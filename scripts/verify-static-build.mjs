@@ -4,6 +4,7 @@ import manifest from '../content/published/manifest.json' with {type:'json'};
 import {inspectWorkerStartup} from './lib/worker-startup.mjs';
 import {isUnlistedPage} from '../src/lib/page-discovery.mjs';
 import {assertPageTitles} from './lib/page-titles.mjs';
+import {pageMediaUrls} from './lib/page-media.mjs';
 const root='dist/client';
 const search=JSON.parse(await fs.readFile(path.join(root,'search.json'),'utf8'));
 const searchTargets=[];
@@ -25,16 +26,25 @@ const pricing=await fs.readFile(path.join(root,'serviceandprice.html'),'utf8');
 if(!/<meta name="robots" content="noindex/.test(pricing))throw Error('Direct-link pricing must stay noindex');
 if(await fs.access(path.join(root,'celebrantcost.html')).then(()=>true,()=>false))throw Error('The historical cost article must redirect instead of shipping another pricing page');
 let titlePages=0;
+const localMedia=new Set();
 for(const file of await fs.readdir(root,{recursive:true})){
  if(!file.endsWith('.html'))continue;
  const html=await fs.readFile(path.join(root,file),'utf8');
  assertPageTitles(html,file);titlePages++;
+ for(const value of pageMediaUrls(html,file)){
+  const url=new URL(value,'https://marriedbyjake.com');
+  if(url.origin==='https://marriedbyjake.com')localMedia.add(decodeURIComponent(url.pathname));
+ }
  if(file==='serviceandprice.html')continue;
  if([...html.matchAll(/\bhref=(["'])(.*?)\1/gi)].some(match=>isUnlistedPage(decode(match[2]))))throw Error('An unlisted pricing link entered '+file);
  const visible=decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi,'').replace(/<[^>]+>/g,' '));
  // Review excerpts can truncate "feel" to "fee…". Full review pages remain
  // checked, so an ellipsis-ending fragment must not be treated as a fee claim.
  if(/\b(?:prices?|pricing|costs?|fees?|GST)\b(?!…)|\$\s*\d/i.test(visible)||/"(?:price|priceRange)"\s*:/.test(html))throw Error('Pricing escaped the direct-link page: '+file);
+}
+for(const asset of localMedia){
+ const file=path.join(root,asset);
+ if(!(await fs.stat(file).catch(()=>null))?.isFile())throw Error('Rendered media references a missing static asset: '+asset);
 }
 for(const file of ['search.json','llms.txt','llms-full.txt']){
  const text=await fs.readFile(path.join(root,file),'utf8');

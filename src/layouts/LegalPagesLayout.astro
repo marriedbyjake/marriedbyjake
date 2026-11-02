@@ -1,7 +1,7 @@
 ---
 import "@/styles/prose.css";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-const { frontmatter, description } = Astro.props;
+const { frontmatter, description, compactHeadings = false } = Astro.props;
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -16,7 +16,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
             <Text
               tag="p"
               variant="textXS"
-              class="text-secondary-500 uppercase font-medium"
+              class="text-secondary-600 uppercase font-medium"
             >
               Last updated on <span>
                 <time
@@ -46,10 +46,20 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
             </Text>
           </div>
         </div>
-        <Wrapper variant="prose" class="lg:col-span-2">
+        <Wrapper variant="prose" class={`lg:col-span-2 ${compactHeadings ? 'legal-compact-headings' : ''}`}>
           <slot />
         </Wrapper>
       </div>
     </Wrapper>
   </section>
 </BaseLayout>
+
+<style>
+  /* Keep the terms page's established appearance when correcting h3 to h2. */
+  :global(.legal-compact-headings h2) {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+</style>

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {decodeHTMLStrict} from 'entities';
 import {inspectPageTitles} from './lib/page-titles.mjs';
+import {pageMediaUrls} from './lib/page-media.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? walk(path.join(dir, entry.name)) : [path.join(dir, entry.name)]);
@@ -45,6 +46,7 @@ const extraTitlePages = baseUrl ? await mapLimit(['/404', '/thank-you', '/servic
 }) : [];
 for (const {route, html} of [...pages, ...extraTitlePages]) {
   for (const error of inspectPageTitles(html).errors) errors.add(`${route}: ${error}`);
+  try { pageMediaUrls(html, route); } catch (error) { errors.add(error.message); }
 }
 const redirects = JSON.parse(fs.readFileSync(path.join(root, 'src/data/redirects.json'), 'utf8')).redirects;
 const exactRedirects = new Map(redirects.filter(r => !r.source.includes(':')).map(r => [r.source, r.destination]));

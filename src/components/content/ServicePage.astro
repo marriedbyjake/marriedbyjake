@@ -54,7 +54,7 @@ const serviceJsonLd = isInfoPage
     };
 ---
 {isInfoPage ? (
-  <LegalPagesLayout frontmatter={page.data} description={metaDescription}>
+  <LegalPagesLayout frontmatter={page.data} description={metaDescription} compactHeadings={slug === 'terms'}>
     <script
       is:inline
       type="application/ld+json"

@@ -115,7 +115,7 @@ const currentYear = new Date().getFullYear();
         <div>
           <Text tag="h2" variant="displaySM" class="text-accent-800 font-display">{pricingPage.included_heading}</Text>
           <ul class="list-disc space-y-1 list-inside mt-4 pt-4 border-t border-base-100">{pricingPage.included_items.split('\n').filter(Boolean).map((item:string)=><li class="text-base-600 text-sm">{item}</li>)}</ul>
-          <Text tag="p" variant="textXS" class="text-base-500 mt-3"><WebsiteText inline value={pricingPage.travel_note} /></Text>
+          <Text tag="p" variant="textXS" class="text-base-600 mt-3"><WebsiteText inline value={pricingPage.travel_note} /></Text>
         </div>
       </div>
 

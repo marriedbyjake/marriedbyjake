@@ -21,6 +21,7 @@ const isTransparent = !!transparent;
 ---
 
 <nav
+  aria-label="Main navigation"
   class={`fixed w-full top-0 z-50 transition-colors duration-300 border-b border-white/10 ${isTransparent ? "" : "bg-white"}`}
   data-nav
   data-swap={isTransparent ? "true" : "false"}

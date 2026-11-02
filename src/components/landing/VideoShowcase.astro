@@ -20,6 +20,8 @@ const resolved = videos.map((v) => ({
   posterUrl:
     v.poster ||
     `https://image.mux.com/${v.playbackId}/thumbnail.webp?width=640&time=1`,
+  posterSrcset: v.poster ? undefined : [320, 640, 768].map(width =>
+    `https://image.mux.com/${v.playbackId}/thumbnail.webp?width=${width}&time=1 ${width}w`).join(', '),
   posterAlt: v.title ? `Video preview: ${v.title}` : "Married by Jake video preview",
 }));
 ---
@@ -42,6 +44,8 @@ const resolved = videos.map((v) => ({
           />
           <img
             src={video.posterUrl}
+            srcset={video.posterSrcset}
+            sizes="(min-width: 1192px) 320px, calc((100vw - 232px) / 3)"
             alt={video.posterAlt}
             loading="lazy"
             data-poster-img
@@ -102,6 +106,8 @@ const resolved = videos.map((v) => ({
             />
             <img
               src={video.posterUrl}
+              srcset={video.posterSrcset}
+              sizes="(min-width: 448px) 384px, calc(100vw - 64px)"
               alt={video.posterAlt}
               loading={i === 0 ? "eager" : "lazy"}
               data-poster-img

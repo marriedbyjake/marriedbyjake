@@ -51,18 +51,18 @@ const readings = await Promise.all(
               type="search"
               autocomplete="off"
               placeholder="Search readings by title, author or a line…"
-              class="w-full rounded-full border border-base-200 bg-white px-5 py-3 pr-12 text-base text-base-800 placeholder:text-base-500 shadow-sm focus:border-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-700/20"
+              class="w-full rounded-full border border-base-200 bg-white px-5 py-3 pr-12 text-base text-base-800 placeholder:text-base-600 shadow-sm focus:border-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-700/20"
             />
             <button
               type="button"
               id="readings-search-clear"
               aria-label="Clear search"
-              class="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full p-2 text-base-500 hover:bg-base-100 hover:text-base-800"
+              class="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full p-2 text-base-600 hover:bg-base-100 hover:text-base-800"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
-          <p id="readings-count" class="mt-2 text-center text-xs text-base-500" aria-live="polite">
+          <p id="readings-count" class="mt-2 text-center text-xs text-base-600" aria-live="polite">
             Showing all {readings.length} readings
           </p>
         </div>
@@ -83,7 +83,7 @@ const readings = await Promise.all(
             </div>
           </article>
         ))}
-        <p id="readings-empty" class="hidden text-center text-base-500 py-12">
+        <p id="readings-empty" class="hidden text-center text-base-600 py-12">
           No readings match that search. Try a different word or clear the filter.
         </p>
       </div>

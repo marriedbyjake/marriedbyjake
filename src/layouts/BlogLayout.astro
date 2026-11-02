@@ -1,5 +1,6 @@
 ---
 import { imagePosition } from "@/lib/media-position";
+import { imageSource } from "@/lib/image-source";
 // Assets
 import { Image } from "astro:assets";
 import "@/styles/prose.css";
@@ -55,17 +56,12 @@ const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : 
 const canonical = Astro.site
   ? new URL(`/blog/${slug}`, Astro.site).toString()
   : undefined;
-const seoImage = frontmatter.image
-  ? { url: frontmatter.image.url, alt: frontmatter.image.alt }
+const imageUrl = imageSource(frontmatter.image?.url);
+const seoImage = imageUrl
+  ? { url: imageUrl, alt: frontmatter.image.alt }
   : undefined;
 const siteOrigin = Astro.site ? Astro.site.origin : "https://marriedbyjake.com";
-const absoluteImage = (() => {
-  const u = frontmatter.image?.url;
-  if (!u) return undefined;
-  if (typeof u === "string") return /^https?:\/\//.test(u) ? u : `${siteOrigin}${u.startsWith("/") ? "" : "/"}${u}`;
-  // Astro ImageMetadata
-  return /^https?:\/\//.test(u.src) ? u.src : `${siteOrigin}${u.src.startsWith("/") ? "" : "/"}${u.src}`;
-})();
+const absoluteImage = imageUrl ? new URL(imageUrl, siteOrigin).href : undefined;
 const blogJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -113,7 +109,7 @@ const blogJsonLd = {
         <Text
           tag="p"
           variant="textXS"
-          class="text-secondary-500 uppercase flex items-center gap-2 justify-center"
+          class="text-secondary-600 uppercase flex items-center gap-2 justify-center"
         >
           {
             postTags.map((tag: string) => (
@@ -184,6 +180,7 @@ const blogJsonLd = {
         </Wrapper>
       </div>
       <nav
+        aria-label="Blog posts"
         class="flex flex-col lg:flex-row justify-between items-start gap-8 mt-4 pt-4 border-t border-base-100"
       >
         <div class="lg:w-fit text-left w-full">
