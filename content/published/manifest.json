@@ -1,5 +1,5 @@
 {
-  "contentHash": "e9833da0f64f2a2b03dccceb80cb8e091cff35b9fcbfaedeef2f1124e5f02026",
+  "contentHash": "2471e8fbf55260bc1c904c25eba7fa8bb9b3b6bd3d08af503f9d222ea8a27b3f",
   "counts": {
     "infopages": 3,
     "posts": 22,
@@ -18,7 +18,7 @@
     "services.json": "cfc284462a8243584ba2a709ae3d2e1d858daaac75f56064d117254c5868f707",
     "shared.json": "e5aecf14d58e86bce5c47dac27b0182d6190f907899f125c3ad9c77675db9606",
     "website.json": "bcc832377ca0c845e9982659031e159d2fe1ac9acde7bc8517e9fb57df2a4ec2",
-    "weddingtestimonials.json": "3ea48a58b7b7d55f0290073a345fa81586e15e412573c46f265c6308b25e927c"
+    "weddingtestimonials.json": "baf5685bb6cd669443857f0e19d2624f2e65f368fcb021d97ef3d806f9a4bbcb"
   },
   "formatVersion": 1
 }

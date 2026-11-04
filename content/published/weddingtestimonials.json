@@ -8363,6 +8363,34 @@
               }
             ],
             "style": "normal"
+          },
+          {
+            "_key": "jt959okz2",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "aqyttaxjm",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "4dmzcuclk",
+                "_type": "span",
+                "marks": [
+                  "c5lkpce2m"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "c5lkpce2m",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
           }
         ],
         "couple_name": "Angus & Jessica",
@@ -8392,7 +8420,7 @@
         "venue": "Coolibah Downs"
       },
       "publishedAt": "2026-10-01T10:53:16.236Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:28:43"
     },
     "anna-and-chris": {
       "cmsId": "01M3VHHPJD4TD8M1HBG6V3FGRZ",
@@ -10701,6 +10729,34 @@
             "style": "normal"
           },
           {
+            "_key": "1jj8e5lcm",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "wejpk7ty6",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "buvcad87c",
+                "_type": "span",
+                "marks": [
+                  "xy4sat3py"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "xy4sat3py",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
             "_key": "key-12-c9gzq",
             "_type": "block",
             "children": [
@@ -10752,7 +10808,7 @@
         "venue": "Coolibah Downs"
       },
       "publishedAt": "2026-10-01T10:53:16.252Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:28:33"
     },
     "ashleigh-and-clay": {
       "cmsId": "01M3VHHPJX08YSWZ6VXKTQKED2",
@@ -16732,6 +16788,34 @@
             "style": "normal"
           },
           {
+            "_key": "oqalw82vk",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "w2d15n81a",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "rb3j5cgmz",
+                "_type": "span",
+                "marks": [
+                  "cuaf6d4i8"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "cuaf6d4i8",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
             "_key": "key-14-lhnin",
             "_type": "block",
             "children": [
@@ -16785,7 +16869,7 @@
         "venue": "Coolibah Downs Private Estate"
       },
       "publishedAt": "2026-10-01T10:53:16.303Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:28:23"
     },
     "brock-lexi": {
       "cmsId": "01M3VHHPMGD7TF96TDFFYVDBWP",
@@ -16799,6 +16883,34 @@
                 "_key": "key-1-f8ryc",
                 "_type": "span",
                 "text": "Jake was amazing - he was happy, friendly and professional. I recommend Jake 110%, he was the best!"
+              }
+            ],
+            "style": "normal"
+          },
+          {
+            "_key": "m7a48y7az",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "ejw79ixyn",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "0ja21koz7",
+                "_type": "span",
+                "marks": [
+                  "jkbrkuo8e"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "jkbrkuo8e",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
               }
             ],
             "style": "normal"
@@ -16847,7 +16959,7 @@
         "venue": "Coolibah Downs"
       },
       "publishedAt": "2026-10-01T10:53:16.304Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:28:14"
     },
     "bronagh-and-daniel": {
       "cmsId": "01M3VHHPMHV19ZWH58VJ2D9HQY",
@@ -31899,7 +32011,7 @@
               {
                 "_key": "key-10-ttqda",
                 "_type": "link",
-                "href": "https://www.coolibahdowns.com.au/2019/02/17/real-wedding-fiona-gareth-coolibah-downs-gold-coast-hinterland-wedding-venue/"
+                "href": "https://www.coolibahdowns.com.au/"
               }
             ],
             "style": "normal"
@@ -32175,7 +32287,7 @@
         "venue": "Coolibah Downs Private Estate"
       },
       "publishedAt": "2026-10-01T10:53:16.428Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:28:03"
     },
     "gary-mj": {
       "cmsId": "01M3VHHPRDC95B7J7ZWZSA0MAJ",
@@ -33993,6 +34105,34 @@
             "style": "normal"
           },
           {
+            "_key": "y7lhu5t31",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "cvlqn2ncj",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "dm6r59p2f",
+                "_type": "span",
+                "marks": [
+                  "be79oc23f"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "be79oc23f",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
             "_key": "key-19-xohmg",
             "_type": "block",
             "children": [
@@ -34090,7 +34230,7 @@
         "venue": "Coolibah Downs"
       },
       "publishedAt": "2026-10-01T10:53:16.445Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:27:53"
     },
     "hannah-and-brad": {
       "cmsId": "01M3VHHPRY4A6BZXN0SJ6GYHFC",
@@ -34328,6 +34468,34 @@
             "style": "normal"
           },
           {
+            "_key": "4y2u316hi",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "aqyqagjmg",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "5e5kr11yh",
+                "_type": "span",
+                "marks": [
+                  "vph1spp7p"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "vph1spp7p",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
             "_key": "key-8-ddifm",
             "_type": "block",
             "children": [
@@ -34382,7 +34550,7 @@
         "venue": "Coolibah Downs Private Estate"
       },
       "publishedAt": "2026-10-01T10:53:16.447Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:27:43"
     },
     "hannah-and-lachlan": {
       "cmsId": "01M3VHHPS0ZNF8PSTSNYJF1GSZ",
@@ -39844,6 +40012,34 @@
             "style": "normal"
           },
           {
+            "_key": "iwxt18rrz",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "dljywsbpw",
+                "_type": "span",
+                "text": "Venue: "
+              },
+              {
+                "_key": "48fhhbq3k",
+                "_type": "span",
+                "marks": [
+                  "0a6j8gfv2"
+                ],
+                "text": "Coolibah Downs"
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "0a6j8gfv2",
+                "_type": "link",
+                "blank": true,
+                "href": "https://www.coolibahdowns.com.au/"
+              }
+            ],
+            "style": "normal"
+          },
+          {
             "_key": "key-8-8smjo",
             "_type": "block",
             "children": [
@@ -39898,7 +40094,7 @@
         "venue": "Coolibah Downs"
       },
       "publishedAt": "2026-10-01T10:53:16.499Z",
-      "updatedAt": "2026-10-01 10:53:16"
+      "updatedAt": "2026-11-04 06:27:27"
     },
     "jason-emily": {
       "cmsId": "01M3VHHPTMR6GTJQXBXBGQ8K3T",
