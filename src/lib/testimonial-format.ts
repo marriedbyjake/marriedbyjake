@@ -21,7 +21,7 @@ export interface Block {
 export interface Credit { role: string; content: Block[] }
 const normalizeName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 const roleNames = "photographer(?:s)?(?:\\s*[/&+]\\s*videographer)?|photography(?:\\s*(?:and|&)\\s*videography)?|photo(?:s)?(?:\\s*(?:and|&)\\s*video)?|videographer|videography|video|(?:brisbane\\s+)?(?:wedding\\s+)?venue|ceremony(?:\\s+(?:venue|music))?|reception(?:\\s+(?:venue|music))?|florist|florals|flowers|cake(?:\\s+maker)?|musician(?:s)?|music(?:\\s+hire)?|dj|band|singer|hair(?:\\s*(?:and|&)\\s*(?:make\\s*up|mua))?|make\\s*up(?:\\s*(?:and|&)\\s*hair)?|hmu|mua|stylist|styling|(?:wedding\\s+)?planner|coordinator|caterer|catering|dress|gown|bridal(?:\\s+gown)?|suit(?:s)?|transport|car(?:s)?|hire|celebrant|rings|jewell?ery|stationery|invitations|instagram|dog\\s+(?:sitter|minder)|pet\\s+(?:sitter|care)|content\\s+creator";
-const roles = () => new RegExp(`(?:${roleNames})\\s*[:：–—-]\\s*`, "gi");
+const roles = () => new RegExp(`(?:${roleNames})\\s*[:：=–—-]\\s*`, "gi");
 const urlKey = (href: string) => href.replace(/\/+$/, "");
 const unavailable = new Set(unavailableUrls.map(urlKey));
 const blockText = (block: Block) => (block.children || []).map(span => span.text || "").join("");
@@ -111,7 +111,7 @@ export function formatTestimonial(value: unknown, slug: string, venue = "") {
     }
     matches.forEach((match, index) => {
       const content = trimBlock(sliceBlock(block, match.index! + match[0].length, matches[index + 1]?.index ?? text.length));
-      if (blockText(content)) credits.push({ role: match[0].replace(/\s*[:：–—-]\s*$/, "").trim(), content: [creditLink(content)] });
+      if (blockText(content)) credits.push({ role: match[0].replace(/\s*[:：=–—-]\s*$/, "").trim(), content: [creditLink(content)] });
     });
   }
   return { review, credits, reviewText: review.map(blockText).join("\n\n") };

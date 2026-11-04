@@ -17,6 +17,35 @@ const rich = block('', { children: [{ _type: 'span', text: 'Jake was ', marks: [
 assert.deepEqual(formatTestimonial([rich], 'new').review[0].children.map(s => s.marks), [[], ['strong', 'a']]);
 assert.equal(formatTestimonial([block('Worries before meeting Jake: would it feel personal?')], 'new').credits.length, 0);
 assert.equal(formatTestimonial([block('Thank you!'), block('++Venue - Ocean View Estates++')], 'new').credits[0].role, 'Venue');
+const coolibahHomepage = 'https://www.coolibahdowns.com.au/';
+for (const name of ['Coolibah Downs', 'CoolibahDowns', 'Coolibah Downs Private Estate', '@coolibahdownsprivateestate']) {
+  for (const separator of [':', '=']) {
+    const venue = block('', {
+      children: [{ _type: 'span', text: `Venue ${separator} ` }, { _type: 'span', text: name, marks: ['strong', 'venue'] }],
+      markDefs: [{ _type: 'link', _key: 'venue', href: coolibahHomepage }],
+    });
+    const original = JSON.stringify(venue);
+    const result = formatTestimonial([block('Thank you, Jake!'), venue], 'new', 'Coolibah Downs');
+    assert.equal(result.reviewText, 'Thank you, Jake!', 'Venue credits must stay outside the quote');
+    assert.equal(result.credits[0].role, 'Venue');
+    assert.equal(text(result.credits[0].content), name);
+    const credit = result.credits[0].content[0];
+    assert.ok(credit.children[0].marks.includes('strong'), 'Keep existing emphasis');
+    const links = credit.children.flatMap(span => (span.marks || []).flatMap(mark => credit.markDefs.filter(def => def._key === mark && def._type === 'link')));
+    assert.deepEqual(links.map(link => link.href), [coolibahHomepage], 'Neither a stale lookup nor an Instagram fallback may replace the homepage');
+    assert.equal(JSON.stringify(venue), original, 'Keep the CMS revision intact');
+  }
+}
+const splitHandle = block('', {
+  children: [{ _type: 'span', text: 'Venue = ' }, { _type: 'span', text: '@', marks: ['social'] }, { _type: 'span', text: 'coolibahdownsprivateestate', marks: ['site'] }],
+  markDefs: [{ _type: 'link', _key: 'social', href: 'https://www.instagram.com/coolibahdownsprivateestate/' }, { _type: 'link', _key: 'site', href: coolibahHomepage }],
+});
+const splitCredit = formatTestimonial([block('Thank you, Jake!'), splitHandle], 'new').credits[0];
+assert.equal(text(splitCredit.content), '@coolibahdownsprivateestate', 'Keep fragmented handles intact');
+for (const credit of splitCredit.content) for (const span of credit.children) {
+  const links = (span.marks || []).flatMap(mark => credit.markDefs.filter(def => def._key === mark && def._type === 'link'));
+  assert.deepEqual(links.map(link => link.href), [coolibahHomepage], 'Every fragment must link to the homepage');
+}
 const unavailable = JSON.parse(fs.readFileSync(new URL('../src/data/unavailable-vendor-urls.json', import.meta.url), 'utf8'));
 const deadCredit = block('', { children: [{ _type: 'span', text: 'Photographer: Unknown Vendor', marks: ['dead'] }], markDefs: [{ _type: 'link', _key: 'dead', href: unavailable[0] }] });
 const cleanCredit = formatTestimonial([block('Thank you.'), deadCredit], 'new').credits[0].content[0];

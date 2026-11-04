@@ -4,6 +4,12 @@ This lookup enriches displayed vendor names without editing archived or producti
 
 Research date: 2026-10-02. New research uses official sites and regional identity evidence. No domains were guessed. Instagram-only vendors and conflicting official domains are omitted unless resolved below. Tracking query parameters are stripped.
 
+## Coolibah Downs correction — 4 November 2026
+
+Posty reported that CMS venue links were overridden by the historical Fiona and Gareth article in the `coolibahdowns` mapping. The [official homepage](https://www.coolibahdowns.com.au/) confirms the Coolibah Downs Private Estate name, Gold Coast location and `@coolibahdownsprivateestate` handle. Both `coolibahdowns` and `coolibahdownsprivateestate` now resolve to that homepage, covering the short name, full name and handle without changing published CMS content. The old 2019 article remains historical source evidence; it is no longer the preferred vendor destination.
+
+The lookup is source-managed in `src/data/testimonial-vendors.json`, applied by `creditLink()` in `src/lib/testimonial-format.ts`. A matching normalized name overrides the credit's existing link; unmapped handles fall back to Instagram. This is not an EmDash collection and is not writable through an EmDash content token. Changes require a reviewed repository edit, content tests and a source release. `Venue =` is also recognised as a credit separator, so Posty's published workaround appears in the wedding-team section rather than inside the couple's quote.
+
 ## Sources
 
 | Normalized name or alias | Website | Evidence |
@@ -117,7 +123,8 @@ Research date: 2026-10-02. New research uses official sites and regional identit
 | `cloudcatcher` | [Cloud Catcher](https://www.cloudcatcher.co) | src/content/weddingtestimonials/stella-and-ben.md |
 | `cloudcatcherstudio` | [Cloud Catcher Studio](https://www.cloudcatcherstudio.com.au) | src/content/weddingtestimonials/adrian-and-kara.md |
 | `cloudcatcherstudios` | [Cloud Catcher Studios](https://cloudcatcherstudios.com.au) | src/content/weddingtestimonials/jacqui-and-will.md |
-| `coolibahdowns` | [Coolibah Downs](https://www.coolibahdowns.com.au/2019/02/17/real-wedding-fiona-gareth-coolibah-downs-gold-coast-hinterland-wedding-venue/) | src/content/weddingtestimonials/gareth-and-fiona.md |
+| `coolibahdowns` | [Coolibah Downs](https://www.coolibahdowns.com.au/) | Official homepage, rechecked 2026-11-04; replaces archived Fiona and Gareth article |
+| `coolibahdownsprivateestate` | [Coolibah Downs Private Estate](https://www.coolibahdowns.com.au/) | Official homepage confirms full name and Instagram handle, 2026-11-04 |
 | `cowbellcreek` | [Cowbell Creek](https://www.cowbellcreek.com.au) | src/content/weddingtestimonials/amanda-and-jake.md |
 | `curtisbrownjohnfilms` | [Curtis Brownjohn Films](https://curtisbrownjohnfilms.com) | src/content/weddingtestimonials/jesse-and-jason.md |
 | `curzonhall` | [Curzon Hall](https://navarravenues.com.au/venues/curzon-hall/) | src/content/weddingtestimonials/diana-and-daren.md |
